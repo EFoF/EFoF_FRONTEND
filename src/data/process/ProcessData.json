@@ -1,0 +1,38 @@
+[
+
+    {
+        "id": 1,
+        "thumb": "/images/team/profile-cat1.jpeg",
+        "subtitle": "첫째",
+        "title": "최철웅",
+        "paragraph": "old-style"
+    },
+    {
+        "id": 2,
+        "thumb": "/images/team/profile-cat2.jpeg",
+        "subtitle": "둘째",
+        "title": "지현종",
+        "paragraph": "Donec metus lorem, vulputate at sapien sit amet, auctor iaculis lorem. In vel hendrerit nisi. Vestibulum eget risus velit. Aliquam tristique libero at dui sodales, et placerat orci lobortis. Maecenas ipsum neque, elementum id dignissim et, imperdiet vitae mauris."
+    },
+    {
+        "id": 3,
+        "thumb": "/images/others/process-3.png",
+        "subtitle": "Step Three",
+        "title": "임동혁",
+        "paragraph": "Donec metus lorem, vulputate at sapien sit amet, auctor iaculis lorem. In vel hendrerit nisi. Vestibulum eget risus velit. Aliquam tristique libero at dui sodales, et placerat orci lobortis. Maecenas ipsum neque, elementum id dignissim et, imperdiet vitae mauris."
+    },
+    {
+        "id": 4,
+        "thumb": "/images/others/process-4.png",
+        "subtitle": "Step four",
+        "title": "김민경",
+        "paragraph": "Donec metus lorem, vulputate at sapien sit amet, auctor iaculis lorem. In vel hendrerit nisi. Vestibulum eget risus velit. Aliquam tristique libero at dui sodales, et placerat orci lobortis. Maecenas ipsum neque, elementum id dignissim et, imperdiet vitae mauris."
+    }, 
+    {
+        "id": 5,
+        "thumb": "/images/others/process-4.png",
+        "subtitle": "Step four",
+        "title": "박정연",
+        "paragraph": "Donec metus lorem, vulputate at sapien sit amet, auctor iaculis lorem. In vel hendrerit nisi. Vestibulum eget risus velit. Aliquam tristique libero at dui sodales, et placerat orci lobortis. Maecenas ipsum neque, elementum id dignissim et, imperdiet vitae mauris."
+    }
+]
