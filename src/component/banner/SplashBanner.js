@@ -58,6 +58,9 @@ const SplashBanner = () => {
                     <div className="col-lg-10">
                         <div className="banner-content">
                             <h1 className="title">Hi, everyone! Welcome to <span>DOKSEOL</span> Platform 🦅</h1>
+                            <Link to="/create-survey" smooth={true} duration={500}>
+                            <button className="axil-btn btn-fill-white">설문 생성하기</button>
+                        </Link>
                             {/* <div className="site-element-count">
                                 {
                                     CountData.map((data) => (

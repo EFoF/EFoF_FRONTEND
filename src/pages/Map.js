@@ -7,7 +7,8 @@ import useGeolocation from './useGeolocation';
 const containerStyle = {
     width: '140vh',
     height: '75vh',
-  
+    // width: '80%', 
+    // height: '60%', 
   };
   
   const center = {
