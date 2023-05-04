@@ -8,14 +8,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import DigitalAgency from './pages/DigitalAgency';
 
 // Pages 
-import Splash from './pages/Splash';
-
-// Css Import
-import './assets/scss/app.scss';
 import Signup from "./pages/signup";
 import Step1 from "./pages/signup/Email/Step1";
 import Step2 from "./pages/signup/Email/Step2";
 import LoginPage from "./pages/signin/index";
+import Form from "./pages/survey/Form";
+
+// Css Import
+import './assets/scss/app.scss';
 
 const App = () => {
   return (
@@ -34,6 +34,7 @@ const App = () => {
 			<Route path="signup" exact element={<Signup />}/>
 			<Route path="/signup/email" exact element={<Step1 />}/>
 			<Route path="/signup/inform" exact element={<Step2 />}/>
+			<Route path="form" exact element={<Form />}/>
 		  </Routes>
 	  </BrowserRouter>
   )
