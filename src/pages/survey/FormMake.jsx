@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { TitleBox, SideMenu } from '../../component';
 import QuestionContainer from '../../containers/QuestionContainer/QuestionContainer';
-import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { questionActions, formActions } from '../../slices';
 import Select from "react-select";

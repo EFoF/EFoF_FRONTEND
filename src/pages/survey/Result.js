@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import { TitleBox } from '../components';
-import { PreviewContainer } from '../containers';
+import { TitleBox } from '../../component';
+import { PreviewContainer } from '../../containers';
 
 const Result = () => {
   const form = useSelector((state) => state.form);

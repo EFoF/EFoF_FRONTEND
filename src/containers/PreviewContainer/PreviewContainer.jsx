@@ -1,6 +1,6 @@
-import Dropdown from '../../components/Dropdown/Dropdown';
-import { NarrativeQuestion, OptionalQuestion } from '../../components/Question';
-import { QUESTION_TYPES } from '../../const';
+import Dropdown from '../../component/Dropdown/Dropdown';
+import { NarrativeQuestion, OptionalQuestion } from '../../component/Question';
+import { QUESTION_TYPES } from '../../component/constants/const';
 import { useSelector } from 'react-redux';
 import { Wrapper } from './style';
 

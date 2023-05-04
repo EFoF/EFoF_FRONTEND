@@ -2,13 +2,13 @@
 import { CopyIcon, DragIcon, TrashIcon } from '../../assets';
 import { Wrapper } from './style';
 import styled from 'styled-components';
-import { QUESTION_TYPES } from '../../const';
+import { QUESTION_TYPES } from '../../component/constants/const/';
 import { useDispatch, useSelector } from 'react-redux';
 import { questionActions } from '../../slices';
 import { useState } from "react";
 import shortid from 'shortid';
-import Dropdown from '../../components/Dropdown/Dropdown';
-import OptionalQuestion from '../../components/Question/OptionalQuestion/OptionalQuestion';
+import Dropdown from '../../component/Dropdown/Dropdown';
+import OptionalQuestion from '../../component/Question/OptionalQuestion/OptionalQuestion';
 import { FiChevronUp } from 'react-icons/fi';
 import { AiOutlineDelete } from 'react-icons/ai'; // AiOutlineDelete 추가
 

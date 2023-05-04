@@ -11,7 +11,7 @@ import { useState } from 'react';
 import ReactDOM from "react-dom";
 import ConfirmModal from '../../ui/ConfirmModal';
 import axios from 'axios';
-import toastMsg from '../Toast';
+import toastMsg from '../../ui/Toast/index';
 const TitleBox = ({ info, handleDetail, handleTitle }) => {
   let inputRef;
   const { questions, form } = useSelector((state) => state.form);

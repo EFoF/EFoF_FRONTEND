@@ -1,10 +1,7 @@
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { formActions, questionActions } from '../../slices';
-import { Link } from 'react-router-dom';
+import { questionActions } from '../../slices';
 import shortid from 'shortid';
-import { QUESTION_TYPES } from '../../const';
-import Button from '../../ui/button';
 import RoundButton from '../../ui/RoundButton';
 
 const newQuestion = (newId) => ({

@@ -1,10 +1,10 @@
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { TitleBox } from '../components';
-import { PreviewContainer } from '../containers';
+import { TitleBox } from '../../component';
+import { PreviewContainer } from '../../containers';
 import { useSelector } from 'react-redux';
-import { questionActions } from '../slices';
+import { questionActions } from '../../slices';
 import { Wrapper } from './Main';
 
 const Preview = () => {
