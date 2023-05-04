@@ -68,7 +68,6 @@ function Step1() {
                         label="이메일 주소"
                         type="email"
                         required
-                        // style={{ marginLeft: '0.5rem' }}
                     />
                     {isValidEmail ? (
                         <AuthButton
@@ -81,25 +80,6 @@ function Step1() {
                     )}
                   </div>
                 </EmailWrapper>
-                {/*<EmailWrapper>*/}
-                {/*  <Input*/}
-                {/*      value={email}*/}
-                {/*      onChange={onChangeEmail}*/}
-                {/*      size={23}*/}
-                {/*      label="이메일 주소"*/}
-                {/*      type="email"*/}
-                {/*      required*/}
-                {/*  />*/}
-                {/*  {isValidEmail ? (*/}
-                {/*      <AuthButton*/}
-                {/*          title={min < 5 ? "재전송" : "인증"}*/}
-                {/*          width="6.5rem"*/}
-                {/*          onClick={onStartTimer}*/}
-                {/*      />*/}
-                {/*  ) : (*/}
-                {/*      <AuthButton title="인증" width="6.5rem" disabled />*/}
-                {/*  )}*/}
-                {/*</EmailWrapper>*/}
                 {!isValidEmail && email.length > 0 && (
                     <Wrong>이메일 형식이 올바르지 않습니다.</Wrong>
                 )}
@@ -108,23 +88,23 @@ function Step1() {
                   <div>
                     <EmailWrapper>
                       <div style={{ display: 'flex', alignItems: 'end' }}>
-                      <Input
-                          value={authNumber}
-                          onChange={onChangeAuthNumber}
-                          size={22}
-                          label="인증번호 입력"
-                          type="text"
-                          required
-                      />
-                      {authNumber.length === 6 && !isEmailConfirms ? (
-                          <AuthButton
-                              title="인증 완료"
-                              width="9rem"
-                              onClick={onSubmitEmailAuth}
-                          />
-                      ) : (
-                          <AuthButton title="인증 완료" width="9rem" disabled />
-                      )}
+                        <Input
+                            value={authNumber}
+                            onChange={onChangeAuthNumber}
+                            size={22}
+                            label="인증번호 입력"
+                            type="text"
+                            required
+                        />
+                        {authNumber.length === 6 && !isEmailConfirms ? (
+                            <AuthButton
+                                title="인증 완료"
+                                width="9rem"
+                                onClick={onSubmitEmailAuth}
+                            />
+                        ) : (
+                            <AuthButton title="인증 완료" width="9rem" disabled />
+                        )}
                       </div>
                     </EmailWrapper>
                     {!isEmailConfirms ? (
@@ -164,19 +144,19 @@ function Step1() {
               </div>
               <ButtonWrapper>
                 <div style={{ display: 'flex', alignItems: 'end' }}>
-                <LeftButton
-                    onClick={onReplaceBack}
-                    buttonTheme="tertiary"
-                    title="이전"
-                />
-                {isValidEmail &&
-                password.length > 0 &&
-                password === passwordCheck &&
-                isEmailConfirms ? (
-                    <RightButton onClick={onReplaceNext} title="다음" />
-                ) : (
-                    <ButtonDisabled title="다음" disabled />
-                )}
+                  <LeftButton
+                      onClick={onReplaceBack}
+                      buttonTheme="tertiary"
+                      title="이전"
+                  />
+                  {isValidEmail &&
+                  password.length > 0 &&
+                  password === passwordCheck &&
+                  isEmailConfirms ? (
+                      <RightButton onClick={onReplaceNext} title="다음" />
+                  ) : (
+                      <ButtonDisabled title="다음" disabled />
+                  )}
                 </div>
               </ButtonWrapper>
             </Form>

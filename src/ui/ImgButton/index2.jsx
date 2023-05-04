@@ -1,5 +1,5 @@
 import React from "react";
-import {Wrapper, Logo, NoneImg, StyledP} from "./index.styles";
+import {Wrapper, Logo, NoneImg, StyledP} from "./index.styles2";
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 

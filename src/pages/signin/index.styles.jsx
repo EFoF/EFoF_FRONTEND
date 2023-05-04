@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { GREY } from "../../component/constants/color";
+import { GREY } from "../../component/constants/const/colors";
 import ImgButton from "../../ui/ImgButton";
+import ImgButton2 from "../../ui/ImgButton/index2"
 
 const Container = styled.div`
   width: 100%;
@@ -118,6 +119,12 @@ const ImgWrapper = styled.div`
 `;
 const SNSIMG = styled(ImgButton)`
   border-radius: 5rem;
+
+`;
+
+const SNSIMG2 = styled(ImgButton2)`
+  border-radius: 5rem;
+
 `;
 
 const SignUp = styled.button`
@@ -143,5 +150,6 @@ export {
   SNSWrapper,
   ImgWrapper,
   SNSIMG,
+  SNSIMG2,
   SignUp,
 };
