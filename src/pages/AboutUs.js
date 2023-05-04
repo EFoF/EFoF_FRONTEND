@@ -9,7 +9,6 @@ import ProcessOne from '../component/process/ProcessOne';
 import AboutThree from '../component/about/AboutThree';
 import AboutFour from '../component/about/AboutFour';
 import AboutFive from '../component/about/AboutFive';
-import SplashHeader from '../common/header/SplashHeader';
 
 
 const AboutUs = () => {
@@ -19,17 +18,16 @@ const AboutUs = () => {
         <SEO title="About us" />
         <ColorSwitcher />
             <main className="main-wrapper">
-                {/* <HeaderOne /> */}
-                <SplashHeader/>
-                {/* <BcrumbBannerOne 
+                <HeaderOne />
+                <BcrumbBannerOne 
                 title="One of the fastest growing agency"
                 paragraph ="We design and develop web and mobile applications for our clients worldwide."
                 styleClass="thumbnail-4"
                 mainThumb="/images/banner/banner-thumb-3.png"
-                /> */}
-                {/* <AboutFour /> */}
-                {/* <AboutThree /> */}
-                {/* <AboutFive /> */}
+                />
+                <AboutFour />
+                <AboutThree />
+                <AboutFive />
                 <ProcessOne />
                 <CtaLayoutOne />
                 <FooterOne parentClass="" />

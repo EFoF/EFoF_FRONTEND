@@ -10,14 +10,11 @@ const CtaLayoutOne = () => {
             <div className="container">
                 <div className="call-to-action">
                     <div className="section-heading heading-light">
-                        <span className="subtitle">Let's Work Together</span>
-                        <h2 className="title">독수리 오남매가 궁금하다면?</h2>
-                        {/* <Link to={process.env.PUBLIC_URL + "/contact"} className="axil-btn btn-large btn-fill-white">
-                            GitHub 구경하기
-                        </Link> */}
-                        <a href='https://github.com/EFoF' className='axil-btn btn-large btn-fill-white'>
-                            GitHub 구경하기
-                        </a>
+                        <span className="subtitle">독수리 설문</span>
+                        <h2 className="title">더욱 편리한 설문 플랫폼을 경험해보세요 :)</h2>
+                        <Link to={process.env.PUBLIC_URL + "/contact"} className="axil-btn btn-large btn-fill-white">
+                            설문 생성하기
+                        </Link>
                     </div>
                     <div className="thumbnail">
                         <div className="larg-thumb" data-sal="zoom-in" data-sal-duration="600" data-sal-delay="100">
@@ -34,8 +31,6 @@ const CtaLayoutOne = () => {
                     </div>
                 </div>
             </div>
-
-
             <ul className="list-unstyled shape-group-9">
                 <li className="shape shape-1"><img src={process.env.PUBLIC_URL + "/images/others/bubble-12.png"} alt="Comments" /></li>
                 <li className="shape shape-2"><img src={process.env.PUBLIC_URL + "/images/others/bubble-16.png"} alt="Comments" /></li>

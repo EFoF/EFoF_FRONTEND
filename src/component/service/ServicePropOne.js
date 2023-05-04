@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ServiceData from "../../data/service/ServiceMain.json";
 import { slugify } from '../../utils';
+import ServiceData from '../../data/service/ServiceData.json';
 
 
-const AllData = ServiceData;
+// const AllData = ServiceData;
+const FeatureData = ServiceData[1];
 
 const ServicePropOne = ({colSize, serviceStyle, itemShow, marginTop}) => {
 
@@ -24,21 +25,18 @@ const ServicePropOne = ({colSize, serviceStyle, itemShow, marginTop}) => {
 
     return (
 		<>
-			{AllData.slice(0, itemShow).map((data, index) => (
-				<div className={`${colSize} ${topMargin(index)}`} key={index} >
-					<div className={`services-grid ${serviceStyle}`}>
+			{FeatureData.slice(0, 9).map((data) => (
+				<div className="col-xl-4 col-md-6" key={data.id}>
+					<div className="services-grid">
 						<div className="thumbnail">
-							<img src={process.env.PUBLIC_URL + data.image} alt="icon" />
+							<img src={process.env.PUBLIC_URL + data.icon} alt="icon" />
 						</div>
 						<div className="content">
-							<h5 className="title"> 
-								<Link to={process.env.PUBLIC_URL + `/service-details/${slugify(data.title)}`}>{data.title}</Link>
-							</h5>
-							<p>{data.description}</p>
-							<Link to={process.env.PUBLIC_URL + `/service-details/${slugify(data.title)}`} className="more-btn">Find out more</Link>
+							<h5 className="title" dangerouslySetInnerHTML={{__html: data.title}}></h5>
+							<p>{data.para}</p>
 						</div>
 					</div>
-			 	</div>
+				</div>
 			))}
 		</>
     )

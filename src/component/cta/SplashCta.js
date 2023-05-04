@@ -1,7 +1,4 @@
 import React from 'react';
-import { animateScroll as scroll } from 'react-scroll';
-import Splash from '../../pages/Splash';
-import SplashBanner from '../banner/SplashBanner';
 import { Link as L } from 'react-scroll';
 import { Link } from 'react-router-dom';
 
@@ -12,10 +9,10 @@ const SplashCta = () => {
 
         console.log(exampleElement);
         // scroll.scrollTo("#survey-slides", {
-        //     duration: 500, 
-        //     delay: 100, 
-        //     smooth: true, 
-        //     offset: -50, 
+        //     duration: 500,
+        //     delay: 100,
+        //     smooth: true,
+        //     offset: -50,
         // });
     };
 
@@ -26,7 +23,7 @@ const SplashCta = () => {
                     <div className="section-heading heading-light">
                         <h2 className="title">Let’s Start 설문하러가자! <br /> Your Business Today!</h2>
                         <p><L to="splash-banner" smooth={true} duration={500}>⬆️ 주변 설문 둘러보기 ⬆️</L></p><br/>
-                        
+
                         {/* 버튼으로 바꾸기 */}
                         {/* <a target="_blank" rel="noopener noreferrer" href="#splash-demo" className="axil-btn btn-fill-white">설문하러 가기</a> */}
 

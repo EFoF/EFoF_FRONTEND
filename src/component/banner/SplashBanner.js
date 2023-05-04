@@ -52,16 +52,13 @@ var slideSettings = {
 
 const SplashBanner = () => {
     return (
-        <div className="section splash-main-banner" id="splash-banner">
+        <div className="section splash-main-banner">
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-lg-10">
                         <div className="banner-content">
-                            <h1 className="title">Hi, everyone! Welcome to <span>DOKSEOL</span> Platform 🦅</h1>
-                            <Link to="/create-survey" smooth={true} duration={500}>
-                            <button className="axil-btn btn-fill-white">설문 생성하기</button>
-                        </Link>
-                            {/* <div className="site-element-count">
+                            <h1 className="title">Creative Agency, Corporate and Portfolio <span>React JS</span> Template + RTL</h1>
+                            <div className="site-element-count">
                                 {
                                     CountData.map((data) => (
                                         <div className="count-box" key={data.id}>
@@ -79,13 +76,12 @@ const SplashBanner = () => {
                                         </div>
                                     ))
                                 }
-                            </div> */}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            {/* 그냥 이 슬라이더를 현재 진행 중인 설문으로 써도 괜찮을 듯? */}
             <div className="demo-slider">
                 <Slider {...slideSettings} className="slick-dot-nav">
                     {DemoData.slice(0, 5).map((data) => (
@@ -98,7 +94,6 @@ const SplashBanner = () => {
                 </Slider> 
             </div>
 
-            {/* 버블 애니메이션 */}
             <ul className="list-unstyled shape-group-20">
                 <li className="shape shape-1">
                 <img src={process.env.PUBLIC_URL + "/images/others/bubble-36.png"} alt="Bubble" />

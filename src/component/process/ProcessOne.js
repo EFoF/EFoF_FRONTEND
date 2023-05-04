@@ -10,14 +10,12 @@ const ProcessOne = () => {
         
         <div className="section section-padding bg-color-light pb--70">
             <SectionTitle 
-                subtitle="Members"
-                title="어느 때는 하나, 또 어느 때는 다섯"
+                subtitle="Process"
+                title="Our logo design process"
                 description="Our comprehensive logo design strategy ensures a perfectly crafted logo for your business."
                 textAlignment=""
                 textColor="mb--90"
             />
-
-            {/* 멤버 */}
             <div className="container">
                 {getProcesstData.map((data) => (
                     <div key={data.id} className={`process-work ${(data.id % 2  === 0) ? "content-reverse" : ""}`}>
@@ -34,8 +32,6 @@ const ProcessOne = () => {
                 </div>
                 ))}
             </div>
-
-            {/* 애니메이션 */}
             <ul className="shape-group-17 list-unstyled">
                 <li className="shape shape-1"><img src={process.env.PUBLIC_URL + "/images/others/bubble-24.png"} alt="Bubble" /></li>
                 <li className="shape shape-2"><img src={process.env.PUBLIC_URL + "/images/others/bubble-23.png"} alt="Bubble" /></li>

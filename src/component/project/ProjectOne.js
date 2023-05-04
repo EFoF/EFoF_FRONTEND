@@ -65,8 +65,8 @@ const ProjectOne = ({parentClass, colSize, itemShow, columnGap}) => {
                 <div className="container">
                 <SectionTitle 
                         subtitle="Our Project"
-                        title="내가 참여한 <br>
-                        설문"
+                        title="Some of our <br>
+                        finest work."
                         textAlignment="heading-left mb--40"
                         textColor=""
                     />

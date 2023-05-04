@@ -1,71 +1,75 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
-import { FaAngleDown } from "react-icons/fa";
+import { FaAngleDown, FaUser } from "react-icons/fa";
 
 
 const Nav = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState(true);  // 로그인 여부 state
+    const [username, setUsername] = useState('(닉네임)');
+
+    const handleLogout = () => {
+        // 로그아웃 버튼 클릭 시 로그아웃 처리 로직 작성
+        setIsLoggedIn(false);
+        setUsername('(닉네임)');
+    }
+
+    const renderUsername = () => {
+        if (username) {
+            // return username;
+            return '정연';
+        }
+        return '(닉네임)';
+    }
+
+    const myPageStyle = {
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: '16px',
+        color: '#222',
+        textDecoration: 'none'
+    }
+
+    const iconStyle = {
+        marginRight: '5px'
+    }
+
+    const textStyle = {
+        display: 'flex',
+        alignItems: 'center'
+    }
+
+    const arrowStyle = {
+        marginLeft: '5px'
+    }
+
+
     return (
         <nav className="mainmenu-nav">
             <ul className="mainmenu">
+                {/*<li><Link to={process.env.PUBLIC_URL + "/contact"}>내가 생성한 설문</Link></li>*/}
+                {/*<li><Link to={process.env.PUBLIC_URL + "/contact"}>내가 참여한 설문</Link></li>*/}
                 <li className="menu-item-has-children">
-                    <Link to="#">Digital Agency <FaAngleDown /> </Link>
+                    <a style={myPageStyle}>
+                        <FaUser className="icon" style={iconStyle} />
+                        <span style={textStyle}>
+                            {renderUsername()} {/* 사용자 이름 렌더링 */}
+                            <FaAngleDown className="arrow" style={arrowStyle} />
+                        </span>
+                    </a>
                     <ul className="axil-submenu">
-                        <li><Link to={process.env.PUBLIC_URL + "/digital-agency"}>Digital Agency</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/creative-agency"}>Creative Agency</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/personal-portfolio"}>Personal Portfolio</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/home-startup"}>Home Startup</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/corporate-agency"}>Corporate Agency</Link></li>
-                        <li><a href="https://new.axilthemes.com/demo/react/abstrak-rtl/">RTL Demo</a></li>
+                        {isLoggedIn ?
+                            (
+                                <>
+                                    <li><Link to={process.env.PUBLIC_URL + "/contact"}>마이페이지</Link></li>
+                                    <li><Link to={process.env.PUBLIC_URL + "/contact"}>내가 생성한 설문</Link></li>
+                                    <li><Link to={process.env.PUBLIC_URL + "/contact"}>내가 참여한 설문</Link></li>
+                                    <li><a onClick={handleLogout} className="axil-btn btn-fill-white">로그아웃</a></li>
+                                </>
+                            ) : (
+                                <li><Link to={process.env.PUBLIC_URL + "/login"} className="axil-btn btn-fill-white">로그인/회원가입</Link></li>
+                            )}
                     </ul>
                 </li>
-                <li className="menu-item-has-children">
-                    <Link to="#">Services <FaAngleDown /></Link>
-                    <ul className="axil-submenu">
-                        <li><Link to={process.env.PUBLIC_URL + "/service-one"}>Service</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/service-two"}>Service Two</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/service-details/design"}>Service Details</Link></li>
-                    </ul>
-                </li>
-                <li className="menu-item-has-children">
-                    <Link to="#">Portfolio <FaAngleDown /></Link>
-                    <ul className="axil-submenu">
-                        <li><Link to={process.env.PUBLIC_URL + "/project-grid-one"}>Two Column</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/project-grid-two"}>Three Column</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/project-grid-three"}>Four Column</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/project-width-one"}>Three Column Width</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/project-width-two"}>Four Column Width</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/project-details/plan-management"}>Portfolio Details</Link></li>
-                    </ul>
-                </li>
-                <li className="menu-item-has-children">
-                    <Link to="#">Pages <FaAngleDown /></Link>
-                    <ul className="axil-submenu">
-                        <li><Link to={process.env.PUBLIC_URL + "/about-us"}>About Us</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/our-office"}>Our Office</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/case-study"}>Case Study</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/case-details/whitehorse"}>Case Study Details</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/team"}>Team</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/team-details/jane-cooper"}>Team Details</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/our-clients"}>Our Clients</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/testimonials"}>Testimonial</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/pricing-table"}>Pricing Table</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/typography"}>Typography</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/404"}>404 Page</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/coming-soon"}>Coming Soon</Link></li>
-                    </ul>
-                </li>
-                <li className="menu-item-has-children">
-                    <Link to="#">Blog <FaAngleDown /></Link>
-                    <ul className="axil-submenu">
-                        <li><Link to={process.env.PUBLIC_URL + "/blog-grid"}>Blog</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/blog-details/1"}>Standard Post</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/blog-details/2"}>Gallery Post</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "/blog-details/3"}>Video Post</Link></li>
-                        {/* <li><Link to={process.env.PUBLIC_URL + "#"}>Audio Post</Link></li>
-                        <li><Link to={process.env.PUBLIC_URL + "#"}>Quote Post</Link></li> */}
-                    </ul>
-                </li>
-                <li><Link to={process.env.PUBLIC_URL + "/contact"}>Contact</Link></li>
             </ul>
         </nav>
     )

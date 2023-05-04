@@ -11,10 +11,10 @@
 
 .contact-form-box {
     background-color: var(--color-white);
-    padding: 10px;
+    padding: 50px;
     border-radius: 30px;
     @media #{$sm-layout} {
-        padding: 40px 30px ;
+        padding: 40px 30px;
     }
     .title {
         font-size: 40px;
