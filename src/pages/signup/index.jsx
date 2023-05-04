@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import {Link, useNavigate} from "react-router-dom";
 import { GREY } from "../../component/constants/color";
-import LayoutContainer from "../../styles/LayoutContainer";
+import LayoutContainer from "../../component/styles/LayoutContainer";
 import {
   Wrapper,
   Title,

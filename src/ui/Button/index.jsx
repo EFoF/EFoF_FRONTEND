@@ -21,7 +21,6 @@ export default function Button({
   onClick,
 }) {
   return (
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     <Wrapper
       size={size}
       ButtonTheme={buttonTheme}

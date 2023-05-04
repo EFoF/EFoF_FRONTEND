@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { QUESTION_TYPES } from '../const';
+import { QUESTION_TYPES } from '../component/constants/const';
 import shortid from 'shortid';
 
 const initialState =

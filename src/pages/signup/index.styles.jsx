@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Line from "../../ui/Line";
 import ImgButton from "../../ui/ImgButton";
-import { GREY } from "../../constants/colors";
+import { GREY } from "../../component/constants/color";
 
 const Wrapper = styled.div`
   width: 47rem;

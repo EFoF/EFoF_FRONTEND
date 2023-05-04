@@ -6,7 +6,7 @@ import {
   MUSTARD_MUTED,
   GREY,
   WHITE,
-} from "../../constants/colors";
+} from "../../component/constants/color";
 
 // export type ButtonSize = "large" | "medium" | "small";
 // export type ButtonTheme = "primary" | "secondary" | "tertiary";

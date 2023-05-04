@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { GREY, WHITE, BLACK, RED } from "../../constants/colors";
+import { GREY, WHITE, BLACK, RED } from "../../component/constants/color";
 
 const Container = styled.div`
   display: flex;
