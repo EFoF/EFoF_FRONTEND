@@ -5,7 +5,7 @@ import {FaAngleDown, FaUser} from "react-icons/fa";
 
 
 const HeaderOne = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(true);  // 로그인 여부 state
+    const [isLoggedIn, setIsLoggedIn] = useState(false);  // 로그인 여부 state
     const [username, setUsername] = useState('(닉네임)');
 
     const handleLogout = () => {
@@ -86,13 +86,13 @@ const HeaderOne = () => {
                                             {isLoggedIn ?
                                                 (
                                                     <>
-                                                        <li><Link to={process.env.PUBLIC_URL + "/contact"}>마이페이지</Link></li>
-                                                        <li><Link to={process.env.PUBLIC_URL + "/contact"}>내가 생성한 설문</Link></li>
-                                                        <li><Link to={process.env.PUBLIC_URL + "/contact"}>내가 참여한 설문</Link></li>
+                                                        <li><Link to="/contact">마이페이지</Link></li>
+                                                        <li><Link to="/contact">내가 생성한 설문</Link></li>
+                                                        <li><Link to="/contact">내가 참여한 설문</Link></li>
                                                         <li><a onClick={handleLogout} className="axil-btn btn-fill-white">로그아웃</a></li>
                                                     </>
                                                 ) : (
-                                                    <li><Link to={process.env.PUBLIC_URL + "/login"} className="axil-btn btn-fill-white">로그인/회원가입</Link></li>
+                                                    <li><Link to="/login" className="axil-btn btn-fill-white">로그인/회원가입</Link></li>
                                                 )}
                                         </ul>
                                     </li>

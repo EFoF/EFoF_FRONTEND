@@ -14,7 +14,7 @@ const BannerOne = () => {
                                 <h1 className="title">안녕하세요.</h1>
                                 <h1 className="title">독수리 설문입니다!</h1>
                                 <span className="subtitle">독수리 설문을 통해<br/>더욱 편리한 설문 플랫폼을 경험해보세요 :)</span>
-                                <Link to={process.env.PUBLIC_URL + "/contact"} className="axil-btn btn-fill-primary btn-large">설문 생성하기</Link>
+                                <Link to="/contact" className="axil-btn btn-fill-primary btn-large">설문 생성하기</Link>
                             </AnimationOnScroll>
                         </div>
                     </div>
