@@ -68,7 +68,7 @@ const HeaderOne = () => {
                                       dimage="/images/icon-eagle.png"
                                       simage="/images/icon-eagle.png"
                                 />
-                                <ul className="mainmenu" style={{marginLeft: "35px"}}>
+                                <ul className="mainmenu">
                                     <li><Link to={process.env.PUBLIC_URL + "/contact"}>독수리 오남매</Link></li>
                                 </ul>
                             </div>

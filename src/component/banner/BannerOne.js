@@ -18,14 +18,6 @@ const BannerOne = () => {
                             </AnimationOnScroll>
                         </div>
                     </div>
-                    {/*<div className="col-lg-6 col-xl-5">*/}
-                    {/*    <div className="banner-form">*/}
-                    {/*        <div className="contact-form-box shadow-box">*/}
-                    {/*            <h3 className="title">Get a free Keystroke quote now</h3>*/}
-                    {/*            <FormOne />*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
                     <div className="col-lg-6">
                         <div className="banner-thumbnail">
                             <AnimationOnScroll animateIn="zoomIn" duration={2} delay={300} animateOnce={true}>

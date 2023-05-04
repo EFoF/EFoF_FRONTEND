@@ -21,6 +21,7 @@ const SplashCta = () => {
             <div className="container">
                 <div className="call-to-action">
                     <div className="section-heading heading-light">
+                        <span className="subtitle">독수리 설문</span>
                         <h2 className="title">Let’s Start 설문하러가자! <br /> Your Business Today!</h2>
                         <p><L to="splash-banner" smooth={true} duration={500}>⬆️ 주변 설문 둘러보기 ⬆️</L></p><br/>
 

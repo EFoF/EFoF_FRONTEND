@@ -1,36 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {Link as L} from "react-scroll";
 
 
 const CtaLayoutOne = () => {
 
     return (
 
-        <div className="section call-to-action-area">
+        <div className="section call-to-action-area splash-call-to-action">
             <div className="container">
                 <div className="call-to-action">
                     <div className="section-heading heading-light">
                         <span className="subtitle">독수리 설문</span>
-                        <h2 className="title">더욱 편리한 설문 플랫폼을 경험해보세요 :)</h2>
-                        <Link to={process.env.PUBLIC_URL + "/contact"} className="axil-btn btn-large btn-fill-white">
-                            설문 생성하기
+                        <h2 className="title">Let’s Start 설문하러가자!</h2>
+                        <p><L to="splash-banner" smooth={true} duration={500}>⬆️ 주변 설문 둘러보기 ⬆️</L></p><br/>
+
+                        {/* 버튼으로 바꾸기 */}
+                        {/* <a target="_blank" rel="noopener noreferrer" href="#splash-demo" className="axil-btn btn-fill-white">설문하러 가기</a> */}
+
+                        {/* 위 코드를 버튼으로 바꿈 */}
+                        <Link to="/create-survey" smooth={true} duration={500}>
+                            <button className="axil-btn btn-fill-white">설문 생성하기</button>
                         </Link>
-                    </div>
-                    <div className="thumbnail">
-                        <div className="larg-thumb" data-sal="zoom-in" data-sal-duration="600" data-sal-delay="100">
-                            <img className="paralax-image" src={process.env.PUBLIC_URL + "/images/others/chat-group.png"} alt="Chat" />
-                        </div>
-                        <ul className="list-unstyled small-thumb">
-                            <li className="shape shape-1" data-sal="slide-right" data-sal-duration="800" data-sal-delay="400">
-                                <img className="paralax-image" src={process.env.PUBLIC_URL + "/images/others/laptop-poses.png"} alt="Laptop" />
-                            </li>
-                            <li className="shape shape-2" data-sal="slide-left" data-sal-duration="800" data-sal-delay="300">
-                                <img className="paralax-image" src={process.env.PUBLIC_URL + "/images/others/bill-pay.png"} alt="Bill" />
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>
+
+            {/* 애니메이션 */}
             <ul className="list-unstyled shape-group-9">
                 <li className="shape shape-1"><img src={process.env.PUBLIC_URL + "/images/others/bubble-12.png"} alt="Comments" /></li>
                 <li className="shape shape-2"><img src={process.env.PUBLIC_URL + "/images/others/bubble-16.png"} alt="Comments" /></li>
