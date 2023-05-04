@@ -33,7 +33,7 @@ export default function Login() {
   const { email, onChangeEmail, password, onChangePassword, onSubmitForm } =
       useLogin();
   // const { email, onChangeEmail, password, onChangePassword, onSubmitForm } ={};
-  const googleLogin = `http://localhost:8080/oauth2/authorization/google?redirect_uri=http://localhost:3000/home`;
+  const googleLogin = `http://localhost:8080/oauth2/authorization/google?redirect_uri=http://localhost:3000/demo/react/abstrak`;
   const kakaoLogin = ``;
 
   const onClickGoogleLogin = useCallback(() => {
