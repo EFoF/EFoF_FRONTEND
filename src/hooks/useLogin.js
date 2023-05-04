@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useCallback, useEffect, useState } from "react";
 
 export default function useLogin() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   // 원래 useInput을 통해서 받아왔지만, 자꾸 타입 에러가 떠서 포기하고 그냥 여기서 선언함.
   // 로그인 화면에서 사용자가 이메일, 패스워드로 입력한 값을 받아오는데 사용됨.
-  const onChangeEmail = ({target}) => {    
-    setEmail(target.value);      
+  const onChangeEmail = ({target}) => {
+    setEmail(target.value);
   }
   const onChangePassword = ({target}) => {
     setPassword(target.value);
@@ -25,9 +25,9 @@ export default function useLogin() {
     // 없다면 홈화면으로 redirection
     const prevPath = sessionStorage.getItem("prevPath");
     if (prevPath) {
-      navigate('${prevPath}');      
-    } else {        
-        navigate('/');
+      navigate('${prevPath}');
+    } else {
+      navigate('/');
     }
   };
 
@@ -38,11 +38,11 @@ export default function useLogin() {
 
 
   const onSubmitForm = useCallback(
-    (e) => {
-      e.preventDefault();      
-      dispatch(authLogin({ email, password }));
-    },
-    [email, password],
+      (e) => {
+        e.preventDefault();
+        dispatch(authLogin({ email, password }));
+      },
+      [email, password],
   );
 
   useEffect(() => {
