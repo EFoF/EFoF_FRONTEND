@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Button from "../../../../ui/Button/index";
-import { GREY, RED } from "../../../../constants/colors";
+import { GREY, RED } from "../../../../component/constants/color";
 
 const Container = styled.div`
   width: 100%;

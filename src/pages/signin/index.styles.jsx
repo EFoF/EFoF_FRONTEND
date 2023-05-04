@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { GREY } from "../../const/colors";
+import { GREY } from "../../component/constants/color";
 import ImgButton from "../../ui/ImgButton";
 
 const Container = styled.div`
