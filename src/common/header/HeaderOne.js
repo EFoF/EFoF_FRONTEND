@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import {FaAngleDown, FaUser} from "react-icons/fa";
 import Cookies from "js-cookie";
 import {useNavigate} from "react-router";
-
+import useLogin from "../../hooks/useLogin";
 const HeaderOne = () => {
     const [username, setUsername] = useState('(닉네임)');
 
@@ -12,15 +12,17 @@ const HeaderOne = () => {
 
     const navigate = useNavigate();
 
-    const handleLogout = () => {
-        // 로그아웃 버튼 클릭 시 로그아웃 처리 로직 작성
-        // 쿠키 지워주기
-        Cookies.remove('tokenPublishConfirm');
-        // 백엔드에서 tokenPublishConfirm 쿠키가 만료됐음을 인지하고 지워주던지 해야할 것 같다...
-        // Cookies.remove('token');
-        setUsername('(닉네임)');
-        navigate("/");
-    }
+    const {useLogout} = useLogin();
+
+    // const handleLogout = () => {
+    //     // 로그아웃 버튼 클릭 시 로그아웃 처리 로직 작성
+    //     // 쿠키 지워주기
+    //     Cookies.remove('tokenPublishConfirm');
+    //     // 백엔드에서 tokenPublishConfirm 쿠키가 만료됐음을 인지하고 지워주던지 해야할 것 같다...
+    //     // Cookies.remove('token');
+    //     setUsername('(닉네임)');
+    //     navigate("/");
+    // }
 
     const renderUsername = () => {
         if (username) {
@@ -97,7 +99,7 @@ const HeaderOne = () => {
                                                         <li><Link to="/contact">마이페이지</Link></li>
                                                         <li><Link to="/contact">내가 생성한 설문</Link></li>
                                                         <li><Link to="/contact">내가 참여한 설문</Link></li>
-                                                        <li><a onClick={handleLogout} className="axil-btn btn-fill-white">로그아웃</a></li>
+                                                        <li><a onClick={useLogout} className="axil-btn btn-fill-white">로그아웃</a></li>
                                                     </>
                                                 ) : (
                                                     <li><Link to="/login" className="axil-btn btn-fill-white">로그인/회원가입</Link></li>
