@@ -19,7 +19,7 @@ const CtaLayoutOne = () => {
                         {/* <a target="_blank" rel="noopener noreferrer" href="#splash-demo" className="axil-btn btn-fill-white">설문하러 가기</a> */}
 
                         {/* 위 코드를 버튼으로 바꿈 */}
-                        <Link to="/create-survey" smooth={true} duration={500}>
+                        <Link to="/form" smooth={true} duration={500}>
                             <button className="axil-btn btn-fill-white">설문 생성하기</button>
                         </Link>
                     </div>

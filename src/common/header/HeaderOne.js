@@ -14,22 +14,12 @@ const HeaderOne = () => {
 
     const {useLogout} = useLogin();
 
-    // const handleLogout = () => {
-    //     // 로그아웃 버튼 클릭 시 로그아웃 처리 로직 작성
-    //     // 쿠키 지워주기
-    //     Cookies.remove('tokenPublishConfirm');
-    //     // 백엔드에서 tokenPublishConfirm 쿠키가 만료됐음을 인지하고 지워주던지 해야할 것 같다...
-    //     // Cookies.remove('token');
-    //     setUsername('(닉네임)');
-    //     navigate("/");
-    // }
-
     const renderUsername = () => {
-        if (username) {
+        if (typeof(confirmCookie)) {
             // return username;
-            return '정연';
+            return confirmCookie;
         }
-        return '(닉네임)';
+        return 'anonymous user';
     }
 
     const myPageStyle = {
@@ -85,26 +75,30 @@ const HeaderOne = () => {
                             <div className="header-main-nav">
                                 <ul className="mainmenu">
                                     <li className="menu-item-has-children">
-                                        <a style={myPageStyle}>
-                                            <FaUser className="icon" style={iconStyle} />
-                                            <span style={textStyle}>
+                                        {typeof(confirmCookie) === "undefined"?
+                                            (
+                                                <>
+                                                    <li><Link to="/login">로그인/회원가입</Link></li>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <a style={myPageStyle}>
+                                                        <FaUser className="icon" style={iconStyle} />
+                                                        <span style={textStyle}>
                                                     {renderUsername()} {/* 사용자 이름 렌더링 */}
-                                                <FaAngleDown className="arrow" style={arrowStyle} />
+                                                            <FaAngleDown className="arrow" style={arrowStyle} />
                                                 </span>
-                                        </a>
-                                        <ul className="axil-submenu" style={submenuStyle}>
-                                            {typeof(confirmCookie) !== "undefined" ?
-                                                (
-                                                    <>
-                                                        <li><Link to="/contact">마이페이지</Link></li>
-                                                        <li><Link to="/contact">내가 생성한 설문</Link></li>
-                                                        <li><Link to="/contact">내가 참여한 설문</Link></li>
-                                                        <li><a onClick={useLogout} className="axil-btn btn-fill-white">로그아웃</a></li>
-                                                    </>
-                                                ) : (
-                                                    <li><Link to="/login" className="axil-btn btn-fill-white">로그인/회원가입</Link></li>
-                                                )}
-                                        </ul>
+                                                    </a>
+                                                    <ul className="axil-submenu" style={submenuStyle}>
+                                                                <>
+                                                                    <li><Link to="/contact">마이페이지</Link></li>
+                                                                    <li><Link to="/contact">내가 생성한 설문</Link></li>
+                                                                    <li><Link to="/contact">내가 참여한 설문</Link></li>
+                                                                    <li><a onClick={useLogout} className="axil-btn btn-fill-white">로그아웃</a></li>
+                                                                </>
+                                                    </ul>
+                                                </>
+                                            )}
                                     </li>
                                 </ul>
                             </div>
