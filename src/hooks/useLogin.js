@@ -2,6 +2,7 @@ import { useNavigate } from "react-router";
 import { authLogin, authLogout } from "../api/auth";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useCallback, useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 export default function useLogin() {
   const [email, setEmail] = useState("");
@@ -32,8 +33,10 @@ export default function useLogin() {
   };
 
   const useLogout = useCallback(async () => {
+    console.log("로그아웃 요청 실행")
+    // Cookies.remove('tokenPublishConfirm');
     await dispatch(authLogout());
-    window.location.replace("/home");
+    window.location.replace("/demo/react/abstrak");
   }, []);
 
 
