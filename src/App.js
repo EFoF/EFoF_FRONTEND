@@ -30,11 +30,11 @@ const App = () => {
 	  <BrowserRouter basename={process.env.PUBLIC_URL}>
 		  <Routes>
 			<Route path="/" exact element={<DigitalAgency />}/>
-			<Route path="login" exact element={<LoginPage />}/>
-			<Route path="signup" exact element={<Signup />}/>
+			<Route path="/login" exact element={<LoginPage />}/>
+			<Route path="/signup" exact element={<Signup />}/>
 			<Route path="/signup/email" exact element={<Step1 />}/>
 			<Route path="/signup/inform" exact element={<Step2 />}/>
-			<Route path="form" exact element={<Form />}/>
+			<Route path="/form" exact element={<Form />}/>
 		  </Routes>
 	  </BrowserRouter>
   )
