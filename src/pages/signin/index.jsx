@@ -45,7 +45,9 @@ export default function Login() {
   return (
       <Container>
         <WrapperScaled>
+          <StyledLink to="/">
           <Title>DOKSEOL</Title>
+          </StyledLink>
           <SubTitle>설문을 스마트하게, 독설</SubTitle>
           <Form onSubmit={onSubmitForm}>
             <Input
