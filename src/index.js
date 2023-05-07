@@ -6,12 +6,17 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
 import { Provider } from 'react-redux';
 import { store } from './store/configureStore';
+import StyledContainer from './ui/Toast/container'
 
 ReactDOM.render(
     <Provider store={store}>
         <ThemeProvider theme={theme}>
             <React.StrictMode>
                 <App />
+                <StyledContainer
+        position="top-center"
+        closeButton={false}
+        limit={1} />
             </React.StrictMode>
         </ThemeProvider>
     </Provider>,
