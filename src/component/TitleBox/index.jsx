@@ -60,7 +60,7 @@ const handleClose = () => {
         'Content-Type': 'multipart/form-data'
       }
     }).then(response => {
-      alert(JSON.stringify(response.data));
+      // alert(JSON.stringify(response.data));
       toastMsg("이미지 변경 성공", true);
       dispatch(formActions.changeImage(
         {image:response.data}

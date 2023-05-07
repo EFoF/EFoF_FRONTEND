@@ -66,7 +66,7 @@ const Header = () => {
                         <div className="header-navbar">
                             <div className="header-logo">
                                 <ul className="mainmenu">
-                                    <li><Link to={process.env.PUBLIC_URL + "/contact"}>독수리 오남매</Link></li>
+                                    <li><Link to={process.env.PUBLIC_URL}>독수리 오남매</Link></li>
                                 </ul>
                             </div>
                             <div className="header-main-nav">
