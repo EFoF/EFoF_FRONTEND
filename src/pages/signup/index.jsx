@@ -45,7 +45,9 @@ export default function Signup() {
   return (
     <LayoutContainer>
       <WrapperScaled>
-        <Title>DOKSEOL</Title>
+        <StyledLink to="/">
+          <Title>DOKSEOL</Title>
+        </StyledLink>
         <SubTitle>
           독설에 오신걸 환영해요!
           <br />
