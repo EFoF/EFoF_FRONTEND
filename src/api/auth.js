@@ -69,7 +69,7 @@ const authEmailSend = (email) => {
 const authEmailConfirms = (email, authNumber) => {
   return unAuthorizationClient.post(`${API.EMAIL_CONFIRM}`, {
     email,
-    certificationNumber: authNumber,
+    code: authNumber,
   });
 };
 
@@ -81,6 +81,7 @@ const authSignUp = createAsyncThunk(
       toastMsg("회원가입 성공", true);
       return response.data.data;
     } catch (error) {
+      alert(JSON.stringify(error))
       return rejectWithValue(error.response.data);
     }
   },

@@ -14,7 +14,8 @@ export default function useUserType() {
 
   const navigate = useNavigate();
 
-  const [name, onChangeName] = useInput("");
+  const [nickName,onChangeNickname] = useInput("");
+  const [userName, onChangeName] = useInput("");
   const [bchecked, setBcheked] = useState(false);
 
   // const [types, setTypes] = useState([
@@ -45,10 +46,18 @@ export default function useUserType() {
   useEffect(() => {
     dispatch(
       userActions.signUp({
-        name,
+        userName: userName,
       }),
     );
-  }, [name]);
+  }, [userName]);
+
+  useEffect(() => {
+    dispatch(
+        userActions.signUp({
+          nickName: nickName,
+        }),
+    );
+  }, [nickName]);
 
   const checkHandler = useCallback(() => {
     setBcheked(!bchecked);
@@ -79,7 +88,7 @@ export default function useUserType() {
   };
 
   return {
-    name,
+    name: userName,
     onChangeName,
 //     types,
 //     onToggleCheck,
@@ -89,5 +98,6 @@ export default function useUserType() {
     signUpDone,
     bchecked,
     checkHandler,
+    onChangeNickname
   };
 }

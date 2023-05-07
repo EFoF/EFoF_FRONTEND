@@ -4,6 +4,7 @@ import { useCallback, useState, useRef, useEffect } from "react";
 import { authEmailSend, authEmailConfirms } from "../api/auth";
 import {userActions} from "../slices/user";
 import useInput from "./useInput";
+import toastMsg from "../ui/Toast";
 
 export default function useSignUp() {
   const navigate = useNavigate();
@@ -39,8 +40,12 @@ export default function useSignUp() {
   const onSubmitEmailAuth = useCallback(() => {
     authEmailConfirms(email, authNumber)
         .then((res) => {
-          const isConfirmedEmail = res.data;
+          const isConfirmedEmail   = res.data.matches;
           if (isConfirmedEmail) setIsEmailConfirms(true);
+          else {
+
+            toastMsg("인증에 실패했습니다.",isConfirmedEmail);
+          }
         })
         .catch((err) => {
           if (err.response.status === 403) {
