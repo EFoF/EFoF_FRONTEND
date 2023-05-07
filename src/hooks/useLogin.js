@@ -36,7 +36,7 @@ export default function useLogin() {
     console.log("로그아웃 요청 실행")
     // Cookies.remove('tokenPublishConfirm');
     await dispatch(authLogout());
-    window.location.replace("/demo/react/abstrak");
+    window.location.replace("/");
   }, []);
 
 

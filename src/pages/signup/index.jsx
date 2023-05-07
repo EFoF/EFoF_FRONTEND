@@ -27,8 +27,16 @@ const WrapperScaled = styled(Wrapper)`
 export default function Signup() {
   const navigate = useNavigate();
 
-  const googleSignup = `http://localhost:8080/oauth2/authorization/google?redirect_uri=http://localhost:3000/demo/react/abstrak`;
+  const googleSignup = `http://localhost:8080/oauth2/authorization/google?redirect_uri=http://localhost:3000/`;
   const kakaoSignup = `http://localhost:8080/oauth2/authorization/kakao?redirect_uri=http://localhost:3000/redirect`;
+
+  const onClickGoogleSignup = useCallback(() => {
+    window.location.href = googleSignup;
+  }, []);
+
+  const onClickKakaoSignup = useCallback(() => {
+    window.location.href = kakaoSignup;
+  }, []);
 
   const EmailLogin = useCallback(() => {
     navigate("/signup/email");
@@ -54,14 +62,16 @@ export default function Signup() {
           <SNSButton
             title="구글 계정으로 가입하기"
             ImgSrc="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/320px-Google_%22G%22_Logo.svg.png"
-            href={googleSignup}
+              // href={googleSignup}
+            onClick={onClickGoogleSignup}
             color={GREY[100]}
             size={2.5}
           />
           <SNSButton
             title="카카오 계정으로 가입하기"
             ImgSrc="https://cdn.imweb.me/upload/S20210304872ba49a108a8/89a68d1e3674a.png"
-            href={kakaoSignup}
+            // href={kakaoSignup}
+            onClick={onClickKakaoSignup}
             color="#f9da49"
             size={2.5}
           />
