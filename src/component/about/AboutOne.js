@@ -10,8 +10,7 @@ const AboutOne = () => {
                 <SectionTitle
                     subtitle="독수리 오남매의 설문 플랫폼: 독설"
                     title="독수리 설문에 대하여"
-                    description="Nulla facilisi. Nullam in magna id dolor
-                        blandit rutrum eget vulputate augue sed eu imperdiet."
+                    description=""
                     textAlignment="heading-light-left"
                     textColor=""
                 />

@@ -25,7 +25,7 @@ const ServicePropOne = ({colSize, serviceStyle, itemShow, marginTop}) => {
 
     return (
 		<>
-			{FeatureData.slice(0, 9).map((data) => (
+			{FeatureData.slice(0, 3).map((data) => (
 				<div className="col-xl-4 col-md-6" key={data.id}>
 					<div className="services-grid">
 						<div className="thumbnail">

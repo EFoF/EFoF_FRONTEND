@@ -41,7 +41,7 @@ const BlogOne = () => {
                 <div className="section-heading heading-left">
                     <div className="row align-items-center">
                         <div className="col-xl-6 col-lg-7">
-                            <h2 className="title">Watch your location</h2>
+                            <h2 className="title" id="splash-banner">Watch your location</h2>
                         </div>
                         <div className="banner-thumbnail">
                             <Map />

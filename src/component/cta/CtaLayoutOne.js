@@ -11,15 +11,15 @@ const CtaLayoutOne = () => {
             <div className="container">
                 <div className="call-to-action">
                     <div className="section-heading heading-light">
-                        <span className="subtitle">독수리 설문</span>
-                        <h2 className="title">Let’s Start 설문하러가자!</h2>
+                        <span className="subtitle">DOKSEOL</span>
+                        <h2 className="title">Let’s Survey !!</h2>
                         <p><L to="splash-banner" smooth={true} duration={500}>⬆️ 주변 설문 둘러보기 ⬆️</L></p><br/>
 
                         {/* 버튼으로 바꾸기 */}
                         {/* <a target="_blank" rel="noopener noreferrer" href="#splash-demo" className="axil-btn btn-fill-white">설문하러 가기</a> */}
 
                         {/* 위 코드를 버튼으로 바꿈 */}
-                        <Link to="/form" smooth={true} duration={500}>
+                        <Link to="/form">
                             <button className="axil-btn btn-fill-white">설문 생성하기</button>
                         </Link>
                     </div>
