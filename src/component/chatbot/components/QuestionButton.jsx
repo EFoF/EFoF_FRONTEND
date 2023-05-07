@@ -62,7 +62,7 @@ function QuestionButton(props) {
        
 
         getOption(question[index].questionContent).then((option) => {
-            alert(JSON.stringify(option))
+            // alert(JSON.stringify(option))
             props.setState((state) => ({
                 ...state,
                 options: String(option.content.answer).split(','),

@@ -33,7 +33,7 @@ const CloseLine = styled(MdCancel)`
 function Header(props) {
   
   const handleClose = () => {
-    alert(JSON.stringify(props.onClick));
+    // alert(JSON.stringify(props.onClick));
     // alert("Close button clicked");
     // Add your code to handle the event here
   };

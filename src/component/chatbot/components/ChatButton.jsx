@@ -83,7 +83,7 @@ const ChatButton = (props) => {
       .then(response => {
         
         props.actionProvider.handleLoadingEnd();
-        alert(JSON.stringify(response.data))
+        // alert(JSON.stringify(response.data))
         return response.data;
 
       })

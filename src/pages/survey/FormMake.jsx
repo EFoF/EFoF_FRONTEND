@@ -58,7 +58,7 @@ function FormMake() {
   };
 
   const handleChange = (option,{section_idx}) => {
-    alert(JSON.stringify(option))
+    // alert(JSON.stringify(option))
     dispatch(questionActions.setNextSection({section_idx,nextSectionId:option.value}))
     const newSelectedOption = [...selectedOption]; // 새로운 배열 생성
     newSelectedOption[section_idx] = option; // 해당 인덱스에 옵션 값 대입
