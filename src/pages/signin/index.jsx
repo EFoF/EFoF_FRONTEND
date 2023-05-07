@@ -91,7 +91,7 @@ export default function Login() {
               {/* <SNSIMG src = "https://i.pinimg.com/564x/fb/71/04/fb71048e03a5ada757f70d61b583d0bf.jpg"/> */}
             </ImgWrapper>
             <div>
-              아직 독수리 설문 회원이 아니세요?
+              아직 독수리 설문 회원이 아니신가요?
               <br />
               <SignUp>
                 {/* <Link href="/signup">회원가입하기</Link> */}

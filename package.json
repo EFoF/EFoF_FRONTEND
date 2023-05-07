@@ -2,7 +2,7 @@
   "name": "react-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://new.axilthemes.com/demo/react/abstrak/",
+  
   "dependencies": {
     "@emailjs/browser": "^3.4.0",
     "@emotion/react": "^11.10.6",

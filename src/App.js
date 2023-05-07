@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Home Pages Import
 import DigitalAgency from './pages/DigitalAgency';
+// import Splash from './pages/Splash';
 
 // Pages 
 import Signup from "./pages/signup";
@@ -13,6 +14,7 @@ import Step1 from "./pages/signup/Email/Step1";
 import Step2 from "./pages/signup/Email/Step2";
 import LoginPage from "./pages/signin/index";
 import Form from "./pages/survey/Form";
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 // Css Import
 import './assets/scss/app.scss';
@@ -23,7 +25,7 @@ const App = () => {
 	// 	<ScrollToTop>
 	// 		<Routes>
 	// 			<Route path={process.env.PUBLIC_URL + "/"} element={<DigitalAgency />}/>
-	// 			<Route path={process.env.PUBLIC_URL + "/splash"} element={<Splash />}/>
+	// 			{/* <Route path={process.env.PUBLIC_URL + "/splash"} element={<Splash />}/> */}
 	// 		</Routes>
 	// 	</ScrollToTop>
     // </Router>
@@ -35,6 +37,7 @@ const App = () => {
 			<Route path="/signup/email" exact element={<Step1 />}/>
 			<Route path="/signup/inform" exact element={<Step2 />}/>
 			<Route path="/form" exact element={<Form />}/>
+			<Route path={process.env.PUBLIC_URL + "/privacy-policy"} element={<PrivacyPolicy />}/>
 		  </Routes>
 	  </BrowserRouter>
   )
