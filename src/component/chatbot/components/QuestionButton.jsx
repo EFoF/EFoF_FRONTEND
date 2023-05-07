@@ -39,35 +39,14 @@ function QuestionButton(props) {
         }));
 
         
-        props.actionProvider.handleLoading();
-        setTimeout(() => {
-            props.actionProvider.handleLoadingEnd();
-            props.setState((state) => ({
-                ...state,
-                options: String(option.content.answer).split(','),
-            }));
-    
-            
-            props.setState((state) => ({
-                ...state,
-                answer: option.content
-            }));
-            const isWrong = option.content.type.includes("wrong");
-            isWrong ? (
-                props.actionProvider.handleOptionList(`"${question[index].questionContent}"은 잘못된 객관식 질문입니다. 질문을 바꿔주시고 다시 시도해주세요.`, isWrong)
-            ) : (
-                props.actionProvider.handleOptionList(`"${question[index].questionContent}"라는 질문에 대한 예시 항목 입니다. \n클릭 시 추가됩니다.`, isWrong)
-            )
-          }, 5000);
-       
-
-        // getOption(question[index].questionContent).then((option) => {
-        //     alert(JSON.stringify(option))
+        // props.actionProvider.handleLoading();
+        // setTimeout(() => {
+        //     props.actionProvider.handleLoadingEnd();
         //     props.setState((state) => ({
         //         ...state,
         //         options: String(option.content.answer).split(','),
         //     }));
-
+    
             
         //     props.setState((state) => ({
         //         ...state,
@@ -79,9 +58,30 @@ function QuestionButton(props) {
         //     ) : (
         //         props.actionProvider.handleOptionList(`"${question[index].questionContent}"라는 질문에 대한 예시 항목 입니다. \n클릭 시 추가됩니다.`, isWrong)
         //     )
+        //   }, 5000);
+       
+
+        getOption(question[index].questionContent).then((option) => {
+            alert(JSON.stringify(option))
+            props.setState((state) => ({
+                ...state,
+                options: String(option.content.answer).split(','),
+            }));
+
+            
+            props.setState((state) => ({
+                ...state,
+                answer: option.content
+            }));
+            const isWrong = option.content.type.includes("wrong");
+            isWrong ? (
+                props.actionProvider.handleOptionList(`"${question[index].questionContent}"은 잘못된 객관식 질문입니다. 질문을 바꿔주시고 다시 시도해주세요.`, isWrong)
+            ) : (
+                props.actionProvider.handleOptionList(`"${question[index].questionContent}"라는 질문에 대한 예시 항목 입니다. \n클릭 시 추가됩니다.`, isWrong)
+            )
 
 
-        // });
+        });
     }
 
 
