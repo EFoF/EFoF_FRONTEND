@@ -4,31 +4,31 @@
             "id": 1,
             "width_img": "/images/blog/large_thumb_1.png",
             "height_img": "/images/others/demo-1.png",
-            "title": "Digital Agency"
+            "title": "설문1"
         },
         {
             "id": 2,
             "width_img": "/images/blog/large_thumb_1.png",
             "height_img": "/images/others/demo-2.png",
-            "title": "Creative Agency"
+            "title": "설문2"
         },
         {
             "id": 3,
             "width_img": "/images/blog/large_thumb_1.png",
             "height_img": "/images/others/demo-3.png",
-            "title": "Personal Portfolio"
+            "title": "설문3"
         },
         {
             "id": 4,
             "width_img": "/images/blog/large_thumb_1.png",
             "height_img": "/images/others/demo-4.png",
-            "title": "Home Startup"
+            "title": "설문4"
         },
         {
             "id": 5,
             "width_img": "/images/blog/large_thumb_1.png",
             "height_img": "/images/others/demo-5.png",
-            "title": "Corporate Agency"
+            "title": "설문5"
         }
     ]
 ]

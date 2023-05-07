@@ -3,7 +3,7 @@ import { AnimationOnScroll } from 'react-animation-on-scroll';
 import { Link } from 'react-router-dom';
 
 
-const BannerOne = () => {
+const Banner = () => {
     return (
         <div className="banner banner-style-1">
             <div className="container">
@@ -45,4 +45,4 @@ const BannerOne = () => {
     )
 }
 
-export default BannerOne;
+export default Banner;

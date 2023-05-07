@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaFacebookF, FaTwitter, FaPinterestP, FaLinkedin, FaInstagram, FaVimeoV, FaDribbble, FaBehance, FaEnvelopeOpen } from "react-icons/fa";
 
-const FooterOne = ({parentClass}) => {
+const Footer = ({parentClass}) => {
     
     return (
         <footer className="footer-area splash-footer">
@@ -15,15 +15,10 @@ const FooterOne = ({parentClass}) => {
                             </div>
                         </div>
                         <div className="col-lg-2">
-                            {/* <ul className="footer-social list-unstyled">
-                                <li><a href="https://www.facebook.com/axilthemes"><FaFacebookF /></a></li>
-                                <li><a href="https://dribbble.com/axilweb/"><FaDribbble /></a></li>
-                            </ul> */}
                         </div>
                         <div className="col-lg-5">
                             <div className="footer-bottom-link">
                                 <ul className="list-unstyled">
-                                    {/* <li><a href="https://themeforest.net/user/axilthemes/portfolio">More Themes</a></li> */}
                                     <li><Link to={process.env.PUBLIC_URL + "/privacy-policy"}>Privacy Policy</Link></li>
                                 </ul>
                             </div>
@@ -35,4 +30,4 @@ const FooterOne = ({parentClass}) => {
     )
 }
 
-export default FooterOne;
+export default Footer;

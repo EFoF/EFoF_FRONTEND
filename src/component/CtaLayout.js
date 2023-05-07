@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import {Link as L} from "react-scroll";
 
 
-const CtaLayoutOne = () => {
+const CtaLayout = () => {
 
     return (
 
@@ -15,10 +15,6 @@ const CtaLayoutOne = () => {
                         <h2 className="title">Let’s Survey !!</h2>
                         <p><L to="splash-banner" smooth={true} duration={500}>⬆️ 주변 설문 둘러보기 ⬆️</L></p><br/>
 
-                        {/* 버튼으로 바꾸기 */}
-                        {/* <a target="_blank" rel="noopener noreferrer" href="#splash-demo" className="axil-btn btn-fill-white">설문하러 가기</a> */}
-
-                        {/* 위 코드를 버튼으로 바꿈 */}
                         <Link to="/form">
                             <button className="axil-btn btn-fill-white">설문 생성하기</button>
                         </Link>
@@ -41,4 +37,4 @@ const CtaLayoutOne = () => {
 
 }
 
-export default CtaLayoutOne;
+export default CtaLayout;

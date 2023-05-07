@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { slugify } from '../../utils';
-import ServiceData from '../../data/service/ServiceData.json';
+import ServiceData from '../../data/ServiceData.json';
 
 
-// const AllData = ServiceData;
 const FeatureData = ServiceData[1];
 
 const ServicePropOne = ({colSize, serviceStyle, itemShow, marginTop}) => {

@@ -1,9 +1,9 @@
 import React from 'react';
-import SectionTitle from "../../elements/section-title/SectionTitle";
-import ServicePropOne from "../service/ServicePropOne";
+import SectionTitle from "../elements/section-title/SectionTitle";
+import ServicePropOne from "./service/ServicePropOne";
 
 
-const AboutOne = () => {
+const About = () => {
     return (
         <div className="section section-padding-2 bg-color-dark">
             <div className="container">
@@ -27,4 +27,4 @@ const AboutOne = () => {
     )
 }
 
-export default AboutOne;
+export default About;

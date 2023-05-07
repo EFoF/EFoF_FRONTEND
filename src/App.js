@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 // Home Pages Import
-import DigitalAgency from './pages/DigitalAgency';
+import MainPage from './pages/MainPage';
 
 // Pages 
 import Signup from "./pages/signup";
@@ -22,7 +22,7 @@ const App = () => {
   return (
 	  <BrowserRouter basename={process.env.PUBLIC_URL}>
 		  <Routes>
-			<Route path="/" exact element={<DigitalAgency />}/>
+			<Route path="/" exact element={<MainPage />}/>
 			<Route path="/login" exact element={<LoginPage />}/>
 			<Route path="/signup" exact element={<Signup />}/>
 			<Route path="/signup/email" exact element={<Step1 />}/>

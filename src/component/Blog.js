@@ -1,15 +1,13 @@
 import React from 'react';
-import SplashData from "../../data/splash/SplashData.json";
+import BlogData from "../data/BlogData.json";
 import Slider from "react-slick";
 import {Link} from "react-router-dom";
-import {slugify} from "../../utils";
-import Map from "../map/Map"
+import {slugify} from "../utils";
+import Map from "./map/Map"
 
-const DemoData = SplashData[0];
+const DemoData = BlogData[0];
 
-
-
-const BlogOne = () => {
+const Blog = () => {
 
     var slideSettings = {
         infinite: true,
@@ -64,4 +62,4 @@ const BlogOne = () => {
     )
 }
 
-export default BlogOne;
+export default Blog;
