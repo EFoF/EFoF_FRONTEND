@@ -86,15 +86,15 @@ const HeaderOne = () => {
                                                     <a style={myPageStyle}>
                                                         <FaUser className="icon" style={iconStyle} />
                                                         <span style={textStyle}>
-                                                    {renderUsername()} {/* 사용자 이름 렌더링 */}
+                                                    {/*{renderUsername()} /!* 사용자 이름 렌더링 *!/*/}
                                                             <FaAngleDown className="arrow" style={arrowStyle} />
                                                 </span>
                                                     </a>
                                                     <ul className="axil-submenu" style={submenuStyle}>
                                                                 <>
                                                                     <li><Link to="/contact">마이페이지</Link></li>
-                                                                    <li><Link to="/contact">내가 생성한 설문</Link></li>
-                                                                    <li><Link to="/contact">내가 참여한 설문</Link></li>
+                                                                    <li><Link to="/form/generate">내가 생성한 설문</Link></li>
+                                                                    <li><Link to="/form/participate">내가 참여한 설문</Link></li>
                                                                     <li><a onClick={useLogout} className="axil-btn btn-fill-white">로그아웃</a></li>
                                                                 </>
                                                     </ul>
