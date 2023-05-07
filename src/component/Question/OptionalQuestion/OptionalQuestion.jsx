@@ -83,7 +83,7 @@ const AddIcon = styled(MdAdd)`
       axios.delete('http://localhost:8080/form/image', {
         
       }).then(response => {
-        alert(JSON.stringify(response.data));
+        // alert(JSON.stringify(response.data));
         toastMsg("이미지 변경 성공", true);
         dispatch(questionActions.setOptionImage(
           { sectionId: sectionId, questionId: questionId, optionId, image: '' }
@@ -127,7 +127,7 @@ const AddIcon = styled(MdAdd)`
         'Content-Type': 'multipart/form-data'
       }
     }).then(response => {
-      alert(JSON.stringify(response.data));
+      // alert(JSON.stringify(response.data));
       toastMsg("이미지 변경 성공", true);
       dispatch(questionActions.setOptionImage(
         { sectionId: sectionId, questionId: questionId, optionId, image: response.data }

@@ -1,7 +1,6 @@
 import React from 'react';
-import FooterOne from '../common/footer/FooterOne';
-import HeaderOne from '../common/header/HeaderOne';
-import CtaLayoutOne from '../component/cta/CtaLayoutOne';
+import FooterOne from '../common/Footer';
+import HeaderOne from '../common/Header';
 import BreadCrumbOne from '../elements/breadcrumb/BreadCrumbOne';
 import ColorSwitcher from '../elements/switcher/ColorSwitcher';
 import SEO from '../common/SEO';
@@ -70,7 +69,6 @@ const PrivacyPolicy = () => {
                         </div>
                     </div>
                 </div>
-                <CtaLayoutOne />
             <FooterOne parentClass="" />
             </main>
         </>

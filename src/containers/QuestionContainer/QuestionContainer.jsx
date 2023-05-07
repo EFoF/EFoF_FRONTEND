@@ -1,5 +1,5 @@
 
-import { CopyIcon, DragIcon, TrashIcon } from '../../assets';
+import { DragIcon } from '../../assets';
 import { Wrapper } from './style';
 import styled from 'styled-components';
 import { QUESTION_TYPES } from '../../component/constants/const/';
