@@ -70,7 +70,7 @@ const HeaderOne = () => {
                                       simage="/images/icon-eagle.png"
                                 /> */}
                                 <ul className="mainmenu">
-                                    <li><Link to={process.env.PUBLIC_URL + "/contact"}>독수리 오남매</Link></li>
+                                    <li><Link to={process.env.PUBLIC_URL}>독수리 오남매</Link></li>
                                 </ul>
                             </div>
                             <div className="header-main-nav">

@@ -81,7 +81,7 @@ const authSignUp = createAsyncThunk(
       toastMsg("회원가입 성공", true);
       return response.data.data;
     } catch (error) {
-      alert(JSON.stringify(error))
+      // alert(JSON.stringify(error))
       return rejectWithValue(error.response.data);
     }
   },

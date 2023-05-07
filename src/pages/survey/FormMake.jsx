@@ -9,6 +9,7 @@ import Select from "react-select";
 import Section from '../../component/Section/Section';
 import Button from '../../ui/button';
 import axios from 'axios';
+import toastMsg from "../../ui/Toast";
 function FormMake() {
   const { form, questions } = useSelector((state) => state.form);
   const [selectedOption, setSelectedOption] = useState([]);
@@ -184,11 +185,13 @@ function FormMake() {
       'Content-Type': 'application/json'
     }})
       .then(response => {
-        alert("TEEST")
-        alert(JSON.stringify(response.data));
+        toastMsg("설문생성 성공", true);
+        // alert("TEEST")
+        // alert(JSON.stringify(response.data));
       })
       .catch(error => {
-        alert(error);
+        // alert(error);
+        toastMsg("설문생성 실패", false);
       });
   }
   
@@ -209,9 +212,9 @@ function FormMake() {
         </DragDropContext>
 
       </QuestionWrapper>
-      {/* <button onClick={saveSurveyFromData}>
+      <button onClick={saveSurveyFromData}>
         생성하기
-      </button> */}
+      </button>
 
     </Wrapper>
   );
