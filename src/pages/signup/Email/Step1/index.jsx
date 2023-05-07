@@ -98,12 +98,12 @@ function Step1() {
                         />
                         {authNumber.length === 6 && !isEmailConfirms ? (
                             <AuthButton
-                                title="인증 완료"
+                                title="인증"
                                 width="9rem"
                                 onClick={onSubmitEmailAuth}
                             />
                         ) : (
-                            <AuthButton title="인증 완료" width="9rem" disabled />
+                            <AuthButton title="인증" width="9rem" disabled />
                         )}
                       </div>
                     </EmailWrapper>

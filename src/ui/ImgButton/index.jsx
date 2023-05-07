@@ -25,8 +25,8 @@ const LoginButton = ({
 
     return (
         <Wrapper
-            // as={href ? "a" : "button"}
-            as={href ? StyledLink : "button"}
+            as={href ? "a" : "button"}
+            // as={href ? StyledLink : "button"}
             href={href}
             className={className}
             color={color}
