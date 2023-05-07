@@ -6,10 +6,10 @@ import userReducer from './user';
 const initialState = {
   title: '',
   detail: '',
-  image: 'ㄴㅁㅇㅁ',
-  fontColor: 'ㅅㄷㄴㅅ',
-  bgColor: 'ㅅㄴㄷ',
-  btColor: 'ㅅㄷㄴ',
+  image: '',
+  fontColor: '',
+  bgColor: '',
+  btColor: '',
 };
 
 const { actions: formActions, reducer: formReducer } = createSlice({
