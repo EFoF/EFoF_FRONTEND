@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Home Pages Import
 import DigitalAgency from './pages/DigitalAgency';
-// import Splash from './pages/Splash';
 
 // Pages 
 import Signup from "./pages/signup";
@@ -21,14 +20,6 @@ import './assets/scss/app.scss';
 
 const App = () => {
   return (
-    // <Router>
-	// 	<ScrollToTop>
-	// 		<Routes>
-	// 			<Route path={process.env.PUBLIC_URL + "/"} element={<DigitalAgency />}/>
-	// 			{/* <Route path={process.env.PUBLIC_URL + "/splash"} element={<Splash />}/> */}
-	// 		</Routes>
-	// 	</ScrollToTop>
-    // </Router>
 	  <BrowserRouter basename={process.env.PUBLIC_URL}>
 		  <Routes>
 			<Route path="/" exact element={<DigitalAgency />}/>
