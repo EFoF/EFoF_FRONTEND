@@ -55,61 +55,6 @@
             "icon": "/images/icon/icon-3.png",
             "title": "<br>",
             "para": "조직 내, 집단 내에서만 가능한 설문을 원하시나요? 독설로 편리하게 제작 및 참여해 보세요!"
-        },
-       
-        {
-            "id": 4,
-            "icon": "/images/icon/loading.png",
-            "title": "Fast Loading <br> Speed",
-            "para": "The website speed is very important. Hence we’ve created Abstrak in a way that your website will load fast, and you will get better performance."
-        },
-        {
-            "id": 5,
-            "icon": "/images/icon/responsive.png",
-            "title": "Fully <br> Responsive <br>Layout",
-            "para": "All the pages of this template are responsive. We used the Bootstrap framework to build the website. It’s the best in class."
-        },
-        {
-            "id": 6,
-            "icon": "/images/icon/icon-13.png",
-            "title": "Modern <br> Design",
-            "para": "Abstrak is a modern creative design for Creative, Digital, Corporate agencies, etc. Abstrak is a perfect solution for your digital agency"
-        },
-        {
-            "id": 7,
-            "icon": "/images/icon/code.png",
-            "title": "Well Organized  <br> Codes",
-            "para": "The coding structure of our items is organized so other developers can easily recognize the pattern and make updates as needed."
-        },
-        {
-            "id": 8,
-            "icon": "/images/icon/icon-20.png",
-            "title": "Lifetime <br> Update",
-            "para": "Purchase our template only once and get lifetime updates. We keep updating our products to stay up to date with the latest trends and technology."
-        },
-        {
-            "id": 9,
-            "icon": "/images/icon/icon-21.png",
-            "title": "Mobile <br> Optimized",
-            "para": "All the pages of this template are optimized. We used the Bootstrap framework to build the website. It’s the best in class."
-        },
-        {
-            "id": 10,
-            "icon": "/images/icon/icon-22.png",
-            "title": "A Complete Product  for Your Business",
-            "para": "We build a template that is rich in content and has a good user interface to deliver a premium user experience for your customers."
-        },
-        {
-            "id": 11,
-            "icon": "/images/icon/hart-rate.png",
-            "title": "Fast Loading <br> Speed",
-            "para": "The website speed is very important. Hence we’ve created Abstrak in a way that your website will load fast, and you will get better performance."
-        },
-        {
-            "id": 12,
-            "icon": "/images/icon/icon-24.png",
-            "title": "Well Organized <br> Codes",
-            "para": "The coding structure of our items is organized so other developers can easily recognize the pattern and make updates as needed."
         }
     ]
 ]

@@ -65,10 +65,6 @@ const HeaderOne = () => {
                     <div className="container">
                         <div className="header-navbar">
                             <div className="header-logo">
-                                {/* <Logo limage="/images/icon-eagle.png"
-                                      dimage="/images/icon-eagle.png"
-                                      simage="/images/icon-eagle.png"
-                                /> */}
                                 <ul className="mainmenu">
                                     <li><Link to={process.env.PUBLIC_URL + "/contact"}>독수리 오남매</Link></li>
                                 </ul>
