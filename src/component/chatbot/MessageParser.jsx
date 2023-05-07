@@ -28,8 +28,8 @@ const MessageParser = ({ children, actions ,setState}) => {
       .then(response => {
         
         actions.handleLoadingEnd();
-        alert(response.data.content.answer);
-        alert(response.data.content.type);
+        // alert(response.data.content.answer);
+        // alert(response.data.content.type);
         return response.data;
 
       })

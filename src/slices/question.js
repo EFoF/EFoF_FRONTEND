@@ -175,7 +175,7 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
     },
     getOptionImage: (state, action) => {
       const { sectionId,optionId, questionId} = action.payload;
-      alert(JSON.stringify(action.payload))
+      // alert(JSON.stringify(action.payload))
       const section = state.find((item) => item.id === sectionId);
       const questionIdx = section.questionList.findIndex((item) => item.id === String(questionId));
       const optionIdx = section.questionList[questionIdx].options.findIndex((item) => item.id === optionId);

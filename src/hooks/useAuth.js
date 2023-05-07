@@ -11,7 +11,7 @@ export default function useAuth() {
         const { IsUserLoggedIn } = useSelector((state) => state.user);
 
         if (!IsUserLoggedIn && loginRequired && typeof window !== "undefined") {
-            alert("로그인이 필요한 기능입니다.");
+            // alert("로그인이 필요한 기능입니다.");
             navigator('/login');
             sessionStorage.setItem("prevPath", location.pathname);
         }
