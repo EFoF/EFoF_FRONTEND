@@ -209,9 +209,9 @@ function FormMake() {
         </DragDropContext>
 
       </QuestionWrapper>
-      <button onClick={saveSurveyFromData}>
+      {/* <button onClick={saveSurveyFromData}>
         생성하기
-      </button>
+      </button> */}
 
     </Wrapper>
   );
