@@ -27,6 +27,7 @@ import {
 import useUserType from "../../../../hooks/useUserType";
 import toastMsg from "../../../../ui/Toast";
 import styled from "styled-components";
+import {Wrong} from "../Step1/index.styles";
 
 const StyledLink = styled(Link)`
   color: black;
@@ -49,9 +50,12 @@ export default function Step2() {
     signUpError,
     bchecked,
     checkHandler,
+    isValidName,
   } = useUserType();
 
   const navigate = useNavigate();
+
+  const isNameValid = isValidName(name);
 
   useEffect(() => {
     if (signUpDone) {
@@ -83,6 +87,9 @@ export default function Step2() {
               label="별명"
               type="text"
             />
+              {name && !isNameValid && (
+                  <Wrong>별명은 최소 2글자 최대 8글자입니다.</Wrong>
+              )}
             </div>
             별명은 마이페이지에서 언제든지 변경하실 수 있습니다!
             <div>
@@ -128,7 +135,7 @@ export default function Step2() {
             />
             {
               // (types[0].selected || types[1].selected) &&
-            name.length > 0 &&
+            isNameValid == true &&
             bchecked ? (
               <RightButton onClick={onSubmitForm} title="가입 완료" />
             ) : (
