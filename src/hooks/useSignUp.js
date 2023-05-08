@@ -14,6 +14,7 @@ export default function useSignUp() {
   const [password, onChangePassword] = useInput("");
   const [passwordCheck, onChangePasswordCheck] = useInput("");
   const [isEmailConfirms, setIsEmailConfirms] = useState(false);
+  const [isConfirmedCode, setIsConfirmedCode] = useState();
 
   const emailReg =
       /^[0-9a-zA-Z가-힣]([-_.]?[0-9a-zA-Z가-힣])*@[0-9a-zA-Z가-힣]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
@@ -23,29 +24,11 @@ export default function useSignUp() {
     authEmailSend(email);
   };
 
-  // const onSubmitEmailAuth = useCallback(() => {
-  //   authEmailConfirms(email, authNumber)
-  //       .then((res) => {
-  //         const isConfirmedEmail = res.data;
-  //         if (isConfirmedEmail) setIsEmailConfirms(true);
-  //       })
-  //       .catch((err) => {
-  //         if (err.response.status === 403) {
-  //           console.error("에러!");
-  //         }
-  //       });
-  // }, [authNumber]);
-
   //의존성 배열에 email을 추가
   const onSubmitEmailAuth = useCallback(() => {
     authEmailConfirms(email, authNumber)
         .then((res) => {
-          const isConfirmedEmail   = res.data.matches;
-          if (isConfirmedEmail) setIsEmailConfirms(true);
-          else {
-
-            toastMsg("인증에 실패했습니다.",isConfirmedEmail);
-          }
+          setIsConfirmedCode(res.data.matches);
         })
         .catch((err) => {
           if (err.response.status === 403) {
@@ -53,6 +36,17 @@ export default function useSignUp() {
           }
         });
   }, [email, authNumber]);
+
+  useEffect(() => {
+    if (isConfirmedCode) {
+      setIsEmailConfirms(true);
+      // alert(isConfirmedCode.toString());
+    } else {
+      // toastMsg("인증에 실패했습니다.",isConfirmedCode);
+      setIsEmailConfirms(false);
+      // alert(isConfirmedCode.toString());
+    }
+  }, [isConfirmedCode]);
 
 
   const AuthTimer = () => {
@@ -70,6 +64,9 @@ export default function useSignUp() {
       setSec(time.current % 60);
     };
     const onStartTimer = () => {
+      clearInterval(intervalRef.current);
+      time.current = 300; // 재전송 눌렀을 때 5분으로 초기화
+      setMin(time.current);
       onCheckEmailAuth();
       intervalRef.current = setInterval(decreaseNum, 1000);
       return () => clearInterval(intervalRef.current);
@@ -100,6 +97,11 @@ export default function useSignUp() {
     navigate("/signup/inform");
   };
 
+  const isValidPassword = (password) => {
+    const passwordReg = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,20}$/;
+    return passwordReg.test(password);
+  }
+
   return {
     email,
     isValidEmail,
@@ -116,5 +118,7 @@ export default function useSignUp() {
     onReplaceNext,
     onSubmitEmailAuth,
     AuthTimer,
+    isConfirmedCode,
+    isValidPassword,
   };
 }
