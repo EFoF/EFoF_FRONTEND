@@ -165,7 +165,7 @@ function Step1() {
                   {isValidEmail &&
                   password.length > 0 &&
                   password === passwordCheck &&
-                  isValidPassword(password) == true &&
+                  isPasswordValid == true &&
                   isEmailConfirms ? (
                       <RightButton onClick={onReplaceNext} title="다음" />
                   ) : (

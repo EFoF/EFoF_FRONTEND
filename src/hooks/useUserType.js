@@ -87,6 +87,13 @@ export default function useUserType() {
     await dispatch(authSignUp(me));
   };
 
+  const isValidName = (username) => {
+    if (username.length < 2 || username.length>8)
+      return false;
+    else
+      return true;
+  }
+
   return {
     name: userName,
     onChangeName,
@@ -98,6 +105,7 @@ export default function useUserType() {
     signUpDone,
     bchecked,
     checkHandler,
-    onChangeNickname
+    onChangeNickname,
+    isValidName,
   };
 }
