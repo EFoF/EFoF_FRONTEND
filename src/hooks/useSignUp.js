@@ -24,44 +24,7 @@ export default function useSignUp() {
     authEmailSend(email);
   };
 
-  // const onSubmitEmailAuth = useCallback(() => {
-  //   authEmailConfirms(email, authNumber)
-  //       .then((res) => {
-  //         const isConfirmedEmail = res.data;
-  //         if (isConfirmedEmail) setIsEmailConfirms(true);
-  //       })
-  //       .catch((err) => {
-  //         if (err.response.status === 403) {
-  //           console.error("에러!");
-  //         }
-  //       });
-  // }, [authNumber]);
-
   //의존성 배열에 email을 추가
-  // const onSubmitEmailAuth = useCallback(() => {
-  //   authEmailConfirms(email, authNumber)
-  //       .then((res) => {
-  //         // const isConfirmedEmail = res.data.matches;
-  //         setIsConfirmedCode(res.data.matches);
-  //
-  //         if (isConfirmedCode) {
-  //           // setIsEmailConfirms(true);
-  //           setIsEmailConfirms(isConfirmedCode);
-  //           alert(isConfirmedCode.toString());
-  //         }
-  //         else {
-  //           toastMsg("인증에 실패했습니다.",isConfirmedCode);
-  //           setIsEmailConfirms(isConfirmedCode);
-  //           alert(isConfirmedCode.toString());
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         if (err.response.status === 403) {
-  //           console.error("에러!");
-  //         }
-  //       });
-  // }, [email, authNumber]);
-
   const onSubmitEmailAuth = useCallback(() => {
     authEmailConfirms(email, authNumber)
         .then((res) => {
@@ -134,6 +97,11 @@ export default function useSignUp() {
     navigate("/signup/inform");
   };
 
+  const isValidPassword = (password) => {
+    const passwordReg = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,20}$/;
+    return passwordReg.test(password);
+  }
+
   return {
     email,
     isValidEmail,
@@ -151,5 +119,6 @@ export default function useSignUp() {
     onSubmitEmailAuth,
     AuthTimer,
     isConfirmedCode,
+    isValidPassword,
   };
 }

@@ -41,6 +41,7 @@ function Step1() {
     onChangePasswordCheck,
     isEmailConfirms,
     isConfirmedCode,
+    isValidPassword,
     onSubmitEmailAuth,
     onReplaceBack,
     onReplaceNext,
@@ -48,6 +49,7 @@ function Step1() {
   } = useSignUp();
 
   const { time, min, sec, onStartTimer } = AuthTimer();
+  const isPasswordValid = isValidPassword(password);
   return (
       <Container>
         {/*<Wrapper>*/}
@@ -131,6 +133,9 @@ function Step1() {
                   label="비밀번호"
                   type="password"
               />
+              {password && !isPasswordValid && (
+                  <Wrong>비밀번호는 8~20자 영문자, 숫자, 특수문자를 포함해야 합니다.</Wrong>
+              )}
               <div>
                 <Input
                     value={passwordCheck}
@@ -153,6 +158,7 @@ function Step1() {
                   {isValidEmail &&
                   password.length > 0 &&
                   password === passwordCheck &&
+                  isValidPassword(password) == true &&
                   isEmailConfirms ? (
                       <RightButton onClick={onReplaceNext} title="다음" />
                   ) : (
