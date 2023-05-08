@@ -22,6 +22,11 @@ import {
 
 import useSignUp from "../../../../hooks/useSignUp";
 import styled from "styled-components";
+import {Link} from "react-router-dom";
+
+const StyledLink = styled(Link)`
+  color: black;
+`;
 
 const WrapperScaled = styled(Wrapper)`
   transform: scale(0.625);
@@ -56,7 +61,9 @@ function Step1() {
         <WrapperScaled>
           <FormWrapper>
             <div>
-              <Title>DOKSEOL</Title>
+              <StyledLink to="/">
+                <Title>DOKSEOL</Title>
+              </StyledLink>
               <SubTitle>이메일로 가입하기</SubTitle>
               <Ment>반갑습니다 👋</Ment>
             </div>
