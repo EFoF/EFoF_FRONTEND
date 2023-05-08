@@ -14,6 +14,7 @@ export default function useSignUp() {
   const [password, onChangePassword] = useInput("");
   const [passwordCheck, onChangePasswordCheck] = useInput("");
   const [isEmailConfirms, setIsEmailConfirms] = useState(false);
+  const [isConfirmedCode, setIsConfirmedCode] = useState();
 
   const emailReg =
       /^[0-9a-zA-Z가-힣]([-_.]?[0-9a-zA-Z가-힣])*@[0-9a-zA-Z가-힣]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
@@ -37,15 +38,34 @@ export default function useSignUp() {
   // }, [authNumber]);
 
   //의존성 배열에 email을 추가
+  // const onSubmitEmailAuth = useCallback(() => {
+  //   authEmailConfirms(email, authNumber)
+  //       .then((res) => {
+  //         // const isConfirmedEmail = res.data.matches;
+  //         setIsConfirmedCode(res.data.matches);
+  //
+  //         if (isConfirmedCode) {
+  //           // setIsEmailConfirms(true);
+  //           setIsEmailConfirms(isConfirmedCode);
+  //           alert(isConfirmedCode.toString());
+  //         }
+  //         else {
+  //           toastMsg("인증에 실패했습니다.",isConfirmedCode);
+  //           setIsEmailConfirms(isConfirmedCode);
+  //           alert(isConfirmedCode.toString());
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         if (err.response.status === 403) {
+  //           console.error("에러!");
+  //         }
+  //       });
+  // }, [email, authNumber]);
+
   const onSubmitEmailAuth = useCallback(() => {
     authEmailConfirms(email, authNumber)
         .then((res) => {
-          const isConfirmedEmail   = res.data.matches;
-          if (isConfirmedEmail) setIsEmailConfirms(true);
-          else {
-
-            toastMsg("인증에 실패했습니다.",isConfirmedEmail);
-          }
+          setIsConfirmedCode(res.data.matches);
         })
         .catch((err) => {
           if (err.response.status === 403) {
@@ -53,6 +73,17 @@ export default function useSignUp() {
           }
         });
   }, [email, authNumber]);
+
+  useEffect(() => {
+    if (isConfirmedCode) {
+      setIsEmailConfirms(true);
+      // alert(isConfirmedCode.toString());
+    } else {
+      // toastMsg("인증에 실패했습니다.",isConfirmedCode);
+      setIsEmailConfirms(false);
+      // alert(isConfirmedCode.toString());
+    }
+  }, [isConfirmedCode]);
 
 
   const AuthTimer = () => {
@@ -119,5 +150,6 @@ export default function useSignUp() {
     onReplaceNext,
     onSubmitEmailAuth,
     AuthTimer,
+    isConfirmedCode,
   };
 }

@@ -40,6 +40,7 @@ function Step1() {
     onChangePassword,
     onChangePasswordCheck,
     isEmailConfirms,
+    isConfirmedCode,
     onSubmitEmailAuth,
     onReplaceBack,
     onReplaceNext,
@@ -107,18 +108,18 @@ function Step1() {
                         )}
                       </div>
                     </EmailWrapper>
-                    {!isEmailConfirms ? (
-                        time.current <= 0 ? (
-                            <Wrong>
-                              입력시간이 초과되었습니다. 재전송 버튼을 눌러주세요.
-                            </Wrong>
-                        ) : (
-                            <Wrong>
-                              {min < 10 ? `0${min}` : min} :{" "}
-                              {sec < 10 ? `0${sec}` : sec}
-                            </Wrong>
-                        )
-                    ) : (
+                    {!isEmailConfirms && time.current > 0 && (
+                        <Wrong>
+                          {min < 10 ? `0${min}` : min} : {sec < 10 ? `0${sec}` : sec}
+                        </Wrong>
+                    )}
+                    {!isEmailConfirms && time.current <= 0 && (
+                        <Wrong>입력시간이 초과되었습니다. 재전송 버튼을 눌러주세요.</Wrong>
+                    )}
+                    {(isConfirmedCode == false) && (
+                        <Wrong>인증 코드가 올바르지 않습니다. 다시 입력해주세요.</Wrong>
+                    )}
+                    {isEmailConfirms && (
                         <Success>이메일 인증이 완료되었습니다!</Success>
                     )}
                   </div>
