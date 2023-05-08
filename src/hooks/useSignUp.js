@@ -70,6 +70,9 @@ export default function useSignUp() {
       setSec(time.current % 60);
     };
     const onStartTimer = () => {
+      clearInterval(intervalRef.current);
+      time.current = 300; // 재전송 눌렀을 때 5분으로 초기화
+      setMin(time.current);
       onCheckEmailAuth();
       intervalRef.current = setInterval(decreaseNum, 1000);
       return () => clearInterval(intervalRef.current);
