@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect } from "react";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Input from "../../../../ui/Input";
 import {
   Container,
@@ -28,6 +28,10 @@ import useUserType from "../../../../hooks/useUserType";
 import toastMsg from "../../../../ui/Toast";
 import styled from "styled-components";
 
+const StyledLink = styled(Link)`
+  color: black;
+`;
+
 const WrapperScaled = styled(Wrapper)`
   transform: scale(0.625);
   transform-origin: top;
@@ -49,15 +53,6 @@ export default function Step2() {
 
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (signUpDone) {
-  //     navigate("/login");
-  //   }
-  //   if (signUpError) {
-  //     toastMsg("회원가입 실패. 다시 시도해주세요", false);
-  //   }
-  // }, [signUpDone, signUpError]);
-
   useEffect(() => {
     if (signUpDone) {
       navigate("/login");
@@ -73,7 +68,9 @@ export default function Step2() {
       <WrapperScaled>
         <FormWrapper>
           <div>
-            <Title>DOKSEOL</Title>
+            <StyledLink to="/">
+              <Title>DOKSEOL</Title>
+            </StyledLink>
             <SubTitle>독설 회원 정보 입력하기</SubTitle>
             <Ment>마지막 단계에요!</Ment>
           </div>
