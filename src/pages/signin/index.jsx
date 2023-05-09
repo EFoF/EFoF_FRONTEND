@@ -71,7 +71,9 @@ export default function Login() {
           <EtcWrapper>
             <CheckBox type="checkbox" />
             <AutoLogin>로그인 유지</AutoLogin>
+            <StyledLink to="/login/findpw">
             <FindPW>비밀번호 찾기 {">"}</FindPW>
+            </StyledLink>
           </EtcWrapper>
           <SNSWrapper>
             SNS로 간편하게 로그인

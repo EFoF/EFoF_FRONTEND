@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useCallback, useState, useRef, useEffect } from "react";
-import { authEmailSend, authEmailConfirms } from "../api/auth";
+import { authEmailSend, authEmailConfirms, checkEmailExists } from "../api/auth";
 import {userActions} from "../slices/user";
 import useInput from "./useInput";
 import toastMsg from "../ui/Toast";
@@ -102,6 +102,16 @@ export default function useSignUp() {
     return passwordReg.test(password);
   }
 
+  const isExistedEmail = async (email) => {
+    try {
+      const response = await checkEmailExists(email); // 이메일 중복 확인 API 호출
+      return response // 중복 여부를 반환하는 프로퍼티(exists)가 있는 응답 객체를 가정함
+    } catch (error) {
+      console.error(error);
+      return false; // 호출 실패 시 중복 여부를 알 수 없는 것으로 처리함
+    }
+  };
+
   return {
     email,
     isValidEmail,
@@ -120,5 +130,6 @@ export default function useSignUp() {
     AuthTimer,
     isConfirmedCode,
     isValidPassword,
+    isExistedEmail,
   };
 }
