@@ -14,6 +14,7 @@ import Step2 from "./pages/signup/Email/Step2";
 import LoginPage from "./pages/signin/index";
 import Form from "./pages/survey/Form";
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import FindPW from "./pages/findpw";
 
 // Css Import
 import './assets/scss/app.scss';
@@ -28,6 +29,7 @@ const App = () => {
 			<Route path="/signup/email" exact element={<Step1 />}/>
 			<Route path="/signup/inform" exact element={<Step2 />}/>
 			<Route path="/form" exact element={<Form />}/>
+		  	<Route path="/login/findpw" exact element={<FindPW />}/>
 			<Route path={process.env.PUBLIC_URL + "/privacy-policy"} element={<PrivacyPolicy />}/>
 		  </Routes>
 	  </BrowserRouter>
