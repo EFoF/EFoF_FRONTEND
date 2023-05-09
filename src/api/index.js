@@ -20,8 +20,8 @@ authorizationClient.interceptors.response.use(
       return response;
     },
     error => {
-      alert(JSON.stringify(error.response.status))
-      // alert(JSON.stringify(error))
+      // alert(JSON.stringify(error.response.status))
+      alert(JSON.stringify(error))
       switch (error.response.status) {
         // 액세스 토큰 만료
         case 401: {
