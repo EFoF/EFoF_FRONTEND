@@ -20,6 +20,7 @@ const Footer = ({parentClass}) => {
                             <div className="footer-bottom-link">
                                 <ul className="list-unstyled">
                                     <li><Link to={process.env.PUBLIC_URL + "/privacy-policy"}>Privacy Policy</Link></li>
+                                    <li><Link to={process.env.PUBLIC_URL + "/statistic"}>(임시)설문통계 페이지</Link></li>
                                 </ul>
                             </div>
                         </div>

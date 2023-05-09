@@ -17,6 +17,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import FindPW from "./pages/findpw";
 import Generate from './pages/mysurvey/Generate'
 import Participate from "./pages/mysurvey/Participate";
+import Statistic from './pages/statistic/Statistic';
 
 // Css Import
 import './assets/scss/app.scss';
@@ -34,6 +35,7 @@ const App = () => {
               <Route path="/form" exact element={<Form />}/>
               <Route path="/login/findpw" exact element={<FindPW />}/>
               <Route path={process.env.PUBLIC_URL + "/privacy-policy"} element={<PrivacyPolicy />}/>
+			  <Route path={process.env.PUBLIC_URL + "/statistic"} element={<Statistic />}/>
               <Route path={process.env.PUBLIC_URL + "/form/generate"} element={<Generate />}/>
 			  <Route path={process.env.PUBLIC_URL + "/form/participate"} element={<Participate />}/>
 		  </Routes>
