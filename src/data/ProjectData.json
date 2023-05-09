@@ -98,8 +98,8 @@
     {
         "id": 13,
         "image": "/images/blog/large_thumb_1.png",
-        "title": "Mark Design",
-        "category": ["ios", "Design"],
+        "title": "당신이 좋아하는 축구 팀은 어디인가요?",
+        "category": ["질문 1 [객관식]"],
         "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
         "body": ["From the designers and engineers who are creating the next generation of web and mobile experiences, to anyone putting a website together for the first time. We provide elegant solutions that set new standards for online publishing.", "Digital technology has made our world more transparent and interconnected, posing new challenges and opportunities for every business. A holistic, user-centric perspective is what truly sets one apart."]
     },

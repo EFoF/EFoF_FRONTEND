@@ -5,18 +5,19 @@ import ColorSwitcher from '../../elements/switcher/ColorSwitcher';
 import SEO from '../../common/SEO';
 
 import Tilty from 'react-tilty';
-import ProjectOne from './ProjectOne';
-// import ProjectFour from '../component/project/ProjectFour';
-// import BlogGridOne from '../component/blog/BlogGridOne';
+import QuestionStatistic from './QuestionStatistic';
+import MemberData from '../../data/MemberData.json';
 
 
+const userNames = MemberData.map(member => member.userName);
+console.log(userNames);
 
 const Statistic = () => {
 
     return (
         <>
         <SEO title="Project Details"/>
-        <ColorSwitcher />
+        {/* <ColorSwitcher /> */}
             <section className="section-padding single-portfolio-area">
                 <div className="container">
                     <div className="row">
@@ -37,14 +38,31 @@ const Statistic = () => {
                                 <Accordion defaultActiveKey="1">
                                     <Accordion.Item eventKey="1">
                                         <Accordion.Header><FaCompress /> 설문 참여자 수: N명</Accordion.Header>
+                                        {/* <Accordion.Body>
+                                        {userNames.map((name, index) => (
+                                                <div key={index}>{name}</div>
+                                        ))}
+                                        </Accordion.Body> */}
                                         <Accordion.Body>
-                                        여기에 설문 참여자 리스트 받아오기
+                                            {userNames.reduce((rows, name, index) => {
+                                                if (index % 5 === 0) rows.push([]); // op2. 5 -> 3
+                                                rows[rows.length - 1].push(name);
+                                                return rows;
+                                            }, []).map((row, rowIndex) => (
+                                                <div className="row" key={rowIndex}>
+                                                    {row.map((name, colIndex) => (
+                                                        <div className="col-md-2" key={colIndex}>
+                                                            {/* op2. col-md-2 -> col-md-4 */}
+                                                            {name}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            ))}
                                         </Accordion.Body>
                                     </Accordion.Item>
                                     <Accordion.Item eventKey="2">
                                         <Accordion.Header><FaCode /> 기타 정보</Accordion.Header>
                                         <Accordion.Body>
-                                        설문 시작일, 설문 종료일 등등..?
                                         </Accordion.Body>
                                     </Accordion.Item>
                                 </Accordion>
@@ -53,7 +71,7 @@ const Statistic = () => {
                         </div>
                     </div>
                     
-                    <ProjectOne />
+                    <QuestionStatistic />
                 </div>
             </section>
         </>

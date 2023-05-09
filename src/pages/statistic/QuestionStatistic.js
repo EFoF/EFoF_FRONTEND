@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react';
-// import ProjectPropOne from './itemProp/ProjectPropOne';
 import SectionTitle from '../../elements/section-title/SectionTitle';
 
 // ProjectFour.js
-import ProjectPropTwo from './ProjectPropTwo';
+import SurveyInfo from './SurveyInfo';
 import ProjectData from "../../data/ProjectData.json";
 import { Link } from 'react-router-dom';
 const portfolioData = ProjectData;
@@ -28,7 +27,7 @@ const filters = [
 const AllData = ProjectData;
 
 
-const ProjectOne = ({parentClass, colSize, itemShow, columnGap}) => {
+const QuestionStatistic = ({parentClass, colSize, itemShow, columnGap}) => {
 
 	const [getAllItems] = useState(AllData);
 	const [visiableProject] = useState(itemShow ? itemShow : 6);
@@ -82,14 +81,14 @@ const ProjectOne = ({parentClass, colSize, itemShow, columnGap}) => {
 						{portfolioData.slice(12, 16).map((data) => (
 							// <div className="col-md-6" key={data.id}>
 							<div className="col" key={data.id}>
-								<ProjectPropTwo projectStyle="project-style-2" portfolio={data}/>
+								<SurveyInfo projectStyle="project-style-2" portfolio={data}/>
 							</div>
 						))}
 					</div>
 					{/* =============================================================================== */}
 
 					<div className="more-project-btn">
-						<Link to={process.env.PUBLIC_URL + "/project-grid-two"} className="axil-btn btn-fill-white">📂 통계 다운로드 받기</Link>
+						<p className="axil-btn btn-fill-white">📂 통계 다운로드 받기</p>
 					</div>
                 </div>
 
@@ -104,4 +103,4 @@ const ProjectOne = ({parentClass, colSize, itemShow, columnGap}) => {
     )
 }
 
-export default ProjectOne;
+export default QuestionStatistic;

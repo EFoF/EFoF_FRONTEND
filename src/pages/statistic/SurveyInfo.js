@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { slugify } from '../../utils';
 
 
-const ProjectPropTwo = ({projectStyle, portfolio}) => {
+const SurveyInfo = ({projectStyle, portfolio}) => {
 	
     return (
 		<>
@@ -25,4 +25,4 @@ const ProjectPropTwo = ({projectStyle, portfolio}) => {
     )
 }
 
-export default ProjectPropTwo;
+export default SurveyInfo;
