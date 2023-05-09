@@ -15,22 +15,27 @@ import LoginPage from "./pages/signin/index";
 import Form from "./pages/survey/Form";
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import FindPW from "./pages/findpw";
+import Generate from './pages/mysurvey/Generate'
+import Participate from "./pages/mysurvey/Participate";
 
 // Css Import
 import './assets/scss/app.scss';
+
 
 const App = () => {
   return (
 	  <BrowserRouter basename={process.env.PUBLIC_URL}>
 		  <Routes>
-			<Route path="/" exact element={<MainPage />}/>
-			<Route path="/login" exact element={<LoginPage />}/>
-			<Route path="/signup" exact element={<Signup />}/>
-			<Route path="/signup/email" exact element={<Step1 />}/>
-			<Route path="/signup/inform" exact element={<Step2 />}/>
-			<Route path="/form" exact element={<Form />}/>
+        <Route path="/" exact element={<MainPage />}/>
+        <Route path="/login" exact element={<LoginPage />}/>
+        <Route path="/signup" exact element={<Signup />}/>
+        <Route path="/signup/email" exact element={<Step1 />}/>
+        <Route path="/signup/inform" exact element={<Step2 />}/>
+        <Route path="/form" exact element={<Form />}/>
 		  	<Route path="/login/findpw" exact element={<FindPW />}/>
-			<Route path={process.env.PUBLIC_URL + "/privacy-policy"} element={<PrivacyPolicy />}/>
+  			<Route path={process.env.PUBLIC_URL + "/privacy-policy"} element={<PrivacyPolicy />}/>
+        <Route path={process.env.PUBLIC_URL + "/form/generate"} element={<Generate />}/>
+			  <Route path={process.env.PUBLIC_URL + "/form/participate"} element={<Participate />}/>
 		  </Routes>
 	  </BrowserRouter>
   )
