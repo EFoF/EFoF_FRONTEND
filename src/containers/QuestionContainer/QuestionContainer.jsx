@@ -71,7 +71,7 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
           optionId={option.id}
           optionContent={option.option}
           optionImage={option.image}
-          option={option}
+          optionNextSectionId={option.nextSectionId}
           questionOption={questionOption}
           questions={questions}
           type={type}
@@ -87,6 +87,7 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
           optionContent="옵션 추가"
           questions={questions}
           questionOption={questionOption}
+
           type={type}
           isLast={true}
         />,
@@ -106,6 +107,7 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
           optionImage={option.image}
           questions={questions}
           questionOption={questionOption}
+          optionNextSectionId={option.nextSectionId}
           type={type}
           isLast={false}
         />

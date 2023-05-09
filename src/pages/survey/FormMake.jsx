@@ -15,10 +15,17 @@ function FormMake() {
   
   const dispatch = useDispatch();
   
-  const options = questions.map((section, index) => ({
-    value: String(section.id),
-    label: `${index + 1} 섹션으로 이동`,
-  }));
+  const options = [
+    {
+      value: '',
+      label: '다음 섹션을 선택해주세요.',
+    },
+    ...questions.map((section, index) => ({
+      value: String(section.id),
+      label: `${index + 1} 섹션으로 이동`,
+    })),
+  ];
+  
   options.push({
     value: 'last',
     label: "설문 제출",
@@ -59,7 +66,7 @@ function FormMake() {
   const handleChange = (option,{section_idx},nextSectionId) => {
     // alert(JSON.stringify(option))
     dispatch(questionActions.setNextSection({section_idx,nextSectionId:option.value}))
-    
+    alert(JSON.stringify(options[options.findIndex(option => option.value === nextSectionId)]))
   };
 
   const getListStyle = isDraggingOver => ({
@@ -118,13 +125,15 @@ function FormMake() {
               ))
               }
               {questions.length === 1 ? null : (
-                <Select
-                  placeholder="다음 섹션을 선택해주세요."
-                  styles={customStyles}
-                  value={options[options.findIndex(option => option.value === section.nextSectionId)]}
-                  onChange={(selectedOption) => handleChange(selectedOption, {section_idx})}
-                  options={options}
-                />
+                 <Select
+                 placeholder="다음 섹션을 선택해주세요."
+                 styles={customStyles}
+                 value={section.nextSectionId
+                  ? options.find(option => option.value === section.nextSectionId)
+                  : options[0]}
+                 onChange={(selectedOption) => handleChange(selectedOption, {section_idx},section.nextSectionId)}
+                 options={options}
+               />
               )}
               <SideMenu sectionId={section_idx} />
 

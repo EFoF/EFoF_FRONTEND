@@ -12,8 +12,9 @@ import ReactDOM from "react-dom";
 import ConfirmModal from '../../../ui/ConfirmModal';
 import axios from 'axios';
 import toastMsg from '../../../ui/Toast';
-export default function OptionalQuestion({ type, optionId, questionId, optionContent, optionImage, isLast, sectionId, questions, questionOption,option }) {
-  
+export default function OptionalQuestion({ type, optionId, questionId, optionContent, optionImage, isLast, sectionId, questions, questionOption,optionNextSectionId}) {
+
+
   const customStyles = {
     container: (provided, state) => ({
       ...provided,
@@ -48,7 +49,7 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
   align-self: center;
 `;
 
-const AddIcon = styled(MdAdd)`
+  const AddIcon = styled(MdAdd)`
   font-size: 0.7rem;
   align-self: center;
 `;
@@ -71,8 +72,9 @@ const AddIcon = styled(MdAdd)`
   };
 
 
-  const handleChange = (option) => {
-    dispatch(questionActions.setOptionNextSection({ sectionId, optionId, questionId, nextSectionId: option.value }))
+  const handleChange = (option1) => {
+    dispatch(questionActions.setOptionNextSection({ sectionId, optionId, questionId, nextSectionId: option1.value }))
+
 
 
   };
@@ -82,20 +84,20 @@ const AddIcon = styled(MdAdd)`
 
     const handleConfirm = () => {
       axios.delete('http://localhost:8080/form/image', {
-        
+
       }).then(response => {
         // alert(JSON.stringify(response.data));
         toastMsg("이미지 변경 성공", true);
         dispatch(questionActions.setOptionImage(
           { sectionId: sectionId, questionId: questionId, optionId, image: '' }
         ));
-        
+
       }).catch(error => {
         toastMsg(error.response, false);
-      
+
       });
-  
-     
+
+
       ReactDOM.unmountComponentAtNode(document.getElementById("modal-root"));
     };
 
@@ -133,13 +135,13 @@ const AddIcon = styled(MdAdd)`
       dispatch(questionActions.setOptionImage(
         { sectionId: sectionId, questionId: questionId, optionId, image: response.data }
       ));
-      
+
     }).catch(error => {
       toastMsg(error.response, false);
-    
+
     });
 
-    
+
 
 
   }
@@ -152,15 +154,15 @@ const AddIcon = styled(MdAdd)`
           ref={inputRef} />
 
 
-        
-          <OptionButton size={"1rem"} isLast={isLast} onClick={() =>
-            getImage() ? handleDeleteImage() : imageInputRef.click()}>
-            <MdPhoto />
-            {
-              getImage() ? <CheckIcon /> : <AddIcon />}
-          </OptionButton>
-        
-        
+
+        <OptionButton size={"1rem"} isLast={isLast} onClick={() =>
+          getImage() ? handleDeleteImage() : imageInputRef.click()}>
+          <MdPhoto />
+          {
+            getImage() ? <CheckIcon /> : <AddIcon />}
+        </OptionButton>
+
+
 
         <ImgInput
           onClick={(e) => e.target.value = null}
@@ -173,15 +175,18 @@ const AddIcon = styled(MdAdd)`
         />
       </InputButtonWrapper>
       <OptionsWrapper isLast={isLast} gap={"0.5rem"}>
-      
+
       {questions.length === 1 ? null : (
-          <Select
-            styles={customStyles}
-            value={questionOption[questionOption.findIndex(option => option.value === option.nextSectionId)]}
-            placeholder="다음 섹션을 선택해주세요."
-            onChange={handleChange}
-            options={questionOption}
-          />)}
+        <Select
+          styles={customStyles}
+          value={questionOption.find(op => op.value === optionNextSectionId)
+            ? questionOption.find(op => op.value === optionNextSectionId)
+            : questionOption[0]}
+          placeholder="다음 섹션을 선택해주세요."
+          onChange={handleChange}
+          options={questionOption}
+        />
+        )}
 
         <CloseOptionButton onClick={handleDeleteOption} type={type} size={"1.2rem"}>
           <MdClose />
