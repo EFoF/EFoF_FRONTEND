@@ -1,4 +1,4 @@
-import { useState } from 'react';
+
 import styled from 'styled-components';
 import { TitleBox, SideMenu } from '../../component';
 import QuestionContainer from '../../containers/QuestionContainer/QuestionContainer';
@@ -10,11 +10,13 @@ import Section from '../../component/Section/Section';
 import Button from '../../ui/button';
 import axios from 'axios';
 import toastMsg from "../../ui/Toast";
+import { authorizationClient } from '../../api';
+import API from '../../api/config';
 function FormMake() {
   const { form, questions } = useSelector((state) => state.form);
-  
+
   const dispatch = useDispatch();
-  
+
   const options = [
     {
       value: '',
@@ -25,7 +27,6 @@ function FormMake() {
       label: `${index + 1} 섹션으로 이동`,
     })),
   ];
-  
   options.push({
     value: 'last',
     label: "설문 제출",
@@ -63,9 +64,9 @@ function FormMake() {
     }),
   };
 
-  const handleChange = (option,{section_idx},nextSectionId) => {
+  const handleChange = (option, { section_idx }, nextSectionId) => {
     // alert(JSON.stringify(option))
-    dispatch(questionActions.setNextSection({section_idx,nextSectionId:option.value}))
+    dispatch(questionActions.setNextSection({ section_idx, nextSectionId: option.value }))
     alert(JSON.stringify(options[options.findIndex(option => option.value === nextSectionId)]))
   };
 
@@ -118,22 +119,22 @@ function FormMake() {
                         provided.draggableProps.style
                       )}
                     >
-                      <QuestionContainer key={question.id} questionId={question.id} sectionId={section.id} provided={provided} snapshot={snapshot} questionOption={options}/>
+                      <QuestionContainer key={question.id} questionId={question.id} sectionId={section.id} provided={provided} snapshot={snapshot} questionOption={options} />
                     </div>
                   )}
                 </Draggable>
               ))
               }
               {questions.length === 1 ? null : (
-                 <Select
-                 placeholder="다음 섹션을 선택해주세요."
-                 styles={customStyles}
-                 value={section.nextSectionId
-                  ? options.find(option => option.value === section.nextSectionId)
-                  : options[0]}
-                 onChange={(selectedOption) => handleChange(selectedOption, {section_idx},section.nextSectionId)}
-                 options={options}
-               />
+                <Select
+                  placeholder="다음 섹션을 선택해주세요."
+                  styles={customStyles}
+                  value={section.nextSectionId
+                    ? options.find(option => option.value === section.nextSectionId)
+                    : options[0]}
+                  onChange={(selectedOption) => handleChange(selectedOption, { section_idx }, section.nextSectionId)}
+                  options={options}
+                />
               )}
               <SideMenu sectionId={section_idx} />
 
@@ -158,21 +159,6 @@ function FormMake() {
 
 
   function createSurveyDto() {
-    // survey 데이터와 option 데이터를 조합한 surveyDto 객체 생성하는 로직
-    // return {
-    //   ...form,
-    //   sections: questions.map((section) => ({
-    //     ...section,
-    //     questionList: section.questionList.map((question) => ({
-    //       ...question,
-    //       options: question.options.map((option) => ({
-    //         ...option,
-    //         image: '',
-    //       })),
-    //     })),
-    //   })),
-    // };
-
     return {
       title: form.title,
       detail: form.detail,
@@ -183,23 +169,37 @@ function FormMake() {
       sections: questions,
     };
   }
-  
+
   function saveSurvey(surveyDto) {
-    // Survey 데이터를 Spring 서버로 전송하는 POST 요청
-    axios.post('http://localhost:8080/form', surveyDto,{headers: {
-      'Content-Type': 'application/json'
-    }})
-      .then(response => {
+    authorizationClient.post(
+      `${API.SURVEY}`,surveyDto
+    )
+    .then(response => {
         toastMsg("설문생성 성공", true);
-        // alert("TEEST")
-        // alert(JSON.stringify(response.data));
+        
       })
       .catch(error => {
         // alert(error);
         toastMsg("설문생성 실패", false);
       });
-  }
+    }
+    // Survey 데이터를 Spring 서버로 전송하는 POST 요청
+    // axios.post('http://localhost:8080/form', surveyDto, {
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // })
+    //   .then(response => {
+    //     toastMsg("설문생성 성공", true);
+    //     // alert("TEEST")
+    //     // alert(JSON.stringify(response.data));
+    //   })
+    //   .catch(error => {
+    //     // alert(error);
+    //     toastMsg("설문생성 실패", false);
+    //   });
   
+
   // Survey 데이터와 option 데이터를 가져와서 surveyDto 객체를 생성하고 서버에 저장하는 함수
   function saveSurveyFromData() {
     const surveyDto = createSurveyDto();
