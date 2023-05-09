@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import SectionTitle from '../../elements/section-title/SectionTitle';
 
-// ProjectFour.js
 import SurveyInfo from './SurveyInfo';
 import ProjectData from "../../data/ProjectData.json";
 import { Link } from 'react-router-dom';
-const portfolioData = ProjectData;
 
+import StatisticGraph from './StatisticGraph';
+
+const portfolioData = ProjectData;
 
 const filters = [
 	{
@@ -69,12 +70,10 @@ const QuestionStatistic = ({parentClass, colSize, itemShow, columnGap}) => {
                 <div className="container">
 					<SectionTitle 
 							subtitle="각 질문 별 설문 통계"
-							title="Some of our <br>
-							finest work."
+							title="Some of our <br>finest work."
 							textAlignment="heading-left mb--40"
 							textColor=""
 					/>
-
 					{/* =============================================================================== */}
 					{/* <div className="row row-45"> */}
 					<div className="row-45">

@@ -7,10 +7,19 @@ import SEO from '../../common/SEO';
 import Tilty from 'react-tilty';
 import QuestionStatistic from './QuestionStatistic';
 import MemberData from '../../data/MemberData.json';
+import SurveyData from '../../data/SurveyData.json';
+import StatisticGraph from './StatisticGraph';
+
 
 
 const userNames = MemberData.map(member => member.userName);
-console.log(userNames);
+const userNum = MemberData.length;
+
+// const surveyItems = SurveyData.map((survey) => ({
+//     title: survey.title,
+//     description: survey.description,
+//     questions: survey.question,
+//   }));
 
 const Statistic = () => {
 
@@ -37,7 +46,7 @@ const Statistic = () => {
 
                                 <Accordion defaultActiveKey="1">
                                     <Accordion.Item eventKey="1">
-                                        <Accordion.Header><FaCompress /> 설문 참여자 수: N명</Accordion.Header>
+                                        <Accordion.Header><FaCompress /> 설문 참여자 수: {userNum}명</Accordion.Header>
                                         {/* <Accordion.Body>
                                         {userNames.map((name, index) => (
                                                 <div key={index}>{name}</div>
@@ -70,7 +79,7 @@ const Statistic = () => {
 
                         </div>
                     </div>
-                    
+
                     <QuestionStatistic />
                 </div>
             </section>
