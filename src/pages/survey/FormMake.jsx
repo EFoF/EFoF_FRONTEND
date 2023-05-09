@@ -175,6 +175,7 @@ function FormMake() {
       `${API.SURVEY}`,surveyDto
     )
     .then(response => {
+        console.log(response);
         toastMsg("설문생성 성공", true);
         
       })

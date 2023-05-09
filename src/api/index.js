@@ -1,6 +1,7 @@
 import axios from "axios";
 import API from "./config";
 import {useLocation, useNavigate} from "react-router-dom";
+import toastMsg from "../ui/Toast";
 
 axios.defaults.baseURL = API.BASE_URL;
 axios.defaults.withCredentials = true;
@@ -25,12 +26,13 @@ authorizationClient.interceptors.response.use(
           return axios
             .post(API.REISSUE)
             .then((response) => {
-              console.log(response);
+              console.log("요청 재시도" + response.data);
               return authorizationClient.request(error.config);
             })
             .catch((error) => {
               console.log(error);
-              // 현재 주소 저장 후 돌아오고 싶음
+              // toastMsg("인증이 만료되었습니다. 다시 로그인해주세요.", false);
+              window.location.replace("/login");
             });
         }
         case 400:
