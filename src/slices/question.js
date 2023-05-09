@@ -94,14 +94,14 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
           question.options.forEach(option => {
             // If the option leads to the section being deleted, remove the reference
             if (option.nextSectionId === sectionToDelete.id) {
-              option.nextSectionId = null;
+              option.nextSectionId = '';
             }
           });
         });
     
         // If this section leads to the section being deleted, remove the reference
         if (section.nextSectionId === sectionToDelete.id) {
-          section.nextSectionId = null;
+          section.nextSectionId = '';
         }
       });
     

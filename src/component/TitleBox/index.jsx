@@ -27,7 +27,7 @@ const AddIcon = styled(MdAdd)`
 `;
 const handleClose = () => {
   // alert(JSON.stringify(form))
-  // alert(JSON.stringify(questions))
+  alert(JSON.stringify(questions))
   // setImgModalOpen(!imgModalOpen);
 };
 

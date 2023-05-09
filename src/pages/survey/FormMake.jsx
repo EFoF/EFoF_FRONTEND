@@ -12,8 +12,7 @@ import axios from 'axios';
 import toastMsg from "../../ui/Toast";
 function FormMake() {
   const { form, questions } = useSelector((state) => state.form);
-  const [selectedOption, setSelectedOption] = useState([]);
-  // const [selectedOption, setSelectedOption] = useState(null);
+  
   const dispatch = useDispatch();
   
   const options = questions.map((section, index) => ({
@@ -57,13 +56,10 @@ function FormMake() {
     }),
   };
 
-  const handleChange = (option,{section_idx}) => {
+  const handleChange = (option,{section_idx},nextSectionId) => {
     // alert(JSON.stringify(option))
     dispatch(questionActions.setNextSection({section_idx,nextSectionId:option.value}))
-    const newSelectedOption = [...selectedOption]; // 새로운 배열 생성
-    newSelectedOption[section_idx] = option; // 해당 인덱스에 옵션 값 대입
-  
-    setSelectedOption(newSelectedOption);
+    
   };
 
   const getListStyle = isDraggingOver => ({
@@ -125,7 +121,7 @@ function FormMake() {
                 <Select
                   placeholder="다음 섹션을 선택해주세요."
                   styles={customStyles}
-                  value={selectedOption[section_idx]}
+                  value={options[options.findIndex(option => option.value === section.nextSectionId)]}
                   onChange={(selectedOption) => handleChange(selectedOption, {section_idx})}
                   options={options}
                 />

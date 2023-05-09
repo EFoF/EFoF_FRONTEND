@@ -12,7 +12,7 @@ import ReactDOM from "react-dom";
 import ConfirmModal from '../../../ui/ConfirmModal';
 import axios from 'axios';
 import toastMsg from '../../../ui/Toast';
-export default function OptionalQuestion({ type, optionId, questionId, optionContent, optionImage, isLast, sectionId, questions, questionOption }) {
+export default function OptionalQuestion({ type, optionId, questionId, optionContent, optionImage, isLast, sectionId, questions, questionOption,option }) {
   
   const customStyles = {
     container: (provided, state) => ({
@@ -56,7 +56,7 @@ const AddIcon = styled(MdAdd)`
   const inputRef = useRef(null);
   let imageInputRef;
   const dispatch = useDispatch();
-  const [selectedOption, setSelectedOption] = useState(null);
+
 
   const handleAddOption = () => {
     isLast && dispatch(questionActions.addOption({ sectionId: sectionId, questionId: questionId }));
@@ -74,7 +74,7 @@ const AddIcon = styled(MdAdd)`
   const handleChange = (option) => {
     dispatch(questionActions.setOptionNextSection({ sectionId, optionId, questionId, nextSectionId: option.value }))
 
-    setSelectedOption(option);
+
   };
 
 
@@ -177,7 +177,7 @@ const AddIcon = styled(MdAdd)`
       {questions.length === 1 ? null : (
           <Select
             styles={customStyles}
-            value={selectedOption}
+            value={questionOption[questionOption.findIndex(option => option.value === option.nextSectionId)]}
             placeholder="다음 섹션을 선택해주세요."
             onChange={handleChange}
             options={questionOption}

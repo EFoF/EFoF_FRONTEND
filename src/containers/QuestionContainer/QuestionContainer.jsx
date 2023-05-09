@@ -71,6 +71,7 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
           optionId={option.id}
           optionContent={option.option}
           optionImage={option.image}
+          option={option}
           questionOption={questionOption}
           questions={questions}
           type={type}
