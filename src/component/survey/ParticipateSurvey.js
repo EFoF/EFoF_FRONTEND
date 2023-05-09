@@ -26,7 +26,6 @@ const AllData = ParticipateData;
 const ParticipateSurvey = ({parentClass, colSize, itemShow, columnGap}) => {
 
     const [getAllItems] = useState(AllData);
-    const [visiableProject] = useState(itemShow ? itemShow : 6);
     const [activeFilter, setActiveFilter] = useState("");
     const [visibleItems, setVisibleItems] = useState([]);
 
