@@ -1,7 +1,7 @@
 
 import { DragIcon } from '../../assets';
 import { Wrapper } from './style';
-import styled from 'styled-components';
+import styled,{css} from 'styled-components';
 import { QUESTION_TYPES } from '../../component/constants/const/';
 import { useDispatch, useSelector } from 'react-redux';
 import { questionActions } from '../../slices';
@@ -11,14 +11,14 @@ import Dropdown from '../../component/Dropdown/Dropdown';
 import OptionalQuestion from '../../component/Question/OptionalQuestion/OptionalQuestion';
 import { FiChevronUp } from 'react-icons/fi';
 import { AiOutlineDelete } from 'react-icons/ai'; // AiOutlineDelete 추가
-
+import Toggle from 'react-styled-toggle';
 import React from 'react'
 
 
 export default function QuestionContainer({ questionId, provided, sectionId ,questionOption}) {
 
   const [isCollapsed, setIsCollapsed] = useState(false);
-
+  
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
@@ -44,7 +44,8 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
   };
 
   const handleSwitch = () => {
-    dispatch(questionActions.setNecessary(questionId, sectionId));
+    
+    dispatch(questionActions.setNecessary({questionId:id, sectionId:section.id}));
   };
 
   const handleQuestionChange = (e) => {
@@ -158,6 +159,7 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
       </div>
       <hr />
       <div className="settings">
+      <Toggle checked={isNecessary} onChange={handleSwitch} labelLeft='필수 응답' width={52} height={25}sliderWidth={19} sliderHeight={19}/>
       <StyledDeleteIcon onClick={handleDeleteQuestion} />
     </div>
     
@@ -171,4 +173,32 @@ const StyledDeleteIcon = styled(AiOutlineDelete)`
   &:hover {
       color: ${({ theme }) => theme.color.blue};
     }
+`;
+const ToggleBtn = styled.button`
+  width: 3rem;
+  height: 1.5rem;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  background-color: ${(props) => (!props.toggle ? "none" : "rgb(51,30,190)")};
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s ease-in-out;
+`;
+const Circle = styled.div`
+  background-color: white;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50px;
+  position: absolute;
+  left: 5%;
+  transition: all 0.5s ease-in-out;
+  ${(props) =>
+    props.toggle &&
+    css`
+      transform: translate(1.6  rem, 0);
+      transition: all 0.5s ease-in-out;
+    `}
 `;

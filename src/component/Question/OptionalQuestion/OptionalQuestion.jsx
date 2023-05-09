@@ -73,6 +73,7 @@ const AddIcon = styled(MdAdd)`
 
   const handleChange = (option) => {
     dispatch(questionActions.setOptionNextSection({ sectionId, optionId, questionId, nextSectionId: option.value }))
+
     setSelectedOption(option);
   };
 
@@ -173,14 +174,14 @@ const AddIcon = styled(MdAdd)`
       </InputButtonWrapper>
       <OptionsWrapper isLast={isLast} gap={"0.5rem"}>
       
+      {questions.length === 1 ? null : (
           <Select
             styles={customStyles}
             value={selectedOption}
             placeholder="다음 섹션을 선택해주세요."
-            
             onChange={handleChange}
             options={questionOption}
-          />
+          />)}
 
         <CloseOptionButton onClick={handleDeleteOption} type={type} size={"1.2rem"}>
           <MdClose />

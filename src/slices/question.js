@@ -13,7 +13,7 @@ const initialState =
         questionContent: '',
         isNecessary: false,
         options: [
-        
+          
         ],
         answers: [],
         narrativeAnswer: '',
@@ -48,6 +48,7 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
     setNecessary: (state, action) => {
       const { sectionId, questionId } = action.payload;
       const section = state.find((item) => item.id === sectionId);
+      
       const question = section.questionList.find((item) => item.id === questionId);
       question && (question.isNecessary = !question.isNecessary);
     },
@@ -82,9 +83,34 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
 
     deleteSection: (state, action) => {
       const { section_idx } = action.payload;
-      return state.filter((item, idx) => idx !== (section_idx-1));
-
+      const newState = state;
+    
+      // Find the section to be deleted
+      const sectionToDelete = newState[section_idx-1];
+    
+      // Loop through all sections to update any references to the section being deleted
+      newState.forEach((section, idx) => {
+        section.questionList.forEach(question => {
+          question.options.forEach(option => {
+            // If the option leads to the section being deleted, remove the reference
+            if (option.nextSectionId === sectionToDelete.id) {
+              option.nextSectionId = null;
+            }
+          });
+        });
+    
+        // If this section leads to the section being deleted, remove the reference
+        if (section.nextSectionId === sectionToDelete.id) {
+          section.nextSectionId = null;
+        }
+      });
+    
+      // Remove the section from the state
+      newState.splice(section_idx-1, 1);
+    
+      return newState;
     },
+    
 
     addQuestion: (state, action) => {
       const { sectionId, newQuestion } = action.payload;
