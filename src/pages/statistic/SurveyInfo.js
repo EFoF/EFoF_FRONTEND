@@ -6,6 +6,33 @@ import StatisticOX from './StatisticOX';
 import StatisticBar from './StatisticBar';
 
 
+// 주관식 답변 dummydata
+const dummy = [
+	{
+		id: 1, 
+		answer: "ㅇㅇㅇㅇ"
+	}, 
+	{
+		id: 1, 
+		answer: "ㅁㄴㅇㄹㄴㅇ"
+	}, 
+	{
+		id: 1, 
+		answer: "ㄷㄷㄷㄱㅈ"
+	}, 
+	{
+		id: 1, 
+		answer: "ㅁ오ㅗㄹㅇ"
+	}, 
+]
+
+const answers = dummy.map((item) => (
+	<div key={item.id} className='col-md-12'>
+	  {item.answer}
+	</div>
+  ))
+
+
 const SurveyInfo = ({projectStyle, portfolio}) => {
 
 	const isMultipleChoice = portfolio.category.includes('객관식');
