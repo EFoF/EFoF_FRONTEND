@@ -4,27 +4,9 @@ import SectionTitle from '../../elements/section-title/SectionTitle';
 import SurveyInfo from './SurveyInfo';
 import ProjectData from "../../data/ProjectData.json";
 import { Link } from 'react-router-dom';
-
-import StatisticGraph from './StatisticBar';
+import StatisticBar from './StatisticBar';
 
 const portfolioData = ProjectData;
-
-const filters = [
-	{
-		id: 1,
-		label: "All Works",
-    },
-    {
-		id: 2,
-		label: "Branding",
-    },
-    {
-		id: 3,
-		label: "Mobile",
-    }
-];
-
-
 const AllData = ProjectData;
 
 
@@ -32,37 +14,11 @@ const QuestionStatistic = ({parentClass, colSize, itemShow, columnGap}) => {
 
 	const [getAllItems] = useState(AllData);
 	const [visiableProject] = useState(itemShow ? itemShow : 6);
-    const [activeFilter, setActiveFilter] = useState("");
 	const [visibleItems, setVisibleItems] = useState([]);
 	
-
 	useEffect(() => {
-        setActiveFilter(filters[0].label);
 		setVisibleItems(getAllItems.filter((item) => item.id <= visiableProject));
     }, []);
-
-	const handleChange = (e) => {
-        e.preventDefault();
-		let target = e.target.textContent;
-
-        setActiveFilter(target);
-
-        let tempData = [];
-        if (target === filters[0].label) {
-			tempData = getAllItems.filter((data) => data.id <= visiableProject);
-        } else {
-			for (let i = 0; i < getAllItems.length; i++) {
-				const element = getAllItems[i];
-				let categories = element['category'];
-				
-				if (categories.includes(target)) {
-					tempData.push(element)
-				} 
-			}
-        }
-        setVisibleItems(tempData);
-    };
-
 
     return (
 		<>
