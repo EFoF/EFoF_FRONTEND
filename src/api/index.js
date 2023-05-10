@@ -1,5 +1,7 @@
 import axios from "axios";
 import API from "./config";
+import {useLocation, useNavigate} from "react-router-dom";
+import toastMsg from "../ui/Toast";
 
 axios.defaults.baseURL = API.BASE_URL;
 axios.defaults.withCredentials = true;
@@ -9,28 +11,29 @@ const authorizationClient = axios.create({
   withCredentials: true,
 });
 
-// authorizationClient.interceptors.request.use(
-//     (config) => {
-//       const cookie = getCookieFromStorage()
-//     }
-// )
 
 authorizationClient.interceptors.response.use(
+
     response => {
       return response;
     },
     error => {
-      // alert(JSON.stringify(error.response.status))
-      alert(JSON.stringify(error))
+      console.log("유효하지 않은 토큰값");
+      // alert(JSON.stringify(error))
       switch (error.response.status) {
         // 액세스 토큰 만료
         case 401: {
           return axios
             .post(API.REISSUE)
-            .then(() => {
+            .then((response) => {
+              console.log("요청 재시도" + response.data);
               return authorizationClient.request(error.config);
             })
-            .catch(() => {});
+            .catch((error) => {
+              console.log(error);
+              // toastMsg("인증이 만료되었습니다. 다시 로그인해주세요.", false);
+              window.location.replace("/login");
+            });
         }
         case 400:
           break;
@@ -45,8 +48,6 @@ authorizationClient.interceptors.response.use(
     },
   );
 
-// 얘네는 권한 필요 없는 애들
-// ex : 로그인, 회원가입 -> 이런 기능은 권한을 요구하면 사람들이 가입을 못하겠쥬?
   const unAuthorizationClient = axios.create({
     baseURL: API.BASE_URL,
     withCredentials: true,
