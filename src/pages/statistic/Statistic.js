@@ -8,7 +8,7 @@ import Tilty from 'react-tilty';
 import QuestionStatistic from './QuestionStatistic';
 import MemberData from '../../data/MemberData.json';
 import SurveyData from '../../data/SurveyData.json';
-import StatisticGraph from './StatisticGraph';
+import StatisticGraph from './StatisticBar';
 
 
 

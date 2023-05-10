@@ -45,7 +45,7 @@ const data = [
   },
 ];
 
-const StatisticGraph = () => {
+const StatisticBar = () => {
   return (
     <ResponsiveContainer width="100%" height={300}>
       <BarChart data={data}>
@@ -61,4 +61,4 @@ const StatisticGraph = () => {
   );
 }
 
-export default StatisticGraph;
+export default StatisticBar;

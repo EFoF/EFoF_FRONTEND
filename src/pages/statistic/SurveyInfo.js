@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { slugify } from '../../utils';
-import StatisticGraph from './StatisticGraph';
+import StatisticBar from './StatisticBar';
+import StatisticPie from './StatisticPie'; 
 
 
 const SurveyInfo = ({projectStyle, portfolio}) => {
@@ -25,9 +26,8 @@ const SurveyInfo = ({projectStyle, portfolio}) => {
 			</div>
 			<StatisticGraph />
 		</div> */}
-		<div className='row'>
-			<div className='col-md-6'>
-				<div className={`project-grid ${projectStyle}`}>
+		<div className='row' style={{backgroundColor: 'white'}}>
+			<div className={`project-grid ${projectStyle}`}>
 					{/* <div className="thumbnail">
 						<img src={process.env.PUBLIC_URL + portfolio.image} alt="icon" />
 					</div> */}
@@ -40,10 +40,12 @@ const SurveyInfo = ({projectStyle, portfolio}) => {
 						</span>
 						<h3 className="title"> {portfolio.title}</h3>
 					{/* </div> */}
-				</div>
 			</div>
 			<div className='col-md-6'>
-				<StatisticGraph />
+				<StatisticBar />
+			</div>
+			<div className='col-md-6'>
+				<StatisticPie />
 			</div>
 		</div>
 

@@ -5,7 +5,7 @@ import SurveyInfo from './SurveyInfo';
 import ProjectData from "../../data/ProjectData.json";
 import { Link } from 'react-router-dom';
 
-import StatisticGraph from './StatisticGraph';
+import StatisticGraph from './StatisticBar';
 
 const portfolioData = ProjectData;
 
