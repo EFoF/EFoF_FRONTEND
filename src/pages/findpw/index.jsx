@@ -52,11 +52,12 @@ function FindPW() {
     onReplaceNext,
     AuthTimer,
     isExistedEmail,
+    isDisplayWrong,
   } = useSignUp();
 
   const { time, min, sec, onStartTimer } = AuthTimer();
   const isPasswordValid = isValidPassword(password);
-  const isEmailExisted =   isExistedEmail(email);
+  const isEmailExisted = isExistedEmail(email);
   return (
       <Container>
         {/*<Wrapper>*/}
@@ -86,14 +87,16 @@ function FindPW() {
                             title={min < 5 ? "재전송" : "인증"}
                             width="6.5rem"
                             onClick={() => {
-                              if (isEmailExisted) {
-                                // 이메일이 존재하는 경우
-                                onStartTimer();
-                              } else {
-                                // 이메일이 존재하지 않는 경우
-                                // Wrong 컴포넌트를 렌더링
-                                return <Wrong>등록된 이메일이 아닙니다.</Wrong>;
-                              }
+                              isEmailExisted.then(exists => {
+                                if (exists) {
+                                  onStartTimer();
+                                  console.log("이메일존재 ?", exists);
+                                }
+                                else {
+                                  console.log("이메일존재 ?", exists);
+                                  return <Wrong>등록된 이메일이 아닙니다.</Wrong>;
+                                }
+                              })
                             }}
                         />
                     ) : (
