@@ -53,6 +53,7 @@ function FindPW() {
     AuthTimer,
     isExistedEmail,
     isDisplayWrong,
+    setIsDisplayWrong,
   } = useSignUp();
 
   const { time, min, sec, onStartTimer } = AuthTimer();
@@ -90,11 +91,12 @@ function FindPW() {
                               isEmailExisted.then(exists => {
                                 if (exists) {
                                   onStartTimer();
+                                  setIsDisplayWrong(true);
                                   console.log("이메일존재 ?", exists);
                                 }
                                 else {
                                   console.log("이메일존재 ?", exists);
-                                  return <Wrong>등록된 이메일이 아닙니다.</Wrong>;
+                                  setIsDisplayWrong(false);
                                 }
                               })
                             }}
@@ -104,6 +106,7 @@ function FindPW() {
                     )}
                   </div>
                 </EmailWrapper>
+                {!isDisplayWrong && (<Wrong>등록된 이메일이 아닙니다.</Wrong>)}
                 {!isValidEmail && email.length > 0 && (
                     <Wrong>이메일 형식이 올바르지 않습니다.</Wrong>
                 )}
