@@ -22,7 +22,8 @@ const Header = () => {
                 })
                 .catch((error) => {
                     console.log(error);
-                    navigate('/login', {replace:true});
+                    // 후에 수정할 예정. 인증하지 않은
+                    navigate('/', {replace:true});
                 });
         } else {
             setLoginState(true);
