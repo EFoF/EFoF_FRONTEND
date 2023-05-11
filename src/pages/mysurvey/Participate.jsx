@@ -21,7 +21,7 @@ const Participate = () => {
                     title="내가 참여한 설문"
                     paragraph =""
                     styleClass=""
-                    mainThumb="/images/banner/banner-thumb-1.png"
+                    mainThumb="/images/banner/banner-thumb.png"
                 />
                 <ShowSurvey colSize="col-xl-3 col-lg-4 col-md-6" itemShow="12" columnGap="row-15" parentClass="project-column-4" AllData={ParticipateData} />
                 <Footer parentClass="" />

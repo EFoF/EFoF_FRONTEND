@@ -67,7 +67,6 @@ const ShowSurvey = ({parentClass, colSize, columnGap, AllData}) => {
                             }
                                     key={filter.id}>{filter.label}</button>
                         ))}
-
                     </div>
                     <div className={`row ${columnGap ? columnGap : "row-35"}`}>
                         {visibleItems.map((data) => (

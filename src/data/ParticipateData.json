@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "image": "/images/project/project-1.png",
+    "image": "/images/survey/project-1.png",
     "title": "가천대학교 맛집에 대한 설문조사입니다.",
     "category": ["설문 진행 중"],
     "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
@@ -9,7 +9,7 @@
   },
   {
     "id": 2,
-    "image": "/images/project/project-2.png",
+    "image": "/images/survey/project-2.png",
     "title": "가천대학교 학생들을 대상으로 한 설문조사입니다.",
     "category": ["설문 진행 중"],
     "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
@@ -17,7 +17,7 @@
   },
   {
     "id": 3,
-    "image": "/images/project/project-3.png",
+    "image": "/images/survey/project-3.png",
     "title": "가천대학교 교직원을 대상으로 한 설문조사입니다.",
     "category": ["설문 진행 중"],
     "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
@@ -25,7 +25,7 @@
   },
   {
     "id": 4,
-    "image": "/images/project/project-4.png",
+    "image": "/images/survey/project-4.png",
     "title": "Plan Management",
     "category": ["설문 진행 중"],
     "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
@@ -33,7 +33,7 @@
   },
   {
     "id": 5,
-    "image": "/images/project/project-5.png",
+    "image": "/images/survey/project-5.png",
     "title": "Social Engagement",
     "category": ["설문 진행 중"],
     "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
@@ -41,7 +41,7 @@
   },
   {
     "id": 6,
-    "image": "/images/project/project-6.png",
+    "image": "/images/survey/project-6.png",
     "title": "Web Application",
     "category": ["설문 진행 중"],
     "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
@@ -49,7 +49,7 @@
   },
   {
     "id": 7,
-    "image": "/images/project/project-5.png",
+    "image": "/images/survey/project-5.png",
     "title": "Creative Agency",
     "category": ["설문 마감"],
     "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
@@ -57,7 +57,7 @@
   },
   {
     "id": 8,
-    "image": "/images/project/project-6.png",
+    "image": "/images/survey/project-6.png",
     "title": "Digital Marketing",
     "category": ["설문 마감"],
     "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
@@ -65,7 +65,7 @@
   },
   {
     "id": 9,
-    "image": "/images/project/project-4.png",
+    "image": "/images/survey/project-4.png",
     "title": "Digital Agency",
     "category": ["설문 마감"],
     "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
@@ -73,7 +73,7 @@
   },
   {
     "id": 10,
-    "image": "/images/project/project-3.png",
+    "image": "/images/survey/project-3.png",
     "title": "Plan Management",
     "category": ["설문 마감"],
     "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
@@ -81,7 +81,7 @@
   },
   {
     "id": 11,
-    "image": "/images/project/project-2.png",
+    "image": "/images/survey/project-2.png",
     "title": "Social Engagement",
     "category": ["설문 마감"],
     "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
@@ -89,7 +89,7 @@
   },
   {
     "id": 12,
-    "image": "/images/project/project-1.png",
+    "image": "/images/survey/project-1.png",
     "title": "Web Application",
     "category": ["설문 마감"],
     "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
@@ -97,7 +97,7 @@
   },
   {
     "id": 13,
-    "image": "/images/project/project-7.png",
+    "image": "/images/survey/project-7.png",
     "title": "Mark Design",
     "category": ["설문 마감"],
     "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
@@ -105,7 +105,7 @@
   },
   {
     "id": 14,
-    "image": "/images/project/project-8.png",
+    "image": "/images/survey/project-8.png",
     "title": "Abastrak Agency",
     "category": ["설문 마감"],
     "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
@@ -113,7 +113,7 @@
   },
   {
     "id": 15,
-    "image": "/images/project/project-9.png",
+    "image": "/images/survey/project-9.png",
     "title": "Archi- Online platform",
     "category": ["설문 마감"],
     "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
@@ -121,7 +121,7 @@
   },
   {
     "id": 16,
-    "image": "/images/project/project-12.png",
+    "image": "/images/survey/project-12.png",
     "title": "Wordpress theme",
     "category": ["설문 마감"],
     "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
@@ -129,7 +129,7 @@
   },
   {
     "id": 17,
-    "image": "/images/project/project-10.png",
+    "image": "/images/survey/project-10.png",
     "title": "Product photography",
     "category": ["설문 마감"],
     "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
@@ -137,7 +137,7 @@
   },
   {
     "id": 18,
-    "image": "/images/project/project-11.png",
+    "image": "/images/survey/project-11.png",
     "title": "Illustration",
     "category": ["설문 마감"],
     "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
