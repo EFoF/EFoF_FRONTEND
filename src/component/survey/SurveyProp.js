@@ -9,13 +9,13 @@ const SurveyProp = ({projectStyle, survey}) => {
         <>
             <div className={`project-grid ${projectStyle}`}>
                 <div className="thumbnail">
-                    <Link to={process.env.PUBLIC_URL + `/project-details/${slugify(survey.title)}`}>
+                    <Link to={process.env.PUBLIC_URL + `/form-details/${slugify(survey.title)}`}>
                         <img src={process.env.PUBLIC_URL + survey.image} alt="icon" />
                     </Link>
                 </div>
                 <div className="content">
                     <h4 className="title">
-                        <Link to={process.env.PUBLIC_URL + `/project-details/${slugify(survey.title)}`}>
+                        <Link to={process.env.PUBLIC_URL + `/form-details/${slugify(survey.title)}`}>
                             {survey.title}
                         </Link>
                     </h4>
