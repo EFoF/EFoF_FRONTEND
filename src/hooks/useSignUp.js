@@ -15,7 +15,7 @@ export default function useSignUp() {
   const [passwordCheck, onChangePasswordCheck] = useInput("");
   const [isEmailConfirms, setIsEmailConfirms] = useState(false);
   const [isConfirmedCode, setIsConfirmedCode] = useState();
-  const [isDisplayWrong, setIsDisplayWrong] = useState(true);
+  const [isDisplayWrong, setIsDisplayWrong] = useState(false);
 
   const emailReg =
       /^[0-9a-zA-Z가-힣]([-_.]?[0-9a-zA-Z가-힣])*@[0-9a-zA-Z가-힣]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;

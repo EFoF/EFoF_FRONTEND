@@ -51,10 +51,14 @@ function Step1() {
     onReplaceBack,
     onReplaceNext,
     AuthTimer,
+    isDisplayWrong,
+    setIsDisplayWrong,
+    isExistedEmail,
   } = useSignUp();
 
   const { time, min, sec, onStartTimer } = AuthTimer();
   const isPasswordValid = isValidPassword(password);
+  const isEmailExisted = isExistedEmail(email);
   return (
       <Container>
         {/*<Wrapper>*/}
@@ -83,13 +87,27 @@ function Step1() {
                         <AuthButton
                             title={min < 5 ? "재전송" : "인증"}
                             width="6.5rem"
-                            onClick={onStartTimer}
+                            // onClick={onStartTimer}
+                            onClick={() => {
+                              isEmailExisted.then(exists => {
+                                if (!exists) {
+                                  onStartTimer();
+                                  setIsDisplayWrong(false);
+                                  console.log("이메일존재 ?", exists);
+                                }
+                                else {
+                                  console.log("이메일존재 ?", exists);
+                                  setIsDisplayWrong(true);
+                                }
+                              })
+                            }}
                         />
                     ) : (
                         <AuthButton title="인증" width="6.5rem" disabled />
                     )}
                   </div>
                 </EmailWrapper>
+                {isDisplayWrong && (<Wrong>이미 등록된 이메일입니다.</Wrong>)}
                 {!isValidEmail && email.length > 0 && (
                     <Wrong>이메일 형식이 올바르지 않습니다.</Wrong>
                 )}
