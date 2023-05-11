@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import SurveyProp from './SurveyProp';
-import ParticipateData from '../../data/ParticipateData';
 
 
 const filters = [
@@ -19,10 +18,8 @@ const filters = [
 ];
 
 
-const AllData = ParticipateData;
 
-
-const ParticipateSurvey = ({parentClass, colSize, itemShow, columnGap}) => {
+const ShowSurvey = ({parentClass, colSize, columnGap, AllData}) => {
 
     const [getAllItems] = useState(AllData);
     const [activeFilter, setActiveFilter] = useState("");
@@ -91,4 +88,4 @@ const ParticipateSurvey = ({parentClass, colSize, itemShow, columnGap}) => {
     )
 }
 
-export default ParticipateSurvey;
+export default ShowSurvey;
