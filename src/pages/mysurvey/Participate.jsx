@@ -4,7 +4,8 @@ import Header from '../../ui/common/Header';
 import BcrumbBannerOne from '../../elements/breadcrumb/BcrumbBannerOne';
 import ColorSwitcher from '../../elements/switcher/ColorSwitcher';
 import SEO from '../../ui/common/SEO';
-import ParticipateSurvey from '../../component/survey/ParticipateSurvey';
+import ShowSurvey from '../../component/survey/ShowSurvey';
+import ParticipateData from "../../data/ParticipateData.json";
 
 
 const Participate = () => {
@@ -22,7 +23,7 @@ const Participate = () => {
                     styleClass=""
                     mainThumb="/images/banner/banner-thumb-1.png"
                 />
-                <ParticipateSurvey colSize="col-xl-3 col-lg-4 col-md-6" itemShow="12" columnGap="row-15" parentClass="project-column-4"/>
+                <ShowSurvey colSize="col-xl-3 col-lg-4 col-md-6" itemShow="12" columnGap="row-15" parentClass="project-column-4" AllData={ParticipateData} />
                 <Footer parentClass="" />
             </main>
         </>
