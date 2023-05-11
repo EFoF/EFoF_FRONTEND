@@ -1,13 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import Logo from '../elements/logo/Logo';
-import { Link } from 'react-router-dom';
+import Logo from '../../elements/logo/Logo';
+import { Link, useNavigate } from 'react-router-dom';
 import {FaAngleDown, FaUser} from "react-icons/fa";
 import Cookies from "js-cookie";
-import {useNavigate} from "react-router";
-import useLogin from "../hooks/useLogin";
+import useLogin from "../../hooks/useLogin";
 import axios from "axios";
-import API from '../api/config';
-import toastMsg from "../ui/Toast";
+import API from '../../api/config';
+import toastMsg from "../Toast";
 const Header = () => {
     const confirmCookie = Cookies.get("tokenPublishConfirm");
     const [loginState, setLoginState] = useState(false);
