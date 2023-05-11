@@ -13,6 +13,7 @@ const Banner = () => {
                             <AnimationOnScroll animateIn="fadeInUp" animateOnce={true} delay={100}>
                                 <h1 className="title">안녕하세요.</h1>
                                 <h1 className="title">독수리 설문입니다!</h1>
+                                <br/>
                                 <span className="subtitle">독수리 설문을 통해<br/>더욱 편리한 설문 플랫폼을 경험해보세요 :)</span>
                                 <Link to="/form" className="axil-btn btn-fill-primary btn-large">설문 생성하기</Link>
                             </AnimationOnScroll>

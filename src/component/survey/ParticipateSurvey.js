@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import ProjectPropOne from './SurveyProp';
-import SectionTitle from '../../elements/section-title/SectionTitle';
+import SurveyProp from './SurveyProp';
 import ParticipateData from '../../data/ParticipateData';
 
 
@@ -23,7 +22,7 @@ const filters = [
 const AllData = ParticipateData;
 
 
-const ParticipateSurvey = ({parentClass, colSize, itemShow, columnGap}) => {
+const ParticipateSurvey = ({parentClass, colSize, columnGap}) => {
 
     const [getAllItems] = useState(AllData);
     const [activeFilter, setActiveFilter] = useState("");
@@ -62,12 +61,6 @@ const ParticipateSurvey = ({parentClass, colSize, itemShow, columnGap}) => {
         <>
             <div className={`section section-padding-2 ${parentClass ? parentClass : ""}`}>
                 <div className="container">
-                    <SectionTitle
-                        subtitle="Participated Survey"
-                        title="내가 참여한 설문"
-                        textAlignment="heading-left mb--40"
-                        textColor=""
-                    />
                     <div className="isotope-button isotope-project-btn">
 
                         {filters.map((filter) => (
@@ -83,7 +76,7 @@ const ParticipateSurvey = ({parentClass, colSize, itemShow, columnGap}) => {
                     <div className={`row ${columnGap ? columnGap : "row-35"}`}>
                         {visibleItems.map((data) => (
                             <div className={colSize ? colSize : "col-md-6"} key={data.id}>
-                                <ProjectPropOne projectStyle="" portfolio={data}/>
+                                <SurveyProp projectStyle="" survey={data}/>
                             </div>
                         ))}
                     </div>
