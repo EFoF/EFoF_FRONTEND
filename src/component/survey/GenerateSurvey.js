@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import SurveyProp from './SurveyProp';
+import ProjectPropOne from './SurveyProp';
+import SectionTitle from '../../elements/section-title/SectionTitle';
 import GenerateData from '../../data/GenerateData';
 
 
@@ -22,7 +23,7 @@ const filters = [
 const AllData = GenerateData;
 
 
-const GenerateSurvey = ({parentClass, colSize, columnGap}) => {
+const GenerateSurvey = ({parentClass, colSize, itemShow, columnGap}) => {
 
     const [getAllItems] = useState(AllData);
     const [activeFilter, setActiveFilter] = useState("");
@@ -61,6 +62,12 @@ const GenerateSurvey = ({parentClass, colSize, columnGap}) => {
         <>
             <div className={`section section-padding-2 ${parentClass ? parentClass : ""}`}>
                 <div className="container">
+                    <SectionTitle
+                        subtitle="Generated Survey"
+                        title="내가 생성한 설문"
+                        textAlignment="heading-left mb--40"
+                        textColor=""
+                    />
                     <div className="isotope-button isotope-project-btn">
 
                         {filters.map((filter) => (
@@ -76,7 +83,7 @@ const GenerateSurvey = ({parentClass, colSize, columnGap}) => {
                     <div className={`row ${columnGap ? columnGap : "row-35"}`}>
                         {visibleItems.map((data) => (
                             <div className={colSize ? colSize : "col-md-6"} key={data.id}>
-                                <SurveyProp projectStyle="" survey={data}/>
+                                <ProjectPropOne projectStyle="" portfolio={data}/>
                             </div>
                         ))}
                     </div>

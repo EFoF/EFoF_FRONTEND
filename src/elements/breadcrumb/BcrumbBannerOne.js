@@ -1,13 +1,12 @@
 import React from 'react';
 import Tilty from 'react-tilty';
 
-const BcrumbBannerOne = ({subtitle, title, paragraph, styleClass, mainThumb}) => {
+const BcrumbBannerOne = ({title, paragraph, styleClass, mainThumb}) => {
     return (
         <div className="breadcrum-area breadcrumb-banner">
             <div className="container">
                 <div className="section-heading heading-left">
-                    <div className="subtitle" dangerouslySetInnerHTML={{__html: subtitle}}></div>
-                    <h1 className="title h1" dangerouslySetInnerHTML={{__html: title}}></h1>
+                    <h1 className="title h2" dangerouslySetInnerHTML={{__html: title}}></h1>
                     <p dangerouslySetInnerHTML={{__html: paragraph}}></p>
                 </div>
                 <div className={`banner-thumbnail ${styleClass}`}>
