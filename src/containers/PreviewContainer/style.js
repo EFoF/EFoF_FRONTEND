@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div<{}>`
+export const Wrapper = styled.div`
   background: ${({ theme }) => theme.color.white};
   width: 768px;
   height: 240px;
