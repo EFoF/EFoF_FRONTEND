@@ -4,33 +4,29 @@ import { slugify } from '../../utils';
 import StatisticPie from './StatisticPie'; 
 import StatisticOX from './StatisticOX';
 import StatisticBar from './StatisticBar';
+import StatisticPie2 from './StatisticPie2';
+import StatisticPie3 from './StatisticPie3';
 
 
 // 주관식 답변 dummydata
 const dummy = [
 	{
 		id: 1, 
-		answer: "ㅇㅇㅇㅇ"
+		answer: "답변1 ~~~~~~~~~"
 	}, 
 	{
 		id: 1, 
-		answer: "ㅁㄴㅇㄹㄴㅇ"
+		answer: "답변2 ~~~~~~~~~"
 	}, 
 	{
 		id: 1, 
-		answer: "ㄷㄷㄷㄱㅈ"
+		answer: "답변3 ~~~~~~~~~"
 	}, 
 	{
 		id: 1, 
-		answer: "ㅁ오ㅗㄹㅇ"
+		answer: "답변4 ~~~~~~~~~"
 	}, 
 ]
-
-const answers = dummy.map((item) => (
-	<div key={item.id} className='col-md-12'>
-	  {item.answer}
-	</div>
-  ))
 
 
 const SurveyInfo = ({projectStyle, portfolio}) => {
@@ -56,12 +52,15 @@ const SurveyInfo = ({projectStyle, portfolio}) => {
 					</div>
 
 					<div className='col-md-6'>
-						<StatisticPie />
+						{/* <StatisticPie /> */}
+						<StatisticPie2 />
 					</div>
 				</>
 			) : (
 				<div className='col-md-12'>
-					<p>hi</p>
+					{dummy.map((item, index) => (
+						<p key={index}>{item.answer}</p>
+					))}
 				</div>
 			)}
 		</div>
