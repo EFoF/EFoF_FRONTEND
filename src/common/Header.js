@@ -1,27 +1,42 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Logo from '../elements/logo/Logo';
 import { Link } from 'react-router-dom';
 import {FaAngleDown, FaUser} from "react-icons/fa";
 import Cookies from "js-cookie";
 import {useNavigate} from "react-router";
 import useLogin from "../hooks/useLogin";
-
+import axios from "axios";
+import API from '../api/config';
+import toastMsg from "../ui/Toast";
 const Header = () => {
-    const [username, setUsername] = useState('(닉네임)');
-
     const confirmCookie = Cookies.get("tokenPublishConfirm");
-
+    const [loginState, setLoginState] = useState(false);
     const navigate = useNavigate();
+    const callReissue = () => {
+        console.log("Reissue 시도");
+        if(typeof(confirmCookie) === 'undefined') {
+            axios.post(`${API.REISSUE}`)
+                .then(response => {
+                    console.log(response.data);
+                    setLoginState(true);
+                    return true;
+                })
+                .catch((error) => {
+                    console.log(error);
+                    navigate('/login', {replace:true});
+                });
+        } else {
+            setLoginState(true);
+            return true;
+        }
+        return true;
+    }
+
+    useEffect(() => {
+        callReissue();
+    }, [])
 
     const {useLogout} = useLogin();
-
-    const renderUsername = () => {
-        if (typeof(confirmCookie)) {
-            // return username;
-            return confirmCookie;
-        }
-        return 'anonymous user';
-    }
 
     const myPageStyle = {
         display: 'flex',
@@ -72,7 +87,9 @@ const Header = () => {
                             <div className="header-main-nav">
                                 <ul className="mainmenu">
                                     <li className="menu-item-has-children">
-                                        {typeof(confirmCookie) === "undefined"?
+                                        {
+                                            // typeof(confirmCookie) === 'undefined' ?
+                                            !loginState ?
                                             (
                                                 <>
                                                     <li><Link to="/login">로그인/회원가입</Link></li>
@@ -82,7 +99,6 @@ const Header = () => {
                                                     <a style={myPageStyle}>
                                                         <FaUser className="icon" style={iconStyle} />
                                                         <span style={textStyle}>
-                                                    {/*{renderUsername()} /!* 사용자 이름 렌더링 *!/*/}
                                                             <FaAngleDown className="arrow" style={arrowStyle} />
                                                 </span>
                                                     </a>
