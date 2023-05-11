@@ -20,7 +20,7 @@ import {
   ButtonWrapper,
 } from "./index.styles";
 
-import useSignUp from "../../hooks/useSignUp";
+import useFindPW from "../../hooks/useFindPW";
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 
@@ -54,7 +54,7 @@ function FindPW() {
     isExistedEmail,
     isDisplayWrong,
     setIsDisplayWrong,
-  } = useSignUp();
+  } = useFindPW();
 
   const { time, min, sec, onStartTimer } = AuthTimer();
   const isPasswordValid = isValidPassword(password);
