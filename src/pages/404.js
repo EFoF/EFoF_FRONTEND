@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import HeaderOne from '../common/header/HeaderOne';
-import SEO from '../common/SEO';
+import HeaderOne from '../ui/common/header/HeaderOne';
+import SEO from '../ui/common/SEO';
 import ColorSwitcher from '../elements/switcher/ColorSwitcher';
 import { AnimationOnScroll } from 'react-animation-on-scroll';
 

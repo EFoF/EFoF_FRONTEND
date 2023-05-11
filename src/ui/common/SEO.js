@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from "prop-types";
 
 
 const SEO = ( {title} ) => {
@@ -13,8 +12,5 @@ const SEO = ( {title} ) => {
         </>
     )
 }
-SEO.propTypes = {
-    title: PropTypes.string
-};
 
 export default SEO;
