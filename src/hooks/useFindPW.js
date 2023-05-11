@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useCallback, useState, useRef, useEffect } from "react";
-import { authEmailSend, authEmailConfirms, checkEmailExists } from "../api/auth";
+import { authEmailSend, authEmailConfirms, checkEmailExists, checkPasswordExists } from "../api/auth";
 import {userActions} from "../slices/user";
 import useInput from "./useInput";
 import toastMsg from "../ui/Toast";
@@ -65,6 +65,7 @@ export default function useSignUp() {
       setSec(time.current % 60);
     };
     const onStartTimer = () => {
+
       clearInterval(intervalRef.current);
       time.current = 300; // 재전송 눌렀을 때 5분으로 초기화
       setMin(time.current);
@@ -106,7 +107,6 @@ export default function useSignUp() {
   const isExistedEmail = async (email) => {
     try {
       const response = await checkEmailExists(email); // 이메일 중복 확인 API 호출
-      console.log(response);
       return response // 중복 여부를 반환하는 프로퍼티(exists)가 있는 응답 객체를 가정함
     } catch (error) {
       console.error(error);
@@ -114,19 +114,16 @@ export default function useSignUp() {
     }
   };
 
-
-
-  // if (isExistedEmail(email) == true)  setIsDisplayWrong(true);
-  // else setIsDisplayWrong(false);
-
-  // useEffect(() => {
-  //   if (isExistedEmail) {
-  //     setIsDisplayWrong(true);
-  //   } else {
-  //     setIsDisplayWrong(false);
-  //   }
-  // }, [isExistedEmail]);
-
+  const isExistedPassword = async (email, password) => {
+    try {
+      const response = await checkPasswordExists(email, password); // 패스워드 중복 확인 API 호출
+      console.log(response);
+      return response // 중복 여부를 반환하는 프로퍼티(exists)가 있는 응답 객체를 가정함
+    } catch (error) {
+      console.error(error);
+      return false; // 호출 실패 시 중복 여부를 알 수 없는 것으로 처리함
+    }
+  };
 
   return {
     email,
@@ -149,5 +146,6 @@ export default function useSignUp() {
     isExistedEmail,
     isDisplayWrong,
     setIsDisplayWrong,
+    isExistedPassword,
   };
 }

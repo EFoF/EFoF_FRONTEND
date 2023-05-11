@@ -99,6 +99,16 @@ const checkEmailExists = async (email) => {
   }
 };
 
+const checkPasswordExists = async (email, password) => {
+  try {
+    const response = await unAuthorizationClient.patch(API.PASSWORD_EXIST, { email, newPassword: password });
+    return response.data.exists;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
 export {
   loadMe,
   authLogin,
@@ -108,4 +118,5 @@ export {
   authSignUp,
   refreshAuth,
   checkEmailExists,
+  checkPasswordExists,
 };
