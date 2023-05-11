@@ -4,7 +4,6 @@ import Header from '../../ui/common/Header';
 import BcrumbBannerOne from '../../elements/breadcrumb/BcrumbBannerOne';
 import ColorSwitcher from '../../elements/switcher/ColorSwitcher';
 import SEO from '../../ui/common/SEO';
-import CtaLayout from '../../component/CtaLayout';
 import ParticipateSurvey from '../../component/survey/ParticipateSurvey';
 
 
