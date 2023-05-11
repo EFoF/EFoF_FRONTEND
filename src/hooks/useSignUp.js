@@ -114,13 +114,16 @@ export default function useSignUp() {
     }
   };
 
-  useEffect(() => {
-    if (isExistedEmail) {
-      setIsDisplayWrong(true);
-    } else {
-      setIsDisplayWrong(false);
-    }
-  }, [isExistedEmail]);
+  // if (isExistedEmail(email) == true)  setIsDisplayWrong(true);
+  // else setIsDisplayWrong(false);
+
+  // useEffect(() => {
+  //   if (isExistedEmail) {
+  //     setIsDisplayWrong(true);
+  //   } else {
+  //     setIsDisplayWrong(false);
+  //   }
+  // }, [isExistedEmail]);
 
 
   return {
@@ -143,6 +146,6 @@ export default function useSignUp() {
     isValidPassword,
     isExistedEmail,
     isDisplayWrong,
-    // setIsDisplayWrong,
+    setIsDisplayWrong,
   };
 }
