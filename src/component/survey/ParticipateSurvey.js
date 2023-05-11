@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import ProjectPropOne from './SurveyProp';
-import SectionTitle from '../../elements/section-title/SectionTitle';
 import ParticipateData from '../../data/ParticipateData';
 
 
@@ -62,14 +61,7 @@ const ParticipateSurvey = ({parentClass, colSize, itemShow, columnGap}) => {
         <>
             <div className={`section section-padding-2 ${parentClass ? parentClass : ""}`}>
                 <div className="container">
-                    <SectionTitle
-                        subtitle="Participated Survey"
-                        title="내가 참여한 설문"
-                        textAlignment="heading-left mb--40"
-                        textColor=""
-                    />
                     <div className="isotope-button isotope-project-btn">
-
                         {filters.map((filter) => (
                             <button onClick={handleChange} className={
                                 filter.label === activeFilter
