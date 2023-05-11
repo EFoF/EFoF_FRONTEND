@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {Link as L} from "react-scroll";
+import StatisticBar from '../pages/statistic/StatisticBar';
 
 
 const CtaLayout = () => {

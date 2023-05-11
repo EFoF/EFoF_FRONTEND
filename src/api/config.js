@@ -11,6 +11,7 @@ const SIGNUP = "signup";
 const EMAIL_CERTIFICATION_SEND = "mailConfirm";
 const EMAIL_CERTIFICATION_CONFIRM = "codeConfirm";
 const SURVEY = "/form";
+const EMAIL_EXIST_CHECK = "check-email";
 
 const API = {
   BASE_URL: `${BASE_URL}`,
@@ -23,7 +24,8 @@ const API = {
   SIGNUP: `${AUTH}${SIGNUP}`,
   MEMBER: `${MEMBER}`,  
   REISSUE: `${AUTH}${REISSUE}`,
-  SURVEY: `${SURVEY}`
+  SURVEY: `${SURVEY}`,
+  EMAIL_EXIST: `${AUTH}${EMAIL_EXIST_CHECK}`
   // BOARD: `${BOARD}`,
 };
 

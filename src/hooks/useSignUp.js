@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useCallback, useState, useRef, useEffect } from "react";
-import { authEmailSend, authEmailConfirms } from "../api/auth";
+import { authEmailSend, authEmailConfirms, checkEmailExists } from "../api/auth";
 import {userActions} from "../slices/user";
 import useInput from "./useInput";
 import toastMsg from "../ui/Toast";
@@ -15,6 +15,7 @@ export default function useSignUp() {
   const [passwordCheck, onChangePasswordCheck] = useInput("");
   const [isEmailConfirms, setIsEmailConfirms] = useState(false);
   const [isConfirmedCode, setIsConfirmedCode] = useState();
+  const [isDisplayWrong, setIsDisplayWrong] = useState(true);
 
   const emailReg =
       /^[0-9a-zA-Z가-힣]([-_.]?[0-9a-zA-Z가-힣])*@[0-9a-zA-Z가-힣]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
@@ -102,6 +103,26 @@ export default function useSignUp() {
     return passwordReg.test(password);
   }
 
+  const isExistedEmail = async (email) => {
+    try {
+      const response = await checkEmailExists(email); // 이메일 중복 확인 API 호출
+      console.log(response);
+      return response // 중복 여부를 반환하는 프로퍼티(exists)가 있는 응답 객체를 가정함
+    } catch (error) {
+      console.error(error);
+      return false; // 호출 실패 시 중복 여부를 알 수 없는 것으로 처리함
+    }
+  };
+
+  useEffect(() => {
+    if (isExistedEmail) {
+      setIsDisplayWrong(true);
+    } else {
+      setIsDisplayWrong(false);
+    }
+  }, [isExistedEmail]);
+
+
   return {
     email,
     isValidEmail,
@@ -120,5 +141,8 @@ export default function useSignUp() {
     AuthTimer,
     isConfirmedCode,
     isValidPassword,
+    isExistedEmail,
+    isDisplayWrong,
+    // setIsDisplayWrong,
   };
 }

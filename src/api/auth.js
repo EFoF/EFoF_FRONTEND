@@ -88,6 +88,17 @@ const authSignUp = createAsyncThunk(
   },
 );
 
+// 사용자가 입력한 email 이 DB에 있는 이메일인지 검증
+const checkEmailExists = async (email) => {
+  try {
+    const response = await unAuthorizationClient.post(API.EMAIL_EXIST, { email });
+    return response.data.exists;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
 export {
   loadMe,
   authLogin,
@@ -96,4 +107,5 @@ export {
   authEmailConfirms,
   authSignUp,
   refreshAuth,
+  checkEmailExists,
 };
