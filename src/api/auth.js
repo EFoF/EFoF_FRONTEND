@@ -3,6 +3,7 @@ import axios from "axios";
 import toastMsg from "../ui/Toast";
 import { authorizationClient, unAuthorizationClient } from ".";
 import API from "./config";
+import Cookies from "js-cookie";
 
 axios.defaults.baseURL = API.BASE_URL;
 axios.defaults.withCredentials = true;
