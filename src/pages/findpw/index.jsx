@@ -54,6 +54,7 @@ function FindPW() {
     isExistedEmail,
     isDisplayWrong,
     setIsDisplayWrong,
+    isExistedPassword,
   } = useFindPW();
 
   const { time, min, sec, onStartTimer } = AuthTimer();
@@ -73,7 +74,8 @@ function FindPW() {
             </div>
             <Form>
               <div>
-                <EmailWrapper>
+                <EmailWrapper
+                    disabled={isEmailConfirms}>
                   <div style={{ display: 'flex', alignItems: 'end' }}>
                     <Input
                         value={email}
@@ -85,6 +87,7 @@ function FindPW() {
                     />
                     {isValidEmail ? (
                         <AuthButton
+
                             title={min < 5 ? "재전송" : "인증"}
                             width="6.5rem"
                             onClick={() => {
@@ -113,7 +116,8 @@ function FindPW() {
               </div>
               {min < 5 && (
                   <div>
-                    <EmailWrapper>
+                    <EmailWrapper
+                        disabled={isEmailConfirms}>
                       <div style={{ display: 'flex', alignItems: 'end' }}>
                         <Input
                             value={authNumber}
@@ -185,7 +189,9 @@ function FindPW() {
                   isPasswordValid == true &&
                   isEmailConfirms ? (
                       <StyledLink to="/login">
-                        <RightButton title="완료" />
+                        <RightButton
+                            title="완료"
+                        />
                       </StyledLink>
                   ) : (
                       <ButtonDisabled title="완료" disabled />

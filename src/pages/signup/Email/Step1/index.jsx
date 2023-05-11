@@ -73,7 +73,8 @@ function Step1() {
             </div>
             <Form>
               <div>
-                <EmailWrapper>
+                <EmailWrapper
+                    disabled={isEmailConfirms}>
                   <div style={{ display: 'flex', alignItems: 'end' }}>
                     <Input
                         value={email}
@@ -114,7 +115,8 @@ function Step1() {
               </div>
               {min < 5 && (
                   <div>
-                    <EmailWrapper>
+                    <EmailWrapper
+                        disabled={isEmailConfirms}>
                       <div style={{ display: 'flex', alignItems: 'end' }}>
                         <Input
                             value={authNumber}

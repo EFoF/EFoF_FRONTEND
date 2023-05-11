@@ -59,8 +59,14 @@ const Form = styled.div`
 const EmailWrapper = styled.div`
   display: flex;
   gap: 0.5rem;
+  
+  ${props => props.disabled && `
+    opacity: 0.5;
+    pointer-events: none;
+  `}
 `;
 const AuthButton = styled(Button)`
+  
   margin-top: 2.7rem;
   //height: 3.8rem;
   border-radius: 0.5rem;
