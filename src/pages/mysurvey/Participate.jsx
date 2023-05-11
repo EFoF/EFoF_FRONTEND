@@ -1,12 +1,10 @@
 import React from 'react';
-
-import FooterOne from '../../ui/common/Footer';
-import HeaderOne from '../../ui/common/Header';
+import Footer from '../../ui/common/Footer';
+import Header from '../../ui/common/Header';
 import BcrumbBannerOne from '../../elements/breadcrumb/BcrumbBannerOne';
 import ColorSwitcher from '../../elements/switcher/ColorSwitcher';
 import SEO from '../../ui/common/SEO';
-import CtaLayoutOne from '../../component/CtaLayout';
-
+import CtaLayout from '../../component/CtaLayout';
 import ParticipateSurvey from '../../component/survey/ParticipateSurvey';
 
 
