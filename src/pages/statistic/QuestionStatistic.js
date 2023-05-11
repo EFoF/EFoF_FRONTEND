@@ -25,8 +25,8 @@ const QuestionStatistic = ({parentClass, colSize, itemShow, columnGap}) => {
 			<div className={`section section-padding-2 ${parentClass ? parentClass : ""}`}>
                 <div className="container">
 					<SectionTitle 
-							subtitle="각 질문 별 설문 통계"
-							title="Some of our <br>finest work."
+							subtitle="통계로 설문을 한 눈에!"
+							title="각 질문 별 설문 통계"
 							textAlignment="heading-left mb--40"
 							textColor=""
 					/>

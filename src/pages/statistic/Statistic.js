@@ -2,14 +2,14 @@ import React from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import { FaCompress, FaCode, FaGlobe } from 'react-icons/fa';
 import ColorSwitcher from '../../elements/switcher/ColorSwitcher';
-import SEO from '../../common/SEO';
+import SEO from '../../ui/common/SEO';
 
 import Tilty from 'react-tilty';
 import QuestionStatistic from './QuestionStatistic';
 import MemberData from '../../data/MemberData.json';
 import SurveyData from '../../data/SurveyData.json';
 import StatisticGraph from './StatisticBar';
-
+import Footer from '../../ui/common/Footer';
 
 
 const userNames = MemberData.map(member => member.userName);
@@ -48,11 +48,6 @@ const Statistic = () => {
                                     <Accordion.Item eventKey="1">
                                         <Accordion.Header><FaCompress /> 설문 참여자 수: {userNum}명</Accordion.Header>
                                         {/* <Accordion.Body>
-                                        {userNames.map((name, index) => (
-                                                <div key={index}>{name}</div>
-                                        ))}
-                                        </Accordion.Body> */}
-                                        <Accordion.Body>
                                             {userNames.reduce((rows, name, index) => {
                                                 if (index % 5 === 0) rows.push([]); // op2. 5 -> 3
                                                 rows[rows.length - 1].push(name);
@@ -61,16 +56,16 @@ const Statistic = () => {
                                                 <div className="row" key={rowIndex}>
                                                     {row.map((name, colIndex) => (
                                                         <div className="col-md-2" key={colIndex}>
-                                                            {/* op2. col-md-2 -> col-md-4 */}
+                                                            
                                                             {name}
                                                         </div>
                                                     ))}
                                                 </div>
                                             ))}
-                                        </Accordion.Body>
+                                        </Accordion.Body> */}
                                     </Accordion.Item>
                                     <Accordion.Item eventKey="2">
-                                        <Accordion.Header><FaCode /> 기타 정보</Accordion.Header>
+                                        <Accordion.Header><FaCode /> 설문 제약 조건</Accordion.Header>
                                         <Accordion.Body>
                                         </Accordion.Body>
                                     </Accordion.Item>
@@ -81,6 +76,7 @@ const Statistic = () => {
                     </div>
 
                     <QuestionStatistic />
+                    <Footer CparentClass="" />
                 </div>
             </section>
         </>

@@ -1,9 +1,9 @@
 import React from 'react';
-import FooterOne from '../common/Footer';
-import HeaderOne from '../common/Header';
+import FooterOne from '../ui/common/Footer';
+import HeaderOne from '../ui/common/Header';
 import BreadCrumbOne from '../elements/breadcrumb/BreadCrumbOne';
 import ColorSwitcher from '../elements/switcher/ColorSwitcher';
-import SEO from '../common/SEO';
+import SEO from '../ui/common/SEO';
 
 
 const PrivacyPolicy = () => {
