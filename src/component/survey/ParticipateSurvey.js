@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import ProjectPropOne from './SurveyProp';
+import SurveyProp from './SurveyProp';
 import ParticipateData from '../../data/ParticipateData';
 
 
@@ -75,7 +75,7 @@ const ParticipateSurvey = ({parentClass, colSize, itemShow, columnGap}) => {
                     <div className={`row ${columnGap ? columnGap : "row-35"}`}>
                         {visibleItems.map((data) => (
                             <div className={colSize ? colSize : "col-md-6"} key={data.id}>
-                                <ProjectPropOne projectStyle="" portfolio={data}/>
+                                <SurveyProp projectStyle="" survey={data}/>
                             </div>
                         ))}
                     </div>
