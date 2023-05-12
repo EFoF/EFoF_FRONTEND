@@ -59,7 +59,6 @@ function FindPW() {
 
   const { time, min, sec, onStartTimer } = AuthTimer();
   const isPasswordValid = isValidPassword(password);
-  const isEmailExisted = isExistedEmail(email);
   return (
       <Container>
         {/*<Wrapper>*/}
@@ -87,11 +86,10 @@ function FindPW() {
                     />
                     {isValidEmail ? (
                         <AuthButton
-
                             title={min < 5 ? "재전송" : "인증"}
                             width="6.5rem"
                             onClick={() => {
-                              isEmailExisted.then(exists => {
+                              isExistedEmail(email).then(exists => {
                                 if (exists) {
                                   onStartTimer();
                                   setIsDisplayWrong(true);
@@ -186,11 +184,12 @@ function FindPW() {
                   {isValidEmail &&
                   password.length > 0 &&
                   password === passwordCheck &&
-                  isPasswordValid == true &&
+                  isPasswordValid === true &&
                   isEmailConfirms ? (
                       <StyledLink to="/login">
                         <RightButton
                             title="완료"
+                            onClick={() => isExistedPassword(email, password)}
                         />
                       </StyledLink>
                   ) : (
