@@ -3,14 +3,30 @@ import axios from "axios";
 import toastMsg from "../ui/Toast";
 import { authorizationClient, unAuthorizationClient } from ".";
 import API from "./config";
-import Cookies from "js-cookie";
+import {useDispatch, useSelector} from "react-redux";
+import {authorizationActions} from "../slices/authorization"
 
 axios.defaults.baseURL = API.BASE_URL;
 axios.defaults.withCredentials = true;
 
 // 리프레쉬 토큰으로 액세스토큰 재요청
+// TODO 아직 테스트를 실시하지 못했다.
 const refreshAuth = () => {
-  return axios.post(API.REISSUE);
+  // 여기서 header에 토큰을 담는다.
+  // useSelector는 컴포넌트에서 호출하는게 아니면 오류가 나나보다.
+  // 후에 prop 등으로 받아오겠다.
+  // const { tokenIssueDTO } = useSelector((state) => state.authorization);
+  // const token = tokenIssueDTO.accessToken;
+  // return axios.post(API.REISSUE, {
+  //   headers: {
+  //     Authorization: `Bearer ${token}`,
+  //   },
+  // }).then(response => {
+  //   console.dir(response.data);
+  //   return response.data;
+  // }).catch(error => {
+  //   console.log(error);
+  // });
 };
 
 // createAsyncThunk : axios 날리고, 결과를 redux에 반영까지
@@ -39,9 +55,12 @@ const authLogin = createAsyncThunk(
     try {
       const response = await unAuthorizationClient.post(API.LOGIN, data);
       toastMsg("로그인 성공", true);
-      console.log("로그인 성공 " + response.data.memberDetail);
-      // memberDetail 객체 반환
-      return response.data.memberDetail;
+      // 여기서 persist redux에 토큰 추가해주는 부분 추가되어야 함.
+      // 그걸 createAsyncThunk로 만들고 reIssue에서도 활용하면 되겠군!
+      // 여기서 dispatch?
+      const dispatch = useDispatch();
+      dispatch(authorizationActions.setToken(response.data.tokenIssueDTO));
+      return response.data;
     } catch (error) {
       toastMsg(error.response.data.message, false);
       return rejectWithValue(error.response.data);

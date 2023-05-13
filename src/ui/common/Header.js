@@ -17,15 +17,18 @@ const Header = () => {
     const { me } = useSelector((state) => state.user);
 
     const callReissue = () => {
-        if(typeof(confirmCookie) === 'undefined') {
+        if(typeof(me.tokenIssueDTO) === 'undefined') {
             console.log("ReIssue 시도")
             axios.post(`${API.REISSUE}`)
                 .then(response => {
-                    console.log(response.data);
+                    console.log("성공?" + response.data);
                     setLoginState(true);
                     return true;
                 })
-                .catch();
+                .catch(error => {
+                    setLoginState(false);
+                    console.log(error);
+                });
         } else {
             setLoginState(true);
             return true;
@@ -34,7 +37,7 @@ const Header = () => {
     }
     //
     useEffect(() => {
-        // callReissue();
+        callReissue();
         console.dir(me)
     }, [])
 
