@@ -1,0 +1,146 @@
+[
+  {
+    "id": 1,
+    "image": "/images/survey/project-1.png",
+    "title": "가천대학교 맛집에 대한 설문조사입니다.",
+    "category": ["설문 진행 중"],
+    "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
+    "body": ["From the designers and engineers who are creating the next generation of web and mobile experiences, to anyone putting a website together for the first time. We provide elegant solutions that set new standards for online publishing.", "Digital technology has made our world more transparent and interconnected, posing new challenges and opportunities for every business. A holistic, user-centric perspective is what truly sets one apart."]
+  },
+  {
+    "id": 2,
+    "image": "/images/survey/project-2.png",
+    "title": "가천대학교 학생들을 대상으로 한 설문조사입니다.",
+    "category": ["설문 진행 중"],
+    "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
+    "body": ["From the designers and engineers who are creating the next generation of web and mobile experiences, to anyone putting a website together for the first time. We provide elegant solutions that set new standards for online publishing.", "Digital technology has made our world more transparent and interconnected, posing new challenges and opportunities for every business. A holistic, user-centric perspective is what truly sets one apart."]
+  },
+  {
+    "id": 3,
+    "image": "/images/survey/project-3.png",
+    "title": "가천대학교 교직원을 대상으로 한 설문조사입니다.",
+    "category": ["설문 진행 중"],
+    "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
+    "body": ["From the designers and engineers who are creating the next generation of web and mobile experiences, to anyone putting a website together for the first time. We provide elegant solutions that set new standards for online publishing.", "Digital technology has made our world more transparent and interconnected, posing new challenges and opportunities for every business. A holistic, user-centric perspective is what truly sets one apart."]
+  },
+  {
+    "id": 4,
+    "image": "/images/survey/project-4.png",
+    "title": "Plan Management",
+    "category": ["설문 진행 중"],
+    "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
+    "body": ["From the designers and engineers who are creating the next generation of web and mobile experiences, to anyone putting a website together for the first time. We provide elegant solutions that set new standards for online publishing.", "Digital technology has made our world more transparent and interconnected, posing new challenges and opportunities for every business. A holistic, user-centric perspective is what truly sets one apart."]
+  },
+  {
+    "id": 5,
+    "image": "/images/survey/project-5.png",
+    "title": "Social Engagement",
+    "category": ["설문 진행 중"],
+    "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
+    "body": ["From the designers and engineers who are creating the next generation of web and mobile experiences, to anyone putting a website together for the first time. We provide elegant solutions that set new standards for online publishing.", "Digital technology has made our world more transparent and interconnected, posing new challenges and opportunities for every business. A holistic, user-centric perspective is what truly sets one apart."]
+  },
+  {
+    "id": 6,
+    "image": "/images/survey/project-6.png",
+    "title": "Web Application",
+    "category": ["설문 진행 중"],
+    "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
+    "body": ["From the designers and engineers who are creating the next generation of web and mobile experiences, to anyone putting a website together for the first time. We provide elegant solutions that set new standards for online publishing.", "Digital technology has made our world more transparent and interconnected, posing new challenges and opportunities for every business. A holistic, user-centric perspective is what truly sets one apart."]
+  },
+  {
+    "id": 7,
+    "image": "/images/survey/project-5.png",
+    "title": "Creative Agency",
+    "category": ["설문 마감"],
+    "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
+    "body": ["From the designers and engineers who are creating the next generation of web and mobile experiences, to anyone putting a website together for the first time. We provide elegant solutions that set new standards for online publishing.", "Digital technology has made our world more transparent and interconnected, posing new challenges and opportunities for every business. A holistic, user-centric perspective is what truly sets one apart."]
+  },
+  {
+    "id": 8,
+    "image": "/images/survey/project-6.png",
+    "title": "Digital Marketing",
+    "category": ["설문 마감"],
+    "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
+    "body": ["From the designers and engineers who are creating the next generation of web and mobile experiences, to anyone putting a website together for the first time. We provide elegant solutions that set new standards for online publishing.", "Digital technology has made our world more transparent and interconnected, posing new challenges and opportunities for every business. A holistic, user-centric perspective is what truly sets one apart."]
+  },
+  {
+    "id": 9,
+    "image": "/images/survey/project-4.png",
+    "title": "Digital Agency",
+    "category": ["설문 마감"],
+    "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
+    "body": ["From the designers and engineers who are creating the next generation of web and mobile experiences, to anyone putting a website together for the first time. We provide elegant solutions that set new standards for online publishing.", "Digital technology has made our world more transparent and interconnected, posing new challenges and opportunities for every business. A holistic, user-centric perspective is what truly sets one apart."]
+  },
+  {
+    "id": 10,
+    "image": "/images/survey/project-3.png",
+    "title": "Plan Management",
+    "category": ["설문 마감"],
+    "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
+    "body": ["From the designers and engineers who are creating the next generation of web and mobile experiences, to anyone putting a website together for the first time. We provide elegant solutions that set new standards for online publishing.", "Digital technology has made our world more transparent and interconnected, posing new challenges and opportunities for every business. A holistic, user-centric perspective is what truly sets one apart."]
+  },
+  {
+    "id": 11,
+    "image": "/images/survey/project-2.png",
+    "title": "Social Engagement",
+    "category": ["설문 마감"],
+    "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
+    "body": ["From the designers and engineers who are creating the next generation of web and mobile experiences, to anyone putting a website together for the first time. We provide elegant solutions that set new standards for online publishing.", "Digital technology has made our world more transparent and interconnected, posing new challenges and opportunities for every business. A holistic, user-centric perspective is what truly sets one apart."]
+  },
+  {
+    "id": 12,
+    "image": "/images/survey/project-1.png",
+    "title": "Web Application",
+    "category": ["설문 마감"],
+    "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
+    "body": ["From the designers and engineers who are creating the next generation of web and mobile experiences, to anyone putting a website together for the first time. We provide elegant solutions that set new standards for online publishing.", "Digital technology has made our world more transparent and interconnected, posing new challenges and opportunities for every business. A holistic, user-centric perspective is what truly sets one apart."]
+  },
+  {
+    "id": 13,
+    "image": "/images/survey/project-7.png",
+    "title": "Mark Design",
+    "category": ["설문 마감"],
+    "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
+    "body": ["From the designers and engineers who are creating the next generation of web and mobile experiences, to anyone putting a website together for the first time. We provide elegant solutions that set new standards for online publishing.", "Digital technology has made our world more transparent and interconnected, posing new challenges and opportunities for every business. A holistic, user-centric perspective is what truly sets one apart."]
+  },
+  {
+    "id": 14,
+    "image": "/images/survey/project-8.png",
+    "title": "Abastrak Agency",
+    "category": ["설문 마감"],
+    "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
+    "body": ["From the designers and engineers who are creating the next generation of web and mobile experiences, to anyone putting a website together for the first time. We provide elegant solutions that set new standards for online publishing.", "Digital technology has made our world more transparent and interconnected, posing new challenges and opportunities for every business. A holistic, user-centric perspective is what truly sets one apart."]
+  },
+  {
+    "id": 15,
+    "image": "/images/survey/project-9.png",
+    "title": "Archi- Online platform",
+    "category": ["설문 마감"],
+    "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
+    "body": ["From the designers and engineers who are creating the next generation of web and mobile experiences, to anyone putting a website together for the first time. We provide elegant solutions that set new standards for online publishing.", "Digital technology has made our world more transparent and interconnected, posing new challenges and opportunities for every business. A holistic, user-centric perspective is what truly sets one apart."]
+  },
+  {
+    "id": 16,
+    "image": "/images/survey/project-12.png",
+    "title": "Wordpress theme",
+    "category": ["설문 마감"],
+    "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
+    "body": ["From the designers and engineers who are creating the next generation of web and mobile experiences, to anyone putting a website together for the first time. We provide elegant solutions that set new standards for online publishing.", "Digital technology has made our world more transparent and interconnected, posing new challenges and opportunities for every business. A holistic, user-centric perspective is what truly sets one apart."]
+  },
+  {
+    "id": 17,
+    "image": "/images/survey/project-10.png",
+    "title": "Product photography",
+    "category": ["설문 마감"],
+    "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
+    "body": ["From the designers and engineers who are creating the next generation of web and mobile experiences, to anyone putting a website together for the first time. We provide elegant solutions that set new standards for online publishing.", "Digital technology has made our world more transparent and interconnected, posing new challenges and opportunities for every business. A holistic, user-centric perspective is what truly sets one apart."]
+  },
+  {
+    "id": 18,
+    "image": "/images/survey/project-11.png",
+    "title": "Illustration",
+    "category": ["설문 마감"],
+    "excerpt": "A quick view of industry specific problems solved with design by the awesome team at Keystroke.",
+    "body": ["From the designers and engineers who are creating the next generation of web and mobile experiences, to anyone putting a website together for the first time. We provide elegant solutions that set new standards for online publishing.", "Digital technology has made our world more transparent and interconnected, posing new challenges and opportunities for every business. A holistic, user-centric perspective is what truly sets one apart."]
+  }
+]

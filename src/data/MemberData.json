@@ -1,0 +1,52 @@
+[
+    {
+        "userName":"최철웅",
+        "nickname":"Owen-Choi",
+        "email":"tester2@email.com",
+        "password":"12345678",    
+        "organization":"Gachon Univ.",
+        "organizationDetail":"Dept.AI & Software",
+        "userLoginType":"EMAIL",
+        "authority":"ROLE_USER"
+    }, 
+    {
+        "userName":"지현종",
+        "nickname":"Owen-Choi",
+        "email":"tester2@email.com",
+        "password":"12345678",    
+        "organization":"Gachon Univ.",
+        "organizationDetail":"Dept.AI & Software",
+        "userLoginType":"EMAIL",
+        "authority":"ROLE_USER"
+    }, 
+    {
+        "userName":"임동혁",
+        "nickname":"Owen-Choi",
+        "email":"tester2@email.com",
+        "password":"12345678",    
+        "organization":"Gachon Univ.",
+        "organizationDetail":"Dept.AI & Software",
+        "userLoginType":"EMAIL",
+        "authority":"ROLE_USER"
+    }, 
+    {
+        "userName":"김민경",
+        "nickname":"Owen-Choi",
+        "email":"tester2@email.com",
+        "password":"12345678",    
+        "organization":"Gachon Univ.",
+        "organizationDetail":"Dept.AI & Software",
+        "userLoginType":"EMAIL",
+        "authority":"ROLE_USER"
+    }, 
+    {
+        "userName":"박정연",
+        "nickname":"Owen-Choi",
+        "email":"tester2@email.com",
+        "password":"12345678",    
+        "organization":"Gachon Univ.",
+        "organizationDetail":"Dept.AI & Software",
+        "userLoginType":"EMAIL",
+        "authority":"ROLE_USER"
+    }
+]

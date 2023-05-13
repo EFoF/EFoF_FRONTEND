@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react-hooks/rules-of-hooks */
 import React from "react";
-import Input from "../../../../ui/Input";
+import Input from "../../ui/Input";
 import {
   Container,
   Wrapper,
@@ -20,7 +20,7 @@ import {
   ButtonWrapper,
 } from "./index.styles";
 
-import useSignUp from "../../../../hooks/useSignUp";
+import useFindPW from "../../hooks/useFindPW";
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 
@@ -33,7 +33,7 @@ const WrapperScaled = styled(Wrapper)`
   transform-origin: top;
 `;
 
-function Step1() {
+function FindPW() {
   const {
     email,
     isValidEmail,
@@ -51,14 +51,14 @@ function Step1() {
     onReplaceBack,
     onReplaceNext,
     AuthTimer,
+    isExistedEmail,
     isDisplayWrong,
     setIsDisplayWrong,
-    isExistedEmail,
-  } = useSignUp();
+    isExistedPassword,
+  } = useFindPW();
 
   const { time, min, sec, onStartTimer } = AuthTimer();
   const isPasswordValid = isValidPassword(password);
-  const isEmailExisted = isExistedEmail(email);
   return (
       <Container>
         {/*<Wrapper>*/}
@@ -68,8 +68,8 @@ function Step1() {
               <StyledLink to="/">
                 <Title>DOKSEOL</Title>
               </StyledLink>
-              <SubTitle>이메일로 가입하기</SubTitle>
-              <Ment>반갑습니다 👋</Ment>
+              <SubTitle>비밀번호 찾기</SubTitle>
+              <Ment>비밀번호를 잊으셨나요 ❓</Ment>
             </div>
             <Form>
               <div>
@@ -88,17 +88,16 @@ function Step1() {
                         <AuthButton
                             title={min < 5 ? "재전송" : "인증"}
                             width="6.5rem"
-                            // onClick={onStartTimer}
                             onClick={() => {
-                              isEmailExisted.then(exists => {
-                                if (!exists) {
+                              isExistedEmail(email).then(exists => {
+                                if (exists) {
                                   onStartTimer();
-                                  setIsDisplayWrong(false);
+                                  setIsDisplayWrong(true);
                                   console.log("이메일존재 ?", exists);
                                 }
                                 else {
                                   console.log("이메일존재 ?", exists);
-                                  setIsDisplayWrong(true);
+                                  setIsDisplayWrong(false);
                                 }
                               })
                             }}
@@ -108,7 +107,7 @@ function Step1() {
                     )}
                   </div>
                 </EmailWrapper>
-                {isDisplayWrong && (<Wrong>이미 등록된 이메일입니다.</Wrong>)}
+                {!isDisplayWrong && (<Wrong>등록된 이메일이 아닙니다.</Wrong>)}
                 {!isValidEmail && email.length > 0 && (
                     <Wrong>이메일 형식이 올바르지 않습니다.</Wrong>
                 )}
@@ -157,7 +156,7 @@ function Step1() {
                   value={password}
                   onChange={onChangePassword}
                   size={30}
-                  label="비밀번호"
+                  label="새로 변경할 비밀번호"
                   type="password"
               />
               {password && !isPasswordValid && (
@@ -187,9 +186,14 @@ function Step1() {
                   password === passwordCheck &&
                   isPasswordValid === true &&
                   isEmailConfirms ? (
-                      <RightButton onClick={onReplaceNext} title="다음" />
+                      <StyledLink to="/login">
+                        <RightButton
+                            title="완료"
+                            onClick={() => isExistedPassword(email, password)}
+                        />
+                      </StyledLink>
                   ) : (
-                      <ButtonDisabled title="다음" disabled />
+                      <ButtonDisabled title="완료" disabled />
                   )}
                 </div>
               </ButtonWrapper>
@@ -201,4 +205,4 @@ function Step1() {
   );
 }
 
-export default Step1;
+export default FindPW;

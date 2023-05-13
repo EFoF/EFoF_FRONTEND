@@ -175,11 +175,13 @@ function FormMake() {
       `${API.SURVEY}`,surveyDto
     )
     .then(response => {
+        console.log(response);
         toastMsg("설문생성 성공", true);
         
       })
       .catch(error => {
         // alert(error);
+        console.log("설문생성 실패" + error);
         toastMsg("설문생성 실패", false);
       });
     }
