@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { questionActions } from "../../slices";
 import ConfirmModal from "../../ui/ConfirmModal";
-
+import shortid from 'shortid';
 const Wrapper = styled.div`
   background: white;
   padding: 1.2rem;
@@ -71,9 +71,24 @@ export default function Section({ section_idx, section_len }) {
   const dispatch = useDispatch();
 
 
-
+  const newSection = {
+    id: shortid(),
+    nextSectionId:'',
+    questionList: [{
+      id: shortid(),
+      type: 0,
+      questionContent: '',
+      isNecessary: false,
+      options: [
+       
+      ],
+      answers: [],
+      narrativeAnswer: '',
+    },]
+  }
+  
   const handleAddSection = () => {
-    dispatch(questionActions.addSection());
+    dispatch(questionActions.addSection({newSection}));
   };
   const { questions } = useSelector((state) => state.form);
 

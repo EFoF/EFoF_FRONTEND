@@ -62,21 +62,8 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
 
     addSection: (state, action) => {
 
-      const newSection = {
-          id: shortid(),
-          nextSectionId:'',
-          questionList: [{
-            id: shortid(),
-            type: 0,
-            questionContent: '',
-            isNecessary: false,
-            options: [
-             
-            ],
-            answers: [],
-            narrativeAnswer: '',
-          },]
-        }
+      
+        const { newSection } = action.payload;
       state.push(newSection);
     },
 
