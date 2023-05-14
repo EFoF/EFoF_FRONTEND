@@ -90,7 +90,7 @@ export default function useSignUp() {
   };
 
   const onReplaceBack = () => {
-    navigate("/signup");
+    navigate(-1);
   };
 
   const onReplaceNext = () => {
