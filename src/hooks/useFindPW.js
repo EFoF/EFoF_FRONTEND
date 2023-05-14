@@ -1,7 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useCallback, useState, useRef, useEffect } from "react";
-import { authEmailSend, authEmailConfirms, checkEmailExists, checkPasswordExists } from "../api/auth";
+import {
+  authEmailSend,
+  authEmailConfirms,
+  checkEmailExists,
+  updatePasswordVisitor,
+  updatePasswordMember
+} from "../api/auth";
 import {userActions} from "../slices/user";
 import useInput from "./useInput";
 import toastMsg from "../ui/Toast";
@@ -12,6 +18,7 @@ export default function useSignUp() {
   const [email, onChangeEmail] = useInput("");
   const [authNumber, onChangeAuthNumber] = useInput("");
   const [password, onChangePassword] = useInput("");
+  const [oldPassword, onChangeOldPassword] = useInput("");
   const [passwordCheck, onChangePasswordCheck] = useInput("");
   const [isEmailConfirms, setIsEmailConfirms] = useState(false);
   const [isConfirmedCode, setIsConfirmedCode] = useState();
@@ -114,9 +121,15 @@ export default function useSignUp() {
     }
   };
 
-  const isExistedPassword = () => {
-    checkPasswordExists(email, password);
+  const updateVisitorPassword = () => {
+    updatePasswordVisitor(email, password);
   }
+
+  const updateMemberPassword = () => {
+    updatePasswordMember(oldPassword, password);
+  }
+
+  //로그인 된 유저인지 인증하는 함수를 만들어야함.
 
   return {
     email,
@@ -139,6 +152,9 @@ export default function useSignUp() {
     isExistedEmail,
     isDisplayWrong,
     setIsDisplayWrong,
-    isExistedPassword,
+    updateVisitorPassword,
+    updateMemberPassword,
+    oldPassword,
+    onChangeOldPassword,
   };
 }
