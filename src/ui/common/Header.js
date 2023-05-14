@@ -7,23 +7,27 @@ import useLogin from "../../hooks/useLogin";
 import axios from "axios";
 import API from '../../api/config';
 import toastMsg from "../Toast";
+import {useDispatch, useSelector} from "react-redux";
 const Header = () => {
     const confirmCookie = Cookies.get("tokenPublishConfirm");
     const [loginState, setLoginState] = useState(false);
     const navigate = useNavigate();
+
+    const dispatch = useDispatch();
+    const { me } = useSelector((state) => state.user);
+
     const callReissue = () => {
-        console.log("Reissue 시도");
-        if(typeof(confirmCookie) === 'undefined') {
+        if(typeof(me.tokenIssueDTO) === 'undefined') {
+            console.log("ReIssue 시도")
             axios.post(`${API.REISSUE}`)
                 .then(response => {
-                    console.log(response.data);
+                    console.log("성공 " + response.data);
                     setLoginState(true);
                     return true;
                 })
-                .catch((error) => {
+                .catch(error => {
+                    setLoginState(false);
                     console.log(error);
-                    // 후에 수정할 예정. 인증하지 않은
-                    navigate('/', {replace:true});
                 });
         } else {
             setLoginState(true);
@@ -31,10 +35,13 @@ const Header = () => {
         }
         return true;
     }
-
+    //
     useEffect(() => {
         callReissue();
+        console.dir(me)
     }, [])
+
+    // 쿠키가 아니라 state로 판단하겠다.
 
     const {useLogout} = useLogin();
 

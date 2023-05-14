@@ -9,6 +9,7 @@ import MessageParser from '../../component/chatbot/MessageParser';
 import 'react-chatbot-kit/build/main.css'
 import './Chatbot.css'
 import Draggable from 'react-draggable';
+import Preview from "./Preview";
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -151,6 +152,7 @@ export default function Form() {
               <AiOutlineDelete/>
             </Button>
           </ButtonWrapper> */}
+          <Preview/>
         </Half>
         {!isVisible && (
         <DragButton color="#3b5998" onClick={handleDragButtonClick}>

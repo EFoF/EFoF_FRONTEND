@@ -1,5 +1,6 @@
 import { createSlice, combineReducers } from '@reduxjs/toolkit';
 import { questionReducer } from '.';
+import authorizationReducer from './authorization';
 import userReducer from './user';
 
 
@@ -44,5 +45,6 @@ export { formActions };
 export default combineReducers({
   form: formReducer,
   questions: questionReducer,
-  user: userReducer
+  user: userReducer,
+  authorization: authorizationReducer,
 });

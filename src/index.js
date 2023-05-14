@@ -7,19 +7,37 @@ import { theme } from './styles/theme';
 import { Provider } from 'react-redux';
 import { store } from './store/configureStore';
 import StyledContainer from './ui/Toast/container'
+import {PersistGate} from "redux-persist/integration/react";
+import {persistStore} from "redux-persist";
+
+// persist redux를 여기서 정의하겠다.
+const persistor = persistStore(store);
 
 ReactDOM.render(
     <Provider store={store}>
-        <ThemeProvider theme={theme}>
-            <React.StrictMode>
-                <App />
-                <StyledContainer
-        position="top-center"
-        closeButton={false}
-        limit={1} />
-            </React.StrictMode>
-        </ThemeProvider>
+        <PersistGate loading={null} persistor={persistor}>
+            <ThemeProvider theme={theme}>
+                <React.StrictMode>
+                    <App />
+                        <StyledContainer
+                            position="top-center"
+                            closeButton={false}
+                            limit={1} />
+                </React.StrictMode>
+            </ThemeProvider>
+        </PersistGate>
     </Provider>,
+    // <Provider store={store}>
+    //         <ThemeProvider theme={theme}>
+    //             <React.StrictMode>
+    //                 <App />
+    //                 <StyledContainer
+    //                     position="top-center"
+    //                     closeButton={false}
+    //                     limit={1} />
+    //             </React.StrictMode>
+    //         </ThemeProvider>
+    // </Provider>,
   document.getElementById('root')
 );
 

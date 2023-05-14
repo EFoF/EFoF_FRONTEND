@@ -5,6 +5,7 @@ const initialState = {
     isUserLoggedIn: false,
     me : {},
     user: {},
+    accessToken: null,
     loginLoading: false,
     loginDone: false,
     loginError: false,
@@ -46,7 +47,7 @@ const initialState = {
           state.loginLoading = false;
           state.isUserLoggedIn = true;
           state.me = action.payload;
-          console.log(state.me);
+          console.dir(action.payload);
           state.loginDone = true;
         })
         .addCase(authLogin.rejected, (state, action) => {
