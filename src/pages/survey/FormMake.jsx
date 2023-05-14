@@ -176,8 +176,9 @@ function FormMake() {
     )
     .then(response => {
         console.log(response);
-        toastMsg("설문생성 성공", true);
-        
+        typeof(response) !== 'undefined' ?
+          toastMsg("설문생성 성공", true) : toastMsg("설문생성 실패", false);
+        // 여기서 홈으로 리다이렉트 시킬지 고민 중
       })
       .catch(error => {
         // alert(error);

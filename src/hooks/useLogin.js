@@ -3,6 +3,7 @@ import { authLogin, authLogout } from "../api/auth";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useCallback, useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import {authorizationActions} from "../slices/authorization";
 
 export default function useLogin() {
   const [email, setEmail] = useState("");
@@ -36,6 +37,7 @@ export default function useLogin() {
     console.log("로그아웃 요청 실행")
     // Cookies.remove('tokenPublishConfirm');
     await dispatch(authLogout());
+    await dispatch(authorizationActions.clearLoginDTO());
     window.location.replace("/");
   }, []);
 

@@ -8,27 +8,26 @@ import axios from "axios";
 import API from '../../api/config';
 import {useDispatch, useSelector} from "react-redux";
 import {authorizationActions} from "../../slices/authorization";
-import {useReissue} from "../../hooks/useAuth";
 const Header = () => {
     const confirmCookie = Cookies.get("tokenPublishConfirm");
     const [loginState, setLoginState] = useState(false);
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
-    const { tokenIssueDTO } = useSelector((state) => state.authorization);
+    const { loginLastDTO } = useSelector((state) => state.authorization);
 
     const callReissue = () => {
-        const expiresDate = typeof(tokenIssueDTO.accessTokenExpiresIn) === "undefined" ?
-            new Date : new Date(tokenIssueDTO.accessTokenExpiresIn);
+        console.dir(loginLastDTO);
+        const expiresDate = typeof(loginLastDTO.expiresAt) === "undefined" ?
+            new Date : new Date(loginLastDTO.expiresAt);
         const currentDate = new Date();
         console.log("현재 날짜 " + currentDate);
         console.log("토큰 만료 시간 " + expiresDate);
-        if(currentDate >= expiresDate  && typeof(confirmCookie) === "undefined") {
+        if(currentDate >= expiresDate) {
             console.log("ReIssue 시도")
-            axios.defaults.headers.common['Authorization'] = "Bearer " + tokenIssueDTO.accessToken;
             axios.post(`${API.REISSUE}`)
                 .then(async response => {
-                    await dispatch(authorizationActions.setToken(response.data.tokenIssueDTO))
+                    await dispatch(authorizationActions.setLoginDTO(response.data));
                     setLoginState(true);
                     return true;
                 })

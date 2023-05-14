@@ -16,11 +16,12 @@ const authorizationClient = axios.create({
   withCredentials: true,
 });
 
-const setHeader = (accessToken) => {
-  console.log("재시도 토큰 : " + accessToken);
-  authorizationClient.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
-  axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
-}
+// const setHeader = (accessToken, loginType) => {
+//   console.log("재시도 토큰 : " + accessToken);
+//   authorizationClient.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
+//   authorizationClient.defaults.headers.common['LoginType'] = loginType
+//   axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
+// }
 
 
 authorizationClient.interceptors.response.use(
@@ -34,7 +35,6 @@ authorizationClient.interceptors.response.use(
       switch (error.response.status) {
         // 액세스 토큰 만료
         case 401: {
-          // 여기서 hook에서 정의한 로직을 사용해보자.
           return axios
             .post(API.REISSUE)
             .then((response) => {
@@ -42,14 +42,17 @@ authorizationClient.interceptors.response.use(
               // 만료 -> ReIssue -> 반영 안됨 -> 만료 -> ReIssue -> 반영안됨 -> ...
               // 그런데 여기서 setHeader를 부르거나 authorization.defaults.headers.. 이렇게 설정을 해주면 아주 재미난 일이 발생한다.
               // 따라서 시행착오 끝에 아래와 같은 구조로 다시 보내게 되는 요청에 직접 header를 설정해주겠다.
-              store.dispatch(authorizationActions.setToken(response.data));
-              return authorizationClient.request({
-                ...error.config,
-                headers: {
-                  ...error.config.headers,
-                  'Authorization': `Bearer ${response.data.accessToken}`,
-                }
-              });
+              // 또한 비컴포넌트에서는 dispatch를 사용할 수 없는데, 이를 사용하기 위해서 store를 주입받아 왔다.
+              console.dir(response.data);
+              store.dispatch(authorizationActions.setLoginDTO(response.data));
+              // return authorizationClient.request({
+              //   ...error.config,
+              //   headers: {
+              //     ...error.config.headers,
+              //     'Authorization': `Bearer ${response.data.accessToken}`,
+              //   }
+              // });
+              return authorizationClient.request(error.config);
             })
             .catch((error) => {
               console.log(error);
@@ -85,5 +88,5 @@ authorizationClient.interceptors.response.use(
     },
   );
   
-  export { authorizationClient, unAuthorizationClient, setHeader };
+  export { authorizationClient, unAuthorizationClient };
   
