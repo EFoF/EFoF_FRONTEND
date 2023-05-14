@@ -6,12 +6,15 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
 import { Provider } from 'react-redux';
 import { store } from './store/configureStore';
+import { injectStore } from "./api";
 import StyledContainer from './ui/Toast/container'
 import {PersistGate} from "redux-persist/integration/react";
 import {persistStore} from "redux-persist";
 
 // persist redux를 여기서 정의하겠다.
 const persistor = persistStore(store);
+// 비컴포넌트에서 dispatch 등과 같은 함수로 리덕스의 상태를 변경하기 위해서 store를 주입해준다.
+injectStore(store);
 
 ReactDOM.render(
     <Provider store={store}>
