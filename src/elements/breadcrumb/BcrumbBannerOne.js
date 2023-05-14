@@ -1,7 +1,6 @@
 import React from 'react';
-import Tilty from 'react-tilty';
 
-const BcrumbBannerOne = ({subtitle, title, paragraph, styleClass, mainThumb}) => {
+const BcrumbBannerOne = ({subtitle, title, paragraph}) => {
     return (
         <div className="breadcrum-area breadcrumb-banner">
             <div className="container">
@@ -9,11 +8,6 @@ const BcrumbBannerOne = ({subtitle, title, paragraph, styleClass, mainThumb}) =>
                     <div className="subtitle" dangerouslySetInnerHTML={{__html: subtitle}}></div>
                     <h1 className="title h2" dangerouslySetInnerHTML={{__html: title}}></h1>
                     <p dangerouslySetInnerHTML={{__html: paragraph}}></p>
-                </div>
-                <div className={`banner-thumbnail ${styleClass}`}>
-                    <Tilty perspective={2000} reset={false}>
-                        <img src={process.env.PUBLIC_URL + mainThumb} alt="Illustration" />
-                    </Tilty>
                 </div>
             </div>
             <ul className="shape-group-8 list-unstyled">

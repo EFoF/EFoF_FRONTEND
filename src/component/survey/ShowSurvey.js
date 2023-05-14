@@ -2,24 +2,8 @@ import React, {useState, useEffect} from 'react';
 import SurveyProp from './SurveyProp';
 
 
-const filters = [
-    {
-        id: 1,
-        label: "전체 설문",
-    },
-    {
-        id: 2,
-        label: "설문 진행 중",
-    },
-    {
-        id: 3,
-        label: "설문 마감",
-    }
-];
 
-
-
-const ShowSurvey = ({parentClass, colSize, columnGap, AllData}) => {
+const ShowSurvey = ({parentClass, colSize, columnGap, AllData, filters}) => {
 
     const [getAllItems] = useState(AllData);
     const [activeFilter, setActiveFilter] = useState("");
@@ -75,7 +59,6 @@ const ShowSurvey = ({parentClass, colSize, columnGap, AllData}) => {
                             </div>
                         ))}
                     </div>
-
                 </div>
                 <ul className="shape-group-7 list-unstyled">
                     <li className="shape shape-1"><img src={process.env.PUBLIC_URL + "/images/others/circle-2.png"} alt="circle" /></li>
