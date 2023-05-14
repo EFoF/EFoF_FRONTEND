@@ -1,8 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from "axios";
-import {setHeader} from "../api";
 const initialState = {
-    tokenIssueDTO : {},
+    loginLastDTO : {},
     // loadAuthorizationLoading: false,
     // loadAuthorizationDone: false,
     // loadAuthorizationError: false,
@@ -15,13 +14,13 @@ const {actions: authorizationActions, reducer: authorizationReducer } = createSl
     name: "authorization",
     initialState,
     reducers: {
-        setToken : (state, action) => {
-            state.tokenIssueDTO = Object.assign(state.tokenIssueDTO, action.payload);
-            setHeader(state.tokenIssueDTO.accessToken);
+        setLoginDTO : (state, action) => {
+            state.loginLastDTO = Object.assign(state.loginLastDTO, action.payload);
+            // setHeader(state.tokenIssueDTO.accessToken, state.loginType);
         },
-        clearToken: (state, action) => {
-            state.tokenIssueDTO = {};
-        }
+        clearLoginDTO: (state, action) => {
+            state.loginLastDTO = {};
+        },
     },
 });
 

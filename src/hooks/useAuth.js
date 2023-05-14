@@ -37,7 +37,7 @@ export const useRedirect = () => {
                 refreshAuth()
                     .then(async (response) => {
                         // await dispatch(loadMe());
-                        await dispatch(authorizationActions.setToken(response.data))
+                        await dispatch(authorizationActions.setLoginDTO(response.data.loginLastDTO))
                     })
                     .catch(async () => {});
                 break;
@@ -69,7 +69,7 @@ export const useMessageRoomRedirect = () => {
                 refreshAuth(tokenIssueDTO.accessToken)
                     .then(async (response) => {
                         await dispatch(loadMe());
-                        await dispatch(authorizationActions.setToken(response.data));
+                        await dispatch(authorizationActions.setLoginDTO(response.data.loginLastDTO));
                         // await dispatch(loadMsgSend({ page: 0, size: 4 }));
                         // await dispatch(loadMsgReceived({ page: 0, size: 4 }));
                     })
