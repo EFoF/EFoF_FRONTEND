@@ -11,22 +11,12 @@ axios.defaults.withCredentials = true;
 
 // 리프레쉬 토큰으로 액세스토큰 재요청
 // TODO 아직 테스트를 실시하지 못했다.
-const refreshAuth = () => {
+const refreshAuth = (accessToken) => {
   // 여기서 header에 토큰을 담는다.
   // useSelector는 컴포넌트에서 호출하는게 아니면 오류가 나나보다.
   // 후에 prop 등으로 받아오겠다.
-  // const { tokenIssueDTO } = useSelector((state) => state.authorization);
-  // const token = tokenIssueDTO.accessToken;
-  // return axios.post(API.REISSUE, {
-  //   headers: {
-  //     Authorization: `Bearer ${token}`,
-  //   },
-  // }).then(response => {
-  //   console.dir(response.data);
-  //   return response.data;
-  // }).catch(error => {
-  //   console.log(error);
-  // });
+  axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
+  return axios.post(API.REISSUE);
 };
 
 // createAsyncThunk : axios 날리고, 결과를 redux에 반영까지
