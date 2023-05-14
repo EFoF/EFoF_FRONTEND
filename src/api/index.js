@@ -2,15 +2,27 @@ import axios from "axios";
 import API from "./config";
 import {useLocation, useNavigate} from "react-router-dom";
 import toastMsg from "../ui/Toast";
+import {useSelector} from "react-redux";
+import {useState} from "react";
 
 axios.defaults.baseURL = API.BASE_URL;
 axios.defaults.withCredentials = true;
+// axios.defaults.headers.common['Authorization'] =
 
 const authorizationClient = axios.create({
   baseURL: API.BASE_URL,
   withCredentials: true,
 });
 
+const setHeader = (accessToken) => {
+  authorizationClient.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
+}
+
+authorizationClient.interceptors.request.use((config) => {
+  // 여기에 토큰을 어떻게 담지??
+  console.log(config);
+  return config;
+})
 
 authorizationClient.interceptors.response.use(
 
@@ -63,5 +75,5 @@ authorizationClient.interceptors.response.use(
     },
   );
   
-  export { authorizationClient, unAuthorizationClient };
+  export { authorizationClient, unAuthorizationClient, setHeader };
   
