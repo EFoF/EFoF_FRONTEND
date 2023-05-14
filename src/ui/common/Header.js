@@ -6,22 +6,29 @@ import Cookies from "js-cookie";
 import useLogin from "../../hooks/useLogin";
 import axios from "axios";
 import API from '../../api/config';
-import toastMsg from "../Toast";
 import {useDispatch, useSelector} from "react-redux";
+import {authorizationActions} from "../../slices/authorization";
+import {useReissue} from "../../hooks/useAuth";
 const Header = () => {
     const confirmCookie = Cookies.get("tokenPublishConfirm");
     const [loginState, setLoginState] = useState(false);
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
-    const { me } = useSelector((state) => state.user);
+    const { tokenIssueDTO } = useSelector((state) => state.authorization);
 
     const callReissue = () => {
-        if(typeof(me.tokenIssueDTO) === 'undefined') {
+        const expiresDate = typeof(tokenIssueDTO.accessTokenExpiresIn) === "undefined" ?
+            new Date : new Date(tokenIssueDTO.accessTokenExpiresIn);
+        const currentDate = new Date();
+        console.log("현재 날짜 " + currentDate);
+        console.log("토큰 만료 시간 " + expiresDate);
+        if(currentDate >= expiresDate  && typeof(confirmCookie) === "undefined") {
             console.log("ReIssue 시도")
+            axios.defaults.headers.common['Authorization'] = "Bearer " + tokenIssueDTO.accessToken;
             axios.post(`${API.REISSUE}`)
-                .then(response => {
-                    console.log("성공 " + response.data);
+                .then(async response => {
+                    await dispatch(authorizationActions.setToken(response.data.tokenIssueDTO))
                     setLoginState(true);
                     return true;
                 })
@@ -38,7 +45,6 @@ const Header = () => {
     //
     useEffect(() => {
         callReissue();
-        console.dir(me)
     }, [])
 
     // 쿠키가 아니라 state로 판단하겠다.
