@@ -19,6 +19,9 @@ const {actions: authorizationActions, reducer: authorizationReducer } = createSl
             state.tokenIssueDTO = Object.assign(state.tokenIssueDTO, action.payload);
             setHeader(state.tokenIssueDTO.accessToken);
         },
+        clearToken: (state, action) => {
+            state.tokenIssueDTO = {};
+        }
     },
 });
 
