@@ -33,7 +33,7 @@ const App = () => {
               <Route path="/signup/email" exact element={<Step1 />}/>
               <Route path="/signup/inform" exact element={<Step2 />}/>
               <Route path="/form" exact element={<Form />}/>
-              <Route path="/login/findpw" exact element={<FindPW />}/>
+              <Route path="/findpw" exact element={<FindPW />}/>
               <Route path={process.env.PUBLIC_URL + "/privacy-policy"} element={<PrivacyPolicy />}/>
 			  <Route path={process.env.PUBLIC_URL + "/statistic"} element={<Statistic />}/>
               <Route path={process.env.PUBLIC_URL + "/form/generate"} element={<Generate />}/>

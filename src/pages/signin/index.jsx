@@ -71,7 +71,7 @@ export default function Login() {
           <EtcWrapper>
             <CheckBox type="checkbox" />
             <AutoLogin>로그인 유지</AutoLogin>
-            <StyledLink to="/login/findpw">
+            <StyledLink to="/findpw">
             <FindPW>비밀번호 찾기 {">"}</FindPW>
             </StyledLink>
           </EtcWrapper>
@@ -98,7 +98,6 @@ export default function Login() {
               아직 독수리 설문 회원이 아니신가요?
               <br />
               <SignUp>
-                {/* <Link href="/signup">회원가입하기</Link> */}
                 <StyledLink to="/signup">
                   회원가입하기
                 </StyledLink>
