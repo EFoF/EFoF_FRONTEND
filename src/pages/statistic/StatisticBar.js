@@ -46,7 +46,7 @@ const data = [
   },
 ];
 
-const COLORS = ['#8884d8', '#82ca9d', '#81BAC9', '#BAE053', '#FFD44F', '#bddaff', '#daffbd'];
+const COLORS = ['#8884d8', '#82ca9d', '#81BAC9', '#BAE053', '#FFD44F', '#bddaff', '#E0B379'];
 
 const StatisticBar = () => {
   return (
@@ -56,7 +56,6 @@ const StatisticBar = () => {
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
-        <Legend />
         <Bar dataKey="uv">
           {data.map((entry, index) => (
             <Cell key={index} fill={COLORS[index % COLORS.length]} />
