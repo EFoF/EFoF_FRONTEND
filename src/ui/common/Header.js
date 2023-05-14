@@ -21,7 +21,7 @@ const Header = () => {
             console.log("ReIssue 시도")
             axios.post(`${API.REISSUE}`)
                 .then(response => {
-                    console.log("성공?" + response.data);
+                    console.log("성공 " + response.data);
                     setLoginState(true);
                     return true;
                 })

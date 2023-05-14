@@ -15,7 +15,6 @@ const {actions: authorizationActions, reducer: authorizationReducer } = createSl
     initialState,
     reducers: {
         setToken : (state, action) => {
-            console.log(action.payload);
             state.tokenIssueDTO = Object.assign(state.tokenIssueDTO, action.payload);
         },
     },

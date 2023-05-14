@@ -51,14 +51,13 @@ const loadMe = createAsyncThunk(
 const authLogin = createAsyncThunk(
   // "user/authLogin",
   "login",
-  async (data, { rejectWithValue }) => {
+  async (data, { rejectWithValue, dispatch }) => {
     try {
       const response = await unAuthorizationClient.post(API.LOGIN, data);
       toastMsg("로그인 성공", true);
-      // 여기서 persist redux에 토큰 추가해주는 부분 추가되어야 함.
-      // 그걸 createAsyncThunk로 만들고 reIssue에서도 활용하면 되겠군!
-      // 여기서 dispatch?
-      const dispatch = useDispatch();
+      // persist redux에 추가하는 부분
+      // 여기부터 코드 진행이 안됨
+      // const dispatch = useDispatch();
       dispatch(authorizationActions.setToken(response.data.tokenIssueDTO));
       return response.data;
     } catch (error) {
@@ -67,6 +66,12 @@ const authLogin = createAsyncThunk(
     }
   },
 );
+
+// const authToken = createAsyncThunk(
+//   "token",
+//     async (data, {rejectWithValue}) => {
+//       return data;
+//     })
 
 const authLogout = createAsyncThunk("user/authLogout", async () => {
   try {
