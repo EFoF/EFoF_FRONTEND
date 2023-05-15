@@ -1,28 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import SurveyProp from './SurveyProp';
-import ParticipateData from '../../data/ParticipateData';
 
 
-const filters = [
-    {
-        id: 1,
-        label: "전체 설문",
-    },
-    {
-        id: 2,
-        label: "설문 진행 중",
-    },
-    {
-        id: 3,
-        label: "설문 마감",
-    }
-];
 
-
-const AllData = ParticipateData;
-
-
-const ParticipateSurvey = ({parentClass, colSize, itemShow, columnGap}) => {
+const ShowSurvey = ({parentClass, colSize, columnGap, AllData, filters}) => {
 
     const [getAllItems] = useState(AllData);
     const [activeFilter, setActiveFilter] = useState("");
@@ -70,7 +51,6 @@ const ParticipateSurvey = ({parentClass, colSize, itemShow, columnGap}) => {
                             }
                                     key={filter.id}>{filter.label}</button>
                         ))}
-
                     </div>
                     <div className={`row ${columnGap ? columnGap : "row-35"}`}>
                         {visibleItems.map((data) => (
@@ -79,7 +59,6 @@ const ParticipateSurvey = ({parentClass, colSize, itemShow, columnGap}) => {
                             </div>
                         ))}
                     </div>
-
                 </div>
                 <ul className="shape-group-7 list-unstyled">
                     <li className="shape shape-1"><img src={process.env.PUBLIC_URL + "/images/others/circle-2.png"} alt="circle" /></li>
@@ -91,4 +70,4 @@ const ParticipateSurvey = ({parentClass, colSize, itemShow, columnGap}) => {
     )
 }
 
-export default ParticipateSurvey;
+export default ShowSurvey;

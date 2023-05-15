@@ -106,9 +106,44 @@ const authSignUp = createAsyncThunk(
 const checkEmailExists = async (email) => {
   try {
     const response = await unAuthorizationClient.post(API.EMAIL_EXIST, { email });
+    console.log("데이타 테스트",response.data.exists)
+    // toastMsg("인증 성공", true);
     return response.data.exists;
   } catch (error) {
     console.log(error);
+    // toastMsg("인증 실패", false);
+    return false;
+  }
+};
+
+//사용자가 비밀번호 변경 시 기존 비밀번호와 일치하는 지 검증 뒤 비밀번호 변경 - 비로그인 시
+const updatePasswordVisitor = async (email, password) => {
+  try {
+    const response = await unAuthorizationClient.patch(API.PASSWORD_UPDATE_VISITOR, { email, newPassword: password });
+    toastMsg("비밀번호 변경 성공", true);
+    // console.log(response.data.exists);
+    // return response.data.exists;
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    toastMsg(error.response.data.message, false);
+    return false;
+  }
+};
+
+//사용자가 비밀번호 변경 시 기존 비밀번호와 일치하는 지 검증 뒤 비밀번호 변경 - 로그인 되어 있을 시
+const updatePasswordMember = async (oldPassword, password) => {
+  try {
+    const response = await unAuthorizationClient.patch(API.PASSWORD_UPDATE, { oldPassword, newPassword: password });
+    toastMsg("비밀번호 변경 성공", true);
+    // console.log(response.data.exists);
+    // return response.data.exists;
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    toastMsg(error.response.data.message, false);
     return false;
   }
 };
@@ -122,4 +157,6 @@ export {
   authSignUp,
   refreshAuth,
   checkEmailExists,
+  updatePasswordVisitor,
+  updatePasswordMember,
 };

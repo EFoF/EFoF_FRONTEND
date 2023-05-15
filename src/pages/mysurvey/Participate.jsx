@@ -4,8 +4,23 @@ import Header from '../../ui/common/Header';
 import BcrumbBannerOne from '../../elements/breadcrumb/BcrumbBannerOne';
 import ColorSwitcher from '../../elements/switcher/ColorSwitcher';
 import SEO from '../../ui/common/SEO';
-import ParticipateSurvey from '../../component/survey/ParticipateSurvey';
+import ShowSurvey from '../../component/survey/ShowSurvey';
+import ParticipateData from "../../data/ParticipateData.json";
 
+const filters = [
+    {
+        id: 1,
+        label: "전체 설문",
+    },
+    {
+        id: 2,
+        label: "설문 진행 중",
+    },
+    {
+        id: 3,
+        label: "설문 마감",
+    }
+];
 
 const Participate = () => {
 
@@ -19,10 +34,8 @@ const Participate = () => {
                     subtitle="Participated Survey"
                     title="내가 참여한 설문"
                     paragraph =""
-                    styleClass=""
-                    mainThumb="/images/banner/banner-thumb-1.png"
                 />
-                <ParticipateSurvey colSize="col-xl-3 col-lg-4 col-md-6" itemShow="12" columnGap="row-15" parentClass="project-column-4"/>
+                <ShowSurvey colSize="col-xl-3 col-lg-4 col-md-6" itemShow="12" columnGap="row-15" parentClass="project-column-4" AllData={ParticipateData} filters={filters}/>
                 <Footer parentClass="" />
             </main>
         </>

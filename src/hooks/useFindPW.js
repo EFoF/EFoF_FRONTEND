@@ -1,7 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useCallback, useState, useRef, useEffect } from "react";
-import { authEmailSend, authEmailConfirms, checkEmailExists } from "../api/auth";
+import {
+  authEmailSend,
+  authEmailConfirms,
+  checkEmailExists,
+  updatePasswordVisitor,
+  updatePasswordMember
+} from "../api/auth";
 import {userActions} from "../slices/user";
 import useInput from "./useInput";
 import toastMsg from "../ui/Toast";
@@ -12,10 +18,11 @@ export default function useSignUp() {
   const [email, onChangeEmail] = useInput("");
   const [authNumber, onChangeAuthNumber] = useInput("");
   const [password, onChangePassword] = useInput("");
+  const [oldPassword, onChangeOldPassword] = useInput("");
   const [passwordCheck, onChangePasswordCheck] = useInput("");
   const [isEmailConfirms, setIsEmailConfirms] = useState(false);
   const [isConfirmedCode, setIsConfirmedCode] = useState();
-  const [isDisplayWrong, setIsDisplayWrong] = useState(false);
+  const [isDisplayWrong, setIsDisplayWrong] = useState(true);
 
   const emailReg =
       /^[0-9a-zA-Z가-힣]([-_.]?[0-9a-zA-Z가-힣])*@[0-9a-zA-Z가-힣]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
@@ -83,7 +90,7 @@ export default function useSignUp() {
   };
 
   const onReplaceBack = () => {
-    navigate("/signup");
+    navigate(-1);
   };
 
   const onReplaceNext = () => {
@@ -106,7 +113,7 @@ export default function useSignUp() {
   const isExistedEmail = async (email) => {
     try {
       const response = await checkEmailExists(email); // 이메일 중복 확인 API 호출
-      console.log(response);
+      // console.log("리스폰스",response)
       return response // 중복 여부를 반환하는 프로퍼티(exists)가 있는 응답 객체를 가정함
     } catch (error) {
       console.error(error);
@@ -114,17 +121,15 @@ export default function useSignUp() {
     }
   };
 
-  // if (isExistedEmail(email) == true)  setIsDisplayWrong(true);
-  // else setIsDisplayWrong(false);
+  const updateVisitorPassword = () => {
+    updatePasswordVisitor(email, password);
+  }
 
-  // useEffect(() => {
-  //   if (isExistedEmail) {
-  //     setIsDisplayWrong(true);
-  //   } else {
-  //     setIsDisplayWrong(false);
-  //   }
-  // }, [isExistedEmail]);
+  const updateMemberPassword = () => {
+    updatePasswordMember(oldPassword, password);
+  }
 
+  //로그인 된 유저인지 인증하는 함수를 만들어야함.
 
   return {
     email,
@@ -147,5 +152,9 @@ export default function useSignUp() {
     isExistedEmail,
     isDisplayWrong,
     setIsDisplayWrong,
+    updateVisitorPassword,
+    updateMemberPassword,
+    oldPassword,
+    onChangeOldPassword,
   };
 }

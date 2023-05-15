@@ -51,6 +51,9 @@ function Step1() {
     onReplaceBack,
     onReplaceNext,
     AuthTimer,
+    isDisplayWrong,
+    setIsDisplayWrong,
+    isExistedEmail,
   } = useSignUp();
 
   const { time, min, sec, onStartTimer } = AuthTimer();
@@ -69,7 +72,8 @@ function Step1() {
             </div>
             <Form>
               <div>
-                <EmailWrapper>
+                <EmailWrapper
+                    disabled={isEmailConfirms}>
                   <div style={{ display: 'flex', alignItems: 'end' }}>
                     <Input
                         value={email}
@@ -83,20 +87,34 @@ function Step1() {
                         <AuthButton
                             title={min < 5 ? "재전송" : "인증"}
                             width="6.5rem"
-                            onClick={onStartTimer}
+                            onClick={() => {
+                              isExistedEmail(email).then(exists => {
+                                if (!exists) {
+                                  onStartTimer();
+                                  setIsDisplayWrong(false);
+                                  console.log("이메일존재 ?", exists);
+                                }
+                                else {
+                                  console.log("이메일존재 ?", exists);
+                                  setIsDisplayWrong(true);
+                                }
+                              })
+                            }}
                         />
                     ) : (
                         <AuthButton title="인증" width="6.5rem" disabled />
                     )}
                   </div>
                 </EmailWrapper>
+                {isDisplayWrong && (<Wrong>이미 등록된 이메일입니다.</Wrong>)}
                 {!isValidEmail && email.length > 0 && (
                     <Wrong>이메일 형식이 올바르지 않습니다.</Wrong>
                 )}
               </div>
               {min < 5 && (
                   <div>
-                    <EmailWrapper>
+                    <EmailWrapper
+                        disabled={isEmailConfirms}>
                       <div style={{ display: 'flex', alignItems: 'end' }}>
                         <Input
                             value={authNumber}
@@ -125,7 +143,7 @@ function Step1() {
                     {!isEmailConfirms && time.current <= 0 && (
                         <Wrong>입력시간이 초과되었습니다. 재전송 버튼을 눌러주세요.</Wrong>
                     )}
-                    {(isConfirmedCode == false) && (
+                    {(isConfirmedCode === false) && (
                         <Wrong>인증 코드가 올바르지 않습니다. 다시 입력해주세요.</Wrong>
                     )}
                     {isEmailConfirms && (
@@ -165,7 +183,7 @@ function Step1() {
                   {isValidEmail &&
                   password.length > 0 &&
                   password === passwordCheck &&
-                  isPasswordValid == true &&
+                  isPasswordValid === true &&
                   isEmailConfirms ? (
                       <RightButton onClick={onReplaceNext} title="다음" />
                   ) : (

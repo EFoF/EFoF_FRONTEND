@@ -5,6 +5,9 @@ import SurveyInfo from './SurveyInfo';
 import ProjectData from "../../data/ProjectData.json";
 import { Link } from 'react-router-dom';
 import StatisticBar from './StatisticBar';
+import { Accordion } from 'react-bootstrap';
+
+import { FaCompress, FaCode, FaGlobe } from 'react-icons/fa';
 
 const portfolioData = ProjectData;
 const AllData = ProjectData;
@@ -31,15 +34,37 @@ const QuestionStatistic = ({parentClass, colSize, itemShow, columnGap}) => {
 							textColor=""
 					/>
 					{/* =============================================================================== */}
-					{/* <div className="row row-45"> */}
-					<div className="row-45">
-						{portfolioData.slice(12, 16).map((data) => (
-							// <div className="col-md-6" key={data.id}>
-							<div className="col" key={data.id}>
-								<SurveyInfo projectStyle="project-style-2" portfolio={data}/>
-							</div>
-						))}
-					</div>
+					<Accordion>
+						<Accordion.Item eventKey="2">
+                            <Accordion.Header><FaCode /> 섹션 1</Accordion.Header>
+							<Accordion.Body>
+								<div className="row-45">
+									{portfolioData.slice(12, 16).map((data) => (
+													// <div className="col-md-6" key={data.id}>
+									<div className="col" key={data.id}>
+										<SurveyInfo projectStyle="project-style-2" portfolio={data}/>
+									</div>
+									))}
+								</div>
+                            </Accordion.Body>   
+                        </Accordion.Item>
+                    </Accordion>
+
+					<Accordion>
+						<Accordion.Item eventKey="2">
+                            <Accordion.Header><FaCode /> 섹션 1</Accordion.Header>
+							<Accordion.Body>
+								<div className="row-45">
+									{portfolioData.slice(12, 16).map((data) => (
+													// <div className="col-md-6" key={data.id}>
+									<div className="col" key={data.id}>
+										<SurveyInfo projectStyle="project-style-2" portfolio={data}/>
+									</div>
+									))}
+								</div>
+                            </Accordion.Body>   
+                        </Accordion.Item>
+                    </Accordion>
 					{/* =============================================================================== */}
 
 					<div className="more-project-btn">
