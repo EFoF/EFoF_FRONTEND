@@ -12,7 +12,7 @@ import ReactDOM from "react-dom";
 import ConfirmModal from '../../../ui/ConfirmModal';
 import axios from 'axios';
 import toastMsg from '../../../ui/Toast';
-export default function OptionalQuestion({ type, optionId, questionId, optionContent, optionImage, isLast, sectionId, questions, questionOption,optionNextSectionId}) {
+export default function OptionalQuestion({ type, optionId, questionId, optionContent, optionImage, isLast, sectionId, questions, questionOption,optionNextSectionId, readOnly}) {
 
 
   const customStyles = {
@@ -176,7 +176,8 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
       </InputButtonWrapper>
       <OptionsWrapper isLast={isLast} gap={"0.5rem"}>
 
-      {questions.length === 1 ? null : (
+
+      {questions.length === 1 || readOnly ? (<></>) : (
         <Select
           styles={customStyles}
           value={questionOption.find(op => op.value === optionNextSectionId)

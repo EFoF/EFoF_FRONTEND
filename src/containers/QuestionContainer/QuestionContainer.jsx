@@ -65,7 +65,7 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
     dispatch(questionActions.addQuestion({ sectionId: sectionId, newQuestion: newQuestion(newId) }));
   };
 
-  const getOptionList = (type) => {
+  const getOptionList = (type, readOnly) => {
     const optionList = options
       ?.map((option) => (
         <OptionalQuestion
@@ -80,6 +80,7 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
           questions={questions}
           type={type}
           isLast={false}
+          readOnly={readOnly}
         />
       ))
       .concat(
@@ -91,15 +92,15 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
           optionContent="옵션 추가"
           questions={questions}
           questionOption={questionOption}
-
           type={type}
           isLast={true}
+          readOnly={readOnly}
         />,
       );
     return optionList;
   };
 
-  const getOptionListWithoutConcat = (type) => {
+  const getOptionListWithoutConcat = (type, readOnly) => {
     const optionList = options
       ?.map((option) => (
         <OptionalQuestion
@@ -114,19 +115,20 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
           optionNextSectionId={option.nextSectionId}
           type={type}
           isLast={false}
+          readOnly={readOnly}
         />
       ))
     return optionList;
   };
 
-  const getInput = () => {
+  const getInput = (readOnly) => {
     switch (questionType) {
       
       case QUESTION_TYPES.TRUE_FALSE:
-        return getOptionListWithoutConcat(questionType);
+        return getOptionListWithoutConcat(questionType, readOnly);
       case QUESTION_TYPES.MULTIPLE_CHOICE:
       case QUESTION_TYPES.ONE_CHOICE:
-        return getOptionList(questionType);
+        return getOptionList(questionType, readOnly);
       case QUESTION_TYPES.LONG_ANSWER:
       // return <NarrativeQuestion type="long" questionId={questionId} />;
       default:
@@ -173,11 +175,12 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
       {readOnly ? (
           <div className="collapse">
             {typeNames[questionType]}
+            {getInput(true)}
           </div>
       ) : (
           <div className="collapse">
             <Dropdown questionId={questionId} sectionId={sectionId}/>
-            {getInput()}
+            {getInput(false)}
           </div>
       )}
       <hr />
