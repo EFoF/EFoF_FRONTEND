@@ -82,21 +82,24 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
           isLast={false}
           readOnly={readOnly}
         />
-      ))
-      .concat(
-        <OptionalQuestion
-          key={options.length + 1}
-          sectionId={sectionId}
-          questionId={questionId}
-          optionId={options.length + 1}
-          optionContent="옵션 추가"
-          questions={questions}
-          questionOption={questionOption}
-          type={type}
-          isLast={true}
-          readOnly={readOnly}
-        />,
+      ));
+    // readOnly 일때는 옵션 추가 버튼을 포함하지 않는다.
+    if (!readOnly) {
+      optionList.push(
+          <OptionalQuestion
+              key={options.length + 1}
+              sectionId={sectionId}
+              questionId={questionId}
+              optionId={options.length + 1}
+              optionContent="옵션 추가"
+              questions={questions}
+              questionOption={questionOption}
+              type={type}
+              isLast={true}
+              readOnly={readOnly}
+          />
       );
+    }
     return optionList;
   };
 
@@ -173,6 +176,7 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
       {/*설문 생성 부분에서는 Dropdown + getInput()으로 질문 유형을 선택할 수 있어야 하지만, 미리보기 화면에서는 선택된 질문 유형을 출력만 해주면 된다.
       따라서 아래 부분도 readOnly에 따라서 렌더링을 달리 해주어야 한다.*/}
       {readOnly ? (
+          // 각 질문에 대한 옵션값을 가져오는 부분이다.
           <div className="collapse">
             {typeNames[questionType]}
             {getInput(true)}
