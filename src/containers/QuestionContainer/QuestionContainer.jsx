@@ -14,6 +14,7 @@ import { AiOutlineDelete } from 'react-icons/ai'; // AiOutlineDelete 추가
 import Toggle from 'react-styled-toggle';
 import React from 'react'
 
+// 수정 예정
 const typeNames = ['객관식', '주관식', '객관식 복수선택', '찬부식'];
 
 export default function QuestionContainer({ questionId, provided, sectionId ,questionOption, readOnly}) {
@@ -34,6 +35,8 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
   if (!selectedQuestion) return null;
 
   const { type: questionType, options, questionContent, isNecessary, id } = selectedQuestion;
+
+  console.log(questionContent);
 
   // options는 질문의 하위 옵션
 
@@ -143,17 +146,25 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
       )}
       
       <div className="question">
-        <input
-          className="question-input"
-          type="text"
-          placeholder="질문"
-          value={questionContent}
-          
-          onChange={handleQuestionChange}
-        />
-        <button className="collapse-button" onClick={toggleCollapse}>
-          <FiChevronUp className={`collapse-icon ${isCollapsed ? "collapsed" : ""}`} />
-        </button>
+        {readOnly ? (
+            <span>
+              {questionContent.length === 0 ? '제목 없는 질문' : questionContent}
+              {isNecessary && <span style={{ color: 'red'}}>*</span>}
+            </span>
+        ) : (
+            <>
+              <input
+                  className="question-input"
+                  type="text"
+                  placeholder="질문"
+                  value={questionContent}
+                  onChange={handleQuestionChange}
+              />
+              <button className="collapse-button" onClick={toggleCollapse}>
+                <FiChevronUp className={`collapse-icon ${isCollapsed ? "collapsed" : ""}`} />
+              </button>
+            </>
+        )}
       </div>
 
 
@@ -173,7 +184,8 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
       {readOnly ? (
           // 필수 응답에 대한 처리는 임시로 별표만 찍어둠. 후에 수정될 예정
           <div className="settings">
-            {isNecessary ? ('*') : ('')}
+            {/*{isNecessary ? ('*') : ('')}*/}
+            <></>
           </div>
       ) : (
           <div className="settings">
