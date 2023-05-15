@@ -17,12 +17,14 @@ const Preview = () => {
 
   return (
     <Wrapper style={{ flexDirection: 'column', alignItems: 'center' }}>
-      <div className="question">
-        <TitleBox info={form.form} />
+        <QuestionWrapper>
+      {/*<div className="question">*/}
+        <TitleBox info={form.form} readOnly={true}/>
         {questions.map((question) => (
           <PreviewContainer key={question.id} questionId={question.id} />
         ))}
-      </div>
+      {/*</div>*/}
+        </QuestionWrapper>
       <Buttons>
         <Link to={'/result'} style={{ textDecoration: 'none' }}>
           <div className="submit-button">제출</div>
@@ -64,6 +66,11 @@ ${({ theme }) => theme.flexCenter};
   width: 100%;
   overflow:visible;
  
+`;
+
+const QuestionWrapper = styled.div`
+  padding:10px;
+  width: 90%;
 `;
 
 export default Preview;
