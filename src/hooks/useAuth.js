@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { refreshAuth, loadMe } from "../api/auth";
 // import { loadMsgReceived, loadMsgSend } from "../api/message";
 import {useLocation, useNavigate} from "react-router";
+import {authorizationActions} from "../slices/authorization";
 
 export default function useAuth() {
     const navigator = useNavigate();
@@ -23,8 +24,6 @@ export default function useAuth() {
 
     return { useUser };
 }
-// useRedirect는 일종의 필터로 작용하는 것 같다.
-// 예를 들면, 마이페이지를 로드하기 전에 useRedirect를 호출하여 loadMeError를 검사한다.
 export const useRedirect = () => {
     const { loadMeError } = useSelector((state) => state.user);
     const dispatch = useDispatch();
@@ -36,8 +35,9 @@ export const useRedirect = () => {
             // 액세스 토큰 만료
             case 401:
                 refreshAuth()
-                    .then(async () => {
-                        await dispatch(loadMe());
+                    .then(async (response) => {
+                        // await dispatch(loadMe());
+                        await dispatch(authorizationActions.setLoginDTO(response.data.loginLastDTO))
                     })
                     .catch(async () => {});
                 break;
@@ -51,8 +51,10 @@ export const useRedirect = () => {
     return null;
 };
 
+
 export const useMessageRoomRedirect = () => {
     const { loadMeError } = useSelector((state) => state.user);
+    const { tokenIssueDTO } = useSelector((state) => state.authorization);
     const { loadMsgSendError, loadMsgRecievedError } = useSelector(
         (state) => state.message,
     );
@@ -64,9 +66,10 @@ export const useMessageRoomRedirect = () => {
                 break;
             // 액세스 토큰 만료
             case 401:
-                refreshAuth()
-                    .then(async () => {
+                refreshAuth(tokenIssueDTO.accessToken)
+                    .then(async (response) => {
                         await dispatch(loadMe());
+                        await dispatch(authorizationActions.setLoginDTO(response.data.loginLastDTO));
                         // await dispatch(loadMsgSend({ page: 0, size: 4 }));
                         // await dispatch(loadMsgReceived({ page: 0, size: 4 }));
                     })

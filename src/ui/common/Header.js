@@ -6,24 +6,34 @@ import Cookies from "js-cookie";
 import useLogin from "../../hooks/useLogin";
 import axios from "axios";
 import API from '../../api/config';
-import toastMsg from "../Toast";
+import {useDispatch, useSelector} from "react-redux";
+import {authorizationActions} from "../../slices/authorization";
 const Header = () => {
     const confirmCookie = Cookies.get("tokenPublishConfirm");
     const [loginState, setLoginState] = useState(false);
     const navigate = useNavigate();
+
+    const dispatch = useDispatch();
+    const { loginLastDTO } = useSelector((state) => state.authorization);
+
     const callReissue = () => {
-        console.log("Reissue 시도");
-        if(typeof(confirmCookie) === 'undefined') {
+        console.dir(loginLastDTO);
+        const expiresDate = typeof(loginLastDTO.expiresAt) === "undefined" ?
+            new Date : new Date(loginLastDTO.expiresAt);
+        const currentDate = new Date();
+        console.log("현재 날짜 " + currentDate);
+        console.log("토큰 만료 시간 " + expiresDate);
+        if(currentDate >= expiresDate) {
+            console.log("ReIssue 시도")
             axios.post(`${API.REISSUE}`)
-                .then(response => {
-                    console.log(response.data);
+                .then(async response => {
+                    await dispatch(authorizationActions.setLoginDTO(response.data));
                     setLoginState(true);
                     return true;
                 })
-                .catch((error) => {
+                .catch(error => {
+                    setLoginState(false);
                     console.log(error);
-                    // 후에 수정할 예정. 인증하지 않은
-                    navigate('/', {replace:true});
                 });
         } else {
             setLoginState(true);
@@ -31,10 +41,12 @@ const Header = () => {
         }
         return true;
     }
-
+    //
     useEffect(() => {
         callReissue();
     }, [])
+
+    // 쿠키가 아니라 state로 판단하겠다.
 
     const {useLogout} = useLogin();
 

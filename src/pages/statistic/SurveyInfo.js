@@ -8,6 +8,9 @@ import StatisticPie2 from './StatisticPie2';
 import StatisticPie3 from './StatisticPie3';
 
 
+  
+
+
 // 주관식 답변 dummydata
 const dummy = [
 	{
@@ -38,31 +41,43 @@ const SurveyInfo = ({projectStyle, portfolio}) => {
 
     return (
 		<>
-		<div className='row' style={{backgroundColor: 'white' , paddingBottom: '30px'}}>
+		<div className='row' style={{backgroundColor: 'white' , paddingBottom: '90px'}}>
 			<div className={`project-grid ${projectStyle}`}>	
 				<span className="subtitle">{portfolio.category}</span>
 				<h3 className="title"> {portfolio.title}</h3>
-				{/* 제목이랑 그래프 간 간격 좁히기 */}
 			</div>
 
 			{isMultipleChoice || isBlankAnswer ? (
 				<>
 					<div className='col-md-6'>
-						{isMultipleChoice ? <StatisticBar /> : <StatisticOX />}
+						{/* {isMultipleChoice ? <StatisticBar /> : <StatisticOX />} */}
+						<StatisticBar />
 					</div>
-
 					<div className='col-md-6'>
 						{/* <StatisticPie /> */}
 						<StatisticPie2 />
 					</div>
 				</>
 			) : (
-				<div className='col-md-12'>
-					{dummy.map((item, index) => (
+				// <div className='col-md-12'>
+				// 	{dummy.map((item, index) => (
+				// 		<p key={index}>{item.answer}</p>
+				// 	))}
+				// </div>
+				<div className='col-md-12' style={{ paddingLeft: '20px', paddingRight: '20px', paddingTop: '-100px'}}>
+					<div style={{
+							overflow: 'auto', // 또는 overflow: 'auto'; (원래 scroll으로 했는데 auto가 더 나은 거 같음)
+							height: '120px', // 컨테이너의 높이 설정
+							// border: '1px solid #000' // 테두리 스타일 지정
+							}}
+					>{dummy.map((item, index) => (
 						<p key={index}>{item.answer}</p>
 					))}
+					</div>
 				</div>
 			)}
+
+			
 		</div>
 		</>
     )

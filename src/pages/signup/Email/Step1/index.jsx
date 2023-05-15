@@ -58,7 +58,6 @@ function Step1() {
 
   const { time, min, sec, onStartTimer } = AuthTimer();
   const isPasswordValid = isValidPassword(password);
-  const isEmailExisted = isExistedEmail(email);
   return (
       <Container>
         {/*<Wrapper>*/}
@@ -88,9 +87,8 @@ function Step1() {
                         <AuthButton
                             title={min < 5 ? "재전송" : "인증"}
                             width="6.5rem"
-                            // onClick={onStartTimer}
                             onClick={() => {
-                              isEmailExisted.then(exists => {
+                              isExistedEmail(email).then(exists => {
                                 if (!exists) {
                                   onStartTimer();
                                   setIsDisplayWrong(false);
@@ -145,7 +143,7 @@ function Step1() {
                     {!isEmailConfirms && time.current <= 0 && (
                         <Wrong>입력시간이 초과되었습니다. 재전송 버튼을 눌러주세요.</Wrong>
                     )}
-                    {(isConfirmedCode == false) && (
+                    {(isConfirmedCode === false) && (
                         <Wrong>인증 코드가 올바르지 않습니다. 다시 입력해주세요.</Wrong>
                     )}
                     {isEmailConfirms && (

@@ -11,6 +11,10 @@ import SurveyData from '../../data/SurveyData.json';
 import StatisticGraph from './StatisticBar';
 import Footer from '../../ui/common/Footer';
 
+import ProjectData from "../../data/ProjectData.json";
+import SurveyInfo from './SurveyInfo';
+
+
 
 const userNames = MemberData.map(member => member.userName);
 const userNum = MemberData.length;
@@ -20,6 +24,8 @@ const userNum = MemberData.length;
 //     description: survey.description,
 //     questions: survey.question,
 //   }));
+
+const portfolioData = ProjectData;
 
 const Statistic = () => {
 
@@ -67,6 +73,7 @@ const Statistic = () => {
                                     <Accordion.Item eventKey="2">
                                         <Accordion.Header><FaCode /> 설문 제약 조건</Accordion.Header>
                                         <Accordion.Body>
+                                            {/* 설문 제약 조건 */}
                                         </Accordion.Body>
                                     </Accordion.Item>
                                 </Accordion>

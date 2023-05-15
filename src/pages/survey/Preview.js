@@ -5,16 +5,15 @@ import { TitleBox } from '../../component';
 import { PreviewContainer } from '../../containers';
 import { useSelector } from 'react-redux';
 import { questionActions } from '../../slices';
-import { Wrapper } from './Main';
 
 const Preview = () => {
   const dispatch = useDispatch();
   const form = useSelector((state) => state.form);
   const { questions } = form;
 
-  const handleReset = () => {
-    dispatch(questionActions.resetAnswer());
-  };
+  // const handleReset = () => {
+  //   dispatch(questionActions.resetAnswer());
+  // };
 
   return (
     <Wrapper style={{ flexDirection: 'column', alignItems: 'center' }}>
@@ -28,7 +27,7 @@ const Preview = () => {
         <Link to={'/result'} style={{ textDecoration: 'none' }}>
           <div className="submit-button">제출</div>
         </Link>
-        <div className="reset-button" onClick={handleReset}>
+        <div className="reset-button" onClick={() => {console.log("하이 데얼")}}>
           양식 지우기
         </div>
       </Buttons>
@@ -57,6 +56,14 @@ const Buttons = styled.div`
     font-size: 14px;
     color: ${({ theme }) => theme.color.purple};
   }
+`;
+
+const Wrapper = styled.div`
+${({ theme }) => theme.flexCenter};
+  
+  width: 100%;
+  overflow:visible;
+ 
 `;
 
 export default Preview;

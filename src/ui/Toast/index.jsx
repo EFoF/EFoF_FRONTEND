@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 const toastMsg = (msg, IsSuccessed) =>
     toast(IsSuccessed ? `${msg} 👌` : `${msg} 🤯`, {
         hideProgressBar: true,
-        autoClose: 1000,
+        autoClose: 2500,
         draggable: false,
         theme: "dark",
     });

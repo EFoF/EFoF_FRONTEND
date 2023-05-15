@@ -3,13 +3,19 @@ import axios from "axios";
 import toastMsg from "../ui/Toast";
 import { authorizationClient, unAuthorizationClient } from ".";
 import API from "./config";
-import Cookies from "js-cookie";
+import {useDispatch, useSelector} from "react-redux";
+import {authorizationActions} from "../slices/authorization"
 
 axios.defaults.baseURL = API.BASE_URL;
 axios.defaults.withCredentials = true;
 
 // 리프레쉬 토큰으로 액세스토큰 재요청
-const refreshAuth = () => {
+// TODO 아직 테스트를 실시하지 못했다.
+const refreshAuth = (accessToken) => {
+  // 여기서 header에 토큰을 담는다.
+  // useSelector는 컴포넌트에서 호출하는게 아니면 오류가 나나보다.
+  // 후에 prop 등으로 받아오겠다.
+  axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
   return axios.post(API.REISSUE);
 };
 
@@ -35,19 +41,27 @@ const loadMe = createAsyncThunk(
 const authLogin = createAsyncThunk(
   // "user/authLogin",
   "login",
-  async (data, { rejectWithValue }) => {
+  async (data, { rejectWithValue, dispatch }) => {
     try {
       const response = await unAuthorizationClient.post(API.LOGIN, data);
       toastMsg("로그인 성공", true);
-      console.log("로그인 성공 " + response.data.memberDetail);
-      // memberDetail 객체 반환
-      return response.data.memberDetail;
+      // persist redux에 추가하는 부분
+      // 여기부터 코드 진행이 안됨
+      // const dispatch = useDispatch();
+      dispatch(authorizationActions.setLoginDTO(response.data.loginLastDTO));
+      return response.data;
     } catch (error) {
       toastMsg(error.response.data.message, false);
       return rejectWithValue(error.response.data);
     }
   },
 );
+
+// const authToken = createAsyncThunk(
+//   "token",
+//     async (data, {rejectWithValue}) => {
+//       return data;
+//     })
 
 const authLogout = createAsyncThunk("user/authLogout", async () => {
   try {
@@ -103,9 +117,25 @@ const checkEmailExists = async (email) => {
 };
 
 //사용자가 비밀번호 변경 시 기존 비밀번호와 일치하는 지 검증 뒤 비밀번호 변경 - 비로그인 시
-const checkPasswordExists = async (email, password) => {
+const updatePasswordVisitor = async (email, password) => {
   try {
-    const response = await unAuthorizationClient.patch(API.PASSWORD_UPDATE, { email, newPassword: password });
+    const response = await unAuthorizationClient.patch(API.PASSWORD_UPDATE_VISITOR, { email, newPassword: password });
+    toastMsg("비밀번호 변경 성공", true);
+    // console.log(response.data.exists);
+    // return response.data.exists;
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    toastMsg(error.response.data.message, false);
+    return false;
+  }
+};
+
+//사용자가 비밀번호 변경 시 기존 비밀번호와 일치하는 지 검증 뒤 비밀번호 변경 - 로그인 되어 있을 시
+const updatePasswordMember = async (oldPassword, password) => {
+  try {
+    const response = await unAuthorizationClient.patch(API.PASSWORD_UPDATE, { oldPassword, newPassword: password });
     toastMsg("비밀번호 변경 성공", true);
     // console.log(response.data.exists);
     // return response.data.exists;
@@ -127,5 +157,6 @@ export {
   authSignUp,
   refreshAuth,
   checkEmailExists,
-  checkPasswordExists,
+  updatePasswordVisitor,
+  updatePasswordMember,
 };
