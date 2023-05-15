@@ -1,5 +1,16 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 
+
+// TitleInput, DetailInput 등에서 readOnly props에 따라 편집 여부를 결정하기 위해 선언한 함수이다.
+const readOnlyStyles = css`
+  &:focus {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    transition: 0.1s ease;
+    border-bottom: 2px solid ${({ theme }) => theme.color.purple};
+  }
+`;
 
 export const TitleInput = styled.input`
   
@@ -18,13 +29,15 @@ export const TitleInput = styled.input`
     border-bottom: 1px solid ${({ theme }) => theme.color.border_gray};
   }
 
-  &:focus {
-    border:0;
-    outline: 0;
-    background: transparent;
-    transition: 0.1s ease;
-    border-bottom: 2px solid ${({ theme }) => theme.color.purple};
-  }
+  // &:focus {
+  //   border:0;
+  //   outline: 0;
+  //   background: transparent;
+  //   transition: 0.1s ease;
+  //   border-bottom: 2px solid ${({ theme }) => theme.color.purple};
+  // }
+
+  ${props => !props.readOnly && readOnlyStyles}
 `;
 
 export const DetailInput = styled.input`
@@ -41,13 +54,15 @@ export const DetailInput = styled.input`
       border-bottom: 1px solid ${({ theme }) => theme.color.border_gray};
     }
   
-    &:focus {
-    border:0;
-    outline: 0;
-      background: transparent;
-      transition: 0.1s ease;
-      border-bottom: 2px solid ${({ theme }) => theme.color.purple};
-    }
+    // &:focus {
+    // border:0;
+    // outline: 0;
+    //   background: transparent;
+    //   transition: 0.1s ease;
+    //   border-bottom: 2px solid ${({ theme }) => theme.color.purple};
+    // }
+
+    ${props => !props.readOnly && readOnlyStyles}
 `;
 
 export const InputWrapper = styled.div`

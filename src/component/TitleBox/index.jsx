@@ -18,12 +18,12 @@ const TitleBox = ({ info, handleDetail, handleTitle }) => {
   let inputRef;
   const { questions, form } = useSelector((state) => state.form);
   const dispatch = useDispatch();
-
+  
   const CheckIcon = styled(FaCheck)`
   font-size: 1.3rem;
   align-self: center;
 `;
-  const AddIcon = styled(MdAdd)`
+const AddIcon = styled(MdAdd)`
   font-size: 1.3rem;
   align-self: center;
 `;
@@ -32,7 +32,7 @@ const TitleBox = ({ info, handleDetail, handleTitle }) => {
       alert(JSON.stringify(form));
       // ReactDOM.unmountComponentAtNode(document.getElementById("modal-root"));
     };
-  
+
   const handleCancel = () => {
     // 취소 버튼 클릭 시 처리할 코드 작성
     ReactDOM.unmountComponentAtNode(document.getElementById("modal-root"));
@@ -58,7 +58,7 @@ const handleDeleteImage = () => {
   ReactDOM.render(confirmModal, document.getElementById("modal-root"));
 };
 
-
+  
 
 const handleFileUpload = (event) => {
   const selectedFile = event.target.files[0];
@@ -89,43 +89,47 @@ return (
   <Wrapper>
     <InputWrapper color="white">
 
-      <TitleInput
-        placeholder="제목 없는 설문지"
-        value={info.title}
-        onChange={({ target: { value } }) => handleTitle(value)}
-      />
+        <TitleInput
+          placeholder="제목 없는 설문지"
+          value={info.title}
+          readOnly={readOnly}
+          onChange={({ target: { value } }) => handleTitle(value)}
+        />
 
-      <DetailInput
-        placeholder="설문지 설명"
-        name="detail"
-        value={info.detail}
-        onChange={({ target: { value } }) => handleDetail(value)}
-      />
-    </InputWrapper>
+        <DetailInput
+          placeholder="설문지 설명"
+          name="detail"
+          value={info.detail}
+          readOnly={readOnly}
+          onChange={({ target: { value } }) => handleDetail(value)}
+        />
+      </InputWrapper>
 
-    <OptionsWrapper gap="1rem">
-      <OptionButton size={"1.5rem"} onClick={() => form.image !== '' ? handleDeleteImage() : inputRef.click()}>
-        <MdPhoto />
-        {form.image !== '' ? <CheckIcon /> : <AddIcon />}
-      </OptionButton>
+      {readOnly ? (<></>) : (
+      <OptionsWrapper gap="1rem">
+        <OptionButton size={"1.5rem"} onClick={() => form.image !== '' ? handleDeleteImage() : inputRef.click()}>
+          <MdPhoto />
+          {form.image !== '' ? <CheckIcon /> : <AddIcon />}
+        </OptionButton>
 
-      <ImgInput
-        onClick={(e) => e.target.value = null}
-        ref={refParam => inputRef = refParam}
-        type="file"
-        id="chooseFile"
-        name="chooseFile"
-        accept="image/*"
-        onChange={handleFileUpload}
-      />
+          <ImgInput
+            onClick={(e) => e.target.value = null}
+            ref={refParam => inputRef = refParam}
+            type="file"
+            id="chooseFile"
+            name="chooseFile"
+            accept="image/*"
+            onChange={handleFileUpload}
+          />
 
 
-      <SettingButton size="1.5rem" onClick={handleClose}>
-        <FaPalette />
-      </SettingButton >
-    </OptionsWrapper>
-  </Wrapper>
-);
+        <SettingButton size="1.5rem" onClick={handleClose}>
+          <FaPalette />
+        </SettingButton >
+      </OptionsWrapper> )
+      }
+    </Wrapper>
+  );
 };
 
 export default TitleBox;
