@@ -5,12 +5,14 @@ import { TitleBox } from '../../component';
 import { PreviewContainer } from '../../containers';
 import { useSelector } from 'react-redux';
 import { questionActions } from '../../slices';
+import Section from "../../component/Section/Section";
+import {Draggable} from "react-beautiful-dnd";
+import QuestionContainer from "../../containers/QuestionContainer/QuestionContainer";
 
 const Preview = () => {
   const dispatch = useDispatch();
   const form = useSelector((state) => state.form);
   const { questions } = form;
-
   // const handleReset = () => {
   //   dispatch(questionActions.resetAnswer());
   // };
@@ -20,19 +22,33 @@ const Preview = () => {
         <QuestionWrapper>
       {/*<div className="question">*/}
         <TitleBox info={form.form} readOnly={true}/>
-        {questions.map((question) => (
-          <PreviewContainer key={question.id} questionId={question.id} />
+        {questions.map((section, section_idx) => (
+            // 첫번째 루프 안은 섹션이 나열된다.
+            // needs another map function for section here.
+            // console.log(section)
+            <SectionContainer key={section.id}>
+                <Section section_idx={section_idx + 1} section_len={questions.length} />
+                {section.questionList.map((question, question_idx) => (
+                            <div>
+                                <QuestionContainer key={question.id} questionId={question.id} sectionId={section.id} readOnly={true} />
+                            </div>
+                        ))}
+            </SectionContainer>
+            // section.questionList.map((question) => (
+            //     <PreviewContainer key={question.id} questionId={question.id} />
+            // ))
+          // <PreviewContainer key={question.id} questionId={question.id} />
         ))}
       {/*</div>*/}
         </QuestionWrapper>
-      <Buttons>
-        <Link to={'/result'} style={{ textDecoration: 'none' }}>
-          <div className="submit-button">제출</div>
-        </Link>
-        <div className="reset-button" onClick={() => {console.log("하이 데얼")}}>
-          양식 지우기
-        </div>
-      </Buttons>
+      {/*<Buttons>*/}
+      {/*  <Link to={'/result'} style={{ textDecoration: 'none' }}>*/}
+      {/*    <div className="submit-button">제출</div>*/}
+      {/*  </Link>*/}
+      {/*  <div className="reset-button" onClick={() => {console.log("하이 데얼")}}>*/}
+      {/*    양식 지우기*/}
+      {/*  </div>*/}
+      {/*</Buttons>*/}
     </Wrapper>
   );
 };
@@ -71,6 +87,14 @@ ${({ theme }) => theme.flexCenter};
 const QuestionWrapper = styled.div`
   padding:10px;
   width: 90%;
+`;
+
+const SectionContainer = styled.div`
+margin-bottom:0.5rem;
+border-radius: 10px;
+position: relative;
+box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+overflow:visible;
 `;
 
 export default Preview;
