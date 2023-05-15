@@ -12,7 +12,7 @@ import ReactDOM from "react-dom";
 import ConfirmModal from '../../../ui/ConfirmModal';
 import axios from 'axios';
 import toastMsg from '../../../ui/Toast';
-export default function OptionalQuestion({ type, optionId, questionId, optionContent, optionImage, isLast, sectionId, questions, questionOption,optionNextSectionId}) {
+export default function OptionalQuestion({ type, optionId, questionId, optionContent, optionImage, isLast, sectionId, questions, questionOption,optionNextSectionId, readOnly}) {
 
 
   const customStyles = {
@@ -150,33 +150,55 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
   return (
     <Wrapper isLast={isLast}>
       <InputButtonWrapper>
-        <Input value={optionContent} type={type} isLast={isLast} onChange={handleContentChange} onClick={handleAddOption}
+        <Input value={optionContent} editable={readOnly} type={type} isLast={isLast} onChange={handleContentChange} onClick={handleAddOption}
           ref={inputRef} />
 
 
+        {readOnly ? (
+            <>
+              {/*<ReadOnlyInput value={optionContent}/>*/}
+            </>) : (
+            <>
+              {/*<Input value={optionContent} type={type} isLast={isLast} onChange={handleContentChange} onClick={handleAddOption}*/}
+              {/*       ref={inputRef} />*/}
+              <OptionButton size={"1rem"} isLast={isLast} onClick={() =>
+                  getImage() ? handleDeleteImage() : imageInputRef.click()}>
+                <MdPhoto />
+                {
+                  getImage() ? <CheckIcon /> : <AddIcon />}
+              </OptionButton>
+              <ImgInput
+                  onClick={(e) => e.target.value = null}
+                  ref={refParam => imageInputRef = refParam}
+                  type="file"
+                  id="chooseFile"
+                  name="chooseFile"
+                  accept="image/*"
+                  onChange={handleFileUpload}
+              />
+            </>
+        )}
+        {/*<OptionButton size={"1rem"} isLast={isLast} onClick={() =>*/}
+        {/*  getImage() ? handleDeleteImage() : imageInputRef.click()}>*/}
+        {/*  <MdPhoto />*/}
+        {/*  {*/}
+        {/*    getImage() ? <CheckIcon /> : <AddIcon />}*/}
+        {/*</OptionButton>*/}
+        {/*<ImgInput*/}
+        {/*  onClick={(e) => e.target.value = null}*/}
+        {/*  ref={refParam => imageInputRef = refParam}*/}
+        {/*  type="file"*/}
+        {/*  id="chooseFile"*/}
+        {/*  name="chooseFile"*/}
+        {/*  accept="image/*"*/}
+        {/*  onChange={handleFileUpload}*/}
+        {/*/>*/}
 
-        <OptionButton size={"1rem"} isLast={isLast} onClick={() =>
-          getImage() ? handleDeleteImage() : imageInputRef.click()}>
-          <MdPhoto />
-          {
-            getImage() ? <CheckIcon /> : <AddIcon />}
-        </OptionButton>
-
-
-
-        <ImgInput
-          onClick={(e) => e.target.value = null}
-          ref={refParam => imageInputRef = refParam}
-          type="file"
-          id="chooseFile"
-          name="chooseFile"
-          accept="image/*"
-          onChange={handleFileUpload}
-        />
       </InputButtonWrapper>
       <OptionsWrapper isLast={isLast} gap={"0.5rem"}>
 
-      {questions.length === 1 ? null : (
+
+      {questions.length === 1 || readOnly ? (<></>) : (
         <Select
           styles={customStyles}
           value={questionOption.find(op => op.value === optionNextSectionId)
@@ -187,10 +209,11 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
           options={questionOption}
         />
         )}
-
-        <CloseOptionButton onClick={handleDeleteOption} type={type} size={"1.2rem"}>
-          <MdClose />
-        </CloseOptionButton>
+        {readOnly ? (<></>) : (
+            <CloseOptionButton onClick={handleDeleteOption} type={type} size={"1.2rem"}>
+              <MdClose />
+            </CloseOptionButton>
+        )}
       </OptionsWrapper>
 
     </Wrapper>

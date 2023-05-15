@@ -26,14 +26,13 @@ export const Input = styled.input`
   border: none;
   ${({ type }) => type === 4 && "pointer-events: none;"}
 
-
   &:hover {
     border: 0;
     outline: 0;
     background: transparent;
     border-bottom: 1px solid ${({ theme }) => theme.color.border_gray};
   }
-
+  
   &:focus {
       border: 0;
       outline: 0;
@@ -41,7 +40,14 @@ export const Input = styled.input`
     transition: 0.1s ease;
     border-bottom: 2px solid ${({ theme }) => theme.color.purple};
   }
+  
+  //editable 관련 설정이다. 미리보기 화면에서는 이 컴포넌트가 수정이 되면 안되기 때문에 추가하였다. 
+  ${({ editable }) => editable && `
+    pointer-events: none;
+    user-select: none;   
+  `}
 `;
+
 
 export const OptionButton = styled.div`
 
