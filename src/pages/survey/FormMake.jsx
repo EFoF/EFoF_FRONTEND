@@ -104,7 +104,7 @@ function FormMake() {
             {...provided.droppableProps}>
 
             <SectionContainer key={section.id}>
-              <Section section_idx={section_idx + 1} section_len={questions.length} />
+              <Section section_idx={section_idx + 1} section_len={questions.length} readOnly={false}/>
               {section.questionList.map((question, question_idx) => (
 
                 <Draggable key={question.id}

@@ -14,7 +14,7 @@ import { AiOutlineDelete } from 'react-icons/ai'; // AiOutlineDelete 추가
 import Toggle from 'react-styled-toggle';
 import React from 'react'
 
-const typeNames = ['주관식', '객관식', '객관식 복수선택', '찬부식'];
+const typeNames = ['객관식', '주관식', '객관식 복수선택', '찬부식'];
 
 export default function QuestionContainer({ questionId, provided, sectionId ,questionOption, readOnly}) {
 
@@ -169,13 +169,18 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
             {getInput()}
           </div>
       )}
-
-
       <hr />
-      <div className="settings">
-      <Toggle checked={isNecessary} onChange={handleSwitch} labelLeft='필수 응답' width={52} height={25}sliderWidth={19} sliderHeight={19}/>
-      <StyledDeleteIcon onClick={handleDeleteQuestion} />
-    </div>
+      {readOnly ? (
+          // 필수 응답에 대한 처리는 임시로 별표만 찍어둠. 후에 수정될 예정
+          <div className="settings">
+            {isNecessary ? ('*') : ('')}
+          </div>
+      ) : (
+          <div className="settings">
+            <Toggle checked={isNecessary} onChange={handleSwitch} labelLeft='필수 응답' width={52} height={25}sliderWidth={19} sliderHeight={19}/>
+            <StyledDeleteIcon onClick={handleDeleteQuestion} />
+          </div>
+      )}
     
     </Wrapper>
   );

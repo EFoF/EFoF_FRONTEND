@@ -67,7 +67,7 @@ const SectionButton = styled.button`
 
 
 
-export default function Section({ section_idx, section_len }) {
+export default function Section({ section_idx, section_len, readOnly }) {
   const dispatch = useDispatch();
 
 
@@ -114,15 +114,16 @@ export default function Section({ section_idx, section_len }) {
         
         {section_len}개 중 {section_idx}번째 섹션
       </Text>)}
-     
-        <WrapperSelect>
-          <IconWrapper>
-           
-            {questions.length === 1 ? null : (
-            <SectionButton onClick={handleDeleteSection}>섹션 삭제</SectionButton> )}
-             <SectionButton onClick={handleAddSection}>섹션 추가</SectionButton>
-          </IconWrapper>
-        </WrapperSelect>
+
+      {readOnly ? (<></>) : (
+          <WrapperSelect>
+            <IconWrapper>
+              {questions.length === 1 ? null : (
+                  <SectionButton onClick={handleDeleteSection}>섹션 삭제</SectionButton> )}
+              <SectionButton onClick={handleAddSection}>섹션 추가</SectionButton>
+            </IconWrapper>
+          </WrapperSelect>
+      )}
      
     </Wrapper>
 

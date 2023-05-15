@@ -27,7 +27,7 @@ const Preview = () => {
             // needs another map function for section here.
             // console.log(section)
             <SectionContainer key={section.id}>
-                <Section section_idx={section_idx + 1} section_len={questions.length} />
+                <Section section_idx={section_idx + 1} section_len={questions.length} readOnly={true}/>
                 {section.questionList.map((question, question_idx) => (
                             <div>
                                 <QuestionContainer key={question.id} questionId={question.id} sectionId={section.id} readOnly={true} />
