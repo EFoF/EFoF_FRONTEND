@@ -12,7 +12,7 @@ import ReactDOM from "react-dom";
 import ConfirmModal from '../../ui/ConfirmModal';
 import axios from 'axios';
 import toastMsg from '../../ui/Toast/index';
-const TitleBox = ({ info, handleDetail, handleTitle }) => {
+const TitleBox = ({ info, handleDetail, handleTitle, readOnly }) => {
   let inputRef;
   const { questions, form } = useSelector((state) => state.form);
   const dispatch = useDispatch();
@@ -82,6 +82,7 @@ const handleClose = () => {
         <TitleInput
           placeholder="제목 없는 설문지"
           value={info.title}
+          readOnly={readOnly}
           onChange={({ target: { value } }) => handleTitle(value)}
         />
 
@@ -89,16 +90,18 @@ const handleClose = () => {
           placeholder="설문지 설명"
           name="detail"
           value={info.detail}
+          readOnly={readOnly}
           onChange={({ target: { value } }) => handleDetail(value)}
         />
       </InputWrapper>
 
+      {readOnly ? (<></>) : (
       <OptionsWrapper gap="1rem">
         <OptionButton size={"1.5rem"} onClick={() => form.image !== '' ? handleDeleteImage() : inputRef.click()}>
           <MdPhoto />
           {form.image !== '' ? <CheckIcon /> : <AddIcon />}
         </OptionButton>
-        
+
           <ImgInput
             onClick={(e) => e.target.value = null}
             ref={refParam => inputRef = refParam}
@@ -108,12 +111,13 @@ const handleClose = () => {
             accept="image/*"
             onChange={handleFileUpload}
           />
-        
+
 
         <SettingButton size="1.5rem" onClick={handleClose}>
           <FaPalette />
         </SettingButton >
-      </OptionsWrapper>
+      </OptionsWrapper> )
+      }
     </Wrapper>
   );
 };
