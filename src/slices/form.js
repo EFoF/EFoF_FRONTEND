@@ -8,8 +8,8 @@ const initialState = {
   title: '',
   detail: '',
   image: '',
-  fontColor: '#111111',
-  bgColor: '#000000',
+  fontColor: '#992999',
+  bgColor: '#FFFFFF',
   btColor: '#000000',
 };
 
