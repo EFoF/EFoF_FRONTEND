@@ -34,10 +34,7 @@ const dummy = [
 
 const SurveyInfo = ({projectStyle, portfolio}) => {
 
-	const isMultipleChoice = portfolio.category.includes('객관식');
-	const isBlankAnswer = portfolio.category.includes('찬부식');
-
-	console.log(portfolio.category, isMultipleChoice, isBlankAnswer);
+	const isShortAnswer = portfolio.category.includes('주관식');
 
     return (
 		<>
@@ -47,23 +44,16 @@ const SurveyInfo = ({projectStyle, portfolio}) => {
 				<h3 className="title"> {portfolio.title}</h3>
 			</div>
 
-			{isMultipleChoice || isBlankAnswer ? (
+			{ !isShortAnswer ? (
 				<>
 					<div className='col-md-6'>
-						{/* {isMultipleChoice ? <StatisticBar /> : <StatisticOX />} */}
 						<StatisticBar />
 					</div>
 					<div className='col-md-6'>
-						{/* <StatisticPie /> */}
-						<StatisticPie2 />
+						<StatisticPie />
 					</div>
 				</>
 			) : (
-				// <div className='col-md-12'>
-				// 	{dummy.map((item, index) => (
-				// 		<p key={index}>{item.answer}</p>
-				// 	))}
-				// </div>
 				<div className='col-md-12' style={{ paddingLeft: '20px', paddingRight: '20px', paddingTop: '-100px'}}>
 					<div style={{
 							overflow: 'auto', // 또는 overflow: 'auto'; (원래 scroll으로 했는데 auto가 더 나은 거 같음)

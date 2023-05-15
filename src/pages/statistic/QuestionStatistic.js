@@ -23,6 +23,19 @@ const QuestionStatistic = ({parentClass, colSize, itemShow, columnGap}) => {
 		setVisibleItems(getAllItems.filter((item) => item.id <= visiableProject));
     }, []);
 
+
+	// ======================아코디언======================
+	const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+
+	const toggleAccordion = () => {
+		setIsAccordionOpen(!isAccordionOpen);
+	};
+
+	const accordionHeaderStyle = isAccordionOpen
+	? {} // 접힌 상태에서는 패딩이 없는 원래 크기의 스타일
+	: { paddingLeft: '80px', paddingRight: '80px' }; // 펼쳐진 상태에서의 스타일
+	// =================================================
+
     return (
 		<>
 			<div className={`section section-padding-2 ${parentClass ? parentClass : ""}`}>
@@ -33,8 +46,9 @@ const QuestionStatistic = ({parentClass, colSize, itemShow, columnGap}) => {
 							textAlignment="heading-left mb--40"
 							textColor=""
 					/>
-					{/* =============================================================================== */}
-					<Accordion>
+					{/* ============================섹션 별 통계============================ */}
+					{/* <Accordion onClick={toggleAccordion} style={accordionHeaderStyle}> */}
+					<Accordion style={{paddingLeft: '100px', paddingRight: '100px'}}>
 						<Accordion.Item eventKey="2">
                             <Accordion.Header><FaCode /> 섹션 1</Accordion.Header>
 							<Accordion.Body>
@@ -50,9 +64,9 @@ const QuestionStatistic = ({parentClass, colSize, itemShow, columnGap}) => {
                         </Accordion.Item>
                     </Accordion>
 
-					<Accordion>
+					{/* <Accordion>
 						<Accordion.Item eventKey="2">
-                            <Accordion.Header><FaCode /> 섹션 1</Accordion.Header>
+                            <Accordion.Header><FaCode /> 섹션 2</Accordion.Header>
 							<Accordion.Body>
 								<div className="row-45">
 									{portfolioData.slice(12, 16).map((data) => (
@@ -64,7 +78,7 @@ const QuestionStatistic = ({parentClass, colSize, itemShow, columnGap}) => {
 								</div>
                             </Accordion.Body>   
                         </Accordion.Item>
-                    </Accordion>
+                    </Accordion> */}
 					{/* =============================================================================== */}
 
 					<div className="more-project-btn">

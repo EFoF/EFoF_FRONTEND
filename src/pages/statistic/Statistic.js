@@ -10,7 +10,7 @@ import MemberData from '../../data/MemberData.json';
 import SurveyData from '../../data/SurveyData.json';
 import StatisticGraph from './StatisticBar';
 import Footer from '../../ui/common/Footer';
-
+import Header from '../../ui/common/Header';
 import ProjectData from "../../data/ProjectData.json";
 import SurveyInfo from './SurveyInfo';
 
@@ -33,6 +33,8 @@ const Statistic = () => {
         <>
         <SEO title="Project Details"/>
         {/* <ColorSwitcher /> */}
+        <main className="main-wrapper">
+            <Header />
             <section className="section-padding single-portfolio-area">
                 <div className="container">
                     <div className="row">
@@ -81,11 +83,11 @@ const Statistic = () => {
 
                         </div>
                     </div>
-
                     <QuestionStatistic />
                     <Footer CparentClass="" />
                 </div>
             </section>
+        </main>
         </>
     )
 }
