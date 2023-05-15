@@ -7,9 +7,9 @@ const initialState = {
   title: '',
   detail: '',
   image: '',
-  fontColor: '',
-  bgColor: '',
-  btColor: '',
+  fontColor: '#111111',
+  bgColor: '#000000',
+  btColor: '#000000',
 };
 
 const { actions: formActions, reducer: formReducer } = createSlice({
@@ -32,9 +32,24 @@ const { actions: formActions, reducer: formReducer } = createSlice({
     },
     changeImage: (state, action) => {
       const {image} = action.payload;
-      
       state.image = image;
       // alert(state.image)
+    },
+    changefontColor: (state, action) => {
+      const {fontColor} = action.payload;
+      // alert(fontColor)
+      state.fontColor = fontColor;
+      // alert(state.image)
+    },
+    changebgColor: (state, action) => {
+      const {bgColor} = action.payload;
+      state.bgColor = bgColor;
+      // alert(state.image)
+    },
+    changebtColor: (state, action) => {
+      const {btColor} = action.payload;
+      state.btColor = btColor;
+
     },
 
   },
