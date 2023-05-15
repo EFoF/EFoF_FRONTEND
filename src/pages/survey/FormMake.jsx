@@ -119,7 +119,7 @@ function FormMake() {
                         provided.draggableProps.style
                       )}
                     >
-                      <QuestionContainer key={question.id} questionId={question.id} sectionId={section.id} provided={provided} snapshot={snapshot} questionOption={options} />
+                      <QuestionContainer key={question.id} questionId={question.id} sectionId={section.id} provided={provided} snapshot={snapshot} questionOption={options} readOnly={false} />
                     </div>
                   )}
                 </Draggable>

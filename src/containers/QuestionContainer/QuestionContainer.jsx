@@ -14,8 +14,9 @@ import { AiOutlineDelete } from 'react-icons/ai'; // AiOutlineDelete 추가
 import Toggle from 'react-styled-toggle';
 import React from 'react'
 
+const typeNames = ['주관식', '객관식', '객관식 복수선택', '찬부식'];
 
-export default function QuestionContainer({ questionId, provided, sectionId ,questionOption}) {
+export default function QuestionContainer({ questionId, provided, sectionId ,questionOption, readOnly}) {
 
   const [isCollapsed, setIsCollapsed] = useState(false);
   
@@ -34,7 +35,7 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
 
   const { type: questionType, options, questionContent, isNecessary, id } = selectedQuestion;
 
-
+  // options는 질문의 하위 옵션
 
   const newQuestion = (newId) => {
     return {
@@ -133,10 +134,13 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
   return (
     <Wrapper isCollapsed={isCollapsed}>
 
-      <div className="handler" {...provided.dragHandleProps}>
-
-        <img className="drag-icon" src={DragIcon} alt="" />
-      </div>
+      {readOnly || typeof(provided) === 'undefined' ? (
+          <></>
+      ) : (
+          <div className="handler" {...provided.dragHandleProps}>
+            <img className="drag-icon" src={DragIcon} alt="" />
+          </div>
+      )}
       
       <div className="question">
         <input
@@ -153,13 +157,20 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
       </div>
 
 
-      <div className="collapse">
-        
-        <Dropdown questionId={questionId} sectionId={sectionId}/>
-        
-        {getInput()}
+      {/*설문 생성 부분에서는 Dropdown + getInput()으로 질문 유형을 선택할 수 있어야 하지만, 미리보기 화면에서는 선택된 질문 유형을 출력만 해주면 된다.
+      따라서 아래 부분도 readOnly에 따라서 렌더링을 달리 해주어야 한다.*/}
+      {readOnly ? (
+          <div className="collapse">
+            {typeNames[questionType]}
+          </div>
+      ) : (
+          <div className="collapse">
+            <Dropdown questionId={questionId} sectionId={sectionId}/>
+            {getInput()}
+          </div>
+      )}
 
-      </div>
+
       <hr />
       <div className="settings">
       <Toggle checked={isNecessary} onChange={handleSwitch} labelLeft='필수 응답' width={52} height={25}sliderWidth={19} sliderHeight={19}/>

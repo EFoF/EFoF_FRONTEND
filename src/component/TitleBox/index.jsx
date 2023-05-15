@@ -1,5 +1,4 @@
 import { Wrapper, InputWrapper, TitleInput, DetailInput, SettingButton } from './style';
-import { useLocation } from 'react-router-dom';
 import { OptionButton } from '../Question/OptionalQuestion/style';
 import styled from 'styled-components';
 import { OptionsWrapper } from '../Question/OptionalQuestion/style';
@@ -7,18 +6,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MdAdd, MdClose, MdPhoto, MdSettings } from 'react-icons/md';
 import { FaCheck, FaPalette } from 'react-icons/fa';
 import { formActions } from '../../slices';
-import { useState } from 'react';
 import ReactDOM from "react-dom";
 import ConfirmModal from '../../ui/ConfirmModal';
 import axios from 'axios';
 import toastMsg from '../../ui/Toast/index';
 import PaleteModal from '../../ui/PaleteModal';
 
-const TitleBox = ({ info, handleDetail, handleTitle }) => {
+const TitleBox = ({ info, handleDetail, handleTitle, readOnly }) => {
   let inputRef;
   const { questions, form } = useSelector((state) => state.form);
   const dispatch = useDispatch();
-  
   const CheckIcon = styled(FaCheck)`
   font-size: 1.3rem;
   align-self: center;
@@ -93,6 +90,8 @@ return (
           placeholder="제목 없는 설문지"
           value={info.title}
           readOnly={readOnly}
+          fontColor={form.fontColor}
+          bgColor={form.bgColor}
           onChange={({ target: { value } }) => handleTitle(value)}
         />
 
@@ -100,6 +99,8 @@ return (
           placeholder="설문지 설명"
           name="detail"
           value={info.detail}
+          fontColor={form.fontColor}
+          bgColor={form.bgColor}
           readOnly={readOnly}
           onChange={({ target: { value } }) => handleDetail(value)}
         />
