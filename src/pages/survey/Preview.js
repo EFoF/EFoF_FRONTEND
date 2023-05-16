@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { TitleBox } from '../../component';
+import { ResultTitleBox } from '../../component';
 import { PreviewContainer } from '../../containers';
 import { useSelector } from 'react-redux';
 import { questionActions } from '../../slices';
@@ -22,31 +22,37 @@ const Preview = () => {
   // };
 
   return (
+    // <Wrapper style={{ flexDirection: 'column', alignItems: 'center' }}>
+    //     <QuestionWrapper>
+    //   {/*<div className="question">*/}
+    //     <TitleBox info={form.form}/>
+    //     {questions.map((section, section_idx) => (
+    //         // console.dir(section)
+    //         <SectionContainer key={section.id}>
+    //             <Section section_idx={section_idx + 1} section_len={questions.length} readOnly={true}/>
+    //             {section.questionList.map((question, question_idx) => (
+    //                         <div>
+    //                             <QuestionContainer key={question.id} questionId={question.id} sectionId={section.id} readOnly={true} />
+    //                         </div>
+    //                     ))}
+    //         </SectionContainer>
+    //     ))}
+    //   {/*</div>*/}
+    //     </QuestionWrapper>
+    //         <Buttons>
+    //             <Link to={'/result'} style={{ textDecoration: 'none' }}>
+    //                 <div className="submit-button">제출</div>
+    //             </Link>
+    //             <div className="arrow-button" onClick={() => {console.log("하이 데얼")}}>
+    //                 양식 지우기
+    //             </div>
+    //         </Buttons>
+    // </Wrapper>
+
     <Wrapper style={{ flexDirection: 'column', alignItems: 'center' }}>
         <QuestionWrapper>
-      {/*<div className="question">*/}
-        <TitleBox info={form.form}/>
-        {questions.map((section, section_idx) => (
-            // console.dir(section)
-            <SectionContainer key={section.id}>
-                <Section section_idx={section_idx + 1} section_len={questions.length} readOnly={true}/>
-                {section.questionList.map((question, question_idx) => (
-                            <div>
-                                <QuestionContainer key={question.id} questionId={question.id} sectionId={section.id} readOnly={true} />
-                            </div>
-                        ))}
-            </SectionContainer>
-        ))}
-      {/*</div>*/}
+            <ResultTitleBox info={form.form}/>
         </QuestionWrapper>
-            <Buttons>
-                <Link to={'/result'} style={{ textDecoration: 'none' }}>
-                    <div className="submit-button">제출</div>
-                </Link>
-                <div className="arrow-button" onClick={() => {console.log("하이 데얼")}}>
-                    양식 지우기
-                </div>
-            </Buttons>
     </Wrapper>
   );
 };

@@ -152,7 +152,7 @@ export default function Form() {
               <AiOutlineDelete/>
             </Button>
           </ButtonWrapper> */}
-          {/*<Preview/>*/}
+          <Preview/>
         </Half>
         {!isVisible && (
         <DragButton color="#3b5998" onClick={handleDragButtonClick}>
