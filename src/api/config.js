@@ -16,6 +16,9 @@ const UPDATE = "update";
 const PASSWORD = "/password";
 const VISITOR = "/visitor";
 
+const STATISTIC = "/statistic";
+// const SURVEY_ID = "{survey_id}";  // 이거 맞나.. 머임?ㅜㅜ
+
 
 
 const API = {
@@ -34,6 +37,8 @@ const API = {
   PASSWORD_UPDATE_VISITOR: `${AUTH}${UPDATE}${PASSWORD}${VISITOR}`,
   PASSWORD_UPDATE: `${AUTH}${UPDATE}${PASSWORD}`,
   // BOARD: `${BOARD}`,
+  // STATISTIC: `${SURVEY_ID}${STATISTIC}`
+  STATISTIC: `${STATISTIC}`
 };
 
 export default API;

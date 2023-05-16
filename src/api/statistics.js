@@ -8,14 +8,23 @@ import API from "./config";
 axios.defaults.baseURL = API.BASE_URL;
 axios.defaults.withCredentials = true;
 
-// 사용자가 입력한 email 이 DB에 있는 이메일인지 검증
-const checkSurveyStat = async (id) => {
-    try {
-      const response = await unAuthorizationClient.get(API.SURVEY_STAT, { id });
-      return response.data;
-    } catch (error) {
-      console.log(error);
-    }
+
+// 통계 조회
+const checkStatistic = async (survey_id, member_id) => {
+  try {
+    const response = await unAuthorizationClient.patch(API.STATISTIC, { survey_id, member_id });
+    toastMsg("통계 요청 성공", true);
+    // console.log(response.data.exists);
+    // return response.data.exists;
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    // toastMsg(error.response.data.message, false);
+    // return false;
+  }
 };
 
-export default checkSurveyStat;
+export {
+  checkStatistic
+};
