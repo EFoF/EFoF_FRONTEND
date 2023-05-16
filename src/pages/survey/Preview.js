@@ -13,6 +13,9 @@ const Preview = () => {
   const dispatch = useDispatch();
   const form = useSelector((state) => state.form);
   const { questions } = form;
+
+  console.dir(questions);
+  console.dir(questions[0]);
   // const handleReset = () => {
   //   dispatch(questionActions.resetAnswer());
   // };
@@ -23,9 +26,7 @@ const Preview = () => {
       {/*<div className="question">*/}
         <TitleBox info={form.form} readOnly={true}/>
         {questions.map((section, section_idx) => (
-            // 첫번째 루프 안은 섹션이 나열된다.
-            // needs another map function for section here.
-            // console.log(section)
+            // console.dir(section)
             <SectionContainer key={section.id}>
                 <Section section_idx={section_idx + 1} section_len={questions.length} readOnly={true}/>
                 {section.questionList.map((question, question_idx) => (
@@ -34,21 +35,19 @@ const Preview = () => {
                             </div>
                         ))}
             </SectionContainer>
-            // section.questionList.map((question) => (
-            //     <PreviewContainer key={question.id} questionId={question.id} />
-            // ))
-          // <PreviewContainer key={question.id} questionId={question.id} />
         ))}
       {/*</div>*/}
         </QuestionWrapper>
-      {/*<Buttons>*/}
-      {/*  <Link to={'/result'} style={{ textDecoration: 'none' }}>*/}
-      {/*    <div className="submit-button">제출</div>*/}
-      {/*  </Link>*/}
-      {/*  <div className="reset-button" onClick={() => {console.log("하이 데얼")}}>*/}
-      {/*    양식 지우기*/}
-      {/*  </div>*/}
-      {/*</Buttons>*/}
+        {questions.length < 2 ? (<></>) : (
+            <Buttons>
+                <Link to={'/result'} style={{ textDecoration: 'none' }}>
+                    <div className="submit-button">제출</div>
+                </Link>
+                <div className="reset-button" onClick={() => {console.log("하이 데얼")}}>
+                    양식 지우기
+                </div>
+            </Buttons>
+        )}
     </Wrapper>
   );
 };
@@ -56,7 +55,7 @@ const Preview = () => {
 const Buttons = styled.div`
   display: flex;
   align-items: center;
-  width: 768px;
+  width: 100%;
   justify-content: space-between;
   margin-top: 20px;
   .submit-button {

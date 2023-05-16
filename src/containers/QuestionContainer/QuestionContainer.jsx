@@ -152,7 +152,7 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
       
       <div className="question">
         {readOnly ? (
-            <span>
+            <span className="question-input">
               {questionContent.length === 0 ? '제목 없는 질문' : questionContent}
               {isNecessary && <span style={{ color: 'red'}}>*</span>}
             </span>

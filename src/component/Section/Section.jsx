@@ -111,11 +111,15 @@ export default function Section({ section_idx, section_len, readOnly }) {
     <Wrapper>
       {questions.length === 1 ? null : (
       <Text>
-        
         {section_len}개 중 {section_idx}번째 섹션
       </Text>)}
 
-      {readOnly ? (<></>) : (
+      {readOnly ? (
+            <WrapperSelect>
+              <IconWrapper>
+              </IconWrapper>
+            </WrapperSelect>
+          ) : (
           <WrapperSelect>
             <IconWrapper>
               {questions.length === 1 ? null : (
