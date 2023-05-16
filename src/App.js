@@ -24,23 +24,23 @@ import './assets/scss/app.scss';
 
 
 const App = () => {
-  return (
-	  <BrowserRouter basename={process.env.PUBLIC_URL}>
-		  <Routes>
-              <Route path="/" exact element={<MainPage />}/>
-              <Route path="/login" exact element={<LoginPage />}/>
-              <Route path="/signup" exact element={<Signup />}/>
-              <Route path="/signup/email" exact element={<Step1 />}/>
-              <Route path="/signup/inform" exact element={<Step2 />}/>
-              <Route path="/form" exact element={<Form />}/>
-              <Route path="/findpw" exact element={<FindPW />}/>
-              <Route path="/privacy-policy" exact element={<PrivacyPolicy />}/>
-			        <Route path="/statistic" exact element={<Statistic />}/>
-              <Route path="/form/generate" exact element={<Generate />}/>
-			  <Route path={process.env.PUBLIC_URL + "/form/participate"} element={<Participate />}/>
-		  </Routes>
-	  </BrowserRouter>
-  )
+    return (
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
+            <Routes>
+                <Route path="/" exact element={<MainPage/>}/>
+                <Route path="/login" exact element={<LoginPage/>}/>
+                <Route path="/signup" exact element={<Signup/>}/>
+                <Route path="/signup/email" exact element={<Step1/>}/>
+                <Route path="/signup/inform" exact element={<Step2/>}/>
+                <Route path="/form" exact element={<Form/>}/>
+                <Route path="/findpw" exact element={<FindPW/>}/>
+                <Route path="/privacy-policy" exact element={<PrivacyPolicy/>}/>
+                <Route path="/statistic" exact element={<Statistic/>}/>
+                <Route path="/form/generate" exact element={<Generate/>}/>
+                <Route path={process.env.PUBLIC_URL + "/form/participate"} element={<Participate/>}/>
+            </Routes>
+        </BrowserRouter>
+    )
 }
 
 export default App;
