@@ -19,6 +19,12 @@ export const Wrapper = styled.div`
   } */
 `;
 
+
+// Input에 editable 옵션을 주고싶으면 아래와 같은 코드를 추가하고 props를 넘기면 된다.
+// ${({ editable }) => editable && `
+//     pointer-events: none;
+//     user-select: none;
+//   `}
 export const Input = styled.input`
   color: ${({ isLast, theme }) => (isLast ? theme.color.border_gray2 : theme.color.black)};
   font-size: 0.9rem;
@@ -41,11 +47,6 @@ export const Input = styled.input`
     border-bottom: 2px solid ${({ theme }) => theme.color.purple};
   }
   
-  //editable 관련 설정이다. 미리보기 화면에서는 이 컴포넌트가 수정이 되면 안되기 때문에 추가하였다. 
-  ${({ editable }) => editable && `
-    pointer-events: none;
-    user-select: none;   
-  `}
 `;
 
 

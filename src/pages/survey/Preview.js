@@ -8,6 +8,7 @@ import { questionActions } from '../../slices';
 import Section from "../../component/Section/Section";
 import {Draggable} from "react-beautiful-dnd";
 import QuestionContainer from "../../containers/QuestionContainer/QuestionContainer";
+import ImgButton from "../../ui/ImgButton";
 
 const Preview = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const Preview = () => {
     <Wrapper style={{ flexDirection: 'column', alignItems: 'center' }}>
         <QuestionWrapper>
       {/*<div className="question">*/}
-        <TitleBox info={form.form} readOnly={true}/>
+        <TitleBox info={form.form}/>
         {questions.map((section, section_idx) => (
             // console.dir(section)
             <SectionContainer key={section.id}>
@@ -38,19 +39,35 @@ const Preview = () => {
         ))}
       {/*</div>*/}
         </QuestionWrapper>
-        {questions.length < 2 ? (<></>) : (
             <Buttons>
                 <Link to={'/result'} style={{ textDecoration: 'none' }}>
                     <div className="submit-button">제출</div>
                 </Link>
-                <div className="reset-button" onClick={() => {console.log("하이 데얼")}}>
+                <div className="arrow-button" onClick={() => {console.log("하이 데얼")}}>
                     양식 지우기
                 </div>
             </Buttons>
-        )}
     </Wrapper>
   );
 };
+
+// const ArrowButtonWrapper = styled.div`
+//   display: flex;
+//   align-items: center;
+//   width: 100%;
+//   justify-content: space-between;
+//   margin-top: 20px;
+// `;
+
+// const ArrowImageButton = styled(ImgButton)`
+//   cursor: pointer;
+//   font-size: 16px;
+//   padding: 10px 0;
+//   width: 80px;
+//   border-radius: 5px;
+//   ${({ theme }) => theme.flexCenter}
+//
+// `;
 
 const Buttons = styled.div`
   display: flex;
