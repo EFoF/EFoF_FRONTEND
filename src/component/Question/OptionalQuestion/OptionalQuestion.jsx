@@ -12,7 +12,7 @@ import ReactDOM from "react-dom";
 import ConfirmModal from '../../../ui/ConfirmModal';
 import axios from 'axios';
 import toastMsg from '../../../ui/Toast';
-export default function OptionalQuestion({ type, optionId, questionId, optionContent, optionImage, isLast, sectionId, questions, questionOption,optionNextSectionId, readOnly}) {
+export default function OptionalQuestion({ type, optionId, questionId, optionContent, optionImage, isLast, sectionId, questions, questionOption,optionNextSectionId}) {
 
 
   const customStyles = {
@@ -150,15 +150,9 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
   return (
     <Wrapper isLast={isLast}>
       <InputButtonWrapper>
-        <Input value={optionContent} editable={readOnly} type={type} isLast={isLast} onChange={handleContentChange} onClick={handleAddOption}
+        <Input value={optionContent} type={type} isLast={isLast} onChange={handleContentChange} onClick={handleAddOption}
           ref={inputRef} />
 
-
-        {readOnly ? (
-            <>
-              {/*<ReadOnlyInput value={optionContent}/>*/}
-            </>) : (
-            <>
               {/*<Input value={optionContent} type={type} isLast={isLast} onChange={handleContentChange} onClick={handleAddOption}*/}
               {/*       ref={inputRef} />*/}
               <OptionButton size={"1rem"} isLast={isLast} onClick={() =>
@@ -176,8 +170,6 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
                   accept="image/*"
                   onChange={handleFileUpload}
               />
-            </>
-        )}
         {/*<OptionButton size={"1rem"} isLast={isLast} onClick={() =>*/}
         {/*  getImage() ? handleDeleteImage() : imageInputRef.click()}>*/}
         {/*  <MdPhoto />*/}
@@ -198,7 +190,6 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
       <OptionsWrapper isLast={isLast} gap={"0.5rem"}>
 
 
-      {questions.length === 1 || readOnly ? (<></>) : (
         <Select
           styles={customStyles}
           value={questionOption.find(op => op.value === optionNextSectionId)
@@ -208,12 +199,9 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
           onChange={handleChange}
           options={questionOption}
         />
-        )}
-        {readOnly ? (<></>) : (
             <CloseOptionButton onClick={handleDeleteOption} type={type} size={"1.2rem"}>
               <MdClose />
             </CloseOptionButton>
-        )}
       </OptionsWrapper>
 
     </Wrapper>

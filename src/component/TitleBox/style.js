@@ -2,16 +2,18 @@ import styled, {css} from 'styled-components';
 
 
 // TitleInput, DetailInput 등에서 readOnly props에 따라 편집 여부를 결정하기 위해 선언한 함수이다.
-const readOnlyStyles = css`
-  &:focus {
-    border: 0;
-    outline: 0;
-    background: transparent;
-    transition: 0.1s ease;
-    border-bottom: 2px solid ${({ theme }) => theme.color.purple};
-  }
-`;
+// const readOnlyStyles = css`
+//   &:focus {
+//     border: 0;
+//     outline: 0;
+//     background: transparent;
+//     transition: 0.1s ease;
+//     border-bottom: 2px solid ${({ theme }) => theme.color.purple};
+//   }
+// `;
 
+// 리드온리 파일을 적용하고 싶으면 아래의 코드를 추가하면 된다.
+// ${props => !props.readOnly && readOnlyStyles}
 export const TitleInput = styled.input`
   
   border: none;
@@ -32,9 +34,16 @@ export const TitleInput = styled.input`
     border-bottom: 1px solid ${({ theme }) => theme.color.border_gray};
   }
 
-  ${props => !props.readOnly && readOnlyStyles}
+  &:focus {
+    border:0;
+    outline: 0;
+    background: transparent;
+    transition: 0.1s ease;
+    border-bottom: 2px solid ${({ theme }) => theme.color.purple};
+  }
 `;
 
+// ${props => !props.readOnly && readOnlyStyles}
 export const DetailInput = styled.input`
 
     
@@ -52,7 +61,13 @@ export const DetailInput = styled.input`
       border-bottom: 1px solid ${({ theme }) => theme.color.border_gray};
     }
 
-    ${props => !props.readOnly && readOnlyStyles}
+  &:focus {
+    border:0;
+    outline: 0;
+    background: transparent;
+    transition: 0.1s ease;
+    border-bottom: 2px solid ${({ theme }) => theme.color.purple};
+  }
 `;
 
 export const InputWrapper = styled.div`

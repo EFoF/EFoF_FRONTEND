@@ -12,7 +12,7 @@ import axios from 'axios';
 import toastMsg from '../../ui/Toast/index';
 import PaleteModal from '../../ui/PaleteModal';
 
-const TitleBox = ({ info, handleDetail, handleTitle, readOnly }) => {
+const TitleBox = ({ info, handleDetail, handleTitle }) => {
   let inputRef;
   const { questions, form } = useSelector((state) => state.form);
   const dispatch = useDispatch();
@@ -89,7 +89,6 @@ return (
         <TitleInput
           placeholder="제목 없는 설문지"
           value={info.title}
-          readOnly={readOnly}
           fontColor={form.fontColor}
           bgColor={form.bgColor}
           onChange={({ target: { value } }) => handleTitle(value)}
@@ -101,12 +100,10 @@ return (
           value={info.detail}
           fontColor={form.fontColor}
           bgColor={form.bgColor}
-          readOnly={readOnly}
           onChange={({ target: { value } }) => handleDetail(value)}
         />
       </InputWrapper>
 
-      {readOnly ? (<></>) : (
       <OptionsWrapper gap="1rem">
         <OptionButton size={"1.5rem"} onClick={() => form.image !== '' ? handleDeleteImage() : inputRef.click()}>
           <MdPhoto />
@@ -127,8 +124,7 @@ return (
         <SettingButton size="1.5rem" onClick={handleClose}>
           <FaPalette />
         </SettingButton >
-      </OptionsWrapper> )
-      }
+      </OptionsWrapper>
     </Wrapper>
   );
 };
