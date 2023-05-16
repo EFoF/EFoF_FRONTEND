@@ -8,6 +8,8 @@ import { questionActions } from '../../slices';
 import Section from "../../component/Section/Section";
 import {Draggable} from "react-beautiful-dnd";
 import QuestionContainer from "../../containers/QuestionContainer/QuestionContainer";
+import leftArrow from '../../assets/icon/leftArrow.png'
+import rightArrow from '../../assets/icon/rightArrow.png'
 import ImgButton from "../../ui/ImgButton";
 
 const Preview = () => {
@@ -53,33 +55,63 @@ const Preview = () => {
         <QuestionWrapper>
             <ResultTitleBox info={form.form}/>
         </QuestionWrapper>
+        {questions.length < 2 ? (
+            <Buttons>
+                <Link to={'/result'} style={{ textDecoration: 'none' }}>
+                    <div className="submit-button">제출</div>
+                </Link>
+            </Buttons>
+        ) : (
+            <ArrowButtonWrapper>
+                <ArrowImageButton
+                    size={2}
+                    onClick={() => console.log("왼쪽 화살표 버튼 눌림")}
+                    ImgSrc={leftArrow}
+                    color={"white"}
+                />
+                <ArrowImageButton
+                    size={2}
+                    onClick={() => console.log("오른쪽 화살표 버튼 눌림")}
+                    ImgSrc={rightArrow}
+                    color={"white"}
+                />
+            </ArrowButtonWrapper>
+        )}
+        {/*<Buttons>*/}
+        {/*    <Link to={'/result'} style={{ textDecoration: 'none' }}>*/}
+        {/*        <div className="submit-button">제출</div>*/}
+        {/*    </Link>*/}
+        {/*    <div className="reset-button" onClick={() => {console.log("하이 데얼")}}>*/}
+        {/*        양식 지우기*/}
+        {/*    </div>*/}
+        {/*</Buttons>*/}
     </Wrapper>
   );
 };
 
-// const ArrowButtonWrapper = styled.div`
-//   display: flex;
-//   align-items: center;
-//   width: 100%;
-//   justify-content: space-between;
-//   margin-top: 20px;
-// `;
+const ArrowButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 20px;
+`;
 
-// const ArrowImageButton = styled(ImgButton)`
-//   cursor: pointer;
-//   font-size: 16px;
-//   padding: 10px 0;
-//   width: 80px;
-//   border-radius: 5px;
-//   ${({ theme }) => theme.flexCenter}
-//
-// `;
+const ArrowImageButton = styled(ImgButton)`
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 0;
+  width: 80px;
+  border-radius: 5px;
+  ${({ theme }) => theme.flexCenter}
+
+`;
 
 const Buttons = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  justify-content: space-between;
+  justify-content: center;
   margin-top: 20px;
   .submit-button {
     cursor: pointer;
@@ -90,11 +122,6 @@ const Buttons = styled.div`
     ${({ theme }) => theme.flexCenter}
     color: ${({ theme }) => theme.color.white};
     background: ${({ theme }) => theme.color.purple};
-  }
-  .reset-button {
-    cursor: pointer;
-    font-size: 14px;
-    color: ${({ theme }) => theme.color.purple};
   }
 `;
 
