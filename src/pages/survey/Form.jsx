@@ -171,14 +171,6 @@ export default function Form() {
           <FormMake/>
         </Half>
         <Half>
-          {/* <ButtonWrapper ref={buttonWrapperRef}>
-            <Button color="#007aff">
-              <AiOutlinePlus/>
-            </Button>
-            <Button color="#ff3b30">
-              <AiOutlineDelete/>
-            </Button>
-          </ButtonWrapper> */}
           <Preview/>
         </Half>
         {!isVisible && (

@@ -14,8 +14,6 @@ import { AiOutlineDelete } from 'react-icons/ai'; // AiOutlineDelete 추가
 import Toggle from 'react-styled-toggle';
 import React from 'react'
 
-// 수정 예정
-const typeNames = ['객관식', '주관식', '객관식 복수선택', '찬부식'];
 
 export default function QuestionContainer({ questionId, provided, sectionId ,questionOption, }) {
 
