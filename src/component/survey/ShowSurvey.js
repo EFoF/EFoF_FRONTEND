@@ -1,14 +1,33 @@
 import React, {useState, useEffect} from 'react';
 import SurveyProp from './SurveyProp';
+import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
+import ReactPaginate from 'react-paginate';
 
 
 
-const ShowSurvey = ({parentClass, colSize, columnGap, AllData, filters}) => {
+const ShowSurvey = ({parentClass, colSize, columnGap, AllData, filters, perPageShow}) => {
 
     const [getAllItems] = useState(AllData);
     const [activeFilter, setActiveFilter] = useState("");
     const [visibleItems, setVisibleItems] = useState([]);
 
+    const [pageNumber, setPageNumber] = useState(0);
+
+    const projectPerPage = perPageShow ? perPageShow : 12;
+    const pageVisited = pageNumber * projectPerPage;
+
+    const displayProjects = visibleItems.slice(pageVisited, pageVisited + projectPerPage)
+    .map((data) => (
+        <div className={colSize ? colSize : "col-md-6"} key={data.id}>
+            <SurveyProp projectStyle="" survey={data}/>
+        </div>
+    ))
+
+    const pageCount = Math.ceil(visibleItems.length / projectPerPage)
+
+    const changePage = ({selected}) => {
+        setPageNumber(selected);
+    }
 
     useEffect(() => {
         setActiveFilter(filters[0].label);
@@ -53,12 +72,19 @@ const ShowSurvey = ({parentClass, colSize, columnGap, AllData, filters}) => {
                         ))}
                     </div>
                     <div className={`row ${columnGap ? columnGap : "row-35"}`}>
-                        {visibleItems.map((data) => (
-                            <div className={colSize ? colSize : "col-md-6"} key={data.id}>
-                                <SurveyProp projectStyle="" survey={data}/>
-                            </div>
-                        ))}
+                        {displayProjects}
                     </div>
+                    <ReactPaginate
+                        previousLabel={<FaArrowLeft />}
+                        nextLabel={<FaArrowRight />}
+                        pageCount= {pageCount}
+                        onPageChange={changePage}
+                        containerClassName={"pagination"}
+                        previousLinkClassName={"prev"}
+                        nextLinkClassName={"next"}
+                        disabledClassName={"disabled"}
+                        activeClassName={"current"}
+                    />
                 </div>
                 <ul className="shape-group-7 list-unstyled">
                     <li className="shape shape-1"><img src={process.env.PUBLIC_URL + "/images/others/circle-2.png"} alt="circle" /></li>
