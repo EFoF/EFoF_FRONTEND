@@ -2,13 +2,15 @@ import { createSlice } from '@reduxjs/toolkit';
 import { QUESTION_TYPES } from '../component/constants/const';
 import shortid from 'shortid';
 
+const initQuestionId = shortid()
 const initialState =
   [
     {
       id: shortid(),
       nextSectionId:'',
+      questionOrder:initQuestionId,
       questionList: [{
-        id: shortid(),
+        id: initQuestionId,
         type: 0,
         questionContent: '',
         isNecessary: false,
@@ -33,6 +35,11 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
   name: 'question',
   initialState,
   reducers: {
+    initQuestion:(state, action) => {
+      const { data } = action.payload;
+      return data.sectionList;
+
+    },
     changeType: (state, action) => {
       const { questionId, sectionId, type } = action.payload;
       const section = state.find((item) => item.id === sectionId);
@@ -161,7 +168,7 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
       const { sectionId, questionId, optionId, optionContent } = action.payload;
       const section = state.find((item) => item.id === sectionId);
 
-      const questionIdx = section.questionList.findIndex((item) => item.id === String(questionId));
+      const questionIdx = section.questionList.findIndex((item) => item.id === questionId);
       const optionIdx = section.questionList[questionIdx].options.findIndex((item) => item.id === optionId);
       section.questionList[questionIdx].options[optionIdx].option = optionContent;
     },
@@ -174,7 +181,7 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
     setOptionNextSection: (state, action) => {
       const { sectionId,optionId, questionId,nextSectionId} = action.payload;
       const section = state.find((item) => item.id === sectionId);
-      const questionIdx = section.questionList.findIndex((item) => item.id === String(questionId));
+      const questionIdx = section.questionList.findIndex((item) => item.id === questionId);
       const optionIdx = section.questionList[questionIdx].options.findIndex((item) => item.id === optionId);
       section.questionList[questionIdx].options[optionIdx].nextSectionId = nextSectionId;
     },
@@ -182,7 +189,7 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
     setOptionImage: (state, action) => {
       const { sectionId,optionId, questionId,image} = action.payload;
       const section = state.find((item) => item.id === sectionId);
-      const questionIdx = section.questionList.findIndex((item) => item.id === String(questionId));
+      const questionIdx = section.questionList.findIndex((item) => item.id === questionId);
       const optionIdx = section.questionList[questionIdx].options.findIndex((item) => item.id === optionId);
       section.questionList[questionIdx].options[optionIdx].image = image;
     },
@@ -190,7 +197,7 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
       const { sectionId,optionId, questionId} = action.payload;
       // alert(JSON.stringify(action.payload))
       const section = state.find((item) => item.id === sectionId);
-      const questionIdx = section.questionList.findIndex((item) => item.id === String(questionId));
+      const questionIdx = section.questionList.findIndex((item) => item.id === questionId);
       const optionIdx = section.questionList[questionIdx].options.findIndex((item) => item.id === optionId);
       // section.questionList[questionIdx].options[optionIdx].image;
       

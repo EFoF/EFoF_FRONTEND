@@ -5,18 +5,31 @@ import userReducer from './user';
 
 
 const initialState = {
+  id:'',
   title: '',
   detail: '',
   image: '',
   fontColor: '#992999',
   bgColor: '#FFFFFF',
   btColor: '#000000',
+  isPre : false
 };
 
 const { actions: formActions, reducer: formReducer } = createSlice({
   name: 'form',
   initialState,
   reducers: {
+    initForm:(state, action) => {
+      const { data } = action.payload;
+      state.id = data.id;
+      state.title = data.title;
+      state.detail = data.description;
+      state.image = data.simageURL;
+      state.fontColor = data.fontColor;
+      state.bgColor = data.bgColor;
+      state.btColor = data.btColor;
+      state.isPre = true;
+    },
     addForm: (state, action) => {
       const { title, detail } = action.payload;
       state.title = title;

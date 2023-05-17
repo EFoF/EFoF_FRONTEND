@@ -12,6 +12,7 @@ import axios from 'axios';
 import toastMsg from "../../ui/Toast";
 import { authorizationClient } from '../../api';
 import API from '../../api/config';
+import { updateSurveyDescription,updateSurveyTitle } from '../../api/survey';
 function FormMake() {
   const { form, questions } = useSelector((state) => state.form);
 
@@ -23,7 +24,7 @@ function FormMake() {
       label: '다음 섹션을 선택해주세요.',
     },
     ...questions.map((section, index) => ({
-      value: String(section.id),
+      value: section.id,
       label: `${index + 1} 섹션으로 이동`,
     })),
   ];
@@ -67,7 +68,6 @@ function FormMake() {
   const handleChange = (option, { section_idx }, nextSectionId) => {
     // alert(JSON.stringify(option))
     dispatch(questionActions.setNextSection({ section_idx, nextSectionId: option.value }))
-    alert(JSON.stringify(options[options.findIndex(option => option.value === nextSectionId)]))
   };
 
   const getListStyle = isDraggingOver => ({
@@ -85,7 +85,18 @@ function FormMake() {
       value
     ));
   };
-
+  const handleBlurTitle = (value) => {
+    if(form.isPre){
+      const data = {"title" : value}
+      updateSurveyTitle(form.id,data)
+    }
+  }
+  const handleBlurDetail = (value) => {
+    if(form.isPre){
+      const data = {"description" : value}
+      updateSurveyDescription(form.id,data)
+    }
+  }
   const handleDetail = (value) => {
     dispatch(formActions.changeDetail(
       value,
@@ -186,22 +197,7 @@ function FormMake() {
         toastMsg("설문생성 실패", false);
       });
     }
-    // Survey 데이터를 Spring 서버로 전송하는 POST 요청
-    // axios.post('http://localhost:8080/form', surveyDto, {
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // })
-    //   .then(response => {
-    //     toastMsg("설문생성 성공", true);
-    //     // alert("TEEST")
-    //     // alert(JSON.stringify(response.data));
-    //   })
-    //   .catch(error => {
-    //     // alert(error);
-    //     toastMsg("설문생성 실패", false);
-    //   });
-  
+
 
   // Survey 데이터와 option 데이터를 가져와서 surveyDto 객체를 생성하고 서버에 저장하는 함수
   function saveSurveyFromData() {
@@ -214,7 +210,7 @@ function FormMake() {
     <Wrapper>
       <QuestionWrapper>
         {/* <SurveyImg></SurveyImg> */}
-        <TitleBox info={form} handleTitle={handleTitle} handleDetail={handleDetail} readOnly={false} />
+        <TitleBox info={form} handleTitle={handleTitle} handleDetail={handleDetail} handleBlurTitle={handleBlurTitle} handleBlurDetail={handleBlurDetail} readOnly={false} />
         <DragDropContext onDragEnd={onDragEnd}>
           {getQuestionList()}
         </DragDropContext>

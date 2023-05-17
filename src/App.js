@@ -33,6 +33,7 @@ const App = () => {
                 <Route path="/signup/email" exact element={<Step1/>}/>
                 <Route path="/signup/inform" exact element={<Step2/>}/>
                 <Route path="/form" exact element={<Form/>}/>
+                <Route path="/form/pre-release/:id" exact element={<Form/>}/>
                 <Route path="/findpw" exact element={<FindPW/>}/>
                 <Route path="/privacy-policy" exact element={<PrivacyPolicy/>}/>
                 <Route path="/statistic" exact element={<Statistic/>}/>

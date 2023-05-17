@@ -10,6 +10,12 @@ import 'react-chatbot-kit/build/main.css'
 import './Chatbot.css'
 import Draggable from 'react-draggable';
 import Preview from "./Preview";
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { surveyInfo } from '../../api/survey';
+import { questionActions, formActions } from '../../slices';
+import { useDispatch } from 'react-redux';
+
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -93,6 +99,27 @@ position: absolute;
   
 `
 export default function Form() {
+  const { id } = useParams();
+  const currentPath = window.location.pathname;
+  const [isPre,setIsPre] = useState(true);
+  const dispatch = useDispatch();
+
+
+  // '/form/pre-release/:id' 경로인 경우에만 특정 로직 수행
+  useEffect(() => {
+    if (currentPath === `/form/pre-release/${id}`) {
+
+      surveyInfo(id)
+        .then((data) => {
+          dispatch(formActions.initForm({data}));
+          dispatch(questionActions.initQuestion({data}))
+          
+        })
+    }
+    
+  }, [id, currentPath]);
+  
+  
   const scrollRef = useRef(null);
   const buttonWrapperRef = useRef(null);
   const dragButtonWrapperRef = useRef(null);
@@ -111,7 +138,7 @@ export default function Form() {
     setIsVisible(false);
   };
   const handleDragButtonClick = () => {
-    // alert("test")
+    
     setIsVisible(!isVisible);
   };
 
@@ -141,7 +168,7 @@ export default function Form() {
   return (
       <Wrapper >
         <Half ref={scrollRef} onScroll={handleScroll}>
-          <FormMake />
+          <FormMake/>
         </Half>
         <Half>
           {/* <ButtonWrapper ref={buttonWrapperRef}>

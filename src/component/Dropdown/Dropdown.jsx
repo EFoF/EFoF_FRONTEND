@@ -6,8 +6,8 @@ import { useDispatch,useSelector } from 'react-redux';
 import { QUESTION_TYPES } from "../../component/constants/const";
 
 const menus = [
-  { value: QUESTION_TYPES.LONG_ANSWER, label: '주관식' },
   { value: QUESTION_TYPES.ONE_CHOICE, label: '객관식' },
+  { value: QUESTION_TYPES.LONG_ANSWER, label: '주관식' },
   { value: QUESTION_TYPES.MULTIPLE_CHOICE, label: '객관식 복수선택' },
   { value: QUESTION_TYPES.TRUE_FALSE, label: '찬부식' },
 
@@ -38,8 +38,11 @@ export default function Dropdown({ sectionId,questionId }) {
         // value={selectedOption}
         placeholder="유형을 선택해주세요."
         onChange={handleTypeChange}
+        value={type
+          ? menus[type]
+          : menus[0]}
         options={menus}
-        defaultValue={menus[1]}
+        defaultValue={menus[0]}
       />
       
     </Wrapper>

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from 'react-redux';
 import { ChromePicker } from 'react-color';
 import ReactDOM from "react-dom";
+import { updateSurveyColor } from "../api/survey";
 const Overlay = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
@@ -113,6 +114,14 @@ const PaletteModal = ({ message, onCancel, form, dispatch, formActions }) => {
   const [btColor,setBtColor] = useState(form.btColor);
 
   const onConfirm = () => {
+    const data = {
+      "fontColor" : fontColor,
+      "bgColor" : bgColor,
+      "btColor" : btColor
+    }
+    if(form.isPre){
+      updateSurveyColor(form.id,data)
+    }
     dispatch(
       formActions.changefontColor({
         fontColor: fontColor,

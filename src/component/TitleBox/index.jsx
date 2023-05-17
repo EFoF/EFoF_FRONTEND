@@ -11,8 +11,8 @@ import ConfirmModal from '../../ui/ConfirmModal';
 import axios from 'axios';
 import toastMsg from '../../ui/Toast/index';
 import PaleteModal from '../../ui/PaleteModal';
-
-const TitleBox = ({ info, handleDetail, handleTitle }) => {
+import { uploadImgInit,deleteImgInit,deleteSurveyImg ,updateSurveyImg} from '../../api/survey';
+const TitleBox = ({ info, handleDetail, handleTitle,handleBlurTitle, handleBlurDetail}) => {
   let inputRef;
   const { questions, form } = useSelector((state) => state.form);
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const AddIcon = styled(MdAdd)`
 `;
   const handleClose = () => {
     const handleConfirm = () => {
-      alert(JSON.stringify(form));
+
       // ReactDOM.unmountComponentAtNode(document.getElementById("modal-root"));
     };
 
@@ -38,12 +38,21 @@ const AddIcon = styled(MdAdd)`
   ReactDOM.render(confirmModal, document.getElementById("modal-root"));
 };
 
+const deleteImage = () => {
+
+  dispatch(formActions.changeImage(
+    { image: '' }
+  ));
+}
 const handleDeleteImage = () => {
 
   const handleConfirm = () => {
-    dispatch(formActions.changeImage(
-      { image: '' }
-    ));
+    if(form.isPre){
+      deleteSurveyImg(deleteImage,form.id)
+    }else{
+      deleteImgInit(form.image,deleteImage)
+    }
+    
     ReactDOM.unmountComponentAtNode(document.getElementById("modal-root"));
   };
 
@@ -55,30 +64,23 @@ const handleDeleteImage = () => {
   ReactDOM.render(confirmModal, document.getElementById("modal-root"));
 };
 
-  
+const uploadImage = (response) =>{
+  dispatch(formActions.changeImage(
+    { image: response.data }
+  ));
+}
 
 const handleFileUpload = (event) => {
   const selectedFile = event.target.files[0];
   const formData = new FormData();
   formData.append('image', selectedFile);
 
-  axios.post('http://localhost:8080/form/image', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    }
-  }).then(response => {
-    // alert(JSON.stringify(response.data));
-    toastMsg("이미지 변경 성공", true);
-    dispatch(formActions.changeImage(
-      { image: response.data }
-    ));
-
-  }).catch(error => {
-    toastMsg(error.response, false);
-
-  });
-
-
+  if(form.isPre){
+    updateSurveyImg(formData,uploadImage,form.id)
+  }else{
+    uploadImgInit(formData,uploadImage)
+  }
+  
 
 }
 
@@ -92,6 +94,7 @@ return (
           fontColor={form.fontColor}
           bgColor={form.bgColor}
           onChange={({ target: { value } }) => handleTitle(value)}
+          onBlur={({ target: { value } }) => handleBlurTitle(value)}
         />
 
         <DetailInput
@@ -101,13 +104,14 @@ return (
           fontColor={form.fontColor}
           bgColor={form.bgColor}
           onChange={({ target: { value } }) => handleDetail(value)}
+          onBlur={({ target: { value } }) => handleBlurDetail(value)}
         />
       </InputWrapper>
 
       <OptionsWrapper gap="1rem">
-        <OptionButton size={"1.5rem"} onClick={() => form.image !== '' ? handleDeleteImage() : inputRef.click()}>
+        <OptionButton size={"1.5rem"} onClick={() => form.image ? handleDeleteImage() : inputRef.click()}>
           <MdPhoto />
-          {form.image !== '' ? <CheckIcon /> : <AddIcon />}
+          {form.image ? <CheckIcon /> : <AddIcon />}
         </OptionButton>
 
           <ImgInput

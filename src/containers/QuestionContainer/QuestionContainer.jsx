@@ -66,7 +66,7 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
   };
 
   const getOptionList = (type) => {
-    const optionList = options
+    let optionList = options
       ?.map((option) => (
         <OptionalQuestion
           key={option.id}
@@ -82,22 +82,29 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
           isLast={false}
         />
       ));
+  
     // readOnly 일때는 옵션 추가 버튼을 포함하지 않는다.
-      optionList.push(
-          <OptionalQuestion
-              key={options.length + 1}
-              sectionId={sectionId}
-              questionId={questionId}
-              optionId={options.length + 1}
-              optionContent="옵션 추가"
-              questions={questions}
-              questionOption={questionOption}
-              type={type}
-              isLast={true}
-          />
-      );
+    if (!optionList) {
+      optionList = [];
+    }
+    
+    optionList.push(
+      <OptionalQuestion
+        key={optionList.length + 1}
+        sectionId={sectionId}
+        questionId={questionId}
+        optionId={optionList.length + 1}
+        optionContent="옵션 추가"
+        questions={questions}
+        questionOption={questionOption}
+        type={type}
+        isLast={true}
+      />
+    );
+  
     return optionList;
   };
+  
 
   const getOptionListWithoutConcat = (type) => {
     const optionList = options
