@@ -111,13 +111,26 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
 
   const getImage = () => {
     const section = questions.find((item) => item.id === sectionId);
-    const questionIdx = section.questionList.findIndex((item) => item.id === String(questionId));
-    const optionIdx = section.questionList[questionIdx].options.findIndex((item) => item.id === optionId);
-    if (section.questionList[questionIdx].options[optionIdx] && section.questionList[questionIdx].options[optionIdx].image) {
-      return true;
+    
+    if (section) {
+      const questionIdx = section.questionList.findIndex((item) => item.id === questionId);
+
+      if (questionIdx !== -1) {
+        const question = section.questionList[questionIdx];
+        
+        if (question.options) {
+          const optionIdx = question.options.findIndex((item) => item.id === optionId);
+
+          if (optionIdx !== -1 && question.options[optionIdx].image) {
+            return true;
+          }
+        }
+      }
     }
+    
     return false;
-  }
+  };
+  
 
 
   const handleFileUpload = (event) => {
@@ -156,6 +169,7 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
               {/*<Input value={optionContent} type={type} isLast={isLast} onChange={handleContentChange} onClick={handleAddOption}*/}
               {/*       ref={inputRef} />*/}
               <OptionButton size={"1rem"} isLast={isLast} onClick={() =>
+              
                   getImage() ? handleDeleteImage() : imageInputRef.click()}>
                 <MdPhoto />
                 {

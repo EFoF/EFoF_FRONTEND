@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from 'react-redux';
 import { ChromePicker } from 'react-color';
-
+import ReactDOM from "react-dom";
+import { updateSurveyColor } from "../api/survey";
 const Overlay = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
@@ -30,14 +31,16 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-around;
   width: 100%;
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
+  margin: 1rem;
+  margin-bottom: 0;
 `;
 
 const Button = styled.button`
   background-color: ${({ background }) => background};
   color: white;
   font-size: 1rem;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.5rem;
   border-radius: 5px;
   border: none;
   cursor: pointer;
@@ -64,8 +67,8 @@ const ColorInputWrapper = styled.div`
 
 const ColorPickerWrapper = styled.div`
   position: absolute;
-  top: 40px;
-  left: 0;
+  top: 0;
+  left: 7rem;
   z-index: 1;
 `;
 
@@ -93,7 +96,7 @@ const Color = styled.div`
   font-size: 1rem;
   padding: 0.5rem 1rem;
   border-radius: 5px;
-  border: none;
+  border: 1px border black;
   cursor: pointer;
   &:hover {
     filter: brightness(90%);
@@ -101,10 +104,43 @@ const Color = styled.div`
 `;
 
 
-const PaletteModal = ({ message, onConfirm, onCancel, form, dispatch, formActions }) => {
+const PaletteModal = ({ message, onCancel, form, dispatch, formActions }) => {
   const [displayFontPicker, setDisplayFontPicker] = useState(false);
   const [displayBgPicker, setDisplayBgPicker] = useState(false);
   const [displayBtPicker, setDisplayBtPicker] = useState(false);
+
+  const [fontColor,setFontColor] = useState(form.fontColor);
+  const [bgColor,setBgColor] = useState(form.bgColor);
+  const [btColor,setBtColor] = useState(form.btColor);
+
+  const onConfirm = () => {
+    const data = {
+      "fontColor" : fontColor,
+      "bgColor" : bgColor,
+      "btColor" : btColor
+    }
+    if(form.isPre){
+      updateSurveyColor(form.id,data)
+    }
+    dispatch(
+      formActions.changefontColor({
+        fontColor: fontColor,
+      })
+    );
+
+    dispatch(
+      formActions.changebgColor({
+        bgColor: bgColor,
+      })
+    );
+    dispatch(
+      formActions.changebtColor({
+        btColor: btColor,
+      })
+    );
+    ReactDOM.unmountComponentAtNode(document.getElementById("modal-root"));
+  };
+
 
   const handleBackdropClick = (event) => {
     if (event.target === event.currentTarget) {
@@ -114,27 +150,18 @@ const PaletteModal = ({ message, onConfirm, onCancel, form, dispatch, formAction
 
   const handleTextColorChange = (color) => {
     // alert(color.hex)
-    dispatch(
-      formActions.changefontColor({
-        fontColor: color.hex,
-      })
-    );
+    setFontColor(color);
+    
   };
 
   const handleBackgroundColorChange = (color) => {
-    dispatch(
-      formActions.changebgColor({
-        bgColor: color.hex,
-      })
-    );
+    setBgColor(color);
+  
   };
 
   const handleButtonColorChange = (color) => {
-    dispatch(
-      formActions.changebtColor({
-        btColor: color.hex,
-      })
-    );
+    setBtColor(color);
+   
   };
 
   const handleFontPickerClick = () => {
@@ -154,17 +181,44 @@ const PaletteModal = ({ message, onConfirm, onCancel, form, dispatch, formAction
       <Modal>
         <ColorInputWrapper>
           <ColorLabel>글자 색상</ColorLabel>
-          <Color color={form.fontColor} onClick={handleFontPickerClick} />
+          <Color color={fontColor} onClick={handleFontPickerClick} />
           {displayFontPicker && (
-            // <ColorPickerWrapper>
+            <ColorPickerWrapper>
               <ChromePicker
-                color={form.fontColor}
-                onChange={handleTextColorChange}
+                color={fontColor}
+                onChange={color => handleTextColorChange(color.hex)}
+
               />
-            // </ColorPickerWrapper>
+             </ColorPickerWrapper>
           )}
         </ColorInputWrapper>
-       
+        
+        <ColorInputWrapper>
+          <ColorLabel>배경 색상</ColorLabel>
+          <Color color={bgColor} onClick={handleBgPickerClick} />
+          {displayBgPicker && (
+            <ColorPickerWrapper>
+              <ChromePicker
+                color={bgColor}
+                onChange={color => handleBackgroundColorChange(color.hex)}
+
+              />
+             </ColorPickerWrapper>
+          )}
+        </ColorInputWrapper>
+        <ColorInputWrapper>
+          <ColorLabel>버튼 색상</ColorLabel>
+          <Color color={btColor} onClick={handleBtPickerClick} />
+          {displayBtPicker && (
+            <ColorPickerWrapper>
+              <ChromePicker
+                color={btColor}
+                onChange={color => handleButtonColorChange(color.hex)}
+
+              />
+             </ColorPickerWrapper>
+          )}
+        </ColorInputWrapper>
 
         <ButtonWrapper>
           

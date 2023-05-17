@@ -11,10 +11,14 @@ const SIGNUP = "signup";
 const EMAIL_CERTIFICATION_SEND = "mailConfirm";
 const EMAIL_CERTIFICATION_CONFIRM = "codeConfirm";
 const SURVEY = "/form";
+const PRE = "//{survey_id}/pre_release";
 const EMAIL_EXIST_CHECK = "check-email";
 const UPDATE = "update";
 const PASSWORD = "/password";
 const VISITOR = "/visitor";
+
+const STATISTIC = "/statistic";
+// const SURVEY_ID = "{survey_id}";  // 이거 맞나.. 머임?ㅜㅜ
 
 
 
@@ -30,10 +34,13 @@ const API = {
   MEMBER: `${MEMBER}`,  
   REISSUE: `${AUTH}${REISSUE}`,
   SURVEY: `${SURVEY}`,
+
   EMAIL_EXIST: `${AUTH}${EMAIL_EXIST_CHECK}`,
   PASSWORD_UPDATE_VISITOR: `${AUTH}${UPDATE}${PASSWORD}${VISITOR}`,
   PASSWORD_UPDATE: `${AUTH}${UPDATE}${PASSWORD}`,
   // BOARD: `${BOARD}`,
+  // STATISTIC: `${SURVEY_ID}${STATISTIC}`
+  STATISTIC: `${STATISTIC}`
 };
 
 export default API;
