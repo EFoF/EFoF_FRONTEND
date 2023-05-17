@@ -16,6 +16,18 @@ const ShowSurvey = ({parentClass, colSize, columnGap, AllData, filters, perPageS
     const projectPerPage = perPageShow ? perPageShow : 12;
     const pageVisited = pageNumber * projectPerPage;
 
+    // // Pageable에 맞게 추후 변경
+    // const fetchData = async (page) => {
+    //     try {
+    //         const response = await axios.get(`/api/surveys?page=${page}`);
+    //         const { data, totalPages } = response.data;
+    //         setVisibleItems(data);
+    //         setTotalPages(totalPages);
+    //     } catch (error) {
+    //         console.log('Error fetching data:', error);
+    //     }
+    // };
+
     const displayProjects = visibleItems.slice(pageVisited, pageVisited + projectPerPage)
     .map((data) => (
         <div className={colSize ? colSize : "col-md-6"} key={data.id}>
