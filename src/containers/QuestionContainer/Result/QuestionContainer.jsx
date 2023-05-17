@@ -16,9 +16,7 @@ import React from 'react'
 // 수정 예정
 const typeNames = ['객관식', '주관식', '객관식 복수선택', '찬부식'];
 
-export default function QuestionContainer({ questionId, sectionId ,questionOption }) {
-
-    console.log("테스트");
+export default function ResultQuestionContainer({ questionId, sectionId ,questionOption }) {
 
     const [isCollapsed, setIsCollapsed] = useState(false);
 

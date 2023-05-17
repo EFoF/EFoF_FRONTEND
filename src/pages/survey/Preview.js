@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { questionActions, surveyFlowActions } from '../../slices';
 import ResultSection from "../../component/Section/Result/Section";
 import {Draggable} from "react-beautiful-dnd";
-import {QuestionContainer} from "../../containers";
+import {ResultQuestionContainer} from "../../containers";
 import leftArrow from '../../assets/icon/leftArrow.png'
 import rightArrow from '../../assets/icon/rightArrow.png'
 import ImgButton from "../../ui/ImgButton";
@@ -33,9 +33,8 @@ const Preview = () => {
   }
 
   const _moveToPrev = () => {
-      // if(currentIndex !== prevIndex) {
-      //     dispatch(surveyFlowActions.set)
-      // }
+      dispatch(surveyFlowActions.setNextIndex(currentIndex));
+      dispatch(surveyFlowActions.setCurrentIndex(prevIndex));
   }
 
   const _determineFlow = () => {
@@ -69,7 +68,7 @@ const Preview = () => {
           <ArrowButtonWrapper>
               <ArrowImageButton
                   size={2}
-                  onClick={() => console.log("왼쪽 화살표 버튼 눌림")}
+                  onClick={_moveToPrev}
                   ImgSrc={leftArrow}
                   color={"white"}
               />
@@ -122,17 +121,16 @@ const Preview = () => {
     <Wrapper style={{ flexDirection: 'column', alignItems: 'center' }}>
         <QuestionWrapper>
             <ResultTitleBox info={form.form}/>
-            <ResultSectionContainer key={questions[currentIndex].id}>
-                <ResultSection section_idx={currentIndex + 1} section_len={questions.length}>
+            <ResultSectionContainer>
+                <ResultSection section_idx={currentIndex + 1} section_len={questions.length}/>
                     {questions[currentIndex].questionList.map((question, question_idx) => (
-                        <QuestionContainer key={question.id} questionId={question.id} sectionId={questions[currentIndex].id}/>
+                        <ResultQuestionContainer key={question.id} questionId={question.id} sectionId={questions[currentIndex].id}/>
                     ))}
-                </ResultSection>
             </ResultSectionContainer>
         </QuestionWrapper>
         {_determineFlow()}
     </Wrapper>
-  );
+  )
 };
 
 const ArrowButtonWrapper = styled.div`
