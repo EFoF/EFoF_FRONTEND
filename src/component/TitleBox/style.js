@@ -18,8 +18,6 @@ export const TitleInput = styled.input`
   
   border: none;
   font-size: 2rem;
-  color: ${props => props.fontColor || 'black'};
-  background-color: ${props => props.bgColor || 'white'};
   
   /* width: 60%; */
   &::placeholder {
@@ -48,9 +46,6 @@ export const DetailInput = styled.input`
 
     
   border: none;
-
-  color: ${props => props.fontColor || 'black'};
-  background-color: ${props => props.bgColor || 'white'};
     
   /* width: 60%; */
   font-size: 1rem;
