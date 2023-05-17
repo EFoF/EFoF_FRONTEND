@@ -104,7 +104,7 @@ function FormMake() {
             {...provided.droppableProps}>
 
             <SectionContainer key={section.id}>
-              <Section section_idx={section_idx + 1} section_len={questions.length} readOnly={false}/>
+              <Section section_idx={section_idx + 1} section_len={questions.length} />
               {section.questionList.map((question, question_idx) => (
 
                 <Draggable key={question.id}
@@ -119,7 +119,7 @@ function FormMake() {
                         provided.draggableProps.style
                       )}
                     >
-                      <QuestionContainer key={question.id} questionId={question.id} sectionId={section.id} provided={provided} snapshot={snapshot} questionOption={options} readOnly={false} />
+                      <QuestionContainer key={question.id} questionId={question.id} sectionId={section.id} provided={provided} snapshot={snapshot} questionOption={options} />
                     </div>
                   )}
                 </Draggable>
@@ -214,7 +214,7 @@ function FormMake() {
     <Wrapper>
       <QuestionWrapper>
         {/* <SurveyImg></SurveyImg> */}
-        <TitleBox info={form} handleTitle={handleTitle} handleDetail={handleDetail} readOnly={false} />
+        <TitleBox info={form} handleTitle={handleTitle} handleDetail={handleDetail} />
         <DragDropContext onDragEnd={onDragEnd}>
           {getQuestionList()}
         </DragDropContext>

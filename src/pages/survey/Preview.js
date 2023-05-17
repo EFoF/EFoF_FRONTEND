@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { questionActions, surveyFlowActions } from '../../slices';
 import ResultSection from "../../component/Section/Result/Section";
 import {Draggable} from "react-beautiful-dnd";
-import QuestionContainer from "../../containers/QuestionContainer/QuestionContainer";
+import {QuestionContainer} from "../../containers";
 import leftArrow from '../../assets/icon/leftArrow.png'
 import rightArrow from '../../assets/icon/rightArrow.png'
 import ImgButton from "../../ui/ImgButton";
@@ -125,22 +125,12 @@ const Preview = () => {
             <ResultSectionContainer key={questions[currentIndex].id}>
                 <ResultSection section_idx={currentIndex + 1} section_len={questions.length}>
                     {questions[currentIndex].questionList.map((question, question_idx) => (
-                        <div>
-                            <QuestionContainer key={question.id} questionId={question.id} sectionId={questions[currentIndex].id} />
-                        </div>
+                        <QuestionContainer key={question.id} questionId={question.id} sectionId={questions[currentIndex].id}/>
                     ))}
                 </ResultSection>
             </ResultSectionContainer>
         </QuestionWrapper>
         {_determineFlow()}
-        {/*<Buttons>*/}
-        {/*    <Link to={'/result'} style={{ textDecoration: 'none' }}>*/}
-        {/*        <div className="submit-button">제출</div>*/}
-        {/*    </Link>*/}
-        {/*    <div className="reset-button" onClick={() => {console.log("하이 데얼")}}>*/}
-        {/*        양식 지우기*/}
-        {/*    </div>*/}
-        {/*</Buttons>*/}
     </Wrapper>
   );
 };
