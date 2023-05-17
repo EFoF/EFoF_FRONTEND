@@ -1,9 +1,11 @@
-import { configureStore,getDefaultMiddleware } from '@reduxjs/toolkit';
+import {combineReducers, configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
 import { formReducer } from '../slices';
 import { userReducer } from '../slices';
+import {surveyFlowReducer} from "../slices";
 import { authorizationReducer} from "../slices";
 import storage from "redux-persist/lib/storage"
 import {persistReducer} from "redux-persist";
+import authorization from "../slices/authorization";
 
 const persistConfig = {
   key : 'root',

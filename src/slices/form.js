@@ -1,7 +1,6 @@
 import { createSlice, combineReducers } from '@reduxjs/toolkit';
 import { questionReducer } from '.';
-import authorizationReducer from './authorization';
-import userReducer from './user';
+
 
 
 const initialState = {
@@ -60,6 +59,6 @@ export { formActions };
 export default combineReducers({
   form: formReducer,
   questions: questionReducer,
-  user: userReducer,
-  authorization: authorizationReducer,
+  // user: userReducer,
+  // authorization: authorizationReducer,
 });

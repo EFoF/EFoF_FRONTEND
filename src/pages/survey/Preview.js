@@ -5,7 +5,7 @@ import { ResultTitleBox } from '../../component';
 import { PreviewContainer } from '../../containers';
 import { useSelector } from 'react-redux';
 import { questionActions } from '../../slices';
-import Section from "../../component/Section/Section";
+import ResultSection from "../../component/Section/Result/Section";
 import {Draggable} from "react-beautiful-dnd";
 import QuestionContainer from "../../containers/QuestionContainer/QuestionContainer";
 import leftArrow from '../../assets/icon/leftArrow.png'
@@ -15,13 +15,15 @@ import ImgButton from "../../ui/ImgButton";
 const Preview = () => {
   const dispatch = useDispatch();
   const form = useSelector((state) => state.form);
+  const currentIndex = useSelector(state => state.multi);
   const { questions } = form;
 
   console.dir(questions);
   console.dir(questions[0]);
-  // const handleReset = () => {
-  //   dispatch(questionActions.resetAnswer());
-  // };
+
+  const checkSectionFlow = () => {
+
+  }
 
   return (
     // <Wrapper style={{ flexDirection: 'column', alignItems: 'center' }}>
@@ -54,6 +56,9 @@ const Preview = () => {
     <Wrapper style={{ flexDirection: 'column', alignItems: 'center' }}>
         <QuestionWrapper>
             <ResultTitleBox info={form.form}/>
+            <ResultSectionContainer>
+                <ResultSection></ResultSection>
+            </ResultSectionContainer>
         </QuestionWrapper>
         {questions.length < 2 ? (
             <Buttons>
@@ -138,7 +143,7 @@ const QuestionWrapper = styled.div`
   width: 90%;
 `;
 
-const SectionContainer = styled.div`
+const ResultSectionContainer = styled.div`
 margin-bottom:0.5rem;
 border-radius: 10px;
 position: relative;
