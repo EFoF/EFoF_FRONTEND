@@ -12,12 +12,13 @@ import styled, {css} from 'styled-components';
 //   }
 // `;
 
-// 리드온리 파일을 적용하고 싶으면 아래의 코드를 추가하면 된다.
 // ${props => !props.readOnly && readOnlyStyles}
 export const TitleInput = styled.input`
   
   border: none;
   font-size: 2rem;
+  color: ${props => props.fontColor || 'black'};
+  background-color: ${props => props.bgColor || 'white'};
   
   /* width: 60%; */
   &::placeholder {
@@ -31,21 +32,15 @@ export const TitleInput = styled.input`
     background: transparent;
     border-bottom: 1px solid ${({ theme }) => theme.color.border_gray};
   }
-
-  &:focus {
-    border:0;
-    outline: 0;
-    background: transparent;
-    transition: 0.1s ease;
-    border-bottom: 2px solid ${({ theme }) => theme.color.purple};
-  }
 `;
 
-// ${props => !props.readOnly && readOnlyStyles}
 export const DetailInput = styled.input`
 
     
   border: none;
+
+  color: ${props => props.fontColor || 'black'};
+  background-color: ${props => props.bgColor || 'white'};
     
   /* width: 60%; */
   font-size: 1rem;
@@ -55,14 +50,7 @@ export const DetailInput = styled.input`
       background: transparent;
       border-bottom: 1px solid ${({ theme }) => theme.color.border_gray};
     }
-
-  &:focus {
-    border:0;
-    outline: 0;
-    background: transparent;
-    transition: 0.1s ease;
-    border-bottom: 2px solid ${({ theme }) => theme.color.purple};
-  }
+  
 `;
 
 export const InputWrapper = styled.div`
