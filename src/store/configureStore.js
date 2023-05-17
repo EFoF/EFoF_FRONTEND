@@ -20,6 +20,7 @@ const store = configureStore({
     form: formReducer,
     user: userReducer,
     authorization: persistedReducer,
+    surveyFlow: surveyFlowReducer,
   },
   middleware: getDefaultMiddleware({
     serializableCheck: false,

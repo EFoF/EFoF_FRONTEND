@@ -14,6 +14,7 @@ const {actions: surveyFlowActions, reducer: surveyFlowReducer } = createSlice({
             // setHeader(state.tokenIssueDTO.accessToken, state.loginType);
         },
         setNextIndex : (state, action) => {
+            console.log(action.payload);
             state.nextIndex = action.payload;
         },
         setPrevIndex : (state, action) => {
