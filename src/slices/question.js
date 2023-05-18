@@ -14,9 +14,8 @@ const initialState =
         type: 0,
         questionContent: '',
         isNecessary: false,
-        options: [
 
-        ],
+        options: [],
         answers: [],
         narrativeAnswer: '',
       },]
@@ -210,43 +209,50 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
 
     },
 
-    // setNarrativeAnswer: (state, action) => {
-    //   const { id, narrativeContent } = action.payload;
-    //   const questionId = state.findIndex((item) => item.id === String(id));
-    //   state[questionId].narrativeAnswer = narrativeContent;
-    // },
+    setNarrativeAnswer: (state, action) => {
+      const { id, narrativeContent } = action.payload;
+      const questionId = state.findIndex((item) => item.id === String(id));
+      state[questionId].narrativeAnswer = narrativeContent;
+    },
 
-    // markOneAnswer: (state, action) => {
-    //   const { id, optionId, isAnswer } = action.payload;
-    //   const question = state.find((item) => item.id === id);
-    //   if (!question) return;
-    //   question.answers.length > 0 && question.answers.splice(-1, 1); // 한개만 저장하기 위함
-    //   if (!isAnswer) {
-    //     console.log(action.payload);
-    //     question.answers.push(optionId);
-    //   }
-    // },
+    markOneAnswer: (state, action) => {
+      const { questionId, optionId, isAnswer } = action.payload;
+      // const question = state.find((item) => item.id === questionId);
+      const question = state.flatMap((item) => item.questionList).find((question) => question.id === questionId);
+      if (!question) return;
+      question.answers.length > 0 && question.answers.splice(-1, 1); // 한개만 저장하기 위함
+      if (!isAnswer) {
+        question.answers.push(optionId);
+      }
+    },
 
-    // markMultipleAnswer: (state, action) => {
-    //   const { id, optionId, isAnswer } = action.payload;
-    //   const question = state.find((item) => item.id === id);
-    //   if (!question) return;
-    //   const answerIdx = question.answers.findIndex((item) => item === optionId);
+    deleteOneOptionalAnswer: (state, action) => {
+      const { questionId } = action.payload;
+      const question = state.flatMap((item) => item.questionList).find((question) => question.id === questionId);
+      if (!question) return;
+      question.answers = [];
+    },
 
-    //   if (!isAnswer) {
-    //     question.answers.push(optionId);
-    //   } else {
-    //     if (answerIdx === 0) question.answers.shift();
-    //     else question.answers.splice(answerIdx, 1);
-    //   }
-    // },
+    markMultipleAnswer: (state, action) => {
+      const { id, optionId, isAnswer } = action.payload;
+      const question = state.find((item) => item.id === id);
+      if (!question) return;
+      const answerIdx = question.answers.findIndex((item) => item === optionId);
 
-    // resetAnswer: (state) => {
-    //   state.map((item) => {
-    //     item.answers = [];
-    //     item.narrativeAnswer = '';
-    //   });
-    // },
+      if (!isAnswer) {
+        question.answers.push(optionId);
+      } else {
+        if (answerIdx === 0) question.answers.shift();
+        else question.answers.splice(answerIdx, 1);
+      }
+    },
+
+    resetAnswer: (state) => {
+      state.map((item) => {
+        item.answers = [];
+        item.narrativeAnswer = '';
+      });
+    },
 
     reorderQuestion: (state, action) => {
       const { source, destination } = action.payload;

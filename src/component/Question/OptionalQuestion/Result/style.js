@@ -48,11 +48,12 @@ export const Input = styled.input`
 `;
 
 
-export const OptionButton = styled.div`
-
+export const ResultOptionButton = styled.div`
+  width: 37vw;
   font-size: ${({ size }) => size};
   color: ${({ theme }) => theme.color.black};
-  background-color:${({ theme }) => theme.color.border_gray};
+  background-color: ${({ isActive, activeColor, theme }) =>
+          isActive ? activeColor : theme.color.gray};
   display: ${({ isLast }) => (isLast ? 'none' : 'flex')};
   align-self: center;
   /* height:${({ size }) => size * 2}; */
@@ -62,12 +63,29 @@ export const OptionButton = styled.div`
   cursor: pointer;
   border-radius: 5px; /* 끝부분 둥글게 만들기 */
   transition: background-color 0.2s color 0.2s; /* 배경색이 바뀔 때 부드럽게 변경되도록 transition 설정 */
-
+  
   &:hover{ 
     filter: brightness(90%);
-
   }
 `;
+
+export const customOptionButton = styled.div`
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  background-color: #f5f5f5;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #e0e0e0;
+  }
+
+  &:active {
+    background-color: ${({ activeColor }) => activeColor};
+  }
+`
 
 export const InputButtonWrapper = styled.button`
 

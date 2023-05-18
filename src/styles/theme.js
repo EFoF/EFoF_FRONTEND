@@ -16,6 +16,7 @@ export const theme = {
         orange: '#ff7f00',
         bright_orange: '#d99944',
         border_gray: '#DADCE0',
+        button_gray: '#C6C6D0',
         border_gray2: '#80868B',
         blue: '#4285F4',
         red: '#D93025',
