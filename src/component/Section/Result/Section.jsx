@@ -72,6 +72,8 @@ export default function ResultSection({ section_idx, section_len }) {
 
     const { questions } = useSelector((state) => state.form);
 
+    console.dir(questions);
+
     const newSection = {
         id: shortid(),
         nextSectionId:'',

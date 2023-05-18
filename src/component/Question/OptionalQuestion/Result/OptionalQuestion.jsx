@@ -1,5 +1,5 @@
 
-import { Wrapper, InputButtonWrapper, OptionsWrapper, OptionButton, CloseOptionButton, Input, ImgInput } from './style';
+import { Wrapper, InputButtonWrapper, OptionsWrapper, customOptionButton, ResultOptionButton, CloseOptionButton, Input, ImgInput } from './style';
 import { questionActions, formActions } from '../../../../slices';
 import React, { useState } from 'react'
 import { MdAdd, MdClose, MdPhoto } from 'react-icons/md';
@@ -12,37 +12,8 @@ import ReactDOM from "react-dom";
 import ConfirmModal from '../../../../ui/ConfirmModal';
 import axios from 'axios';
 import toastMsg from '../../../../ui/Toast';
-export default function OptionalQuestion({ type, optionId, questionId, optionContent, optionImage, isLast, sectionId, questions, questionOption,optionNextSectionId}) {
+export default function ResultOptionalQuestion({ type, optionId, questionId, optionContent, optionImage, isLast, sectionId, questions, isMarked}) {
 
-
-    const customStyles = {
-        container: (provided, state) => ({
-            ...provided,
-            width: '11.5rem',
-            // display: "flex",
-            fontSize: "0.7rem",
-            margin: 0,
-            padding: 0,
-        }),
-        control: (provided, state) => ({
-            ...provided,
-            backgroundColor: "white",
-
-            margin: 0,
-            padding: '0.01rem',
-            borderColor: state.isFocused ? "red" : "gray",
-            ":hover": { borderColor: "red" },
-        }),
-        option: (provided, state) => ({
-            ...provided,
-
-            color: state.data.color,
-            opacity: 0.8,
-            margin: '0',
-            // height:'1.5rem'
-        }),
-
-    };
 
     const CheckIcon = styled(FaCheck)`
   font-size: 0.7rem;
@@ -72,8 +43,6 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
     const handleChange = (option1) => {
         dispatch(questionActions.setOptionNextSection({ sectionId, optionId, questionId, nextSectionId: option1.value }))
 
-
-
     };
 
     const getImage = () => {
@@ -86,12 +55,20 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
         return false;
     }
 
+    const isUnique = () => {
+        // 정답 저장할 redux 구성하고 다시 보자 너는.
+    }
 
+    const saveAnswer = () => {
+        const isAnswer = false;
+        dispatch(questionActions.markOneAnswer({questionId, optionId, isAnswer}))
+    };
 
     return (
         <Wrapper isLast={isLast}>
             <InputButtonWrapper>
-                <Input value={optionContent} type={type} isLast={isLast} onChange={handleContentChange} onClick={handleAddOption} ref={inputRef} />
+                {/*<Input value={optionContent} type={type} isLast={isLast} onChange={handleContentChange} onClick={handleAddOption} ref={inputRef} />*/}
+                <ResultOptionButton onClick={saveAnswer} isActive={isMarked} activeColor={form.btColor}>{optionContent}</ResultOptionButton>
             </InputButtonWrapper>
             <OptionsWrapper isLast={isLast} gap={"0.5rem"}>
             </OptionsWrapper>
