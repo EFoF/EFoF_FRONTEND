@@ -55,20 +55,22 @@ export default function ResultOptionalQuestion({ type, optionId, questionId, opt
         return false;
     }
 
-    const isUnique = () => {
-        // 정답 저장할 redux 구성하고 다시 보자 너는.
-    }
 
-    const saveAnswer = () => {
+    const answerHandler = () => {
+        console.log(isMarked);
         const isAnswer = false;
-        dispatch(questionActions.markOneAnswer({questionId, optionId, isAnswer}))
+        if(isMarked) {
+            dispatch(questionActions.deleteOneOptionalAnswer({questionId}))
+        } else {
+            dispatch(questionActions.markOneAnswer({questionId, optionId, isAnswer}))
+        }
     };
 
     return (
         <Wrapper isLast={isLast}>
             <InputButtonWrapper>
                 {/*<Input value={optionContent} type={type} isLast={isLast} onChange={handleContentChange} onClick={handleAddOption} ref={inputRef} />*/}
-                <ResultOptionButton onClick={saveAnswer} isActive={isMarked} activeColor={form.btColor}>{optionContent}</ResultOptionButton>
+                <ResultOptionButton onClick={answerHandler} isActive={isMarked} activeColor={form.btColor}>{optionContent}</ResultOptionButton>
             </InputButtonWrapper>
             <OptionsWrapper isLast={isLast} gap={"0.5rem"}>
             </OptionsWrapper>

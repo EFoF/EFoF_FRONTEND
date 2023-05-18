@@ -211,12 +211,18 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
       const { questionId, optionId, isAnswer } = action.payload;
       // const question = state.find((item) => item.id === questionId);
       const question = state.flatMap((item) => item.questionList).find((question) => question.id === questionId);
-      console.log("question answer 추가");
       if (!question) return;
       question.answers.length > 0 && question.answers.splice(-1, 1); // 한개만 저장하기 위함
       if (!isAnswer) {
         question.answers.push(optionId);
       }
+    },
+
+    deleteOneOptionalAnswer: (state, action) => {
+      const { questionId } = action.payload;
+      const question = state.flatMap((item) => item.questionList).find((question) => question.id === questionId);
+      if (!question) return;
+      question.answers = [];
     },
 
     markMultipleAnswer: (state, action) => {

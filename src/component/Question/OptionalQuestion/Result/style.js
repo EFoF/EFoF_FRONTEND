@@ -63,9 +63,6 @@ export const ResultOptionButton = styled.div`
   cursor: pointer;
   border-radius: 5px; /* 끝부분 둥글게 만들기 */
   transition: background-color 0.2s color 0.2s; /* 배경색이 바뀔 때 부드럽게 변경되도록 transition 설정 */
-
-  &:active {
-    background-color: ${({ activeColor }) => activeColor};
   
   &:hover{ 
     filter: brightness(90%);
