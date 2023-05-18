@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { questionActions, surveyFlowActions } from '../../slices';
 import ResultSection from "../../component/Section/Result/Section";
 import {Draggable} from "react-beautiful-dnd";
-import {QuestionContainer} from "../../containers";
+import {ResultQuestionContainer} from "../../containers";
 import leftArrow from '../../assets/icon/leftArrow.png'
 import rightArrow from '../../assets/icon/rightArrow.png'
 import ImgButton from "../../ui/ImgButton";
@@ -18,24 +18,25 @@ const Preview = () => {
   const { currentIndex, nextIndex, prevIndex } = useSelector(state => state.surveyFlow);
   const { questions } = form;
 
-  // console.dir(questions);
-  // console.dir(questions[0]);
-    console.log(currentIndex);
-
+    console.log("현재 인덱스 " + currentIndex);
+    console.log("이전 인덱스 " + prevIndex);
   const _moveToNext = () => {
       // if(currentIndex !== nextIndex) {
       //     // 현재 인덱스를 먼저 이전 인덱스로 지정해주고, 현재 인덱스를 nextIndex로 지정해준다.
       //     dispatch(surveyFlowActions.setPrevIndex(currentIndex));
       //     dispatch(surveyFlowActions.setCurrentIndex(nextIndex));
       // }
-      dispatch(surveyFlowActions.setPrevIndex(currentIndex));
+      // dispatch(surveyFlowActions.setPrevIndex(currentIndex));
       dispatch(surveyFlowActions.setCurrentIndex(nextIndex));
   }
 
   const _moveToPrev = () => {
-      // if(currentIndex !== prevIndex) {
-      //     dispatch(surveyFlowActions.set)
-      // }
+      // dispatch(surveyFlowActions.setNextIndex(currentIndex));
+      dispatch(surveyFlowActions.setCurrentIndex(prevIndex));
+      // Next는 자동으로 지정해줘서 여기서 따로 지정을 안해줘도 되지만, prev Index의 경우는 지정을 해줘야 한다.
+      // 여기서 다시 아이디로 인덱스를 찾은 뒤에 questions에 접근해서, 그 이전 값에 접근해야 한다.
+      // dispatch(surveyFlowActions.setPrevIndex(_findPrevIndexFromId(questions[prevIndex].id)));
+
   }
 
   const _determineFlow = () => {
@@ -47,13 +48,17 @@ const Preview = () => {
       const nextSectionId = questions[currentIndex].nextSectionId;
 
       // 3. 다음 섹션 아이디를 반복문을 통해서 몇번째 인덱스에 존재하는지 확인하기.
-      const nextSectionIndex = _findIndexFromId(nextSectionId);
-      console.log(nextIndex);
+      const nextSectionIndex = _findNextIndexFromId(nextSectionId);
 
       // 4. 
       // 이제 알아낸 다음 인덱스를 리덕스에 저장한다.
       if(nextSectionIndex !== nextIndex) {
           dispatch(surveyFlowActions.setNextIndex(nextSectionIndex));
+      }
+
+      // 5. 이전 인덱스도 저장한다.
+      if(prevIndex !== currentIndex - 1 && currentIndex - 1 >= -1) {
+          dispatch(surveyFlowActions.setPrevIndex(currentIndex - 1));
       }
 
       // alpha : 첫 인덱스일때는 오른쪽 화살표만, 마지막 인덱스일때는 제출과 왼쪽 화살표만 렌더링되어야 함.
@@ -67,28 +72,68 @@ const Preview = () => {
           </Buttons>
       ) : (
           <ArrowButtonWrapper>
-              <ArrowImageButton
-                  size={2}
-                  onClick={() => console.log("왼쪽 화살표 버튼 눌림")}
-                  ImgSrc={leftArrow}
-                  color={"white"}
-              />
-              <ArrowImageButton
-                  size={2}
-                  onClick={_moveToNext}
-                  ImgSrc={rightArrow}
-                  color={"white"}
-              />
+              {prevIndex === -1 ? (
+                  <ArrowImageButton
+                      size={2}
+                      color={"white"}
+                  />
+              ) : (
+                  <ArrowImageButton
+                      size={2}
+                      onClick={_moveToPrev}
+                      ImgSrc={leftArrow}
+                      color={"white"}
+                  />
+              )}
+              {nextIndex === questions.length ? (
+                  <ArrowImageButton
+                      size={2}
+                      color={"white"}
+                  />
+              ) : (
+                  <ArrowImageButton
+                      size={2}
+                      onClick={_moveToNext}
+                      ImgSrc={rightArrow}
+                      color={"white"}
+                  />
+              )}
           </ArrowButtonWrapper>
       ));
   }
 
-  const _findIndexFromId = (targetId) => {
+  const _findNextIndexFromId = (targetId) => {
       // const section = questions.find((item) => item.id === sectionId);
-      const nextSectionIndex = questions.findIndex((element) => element.id === targetId)
+      const nextSectionIndex = _findIndexFromId(targetId);
       // 해당되는 요소가 없으면 -1이 반환된다고 한다.
-      // 이 경우에는 인덱스 오류가 발생하니 -1은 0으로 바꿔서 반환하겠음
-      return nextSectionIndex === - 1 ? 0 : nextSectionIndex;
+      // 즉 다음 섹션을 지정하지 않았다는 말이기 때문에 이 경우에는 그냥 다음 인덱스를 지정해준다.
+      let _nextIndex;
+      if(nextSectionIndex === -1) {
+          console.log(questions.length);
+          _nextIndex = currentIndex + 1 < questions.length ? currentIndex + 1 : questions.length;
+      } else {
+          _nextIndex = nextSectionIndex;
+      }
+
+      console.log("다음 인덱스 " + _nextIndex);
+
+      return _nextIndex;
+  }
+
+
+  // const _findPrevIndexFromId = (targetId) => {
+  //   const findIndexFromId = _findIndexFromId(targetId);
+  //   let _prevIndex;
+  //   if(findIndexFromId === -1) {
+  //       _prevIndex = currentIndex - 1 >= 0 ? currentIndex - 1 : 0;
+  //   } else {
+  //       _prevIndex = findIndexFromId;
+  //   }
+  //   return _prevIndex;
+  // }
+
+  const _findIndexFromId = (targetId) => {
+      return questions.findIndex((element) => element.id === targetId);
   }
 
   return (
@@ -122,17 +167,16 @@ const Preview = () => {
     <Wrapper style={{ flexDirection: 'column', alignItems: 'center' }}>
         <QuestionWrapper>
             <ResultTitleBox info={form.form}/>
-            <ResultSectionContainer key={questions[currentIndex].id}>
-                <ResultSection section_idx={currentIndex + 1} section_len={questions.length}>
+            <ResultSectionContainer>
+                <ResultSection section_idx={currentIndex + 1} section_len={questions.length}/>
                     {questions[currentIndex].questionList.map((question, question_idx) => (
-                        <QuestionContainer key={question.id} questionId={question.id} sectionId={questions[currentIndex].id}/>
+                        <ResultQuestionContainer key={question.id} questionId={question.id} sectionId={questions[currentIndex].id}/>
                     ))}
-                </ResultSection>
             </ResultSectionContainer>
         </QuestionWrapper>
         {_determineFlow()}
     </Wrapper>
-  );
+  )
 };
 
 const ArrowButtonWrapper = styled.div`
@@ -150,7 +194,6 @@ const ArrowImageButton = styled(ImgButton)`
   width: 80px;
   border-radius: 5px;
   ${({ theme }) => theme.flexCenter}
-
 `;
 
 const Buttons = styled.div`
