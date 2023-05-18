@@ -2,6 +2,9 @@ import axios, {AxiosRequestConfig} from "axios";
 import API from "./config";
 import {authorizationActions} from "../slices/authorization";
 
+import { useNavigate } from 'react-router-dom';
+// import toastMsg from '../../src/ui/Toast'
+import toastMsg from "../ui/Toast";
 axios.defaults.baseURL = API.BASE_URL;
 axios.defaults.withCredentials = true;
 
@@ -30,6 +33,9 @@ authorizationClient.interceptors.response.use(
       return response;
     },
     error => {
+      toastMsg(error.response.data.message, false);
+      alert(error.response.data.message)
+          
       console.log("유효하지 않은 토큰값");
       console.dir(error);
       switch (error.response.status) {
@@ -55,17 +61,18 @@ authorizationClient.interceptors.response.use(
               return authorizationClient.request(error.config);
             })
             .catch((error) => {
+
+  
               console.log(error);
               // toastMsg("인증이 만료되었습니다. 다시 로그인해주세요.", false);
               // window.location.replace("/login");
             });
         }
-        case 400:
-          break;
         // 접근 권한 없음(ex. ADMIN페이지에 USER가 접근)
         case 403:
           break;
         default:
+          
           break;
       }
       console.error("[Axios]", error);

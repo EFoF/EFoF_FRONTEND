@@ -1,7 +1,7 @@
 
 import { DragIcon } from '../../assets';
 import { Wrapper } from './style';
-import styled,{css} from 'styled-components';
+import styled, { css } from 'styled-components';
 import { QUESTION_TYPES } from '../../component/constants/const/';
 import { useDispatch, useSelector } from 'react-redux';
 import { questionActions } from '../../slices';
@@ -15,10 +15,10 @@ import Toggle from 'react-styled-toggle';
 import React from 'react'
 
 
-export default function QuestionContainer({ questionId, provided, sectionId ,questionOption, }) {
+export default function QuestionContainer({ questionId, provided, sectionId, questionOption, }) {
 
   const [isCollapsed, setIsCollapsed] = useState(false);
-  
+
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
@@ -46,8 +46,8 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
   };
 
   const handleSwitch = () => {
-    
-    dispatch(questionActions.setNecessary({questionId:id, sectionId:section.id}));
+
+    dispatch(questionActions.setNecessary({ questionId: id, sectionId: section.id }));
   };
 
   const handleQuestionChange = (e) => {
@@ -80,12 +80,12 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
           isLast={false}
         />
       ));
-  
+
     // readOnly 일때는 옵션 추가 버튼을 포함하지 않는다.
     if (!optionList) {
       optionList = [];
     }
-    
+
     optionList.push(
       <OptionalQuestion
         key={optionList.length + 1}
@@ -99,10 +99,10 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
         isLast={true}
       />
     );
-  
+
     return optionList;
   };
-  
+
 
   const getOptionListWithoutConcat = (type) => {
     const optionList = options
@@ -126,7 +126,7 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
 
   const getInput = () => {
     switch (questionType) {
-      
+
       case QUESTION_TYPES.TRUE_FALSE:
         return getOptionListWithoutConcat(questionType);
       case QUESTION_TYPES.MULTIPLE_CHOICE:
@@ -142,31 +142,31 @@ export default function QuestionContainer({ questionId, provided, sectionId ,que
   return (
     <Wrapper isCollapsed={isCollapsed}>
 
-          <div className="handler" {...provided.dragHandleProps}>
-            <img className="drag-icon" src={DragIcon} alt="" />
-          </div>
-      
-      <div className="question">
-              <input
-                  className="question-input"
-                  type="text"
-                  placeholder="질문"
-                  value={questionContent}
-                  onChange={handleQuestionChange}
-              />
-              <button className="collapse-button" onClick={toggleCollapse}>
-                <FiChevronUp className={`collapse-icon ${isCollapsed ? "collapsed" : ""}`} />
-              </button>
+      <div className="handler" {...provided.dragHandleProps}>
+        <img className="drag-icon" src={DragIcon} alt="" />
       </div>
-          <div className="collapse">
-            <Dropdown questionId={questionId} sectionId={sectionId}/>
-            {getInput()}
-          </div>
+
+      <div className="question">
+        <input
+          className="question-input"
+          type="text"
+          placeholder="질문"
+          value={questionContent}
+          onChange={handleQuestionChange}
+        />
+        <button className="collapse-button" onClick={toggleCollapse}>
+          <FiChevronUp className={`collapse-icon ${isCollapsed ? "collapsed" : ""}`} />
+        </button>
+      </div>
+      <div className="collapse">
+        <Dropdown questionId={questionId} sectionId={sectionId} />
+        {getInput()}
+      </div>
       <hr />
-          <div className="settings">
-            <Toggle checked={isNecessary} onChange={handleSwitch} labelLeft='필수 응답' width={52} height={25}sliderWidth={19} sliderHeight={19}/>
-            <StyledDeleteIcon onClick={handleDeleteQuestion} />
-          </div>
+      <div className="settings">
+        <Toggle checked={isNecessary} onChange={handleSwitch} labelLeft='필수 응답' width={52} height={25} sliderWidth={19} sliderHeight={19} />
+        <StyledDeleteIcon onClick={handleDeleteQuestion} />
+      </div>
     </Wrapper>
   );
 };
