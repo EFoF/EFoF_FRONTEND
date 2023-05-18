@@ -7,13 +7,14 @@ const initialState =
   [
     {
       id: shortid(),
-      nextSectionId:'',
-      questionOrder:initQuestionId,
+      nextSectionId: '',
+      questionOrder: initQuestionId,
       questionList: [{
         id: initQuestionId,
         type: 0,
         questionContent: '',
         isNecessary: false,
+
         options: [],
         answers: [],
         narrativeAnswer: '',
@@ -25,15 +26,15 @@ const initialState =
 const getNewOption = (option) => ({
   id: shortid(),
   option: option,
-  image:'',
-  nextSectionId:'',
+  image: '',
+  nextSectionId: '',
 });
 
 const { actions: questionActions, reducer: questionReducer } = createSlice({
   name: 'question',
   initialState,
   reducers: {
-    initQuestion:(state, action) => {
+    initQuestion: (state, action) => {
       const { data } = action.payload;
       return data.sectionList;
 
@@ -43,17 +44,17 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
       const section = state.find((item) => item.id === sectionId);
       const question = section.questionList.find((item) => item.id === questionId);
       question && (question.type = type);
-      
+
       type === QUESTION_TYPES.TRUE_FALSE ? (question.options = [{ id: 1, option: 'O' }, { id: 2, option: 'X' }]) :
-      type === QUESTION_TYPES.LONG_ANSWER ? (question.options = []) :
-      question && (question.answers = []);
+        type === QUESTION_TYPES.LONG_ANSWER ? (question.options = []) :
+          question && (question.answers = []);
 
     },
 
     setNecessary: (state, action) => {
       const { sectionId, questionId } = action.payload;
       const section = state.find((item) => item.id === sectionId);
-      
+
       const question = section.questionList.find((item) => item.id === questionId);
       question && (question.isNecessary = !question.isNecessary);
     },
@@ -67,8 +68,8 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
 
     addSection: (state, action) => {
 
-      
-        const { newSection } = action.payload;
+
+      const { newSection } = action.payload;
       state.push(newSection);
     },
 
@@ -76,10 +77,10 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
     deleteSection: (state, action) => {
       const { section_idx } = action.payload;
       const newState = state;
-    
+
       // Find the section to be deleted
-      const sectionToDelete = newState[section_idx-1];
-    
+      const sectionToDelete = newState[section_idx - 1];
+
       // Loop through all sections to update any references to the section being deleted
       newState.forEach((section, idx) => {
         section.questionList.forEach(question => {
@@ -90,25 +91,27 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
             }
           });
         });
-    
+
         // If this section leads to the section being deleted, remove the reference
         if (section.nextSectionId === sectionToDelete.id) {
           section.nextSectionId = '';
         }
       });
-    
+
       // Remove the section from the state
-      newState.splice(section_idx-1, 1);
-    
+      newState.splice(section_idx - 1, 1);
+
       return newState;
     },
-    
+
 
     addQuestion: (state, action) => {
       const { sectionId, newQuestion } = action.payload;
 
-      const section = state.find((item,idx) => idx === sectionId);
+      const section = state.find((item, idx) => idx === sectionId);
       section.questionList.push(newQuestion);
+      section.questionOrder = section.questionOrder + "," + newQuestion.id
+      alert(section.questionOrder)
     },
 
 
@@ -116,6 +119,11 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
       const { sectionId, questionId } = action.payload;
       const section = state.find((item) => item.id === sectionId);
       section.questionList = section.questionList.filter((item) => item.id !== questionId);
+      const updatedQuestionOrder = section.questionOrder
+        .split(',')
+        .filter((order) => order !== questionId)
+        .join(',');
+      section.questionOrder = updatedQuestionOrder
       return state;
     },
 
@@ -136,15 +144,15 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
     },
 
     addOptionByBot: (state, action) => {
-      const { sectionId, questionId,content } = action.payload;
+      const { sectionId, questionId, content } = action.payload;
 
       const section = state.find((item) => item.id === sectionId);
       const questionIdx = section.questionList.findIndex((item) => item.id === questionId);
       section.questionList[questionIdx].options.push(getNewOption(content));
-            
+
     },
     addAllOptionByBot: (state, action) => {
-      const { sectionId, questionId,content } = action.payload;
+      const { sectionId, questionId, content } = action.payload;
 
       const section = state.find((item) => item.id === sectionId);
       const questionIdx = section.questionList.findIndex((item) => item.id === questionId);
@@ -172,12 +180,12 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
     },
 
     setNextSection: (state, action) => {
-      const { section_idx,nextSectionId} = action.payload;
-      const section = state.find((item,idx) => idx === section_idx);
+      const { section_idx, nextSectionId } = action.payload;
+      const section = state.find((item, idx) => idx === section_idx);
       section.nextSectionId = nextSectionId;
     },
     setOptionNextSection: (state, action) => {
-      const { sectionId,optionId, questionId,nextSectionId} = action.payload;
+      const { sectionId, optionId, questionId, nextSectionId } = action.payload;
       const section = state.find((item) => item.id === sectionId);
       const questionIdx = section.questionList.findIndex((item) => item.id === questionId);
       const optionIdx = section.questionList[questionIdx].options.findIndex((item) => item.id === optionId);
@@ -185,20 +193,20 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
     },
 
     setOptionImage: (state, action) => {
-      const { sectionId,optionId, questionId,image} = action.payload;
+      const { sectionId, optionId, questionId, image } = action.payload;
       const section = state.find((item) => item.id === sectionId);
       const questionIdx = section.questionList.findIndex((item) => item.id === questionId);
       const optionIdx = section.questionList[questionIdx].options.findIndex((item) => item.id === optionId);
       section.questionList[questionIdx].options[optionIdx].image = image;
     },
     getOptionImage: (state, action) => {
-      const { sectionId,optionId, questionId} = action.payload;
+      const { sectionId, optionId, questionId } = action.payload;
       // alert(JSON.stringify(action.payload))
       const section = state.find((item) => item.id === sectionId);
       const questionIdx = section.questionList.findIndex((item) => item.id === questionId);
       const optionIdx = section.questionList[questionIdx].options.findIndex((item) => item.id === optionId);
       // section.questionList[questionIdx].options[optionIdx].image;
-      
+
     },
 
     setNarrativeAnswer: (state, action) => {
@@ -259,7 +267,17 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
       const [removed] = state[source_section_idx].questionList.splice(source_question_idx, 1);
       state[destination_section_idx].questionList.splice(destination_question_idx, 0, removed);
     },
-   
+    orderChange: (state, action) => {
+      const { source, destination,response } = action.payload;
+      
+      // alert(JSON.stringify(action.payload));
+      // alert(JSON.stringify(secondIdx));
+      const source_section_idx = source.droppableId;
+      const destination_section_idx = destination.droppableId;
+
+      state[source_section_idx].questionOrder=response.startSectionOrder;
+      state[destination_section_idx].questionOrder=response.endSectionOrder;
+    },
   },
 });
 

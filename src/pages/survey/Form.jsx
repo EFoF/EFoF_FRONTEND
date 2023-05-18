@@ -15,6 +15,8 @@ import { useEffect } from 'react';
 import { surveyInfo } from '../../api/survey';
 import { questionActions, formActions } from '../../slices';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import toastMsg from '../../ui/Toast';
 
 const Wrapper = styled.div`
   display: flex;
@@ -103,18 +105,23 @@ export default function Form() {
   const currentPath = window.location.pathname;
   const [isPre,setIsPre] = useState(true);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
 
   // '/form/pre-release/:id' 경로인 경우에만 특정 로직 수행
   useEffect(() => {
     if (currentPath === `/form/pre-release/${id}`) {
 
+      
       surveyInfo(id)
         .then((data) => {
           dispatch(formActions.initForm({data}));
           dispatch(questionActions.initQuestion({data}))
           
-        })
+        }).catch(error => {
+          // alert(JSON.stringify(error.response.data.message));
+          // toastMsg(error.response.data.message,false);
+          navigate(-1);
+      });
     }
     
   }, [id, currentPath]);
