@@ -49,7 +49,7 @@ export const Input = styled.input`
 
 
 export const ResultOptionButton = styled.div`
-
+  width: 37vw;
   font-size: ${({ size }) => size};
   color: ${({ theme }) => theme.color.black};
   background-color: ${({ isActive, activeColor, theme }) =>
@@ -66,7 +66,6 @@ export const ResultOptionButton = styled.div`
   
   &:hover{ 
     filter: brightness(90%);
-
   }
 `;
 
