@@ -80,11 +80,29 @@ const Preview = () => {
 
       return (
           indexes[currentIndex].nextIndex === -1 ? (
-          <Buttons>
-              <Link to={'/result'} style={{ textDecoration: 'none' }}>
-                  <div className="submit-button">제출</div>
-              </Link>
-          </Buttons>
+              <>
+                  <Buttons>
+                      <Link to={'/result'} style={{ textDecoration: 'none' }}>
+                          <div className="submit-button">제출</div>
+                      </Link>
+                  </Buttons>
+                  <ArrowButtonWrapper>
+                      {indexes[currentIndex].prevIndex === -1 ? (
+                          // 더 이상 뒤로 갈 섹션이 없는 경우 버튼을 비활성화 시킨다.
+                          <ArrowImageButton
+                              size={2}
+                              color={"white"}
+                          />
+                      ) : (
+                          <ArrowImageButton
+                              size={2}
+                              onClick={_moveToPrev}
+                              ImgSrc={leftArrow}
+                              color={"white"}
+                          />
+                      )}
+                  </ArrowButtonWrapper>
+              </>
       ) : (
           <ArrowButtonWrapper>
               {indexes[currentIndex].prevIndex === -1 ? (
