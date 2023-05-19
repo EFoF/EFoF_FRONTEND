@@ -12,7 +12,7 @@ import axios from 'axios';
 import toastMsg from "../../ui/Toast";
 import { authorizationClient } from '../../api';
 import API from '../../api/config';
-import { updateSurveyDescription,updateSurveyTitle } from '../../api/survey';
+import { updateSurveyDescription, updateSurveyTitle } from '../../api/survey';
 function FormMake() {
   const { form, questions } = useSelector((state) => state.form);
 
@@ -86,15 +86,15 @@ function FormMake() {
     ));
   };
   const handleBlurTitle = (value) => {
-    if(form.isPre){
-      const data = {"title" : value}
-      updateSurveyTitle(form.id,data)
+    if (form.isPre) {
+      const data = { "title": value }
+      updateSurveyTitle(form.id, data)
     }
   }
   const handleBlurDetail = (value) => {
-    if(form.isPre){
-      const data = {"description" : value}
-      updateSurveyDescription(form.id,data)
+    if (form.isPre) {
+      const data = { "description": value }
+      updateSurveyDescription(form.id, data)
     }
   }
   const handleDetail = (value) => {
@@ -116,6 +116,7 @@ function FormMake() {
 
             <SectionContainer key={section.id}>
               <Section section_idx={section_idx + 1} section_len={questions.length} />
+              
               {section.questionList.map((question, question_idx) => (
 
                 <Draggable key={question.id}
@@ -158,13 +159,25 @@ function FormMake() {
     ));
   };
 
+  const reorderRedux = ({ source, destination }) =>{
+    dispatch(questionActions.reorderQuestion({ source, destination }));
+  }
+  const orderChangeRedux = ({ source, destination ,response}) =>{
+    dispatch(questionActions.orderChange({ source, destination,response }));
+  }
   const onDragEnd = (result) => {
     const { source, destination } = result;
     if (!result.destination) {
       return;
     }
 
-    dispatch(questionActions.reorderQuestion({ source, destination }));
+    if(form.isPre){
+      //구현해야함..
+    }
+    else{
+      reorderRedux({ source, destination })
+    }
+    
 
   };
 
@@ -183,11 +196,11 @@ function FormMake() {
 
   function saveSurvey(surveyDto) {
     authorizationClient.post(
-      `${API.SURVEY}`,surveyDto
+      `${API.SURVEY}`, surveyDto
     )
-    .then(response => {
+      .then(response => {
         console.log(response);
-        typeof(response) !== 'undefined' ?
+        typeof (response) !== 'undefined' ?
           toastMsg("설문생성 성공", true) : toastMsg("설문생성 실패", false);
         // 여기서 홈으로 리다이렉트 시킬지 고민 중
       })
@@ -196,7 +209,7 @@ function FormMake() {
         console.log("설문생성 실패" + error);
         toastMsg("설문생성 실패", false);
       });
-    }
+  }
 
 
   // Survey 데이터와 option 데이터를 가져와서 surveyDto 객체를 생성하고 서버에 저장하는 함수
@@ -212,7 +225,7 @@ function FormMake() {
         {/* <SurveyImg></SurveyImg> */}
 
         <TitleBox info={form} handleTitle={handleTitle} handleDetail={handleDetail} handleBlurTitle={handleBlurTitle} handleBlurDetail={handleBlurDetail} readOnly={false} />
-        
+
         <DragDropContext onDragEnd={onDragEnd}>
           {getQuestionList()}
         </DragDropContext>

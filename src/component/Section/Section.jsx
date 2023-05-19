@@ -70,12 +70,13 @@ const SectionButton = styled.button`
 export default function Section({ section_idx, section_len }) {
   const dispatch = useDispatch();
 
-
+  const newQuestionId = shortid();
   const newSection = {
     id: shortid(),
     nextSectionId:'',
+    questionOrder:newQuestionId,
     questionList: [{
-      id: shortid(),
+      id: newQuestionId,
       type: 0,
       questionContent: '',
       isNecessary: false,

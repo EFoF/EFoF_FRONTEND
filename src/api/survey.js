@@ -3,6 +3,7 @@ import toastMsg from "../ui/Toast";
 import API from "./config";
 import {useDispatch, useSelector} from "react-redux";
 import { authorizationClient, unAuthorizationClient } from ".";
+import { useNavigate } from 'react-router-dom';
 
 axios.defaults.baseURL = API.BASE_URL;
 axios.defaults.withCredentials = true;
@@ -10,6 +11,8 @@ axios.defaults.withCredentials = true;
 
 
 const surveyInfo = async (survey_id) => {
+
+    
 
     try {
       const response = await authorizationClient.get(`${API.SURVEY}/${survey_id}/pre_release`);
@@ -20,8 +23,10 @@ const surveyInfo = async (survey_id) => {
       return response.data;
     } catch (error) {
       console.log(error);
-      alert(JSON.stringify(error.response.data.message));
-      // toastMsg(error.response.data.message, false);
+    //   alert(JSON.stringify(error.response.data.message));
+
+    //   toastMsg(error.response.data.message, false);
+
       // return false;
     }
   };
@@ -154,6 +159,18 @@ const surveyInfo = async (survey_id) => {
     try {
         const response = await authorizationClient.post(`${API.SURVEY}/${survey_id}/section/${section_id}`,
         data)
+    } catch (error) {
+      console.log(error);
+      toastMsg(error.response.data.message, false);
+    }
+  };
+  const updateQuestionOrder = async (survey_id,section_id,question_id,data,reorderRedux) => {
+  
+    try {
+        const response = await authorizationClient.patch(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}/order`,
+        data)
+        
+
     } catch (error) {
       console.log(error);
       toastMsg(error.response.data.message, false);
