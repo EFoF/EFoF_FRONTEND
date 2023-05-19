@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import ReactDOM from "react-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { questionActions } from "../../slices";
+import {questionActions, surveyFlowActions} from "../../slices";
 import ConfirmModal from "../../ui/ConfirmModal";
 import shortid from 'shortid';
 const Wrapper = styled.div`
@@ -89,6 +89,8 @@ export default function Section({ section_idx, section_len }) {
   
   const handleAddSection = () => {
     dispatch(questionActions.addSection({newSection}));
+    // 섹션에 매핑되는 index 객체를 함께 추가해줘야 한다.
+    dispatch(surveyFlowActions.addIndexes());
   };
   const { questions } = useSelector((state) => state.form);
 
