@@ -4,12 +4,17 @@ import { slugify } from '../../utils';
 
 
 const SurveyProp = ({projectStyle, survey}) => {
+    const imageStyle = {
+        width: '610px',
+        height: '230px',
+    };
+
     return (
         <>
             <div className={`project-grid ${projectStyle}`}>
                 <div className="thumbnail">
                     <Link to={process.env.PUBLIC_URL + `/form-details/${slugify(survey.title)}`}>
-                        <img src={process.env.PUBLIC_URL + survey.image} alt="icon" />
+                        <img src={process.env.PUBLIC_URL + survey.image} alt="icon" style={imageStyle}/>
                     </Link>
                 </div>
                 <div className="content">
