@@ -76,6 +76,7 @@ export default function ResultQuestionContainer({ questionId, sectionId ,questio
                     optionId={option.id}
                     optionContent={option.option}
                     optionImage={option.image}
+                    selectedQuestion={selectedQuestion}
                     optionNextSectionId={option.nextSectionId}
                     questionOption={questionOption}
                     questions={questions}
@@ -97,6 +98,7 @@ export default function ResultQuestionContainer({ questionId, sectionId ,questio
                     optionId={option.id}
                     optionContent={option.option}
                     optionImage={option.image}
+                    selectedQuestion={selectedQuestion}
                     questions={questions}
                     questionOption={questionOption}
                     optionNextSectionId={option.nextSectionId}
