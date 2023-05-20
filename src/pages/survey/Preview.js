@@ -22,29 +22,15 @@ const Preview = () => {
     console.log("이전 인덱스 " + indexes[currentIndex].prevIndex);
   const _moveToNext = () => {
       if (currentIndex !== indexes[currentIndex].nextIndex) {
-          // 현재 인덱스를 먼저 이전 인덱스로 지정해주고, 현재 인덱스를 nextIndex로 지정해준다.
-          //     dispatch(surveyFlowActions.setPrevIndex(currentIndex));
-          //     dispatch(surveyFlowActions.setCurrentIndex(nextIndex));
-          // }
-          // dispatch(surveyFlowActions.setPrevIndex(currentIndex));
-          const pageIndex = indexes[currentIndex].nextIndex;
-          const value = currentIndex;
           // 이동할 다음 페이지의 prev를 현재 페이지의 current로 설정
-          dispatch(surveyFlowActions.setPrevIndex({pageIndex, value}));
+          dispatch(surveyFlowActions.setPrevIndex({pageIndex : indexes[currentIndex].nextIndex, value : currentIndex}));
           dispatch(surveyFlowActions.setCurrentIndex(indexes[currentIndex].nextIndex));
       }
   }
   const _moveToPrev = () => {
       // dispatch(surveyFlowActions.setNextIndex(currentIndex));
-      const pageIndex = indexes[currentIndex].prevIndex;
-      const value = currentIndex;
-      dispatch(surveyFlowActions.setNextIndex({pageIndex, value}));
+      dispatch(surveyFlowActions.setNextIndex({pageIndex : indexes[currentIndex].prevIndex, value : currentIndex}));
       dispatch(surveyFlowActions.setCurrentIndex(indexes[currentIndex].prevIndex));
-
-      // Next는 자동으로 지정해줘서 여기서 따로 지정을 안해줘도 되지만, prev Index의 경우는 지정을 해줘야 한다.
-      // 여기서 다시 아이디로 인덱스를 찾은 뒤에 questions에 접근해서, 그 이전 값에 접근해야 한다.
-      // dispatch(surveyFlowActions.setPrevIndex(_findPrevIndexFromId(questions[prevIndex].id)));
-
   }
 
   const _determineFlow = () => {
@@ -61,9 +47,7 @@ const Preview = () => {
       // 4. 
       // 이제 알아낸 다음 인덱스를 리덕스에 저장한다.
       if(nextSectionIndex !== indexes[currentIndex].nextIndex) {
-          const pageIndex = currentIndex;
-          const value = nextSectionIndex;
-          dispatch(surveyFlowActions.setNextIndex({pageIndex, value}));
+          dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : nextSectionIndex}));
       }
 
       // 5. 이전 인덱스도 저장한다.

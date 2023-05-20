@@ -24,6 +24,7 @@ export default function ResultOptionalQuestion({ type, optionId, questionId, opt
   align-self: center;
 `;
     const { form } = useSelector((state) => state.form);
+    const { currentIndex } = useSelector((state) => state.surveyFlow)
     const inputRef = useRef(null);
     let imageInputRef;
     const dispatch = useDispatch();
@@ -73,10 +74,9 @@ export default function ResultOptionalQuestion({ type, optionId, questionId, opt
         // 현재 옵션 오브젝트를 가져온 뒤 nextSectionId를 알아내고, 이를 다시 인덱스로 변환해서 state에 지정할 수 있도록 반환한다.
         const selectedOption = selectedQuestion.options.find((element) => element.id === optionId)
         const sectionIndex = questions.findIndex((item) => item.id === selectedOption.nextSectionId);
-        if(sectionIndex !== -1) {
-            dispatch(surveyFlowActions.setNextIndex(sectionIndex))
-
-        }
+        // sectionIndex가 -1이어도 괜찮다. -1이어도 제출 버튼을 렌더링하기 때문.
+        // 값은 잘 나옴, 근데 화면 화단에 페이지가 안나옴
+        dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : sectionIndex}))
     }
 
     return (
