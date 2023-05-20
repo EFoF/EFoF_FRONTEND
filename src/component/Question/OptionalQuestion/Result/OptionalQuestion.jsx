@@ -57,12 +57,11 @@ export default function ResultOptionalQuestion({ type, optionId, questionId, opt
 
 
     const answerHandler = () => {
-        console.log(isMarked);
         const isAnswer = false;
         if(isMarked) {
             dispatch(questionActions.deleteOneOptionalAnswer({questionId}))
-            // 다음으로 이동할 섹션을 취소해줘야 한다.
-            // 한개의 항목에만 답할 수 있는 단일 항목이기 때문에, 섹션의 nextSectionId를 지정해주면 된다.
+            getSectionIndexBySectionId();
+            // dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : }))
         } else {
             dispatch(questionActions.markOneAnswer({questionId, optionId, isAnswer}))
             // 선택한 옵션이 가지고 있는 nextSectionId를 가지고 와서 next로 지정해줘야 함.
@@ -75,7 +74,12 @@ export default function ResultOptionalQuestion({ type, optionId, questionId, opt
         const selectedOption = selectedQuestion.options.find((element) => element.id === optionId)
         const sectionIndex = questions.findIndex((item) => item.id === selectedOption.nextSectionId);
         // sectionIndex가 -1이어도 괜찮다. -1이어도 제출 버튼을 렌더링하기 때문.
-        // 값은 잘 나옴, 근데 화면 화단에 페이지가 안나옴
+        dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : sectionIndex}))
+    }
+
+    const getSectionIndexBySectionId = () => {
+        const section = questions.find((item) => item.id === sectionId)
+        const sectionIndex = questions.findIndex((item) => item.id === section.nextSectionId);
         dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : sectionIndex}))
     }
 

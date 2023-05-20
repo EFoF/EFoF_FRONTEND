@@ -34,33 +34,14 @@ const Preview = () => {
   }
 
   const _determineFlow = () => {
-      // 현재 인덱스의 섹션을 보고, 다음 섹션의 아이디와 이를 기반으로 이동해야 하는 다음 섹션의 인덱스를 알아내는 함수
-      // 1. currentIndex에 해당하는 섹션 들고오기
-      console.log(questions[currentIndex])
-
-      // 2. 가져온 섹션에서 다음 섹션 아이디 알아내기
-      const nextSectionId = questions[currentIndex].nextSectionId;
-
       // 3. 다음 섹션 아이디를 반복문을 통해서 몇번째 인덱스에 존재하는지 확인하기.
-      const nextSectionIndex = _findNextIndexFromId(nextSectionId);
+      const nextSectionIndex = indexes[currentIndex].nextIndex;
 
-      // 4. 
+      // 4.
       // 이제 알아낸 다음 인덱스를 리덕스에 저장한다.
       if(nextSectionIndex !== indexes[currentIndex].nextIndex) {
           dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : nextSectionIndex}));
       }
-
-      // 5. 이전 인덱스도 저장한다.
-      // 여기서 옵션의 정답 배열에 값이 있으면, 그 값을 가져와서 prev에 저장한다.
-      // 이렇게 하는 이유는 prev 이동에도 섹션의 플로우를 반영하기 위해서임.
-      // if(indexes[currentIndex].prevIndex !== currentIndex - 1 && currentIndex - 1 >= -1) {
-      //     dispatch(surveyFlowActions.setPrevIndex(currentIndex - 1));
-      // }
-      // 근데 이전 인덱스 저장 같은 경우는 따로 안해줘도 될 것 같기도 하다.
-      // 따지고 보면 nextIndex도 안해줘도 되지 않을까?
-
-      // alpha : 첫 인덱스일때는 오른쪽 화살표만, 마지막 인덱스일때는 제출과 왼쪽 화살표만 렌더링되어야 함.
-      // 제출버튼 렌더링 조건에 대한 처리도 해줘야 함
 
       return (
           indexes[currentIndex].nextIndex === -1 ? (
