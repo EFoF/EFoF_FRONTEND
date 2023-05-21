@@ -59,7 +59,7 @@ export default function QuestionContainer({ questionId, provided, sectionId, que
   else{
     updateIsNecessary(id,section.id)
   }
-    
+
   };
 
   const handleQuestionChange = (e) => {
@@ -151,7 +151,7 @@ export default function QuestionContainer({ questionId, provided, sectionId, que
   const handleBlurText = (value) => {
 
     if (form.isPre) {
-      const data = { 
+      const data = {
 
         "questionContent" : value,
 
