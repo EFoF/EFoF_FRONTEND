@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import ReactDOM from "react-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { questionActions } from "../../slices";
+import {questionActions, surveyFlowActions} from "../../slices";
 import ConfirmModal from "../../ui/ConfirmModal";
 import shortid from 'shortid';
 import { addSection,deleteSection} from "../../api/survey";
@@ -89,14 +89,17 @@ export default function Section({ section_idx, section_len }) {
   }
   const addSectionRedux = (newSection) => {      
     dispatch(questionActions.addSection({newSection}));
+
   }
   const handleAddSection = () => {
     if(form.isPre){
       addSection(form.id,addSectionRedux);
+      dispatch(surveyFlowActions.addIndexes());
     }else{
       addSectionRedux(newSection)
+      dispatch(surveyFlowActions.addIndexes());
     }
-  };
+  }
   
 
   const deleteSectionRedux = (section_idx)  => {

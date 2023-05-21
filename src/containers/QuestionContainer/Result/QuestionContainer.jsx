@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { questionActions } from '../../../slices';
 import { useState } from "react";
 import shortid from 'shortid';
-import OptionalQuestion from '../../../component/Question/OptionalQuestion/Result/OptionalQuestion';
+import ResultOptionalQuestion from '../../../component/Question/OptionalQuestion/Result/OptionalQuestion';
 import { FiChevronUp } from 'react-icons/fi';
 import { AiOutlineDelete } from 'react-icons/ai'; // AiOutlineDelete 추가
 import Toggle from 'react-styled-toggle';
@@ -27,9 +27,11 @@ export default function ResultQuestionContainer({ questionId, sectionId ,questio
     const selectedQuestion = section.questionList.find((item) => item.id === questionId);
 
 
-    // if (!selectedQuestion) return null;
+    if (!selectedQuestion) return null;
 
     const { type: questionType, options, questionContent, isNecessary, id } = selectedQuestion;
+
+    console.dir(selectedQuestion);
 
     // options는 질문의 하위 옵션
 
@@ -58,20 +60,30 @@ export default function ResultQuestionContainer({ questionId, sectionId ,questio
         dispatch(questionActions.addQuestion({ sectionId: sectionId, newQuestion: newQuestion(newId) }));
     };
 
+    const findOptionIsMarked = (optionId) => {
+
+        // const result = selectedQuestion.answers.find((element) => element === optionId);
+        // console.log(result);
+        // return typeof (result) !== 'undefined';
+        return false
+    }
+
     const getOptionList = (type) => {
         const optionList = options
             ?.map((option) => (
-                <OptionalQuestion
+                <ResultOptionalQuestion
                     key={option.id}
                     sectionId={sectionId}
                     questionId={questionId}
                     optionId={option.id}
                     optionContent={option.option}
                     optionImage={option.image}
+                    selectedQuestion={selectedQuestion}
                     optionNextSectionId={option.nextSectionId}
                     questionOption={questionOption}
                     questions={questions}
                     type={type}
+                    isMarked={findOptionIsMarked(option.id)}
                     isLast={false}
                 />
             ));
@@ -81,17 +93,19 @@ export default function ResultQuestionContainer({ questionId, sectionId ,questio
     const getOptionListWithoutConcat = (type) => {
         const optionList = options
             ?.map((option) => (
-                <OptionalQuestion
+                <ResultOptionalQuestion
                     key={option.id}
                     questionId={questionId}
                     sectionId={sectionId}
                     optionId={option.id}
                     optionContent={option.option}
                     optionImage={option.image}
+                    selectedQuestion={selectedQuestion}
                     questions={questions}
                     questionOption={questionOption}
                     optionNextSectionId={option.nextSectionId}
                     type={type}
+                    isMarked={findOptionIsMarked(option.id)}
                     isLast={false}
                 />
             ))
@@ -103,6 +117,7 @@ export default function ResultQuestionContainer({ questionId, sectionId ,questio
             case QUESTION_TYPES.TRUE_FALSE:
                 return getOptionListWithoutConcat(questionType);
             case QUESTION_TYPES.MULTIPLE_CHOICE:
+                // TODO 다중 선택에 대한 처리도 추가되어야 함.
             case QUESTION_TYPES.ONE_CHOICE:
                 return getOptionList(questionType);
             case QUESTION_TYPES.LONG_ANSWER:

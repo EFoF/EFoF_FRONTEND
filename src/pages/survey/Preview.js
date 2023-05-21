@@ -15,64 +15,63 @@ import ImgButton from "../../ui/ImgButton";
 const Preview = () => {
   const dispatch = useDispatch();
   const form = useSelector((state) => state.form);
-  const { currentIndex, nextIndex, prevIndex } = useSelector(state => state.surveyFlow);
+  const { currentIndex, indexes } = useSelector(state => state.surveyFlow);
   const { questions } = form;
 
     console.log("현재 인덱스 " + currentIndex);
-    console.log("이전 인덱스 " + prevIndex);
+    console.log("이전 인덱스 " + indexes[currentIndex].prevIndex);
   const _moveToNext = () => {
-      // if(currentIndex !== nextIndex) {
-      //     // 현재 인덱스를 먼저 이전 인덱스로 지정해주고, 현재 인덱스를 nextIndex로 지정해준다.
-      //     dispatch(surveyFlowActions.setPrevIndex(currentIndex));
-      //     dispatch(surveyFlowActions.setCurrentIndex(nextIndex));
-      // }
-      // dispatch(surveyFlowActions.setPrevIndex(currentIndex));
-      dispatch(surveyFlowActions.setCurrentIndex(nextIndex));
+      if (currentIndex !== indexes[currentIndex].nextIndex) {
+          // 이동할 다음 페이지의 prev를 현재 페이지의 current로 설정
+          dispatch(surveyFlowActions.setPrevIndex({pageIndex : indexes[currentIndex].nextIndex, value : currentIndex}));
+          dispatch(surveyFlowActions.setCurrentIndex(indexes[currentIndex].nextIndex));
+      }
   }
-
   const _moveToPrev = () => {
       // dispatch(surveyFlowActions.setNextIndex(currentIndex));
-      dispatch(surveyFlowActions.setCurrentIndex(prevIndex));
-      // Next는 자동으로 지정해줘서 여기서 따로 지정을 안해줘도 되지만, prev Index의 경우는 지정을 해줘야 한다.
-      // 여기서 다시 아이디로 인덱스를 찾은 뒤에 questions에 접근해서, 그 이전 값에 접근해야 한다.
-      // dispatch(surveyFlowActions.setPrevIndex(_findPrevIndexFromId(questions[prevIndex].id)));
-
+      dispatch(surveyFlowActions.setNextIndex({pageIndex : indexes[currentIndex].prevIndex, value : currentIndex}));
+      dispatch(surveyFlowActions.setCurrentIndex(indexes[currentIndex].prevIndex));
   }
 
   const _determineFlow = () => {
-      // 현재 인덱스의 섹션을 보고, 다음 섹션의 아이디와 이를 기반으로 이동해야 하는 다음 섹션의 인덱스를 알아내는 함수
-      // 1. currentIndex에 해당하는 섹션 들고오기
-      console.log(questions[currentIndex])
-
-      // 2. 가져온 섹션에서 다음 섹션 아이디 알아내기
-      const nextSectionId = questions[currentIndex].nextSectionId;
-
       // 3. 다음 섹션 아이디를 반복문을 통해서 몇번째 인덱스에 존재하는지 확인하기.
-      const nextSectionIndex = _findNextIndexFromId(nextSectionId);
+      const nextSectionIndex = indexes[currentIndex].nextIndex;
 
-      // 4. 
+      // 4.
       // 이제 알아낸 다음 인덱스를 리덕스에 저장한다.
-      if(nextSectionIndex !== nextIndex) {
-          dispatch(surveyFlowActions.setNextIndex(nextSectionIndex));
+      if(nextSectionIndex !== indexes[currentIndex].nextIndex) {
+          dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : nextSectionIndex}));
       }
 
-      // 5. 이전 인덱스도 저장한다.
-      if(prevIndex !== currentIndex - 1 && currentIndex - 1 >= -1) {
-          dispatch(surveyFlowActions.setPrevIndex(currentIndex - 1));
-      }
-
-      // alpha : 첫 인덱스일때는 오른쪽 화살표만, 마지막 인덱스일때는 제출과 왼쪽 화살표만 렌더링되어야 함.
-      // 제출버튼 렌더링 조건에 대한 처리도 해줘야 함
       return (
-        questions.length < 2 ? (
-          <Buttons>
-              <Link to={'/result'} style={{ textDecoration: 'none' }}>
-                  <div className="submit-button">제출</div>
-              </Link>
-          </Buttons>
+          indexes[currentIndex].nextIndex === -1 ? (
+              <>
+                  <Buttons>
+                      <Link to={'/result'} style={{ textDecoration: 'none' }}>
+                          <div className="submit-button">제출</div>
+                      </Link>
+                  </Buttons>
+                  <ArrowButtonWrapper>
+                      {indexes[currentIndex].prevIndex === -1 ? (
+                          // 더 이상 뒤로 갈 섹션이 없는 경우 버튼을 비활성화 시킨다.
+                          <ArrowImageButton
+                              size={2}
+                              color={"white"}
+                          />
+                      ) : (
+                          <ArrowImageButton
+                              size={2}
+                              onClick={_moveToPrev}
+                              ImgSrc={leftArrow}
+                              color={"white"}
+                          />
+                      )}
+                  </ArrowButtonWrapper>
+              </>
       ) : (
           <ArrowButtonWrapper>
-              {prevIndex === -1 ? (
+              {indexes[currentIndex].prevIndex === -1 ? (
+                  // 더 이상 뒤로 갈 섹션이 없는 경우 버튼을 비활성화 시킨다.
                   <ArrowImageButton
                       size={2}
                       color={"white"}
@@ -85,52 +84,21 @@ const Preview = () => {
                       color={"white"}
                   />
               )}
-              {nextIndex === questions.length ? (
-                  <ArrowImageButton
-                      size={2}
-                      color={"white"}
-                  />
-              ) : (
-                  <ArrowImageButton
-                      size={2}
-                      onClick={_moveToNext}
-                      ImgSrc={rightArrow}
-                      color={"white"}
-                  />
-              )}
+              <ArrowImageButton
+                  size={2}
+                  onClick={_moveToNext}
+                  ImgSrc={rightArrow}
+                  color={"white"}
+              />
           </ArrowButtonWrapper>
       ));
   }
 
   const _findNextIndexFromId = (targetId) => {
-      // const section = questions.find((item) => item.id === sectionId);
       const nextSectionIndex = _findIndexFromId(targetId);
-      // 해당되는 요소가 없으면 -1이 반환된다고 한다.
-      // 즉 다음 섹션을 지정하지 않았다는 말이기 때문에 이 경우에는 그냥 다음 인덱스를 지정해준다.
-      let _nextIndex;
-      if(nextSectionIndex === -1) {
-          console.log(questions.length);
-          _nextIndex = currentIndex + 1 < questions.length ? currentIndex + 1 : questions.length;
-      } else {
-          _nextIndex = nextSectionIndex;
-      }
-
-      console.log("다음 인덱스 " + _nextIndex);
-
-      return _nextIndex;
+      return nextSectionIndex;
   }
 
-
-  // const _findPrevIndexFromId = (targetId) => {
-  //   const findIndexFromId = _findIndexFromId(targetId);
-  //   let _prevIndex;
-  //   if(findIndexFromId === -1) {
-  //       _prevIndex = currentIndex - 1 >= 0 ? currentIndex - 1 : 0;
-  //   } else {
-  //       _prevIndex = findIndexFromId;
-  //   }
-  //   return _prevIndex;
-  // }
 
   const _findIndexFromId = (targetId) => {
       return questions.findIndex((element) => element.id === targetId);

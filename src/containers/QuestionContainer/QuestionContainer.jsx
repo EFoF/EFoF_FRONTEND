@@ -4,7 +4,7 @@ import { Wrapper } from './style';
 import styled, { css } from 'styled-components';
 import { QUESTION_TYPES } from '../../component/constants/const/';
 import { useDispatch, useSelector } from 'react-redux';
-import { questionActions } from '../../slices';
+import {questionActions, surveyFlowActions} from '../../slices';
 import { useState } from "react";
 import shortid from 'shortid';
 import Dropdown from '../../component/Dropdown/Dropdown';
@@ -25,7 +25,9 @@ export default function QuestionContainer({ questionId, provided, sectionId, que
   };
 
   const dispatch = useDispatch();
-  const { form,questions } = useSelector((state) => state.form);
+
+  const {form, questions } = useSelector((state) => state.form);
+  const { currentIndex, indexes } = useSelector((state) => state.surveyFlow);
 
   const section = questions.find((item) => item.id === sectionId);
   const selectedQuestion = section.questionList.find((item) => item.id === questionId);
@@ -64,6 +66,7 @@ export default function QuestionContainer({ questionId, provided, sectionId, que
     dispatch(questionActions.setQuestionContent({ questionId: questionId, sectionId: sectionId, questionContent: e.target.value }));
   };
 
+
   const deleteQuestionRedux = (questionId,sectionId) => {
 
     dispatch(questionActions.deleteQuestion({ questionId: questionId, sectionId: sectionId }));
@@ -72,11 +75,13 @@ export default function QuestionContainer({ questionId, provided, sectionId, que
 
     if(form.isPre){
       deleteQuestion(form.id,sectionId,questionId,deleteQuestionRedux)
+      dispatch(surveyFlowActions.setNextIndex({ pageIndex : currentIndex, value : section.nextSectionId}));
 
     }else{
       deleteQuestionRedux(questionId,sectionId)
-    }
-  };
+      dispatch(surveyFlowActions.setNextIndex({ pageIndex : currentIndex, value : section.nextSectionId}));
+    }}
+
 
   const handleCopyQuestion = () => {
     const newId = shortid();

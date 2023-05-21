@@ -1,6 +1,6 @@
 
 import { Wrapper, InputButtonWrapper, OptionsWrapper, OptionButton, CloseOptionButton, Input, ImgInput } from './style';
-import { questionActions, formActions } from '../../../slices';
+import { questionActions, formActions, surveyFlowActions } from '../../../slices';
 import React, { useState } from 'react'
 import { MdAdd, MdClose, MdPhoto } from 'react-icons/md';
 import Select from "react-select";
@@ -58,6 +58,8 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
   align-self: center;
 `;
   const { form } = useSelector((state) => state.form);
+  const { currentIndex, indexes } = useSelector((state) => state.surveyFlow);
+
   const inputRef = useRef(null);
   let imageInputRef;
   const dispatch = useDispatch();
@@ -95,27 +97,43 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
   const changeNextSection = (sectionId,optionId,questionId,nextSectionId) =>{
     dispatch(questionActions.setOptionNextSection({ sectionId, optionId, questionId, nextSectionId: nextSectionId }))
   }
+
+  
   const handleChange = (option1) => {
+
 
     if(form.isPre){
       const data = {
         "nextSection_id" : option1.value
       }
       updateQuestionOptionNextSection(form.id,sectionId,questionId,optionId,data,changeNextSection);
+      handleMarkedNextSectionId(option1.value);
     }
     else{
       changeNextSection(sectionId,optionId,questionId,option1.value);
+      handleMarkedNextSectionId(option1.value);
     }
     
 
   };
 
+
+
+  const handleMarkedNextSectionId = (nextSectionId) => {
+    const section = questions.find((item) => item.id === sectionId)
+    const question = section.questionList.find((item) => item.id === questionId)
+    const exists = (question.answers.findIndex((item) => item === optionId) !== -1)
+    if(exists) {
+      const nextSectionIndex = questions.findIndex((item) => item.id === nextSectionId)
+      dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : nextSectionIndex}))
+    }
+  }
+
   const deleteImageRedux = () =>{
     dispatch(questionActions.setOptionImage(
       { sectionId: sectionId, questionId: questionId, optionId, image: '' }
     ));
-  }
-
+    }
   const handleDeleteImage = () => {
 
     const handleConfirm = () => {
@@ -139,7 +157,7 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
 
   const getImage = () => {
     const section = questions.find((item) => item.id === sectionId);
-    
+
     if (section) {
       const questionIdx = section.questionList.findIndex((item) => item.id === questionId);
 
