@@ -5,12 +5,14 @@ import axios from 'axios';
 import { useChatbot, createChatBotMessage, setState } from 'react-chatbot-kit';
 import { useDispatch, useSelector } from 'react-redux';
 import { questionActions } from '../../../slices';
+import form from '../../../slices/form';
+import { addAllQuestionOptionByBot } from '../../../api/survey';
 const ChatButton = (props) => {
   const dispatch = useDispatch();
   // const { addMessage } = useChatBotContext();
   const question = props.state.question;
   const option = props.state.options;
-  const { sectionId, questionId } = props.state;
+  const { sectionId, questionId ,form} = props.state;
   // const question = "asdsads";
   const handleClick = (index) => {
 
@@ -66,14 +68,25 @@ const ChatButton = (props) => {
       });
 
     } else if (props.payload[index] === "모두 적용") {
-      
-      dispatch(questionActions.addAllOptionByBot(({ questionId: questionId, sectionId: sectionId, content:option })));
+
+      if(form.isPre){
+        const data = {
+          "optionText" : option
+        }
+        addAllQuestionOptionByBot(form.id,sectionId,questionId,data,addAllRedux);
+      } else{
+        addAllRedux(questionId,sectionId,option)
+      } 
+
     }
     else if (props.payload[index] === "처음으로") {
       props.actionProvider.deleteAllMessageToState()
     }
   }
 
+  const addAllRedux= (questionId,sectionId,option) =>{
+    dispatch(questionActions.addAllOptionByBot(({ questionId: questionId, sectionId: sectionId, content:option })));
+  }
   const getOption = (message) => {
     props.actionProvider.handleLoading();
     return axios.post('http://localhost:8080/chatbot/option',

@@ -6,6 +6,7 @@ import { useChatbot,createChatBotMessage,setState } from 'react-chatbot-kit';
 import { FaCheck } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { questionActions } from '../../../slices';
+import { createQuestionOptionByBot } from '../../../api/survey';
 const OptionButton = (props) => {
   const [selected, setSelected] = useState([]);
   const [option,setOption] = useState(props.options);
@@ -13,15 +14,24 @@ const OptionButton = (props) => {
 
   const dispatch = useDispatch();
 
+  const addOptionByBotRedux = (questionId,sectionId,content)=>{
+    dispatch(questionActions.addOptionByBot(({ questionId: questionId, sectionId: sectionId, content:content })));
+  }
   const handleClick = (index) => {
   const { sectionId, questionId } = props.state;
   
     if (selected.includes(index)) {
-      // setSelected(selected.filter((i) => i !== index));
+
     } else {
-      dispatch(questionActions.addOptionByBot(({ questionId: questionId, sectionId: sectionId, content:option[index] })));
- 
-      // setSelected([...selected, index]);
+      if(form.isPre){
+        const data = {
+          "optionText" : option[index]
+        }
+        createQuestionOptionByBot(form.id,sectionId,questionId,addOptionByBotRedux,data);
+      }else{
+        addOptionByBotRedux(questionId,sectionId,option[index])
+      }
+      
     }
   };
 

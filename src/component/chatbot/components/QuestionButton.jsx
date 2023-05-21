@@ -36,6 +36,7 @@ function QuestionButton(props) {
             question: question[index].questionContent,
             sectionId: question[index].sectionId,
             questionId: question[index].questionId,
+            form : form
         }));
 
         

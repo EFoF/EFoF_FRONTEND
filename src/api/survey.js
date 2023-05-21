@@ -251,18 +251,34 @@ const surveyInfo = async (survey_id,navigate) => {
   }; 
 
 
-  const createQuestionOption = async (survey_id,section_id,question_id,addOptionRedux) => {
+  const createQuestionOption = async (survey_id,section_id,question_id,addOptionRedux,data) => {
     
     try {
 
         const response = 
-        await authorizationClient.post(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}`)
+        await authorizationClient.post(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}`,
+        data)
         addOptionRedux(section_id,question_id);
     } catch (error) {
       console.log(error);
       toastMsg(error.response.data.message, false);
     }
   }; 
+
+  const createQuestionOptionByBot = async (survey_id,section_id,question_id,addOptionByBot,data) => {
+    
+    try {
+
+        const response = 
+        await authorizationClient.post(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}`,
+        data)
+        addOptionByBot(question_id,section_id,data.optionText);
+    } catch (error) {
+      console.log(error);
+      toastMsg(error.response.data.message, false);
+    }
+  }; 
+
 
   const updateQuestionOptionText = async (survey_id,section_id,question_id,question_Option_id,data) => {
     
@@ -338,6 +354,21 @@ const surveyInfo = async (survey_id,navigate) => {
     }
   };
 
+  const addAllQuestionOptionByBot = async (survey_id,section_id,question_id,data,addAllRedux) => {
+    
+    try {
+
+        const response = 
+        await authorizationClient.post(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}/all`
+        ,data)
+          
+        addAllRedux(question_id,section_id,data.optionText);
+    } catch (error) {
+      console.log(error);
+      toastMsg(error.response.data.message, false);
+    }
+  };
+
   export {
     surveyInfo,
     uploadImgInit,
@@ -362,6 +393,7 @@ const surveyInfo = async (survey_id,navigate) => {
     updateQuestionOptionImg,
     deleteQuestionOptionImg,
     updateQuestionOptionNextSection,
-    deleteQuestionOption
-
+    deleteQuestionOption,
+    createQuestionOptionByBot,
+    addAllQuestionOptionByBot
 };
