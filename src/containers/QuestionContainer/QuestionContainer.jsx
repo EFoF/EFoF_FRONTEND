@@ -60,8 +60,19 @@ export default function QuestionContainer({ questionId, provided, sectionId, que
     // questionId, provided, sectionId, questionOption,
     const section = questions.find((item) => item.id === sectionId);
     dispatch(questionActions.deleteQuestion({ questionId: questionId, sectionId: sectionId }));
-    dispatch(surveyFlowActions.setNextIndex({ pageIndex : currentIndex, value : section.nextSectionId}));
+    const nextSectionIndex = getSectionIndexFromId(section.nextSectionId);
+    // dispatch(surveyFlowActions.setNextIndex({ pageIndex : currentIndex, value : nextSectionIndex}));
+    dispatch(surveyFlowActions.setBoth({
+      currentPageIndex : currentIndex,
+      currentPageNextIndex : nextSectionIndex,
+    }));
+    // 위에서 이렇게 새로 할당해주는건 좋은데 prev도 같이 할당을 해줘야 할 것 같다. 자꾸 undefined 에러 남
+
   };
+
+  const getSectionIndexFromId = (SectionId) => {
+    return questions.findIndex((item) => item.id === SectionId);
+  }
 
   const handleCopyQuestion = () => {
     const newId = shortid();

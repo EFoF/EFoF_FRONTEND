@@ -69,7 +69,7 @@ function FormMake() {
   const handleChange = (option, { section_idx }, nextSectionId) => {
     const nextSectionIndex = questions.findIndex((item) => item.id === option.value)
     dispatch(questionActions.setNextSection({ section_idx, nextSectionId: option.value }))
-    dispatch(surveyFlowActions.setNextIndex({ pageIndex : currentIndex, value : nextSectionIndex}))
+    dispatch(surveyFlowActions.setNextIndex({ pageIndex : section_idx, value : nextSectionIndex}))
   };
 
   const getListStyle = isDraggingOver => ({
