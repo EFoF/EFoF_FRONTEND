@@ -24,6 +24,7 @@ const GetConfig = (onClick) => ({
             isVisible: false,
             sectionId: "",
             questionId: "",
+            form :{},
         },
         widgets: [
             {
