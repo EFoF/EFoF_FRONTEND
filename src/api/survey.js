@@ -254,7 +254,6 @@ const surveyInfo = async (survey_id,navigate) => {
   const createQuestionOption = async (survey_id,section_id,question_id,addOptionRedux) => {
     
     try {
-
         const response = 
         await authorizationClient.post(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}`)
         addOptionRedux(section_id,question_id);
