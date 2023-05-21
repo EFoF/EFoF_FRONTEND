@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {questionActions, surveyFlowActions} from "../../slices";
 import ConfirmModal from "../../ui/ConfirmModal";
 import shortid from 'shortid';
+import { addSection,deleteSection} from "../../api/survey";
 const Wrapper = styled.div`
   background: white;
   padding: 1.2rem;
@@ -64,11 +65,10 @@ const SectionButton = styled.button`
   }
 `;
 
-
-
-
 export default function Section({ section_idx, section_len }) {
   const dispatch = useDispatch();
+
+  const { form,questions } = useSelector((state) => state.form);
 
   const newQuestionId = shortid();
   const newSection = {
@@ -87,17 +87,35 @@ export default function Section({ section_idx, section_len }) {
       narrativeAnswer: '',
     },]
   }
-  
-  const handleAddSection = () => {
+  const addSectionRedux = (newSection) => {      
     dispatch(questionActions.addSection({newSection}));
-    // 섹션에 매핑되는 index 객체를 함께 추가해줘야 한다.
-    dispatch(surveyFlowActions.addIndexes());
-  };
-  const { questions } = useSelector((state) => state.form);
+
+  }
+  const handleAddSection = () => {
+    if(form.isPre){
+      addSection(form.id,addSectionRedux);
+      dispatch(surveyFlowActions.addIndexes());
+    }else{
+      addSectionRedux(newSection)
+      dispatch(surveyFlowActions.addIndexes());
+    }
+  }
+  
+
+  const deleteSectionRedux = (section_idx)  => {
+    dispatch(questionActions.deleteSection({ section_idx }));
+  }
 
   const handleDeleteSection = () => {
     const handleConfirm = () => {
-      dispatch(questionActions.deleteSection({ section_idx }));
+      if(form.isPre){
+        
+        deleteSection(form.id,questions[section_idx-1].id,section_idx,deleteSectionRedux);
+        
+      }else{
+        deleteSectionRedux(section_idx)
+      }
+      
       ReactDOM.unmountComponentAtNode(document.getElementById("modal-root"));
     };
 

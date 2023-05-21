@@ -13,10 +13,11 @@ import { FiChevronUp } from 'react-icons/fi';
 import { AiOutlineDelete } from 'react-icons/ai'; // AiOutlineDelete 추가
 import Toggle from 'react-styled-toggle';
 import React from 'react'
+import { updateQuestionContent,updateQuestionIsNecessary,deleteQuestion } from '../../api/survey';
 
+export default function QuestionContainer({ questionId, provided, sectionId, questionOption}) {
 
-export default function QuestionContainer({ questionId, provided, sectionId, questionOption, }) {
-
+  // alert(questionOption)
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const toggleCollapse = () => {
@@ -24,7 +25,8 @@ export default function QuestionContainer({ questionId, provided, sectionId, que
   };
 
   const dispatch = useDispatch();
-  const { questions } = useSelector((state) => state.form);
+
+  const {form, questions } = useSelector((state) => state.form);
   const { currentIndex, indexes } = useSelector((state) => state.surveyFlow);
 
   const section = questions.find((item) => item.id === sectionId);
@@ -46,33 +48,40 @@ export default function QuestionContainer({ questionId, provided, sectionId, que
     };
   };
 
+  const updateIsNecessary = (questionId,sectionId) =>{
+    dispatch(questionActions.setNecessary({ questionId: questionId, sectionId: sectionId }));
+  }
   const handleSwitch = () => {
 
-    dispatch(questionActions.setNecessary({ questionId: id, sectionId: section.id }));
+    if(form.isPre){
+    updateQuestionIsNecessary(form.id,section.id,id,updateIsNecessary)
+  }
+  else{
+    updateIsNecessary(id,section.id)
+  }
+
   };
 
   const handleQuestionChange = (e) => {
     dispatch(questionActions.setQuestionContent({ questionId: questionId, sectionId: sectionId, questionContent: e.target.value }));
   };
 
-  const handleDeleteQuestion = () => {
-    // 지우려고 하는 질문의 옵션이 선택되어 있으면 해제하고 섹션의 값으로 바꿔주어야 한다.
-    // questionId, provided, sectionId, questionOption,
-    const section = questions.find((item) => item.id === sectionId);
+
+  const deleteQuestionRedux = (questionId,sectionId) => {
+
     dispatch(questionActions.deleteQuestion({ questionId: questionId, sectionId: sectionId }));
-    const nextSectionIndex = getSectionIndexFromId(section.nextSectionId);
-    // dispatch(surveyFlowActions.setNextIndex({ pageIndex : currentIndex, value : nextSectionIndex}));
-    dispatch(surveyFlowActions.setBoth({
-      currentPageIndex : currentIndex,
-      currentPageNextIndex : nextSectionIndex,
-    }));
-    // 위에서 이렇게 새로 할당해주는건 좋은데 prev도 같이 할당을 해줘야 할 것 같다. 자꾸 undefined 에러 남
-
-  };
-
-  const getSectionIndexFromId = (SectionId) => {
-    return questions.findIndex((item) => item.id === SectionId);
   }
+  const handleDeleteQuestion = () => {
+
+    if(form.isPre){
+      deleteQuestion(form.id,sectionId,questionId,deleteQuestionRedux)
+      dispatch(surveyFlowActions.setNextIndex({ pageIndex : currentIndex, value : section.nextSectionId}));
+
+    }else{
+      deleteQuestionRedux(questionId,sectionId)
+      dispatch(surveyFlowActions.setNextIndex({ pageIndex : currentIndex, value : section.nextSectionId}));
+    }}
+
 
   const handleCopyQuestion = () => {
     const newId = shortid();
@@ -139,7 +148,17 @@ export default function QuestionContainer({ questionId, provided, sectionId, que
       ))
     return optionList;
   };
+  const handleBlurText = (value) => {
 
+    if (form.isPre) {
+      const data = {
+
+        "questionContent" : value,
+
+      }
+      updateQuestionContent(form.id,sectionId,questionId, data);
+    }
+  }
   const getInput = () => {
     switch (questionType) {
 
@@ -169,6 +188,7 @@ export default function QuestionContainer({ questionId, provided, sectionId, que
           placeholder="질문"
           value={questionContent}
           onChange={handleQuestionChange}
+          onBlur={({ target: { value } }) => handleBlurText(value)}
         />
         <button className="collapse-button" onClick={toggleCollapse}>
           <FiChevronUp className={`collapse-icon ${isCollapsed ? "collapsed" : ""}`} />

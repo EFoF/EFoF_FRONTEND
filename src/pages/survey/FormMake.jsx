@@ -12,28 +12,36 @@ import axios from 'axios';
 import toastMsg from "../../ui/Toast";
 import { authorizationClient } from '../../api';
 import API from '../../api/config';
-import { updateSurveyDescription, updateSurveyTitle } from '../../api/survey';
+import { updateSurveyDescription, updateSurveyTitle, updateQuestionOrder,updateSection } from '../../api/survey';
 function FormMake() {
   const { form, questions } = useSelector((state) => state.form);
   const { currentIndex } = useSelector((state) => state.surveyFlow);
 
   const dispatch = useDispatch();
 
-  const options = [
-    {
-      value: '',
-      label: '다음 섹션을 선택해주세요.',
-    },
-    ...questions.map((section, index) => ({
-      value: section.id,
-      label: `${index + 1} 섹션으로 이동`,
-    })),
-  ];
-  options.push({
-    value: 'last',
-    label: "설문 제출",
-  });
+  const options = (section_id) => {
+    const optionList = [
+      {
+        value: '',
+        label: '다음 섹션을 선택해주세요.',
+      },
+      ...questions
+      // .filter((section) => section.id != section_id)
+      .map((section, index) => ({
+        value: section.id,
+        label: `${index + 1} 섹션으로 이동`,
+        // label: `${section.id} 섹션으로 이동`,
 
+      }))
+      .filter((section) => section.value !== section_id)
+      ,
+    ];
+    optionList.push({
+      value: section_id,
+      label: "설문 제출",
+    });
+    return optionList;
+  };
 
   //option 추가 로직 추가 예정
   const customStyles = {
@@ -66,10 +74,26 @@ function FormMake() {
     }),
   };
 
-  const handleChange = (option, { section_idx }, nextSectionId) => {
+
+  const changeNextSectionRedux = (section_idx,nextSectionId)=>{
+
+    dispatch(questionActions.setNextSection({ section_idx, nextSectionId: nextSectionId }))
+  }
+
+  const handleChange = (option, { section_idx },section_id) => {
+    // alert(JSON.stringify(option))
     const nextSectionIndex = questions.findIndex((item) => item.id === option.value)
-    dispatch(questionActions.setNextSection({ section_idx, nextSectionId: option.value }))
-    dispatch(surveyFlowActions.setNextIndex({ pageIndex : section_idx, value : nextSectionIndex}))
+    if(form.isPre){
+      const data = {
+        "nextSectionId" : option.value
+      };
+      updateSection(form.id,option.value,data,changeNextSectionRedux,section_idx,section_id);
+      dispatch(surveyFlowActions.setNextIndex({ pageIndex : currentIndex, value : nextSectionIndex}))
+    }else{
+      changeNextSectionRedux(section_idx,option.value);
+      dispatch(surveyFlowActions.setNextIndex({ pageIndex : currentIndex, value : nextSectionIndex}))
+    }
+
   };
 
   const getListStyle = isDraggingOver => ({
@@ -118,11 +142,11 @@ function FormMake() {
 
             <SectionContainer key={section.id}>
               <Section section_idx={section_idx + 1} section_len={questions.length} />
-              
+
               {section.questionList.map((question, question_idx) => (
 
-                <Draggable key={question.id}
-                  draggableId={question.id}
+                <Draggable key={String(question.id)}
+                  draggableId={String(question.id)}
                   index={question_idx}>
                   {(provided, snapshot) => (
                     <div ref={provided.innerRef}
@@ -133,7 +157,7 @@ function FormMake() {
                         provided.draggableProps.style
                       )}
                     >
-                      <QuestionContainer key={question.id} questionId={question.id} sectionId={section.id} provided={provided} snapshot={snapshot} questionOption={options} />
+                      <QuestionContainer key={question.id} questionId={question.id} sectionId={section.id} provided={provided} snapshot={snapshot} questionOption={options(section.id)} />
                     </div>
                   )}
                 </Draggable>
@@ -144,13 +168,14 @@ function FormMake() {
                   placeholder="다음 섹션을 선택해주세요."
                   styles={customStyles}
                   value={section.nextSectionId
-                    ? options.find(option => option.value === section.nextSectionId)
-                    : options[0]}
-                  onChange={(selectedOption) => handleChange(selectedOption, { section_idx }, section.nextSectionId)}
-                  options={options}
+                    ? options(section.id).find(option => option.value === section.nextSectionId)
+                    : options(section.id)[0]}
+                  onChange={(selectedOption) => handleChange(selectedOption, { section_idx }, section.id)}
+                  options={options(section.id)}
                 />
+
               )}
-              <SideMenu sectionId={section_idx} />
+              <SideMenu sectionId={section.id} />
 
 
             </SectionContainer>
@@ -161,25 +186,35 @@ function FormMake() {
     ));
   };
 
-  const reorderRedux = ({ source, destination }) =>{
+  const reorderRedux = ({ source, destination }) => {
     dispatch(questionActions.reorderQuestion({ source, destination }));
   }
-  const orderChangeRedux = ({ source, destination ,response}) =>{
-    dispatch(questionActions.orderChange({ source, destination,response }));
-  }
+
   const onDragEnd = (result) => {
     const { source, destination } = result;
     if (!result.destination) {
       return;
     }
 
-    if(form.isPre){
-      //구현해야함..
+    if (form.isPre) {
+      const startSection = questions.find((item, idx) => idx == source.droppableId);
+      const question = startSection.questionList[source.index];
+
+      const endSection = questions.find((item, idx) => idx == destination.droppableId);
+      const data = {
+        "startSectionId": startSection.id,
+        "startSectionIdx": source.index,
+        "endSectionId": endSection.id,
+        "endSectionIdx": destination.index
+      }
+
+      updateQuestionOrder(form.id, startSection.id, question.id, data, reorderRedux, source, destination);
+
     }
-    else{
+    else {
       reorderRedux({ source, destination })
     }
-    
+
 
   };
 
