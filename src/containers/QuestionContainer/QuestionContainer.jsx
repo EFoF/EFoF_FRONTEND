@@ -4,7 +4,7 @@ import { Wrapper } from './style';
 import styled, { css } from 'styled-components';
 import { QUESTION_TYPES } from '../../component/constants/const/';
 import { useDispatch, useSelector } from 'react-redux';
-import { questionActions } from '../../slices';
+import {questionActions, surveyFlowActions} from '../../slices';
 import { useState } from "react";
 import shortid from 'shortid';
 import Dropdown from '../../component/Dropdown/Dropdown';
@@ -25,6 +25,7 @@ export default function QuestionContainer({ questionId, provided, sectionId, que
 
   const dispatch = useDispatch();
   const { questions } = useSelector((state) => state.form);
+  const { currentIndex, indexes } = useSelector((state) => state.surveyFlow);
 
   const section = questions.find((item) => item.id === sectionId);
   const selectedQuestion = section.questionList.find((item) => item.id === questionId);
@@ -55,7 +56,11 @@ export default function QuestionContainer({ questionId, provided, sectionId, que
   };
 
   const handleDeleteQuestion = () => {
+    // 지우려고 하는 질문의 옵션이 선택되어 있으면 해제하고 섹션의 값으로 바꿔주어야 한다.
+    // questionId, provided, sectionId, questionOption,
+    const section = questions.find((item) => item.id === sectionId);
     dispatch(questionActions.deleteQuestion({ questionId: questionId, sectionId: sectionId }));
+    dispatch(surveyFlowActions.setNextIndex({ pageIndex : currentIndex, value : section.nextSectionId}));
   };
 
   const handleCopyQuestion = () => {

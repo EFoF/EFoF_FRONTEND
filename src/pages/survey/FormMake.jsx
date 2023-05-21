@@ -4,7 +4,7 @@ import { TitleBox, SideMenu } from '../../component';
 import QuestionContainer from '../../containers/QuestionContainer/QuestionContainer';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
-import { questionActions, formActions } from '../../slices';
+import {questionActions, formActions, surveyFlowActions} from '../../slices';
 import Select from "react-select";
 import Section from '../../component/Section/Section';
 import Button from '../../ui/button';
@@ -15,6 +15,7 @@ import API from '../../api/config';
 import { updateSurveyDescription, updateSurveyTitle } from '../../api/survey';
 function FormMake() {
   const { form, questions } = useSelector((state) => state.form);
+  const { currentIndex } = useSelector((state) => state.surveyFlow);
 
   const dispatch = useDispatch();
 
@@ -66,8 +67,9 @@ function FormMake() {
   };
 
   const handleChange = (option, { section_idx }, nextSectionId) => {
-    // alert(JSON.stringify(option))
+    const nextSectionIndex = questions.findIndex((item) => item.id === option.value)
     dispatch(questionActions.setNextSection({ section_idx, nextSectionId: option.value }))
+    dispatch(surveyFlowActions.setNextIndex({ pageIndex : currentIndex, value : nextSectionIndex}))
   };
 
   const getListStyle = isDraggingOver => ({

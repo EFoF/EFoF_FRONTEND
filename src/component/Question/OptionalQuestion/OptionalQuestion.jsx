@@ -1,6 +1,6 @@
 
 import { Wrapper, InputButtonWrapper, OptionsWrapper, OptionButton, CloseOptionButton, Input, ImgInput } from './style';
-import { questionActions, formActions } from '../../../slices';
+import { questionActions, formActions, surveyFlowActions } from '../../../slices';
 import React, { useState } from 'react'
 import { MdAdd, MdClose, MdPhoto } from 'react-icons/md';
 import Select from "react-select";
@@ -54,6 +54,8 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
   align-self: center;
 `;
   const { form } = useSelector((state) => state.form);
+  const { currentIndex, indexes } = useSelector((state) => state.surveyFlow);
+
   const inputRef = useRef(null);
   let imageInputRef;
   const dispatch = useDispatch();
@@ -74,11 +76,23 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
 
   const handleChange = (option1) => {
     dispatch(questionActions.setOptionNextSection({ sectionId, optionId, questionId, nextSectionId: option1.value }))
-
-
+    // 0. sectionId로 섹션 먼저 찾기
+    // 1. questionId로 question 찾기
+    // 2. question의 answers에 현재 옵션 아이디가 있는지 확인
+    // 3. 있다면 변경된 nextSectionId를 currentId로 설정
+    handleMarkedNextSectionId(option1.value);
 
   };
 
+  const handleMarkedNextSectionId = (nextSectionId) => {
+    const section = questions.find((item) => item.id === sectionId)
+    const question = section.questionList.find((item) => item.id === questionId)
+    const exists = (question.answers.findIndex((item) => item === optionId) !== -1)
+    if(exists) {
+      const nextSectionIndex = questions.findIndex((item) => item.id === nextSectionId)
+      dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : nextSectionIndex}))
+    }
+  }
 
   const handleDeleteImage = () => {
 
@@ -111,7 +125,7 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
 
   const getImage = () => {
     const section = questions.find((item) => item.id === sectionId);
-    
+
     if (section) {
       const questionIdx = section.questionList.findIndex((item) => item.id === questionId);
 
