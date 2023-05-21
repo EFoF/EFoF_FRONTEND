@@ -14,7 +14,6 @@ const initialState =
         type: 0,
         questionContent: '',
         isNecessary: false,
-
         options: [],
         answers: [],
         narrativeAnswer: '',
@@ -30,12 +29,20 @@ const getNewOption = (option) => ({
   nextSectionId: '',
 });
 
+const getNewOptionWithId = (option, optionId) => ({
+  id: optionId,
+  option: option,
+  image: '',
+  nextSectionId: '',
+});
+
 const { actions: questionActions, reducer: questionReducer } = createSlice({
   name: 'question',
   initialState,
   reducers: {
     initQuestion: (state, action) => {
       const { data } = action.payload;
+      console.log(data.sectionList);
       return data.sectionList;
 
     },
@@ -134,6 +141,15 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
       const section = state.find((item) => item.id === sectionId);
       const questionIdx = section.questionList.findIndex((item) => item.id === questionId);
       section.questionList[questionIdx].options.push(getNewOption(`옵션`));
+    },
+
+    addOptionWithId: (state, action) => {
+      const { sectionId, questionId, optionId } = action.payload;
+      const section = state.find((item) => item.id === sectionId);
+      const questionIdx = section.questionList.findIndex((item) => item.id === questionId);
+      console.log("질문 번호 : " + questionIdx);
+      // 여기 수정해야함
+      section.questionList[questionIdx].options.push(getNewOptionWithId(`옵션`, optionId));
     },
 
     deleteOption: (state, action) => {

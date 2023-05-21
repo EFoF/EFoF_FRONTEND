@@ -65,12 +65,16 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
   const dispatch = useDispatch();
 
 
+  const addOptionWithIdRedux = (sectionId,questionId, optionId) => {
+    dispatch(questionActions.addOptionWithId({ sectionId: sectionId, questionId: questionId, optionId : optionId }));
+  }
+
   const addOptionRedux = (sectionId,questionId) => {
     dispatch(questionActions.addOption({ sectionId: sectionId, questionId: questionId }));
   }
   const handleAddOption = () => {
     if(form.isPre){
-      isLast && createQuestionOption(form.id,sectionId,questionId,addOptionRedux)
+      isLast && createQuestionOption(form.id,sectionId,questionId,addOptionWithIdRedux)
     }else{
       isLast && addOptionRedux(sectionId,questionId)
     }

@@ -110,14 +110,11 @@ export default function Form() {
   // '/form/pre-release/:id' 경로인 경우에만 특정 로직 수행
   useEffect(() => {
     if (currentPath === `/form/pre-release/${id}`) {
-
-      
       surveyInfo(id,navigate)
         .then((data) => {
-          console.log(data);
           dispatch(formActions.initForm({data}));
+          console.log(data);
           dispatch(questionActions.initQuestion({data}))
-
           // 아래 부분은 섹션간 이동을 위해 redux를 초기화하는 부분임.
           // 이 부분이 없으면 pre-release 화면에서는 섹션간 이동이 불가능함
           data.sectionList.map((section) => {
