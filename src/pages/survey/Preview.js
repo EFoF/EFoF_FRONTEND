@@ -21,6 +21,7 @@ const Preview = () => {
   const _moveToNext = () => {
       if (currentIndex !== indexes[currentIndex].nextIndex) {
           // 이동할 다음 페이지의 prev를 현재 페이지의 current로 설정
+          console.log(indexes[currentIndex].nextIndex);
           console.log(currentIndex);
           dispatch(surveyFlowActions.setPrevIndex({pageIndex : indexes[currentIndex].nextIndex, value : currentIndex}));
           dispatch(surveyFlowActions.setCurrentIndex(indexes[currentIndex].nextIndex));
@@ -43,9 +44,11 @@ const Preview = () => {
               question.answers.map((answer) => {
                   lastId = answer;
               })
-              const option = question.options.find((item) => item.id === lastId);
-              if(typeof(option) !== 'undefined') {
-                  lastId = option.nextSectionId;
+              if(question.options !== null) {
+                  const option = question.options.find((item) => item.id === lastId);
+                  if(typeof(option) !== 'undefined') {
+                      lastId = option.nextSectionId;
+                  }
               }
           })
           if(typeof(lastId) === 'undefined') {

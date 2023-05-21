@@ -61,10 +61,8 @@ export default function ResultQuestionContainer({ questionId, sectionId ,questio
     };
 
     const findOptionIsMarked = (optionId) => {
-        // const result = selectedQuestion.answers.find((element) => element === optionId);
-        // console.log(result);
-        // return typeof (result) !== 'undefined';
-        return false
+        const result = selectedQuestion.answers.find((element) => element === optionId);
+        return typeof (result) !== 'undefined';
     }
 
     const getOptionList = (type) => {
@@ -129,7 +127,7 @@ export default function ResultQuestionContainer({ questionId, sectionId ,questio
         <Wrapper isCollapsed={isCollapsed}>
             <div className="question">
                 <span className="question-input">
-                    {questionContent.length === 0 ? '제목 없는 질문' : questionContent}
+                    {questionContent === null ? '제목 없는 질문' : questionContent}
                     {isNecessary && <span style={{ color: 'red'}}>*</span>}
                 </span>
             </div>

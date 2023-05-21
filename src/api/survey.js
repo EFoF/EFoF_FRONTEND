@@ -251,17 +251,17 @@ const surveyInfo = async (survey_id,navigate) => {
   }; 
 
 
-  const createQuestionOption = async (survey_id,section_id,question_id,addOptionRedux,data) => {
+  const createQuestionOption = async (survey_id,section_id,question_id,addOptionReduxWithId, data) => {
+
     
     try {
-
         const response = 
-        await authorizationClient.post(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}`,
-        data)
-        addOptionRedux(section_id,question_id);
+        await authorizationClient.post(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}`, data)
+        addOptionReduxWithId(section_id,question_id, response.data);
+
     } catch (error) {
       console.log(error);
-      toastMsg(error.response.data.message, false);
+      // toastMsg(error.response.data.message, false);
     }
   }; 
 

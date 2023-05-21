@@ -87,9 +87,9 @@ export default function Section({ section_idx, section_len }) {
       narrativeAnswer: '',
     },]
   }
-  const addSectionRedux = (newSection) => {      
+  const addSectionRedux = (newSection) => {
+    console.log(newSection);
     dispatch(questionActions.addSection({newSection}));
-
   }
   const handleAddSection = () => {
     if(form.isPre){
