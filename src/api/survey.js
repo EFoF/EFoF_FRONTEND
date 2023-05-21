@@ -10,7 +10,7 @@ axios.defaults.withCredentials = true;
 
 
 
-const surveyInfo = async (survey_id) => {
+const surveyInfo = async (survey_id,navigate) => {
 
     
 
@@ -23,9 +23,10 @@ const surveyInfo = async (survey_id) => {
       return response.data;
     } catch (error) {
       console.log(error);
-    //   alert(JSON.stringify(error.response.data.message));
+      alert(JSON.stringify(error.response.data.message));
+    //   toastMsg(JSON.stringify(error))
+      navigate(-1);
 
-    //   toastMsg(error.response.data.message, false);
 
       // return false;
     }
@@ -134,48 +135,233 @@ const surveyInfo = async (survey_id) => {
       toastMsg(error.response.data.message, false);
     }
   };
-  const addSection = async (survey_id) => {
+  const addSection = async (survey_id,addSectionRedux) => {
   
     try {
         const response = await authorizationClient.post(`${API.SURVEY}/${survey_id}/section`)
-
+        addSectionRedux(response.data);
+        
     } catch (error) {
       console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
-  const deleteSection = async (survey_id,section_id) => {
+  const deleteSection = async (survey_id,section_id,section_idx,deleteSectionRedux) => {
   
     try {
-        const response = await authorizationClient.post(`${API.SURVEY}/${survey_id}/section/${section_id}`)
+        const response = await authorizationClient.delete(`${API.SURVEY}/${survey_id}/section/${section_id}`);
 
+        deleteSectionRedux(section_idx);
     } catch (error) {
       console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
-  const updateSection = async (survey_id,section_id,nextSectionId,data) => {
+
+  const updateSection = async (survey_id,nextSectionId,data,changeNextSectionRedux,section_idx,section_id) => {
   
     try {
-        const response = await authorizationClient.post(`${API.SURVEY}/${survey_id}/section/${section_id}`,
+        const response = await authorizationClient.patch(`${API.SURVEY}/${survey_id}/section/${section_id}`,
         data)
+        changeNextSectionRedux(section_idx,nextSectionId)
     } catch (error) {
       console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
-  const updateQuestionOrder = async (survey_id,section_id,question_id,data,reorderRedux) => {
+  const updateQuestionOrder = async (survey_id,section_id,question_id,data,reorderRedux,source,destination) => {
   
+    
     try {
         const response = await authorizationClient.patch(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}/order`,
         data)
         
+        reorderRedux({source,destination})
 
     } catch (error) {
       console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
-  export {
-    surveyInfo,uploadImgInit,deleteImgInit,updateSurveyTitle,updateSurveyDescription,deleteSurvey,deleteSection,updateSection,addSection,deleteSurveyImg,updateSurveyImg,updateSurveyColor
+  
+  const createQuestion = async (survey_id,section_id,data,addQuestionRedux) => {
+    
+    try {
+        alert(section_id)
+        const response = 
+        await authorizationClient.post(`${API.SURVEY}/${survey_id}/section/${section_id}/question`,
+        data)
+        alert(JSON.stringify(response.data))
+        addQuestionRedux(section_id,response.data)
+    } catch (error) {
+      console.log(error);
+      toastMsg(error.response.data.message, false);
+    }
+  }; 
+
+  const updateQuestionContent = async (survey_id,section_id,question_id,data) => {
+    
+    try {
+
+        const response = 
+        await authorizationClient.patch(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}/content`,data)
+
+    } catch (error) {
+      console.log(error);
+      toastMsg(JSON.stringify(error), false);
+    }
+  }; 
+  
+  const updateQuestionType = async (survey_id,section_id,question_id,data,changeTypeRedux) => {
+    
+    try {
+
+        const response = 
+        await authorizationClient.patch(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}/type`,data)
+        changeTypeRedux(section_id,question_id,data.type)
+    } catch (error) {
+      console.log(error);
+      toastMsg(error.response.data.message, false);
+    }
+  }; 
+  const updateQuestionIsNecessary = async (survey_id,section_id,question_id,updateIsNecessary) => {
+    
+    try {
+
+        const response = 
+        await authorizationClient.patch(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}/isNecessary`)
+        updateIsNecessary(question_id, section_id );
+    } catch (error) {
+      console.log(error);
+      toastMsg(error.response.data.message, false);
+    }
+  }; 
+
+  const deleteQuestion = async (survey_id,section_id,question_id,deleteQuestionRedux) => {
+    
+    try {
+
+        const response = 
+        await authorizationClient.delete(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}`)
+        deleteQuestionRedux(question_id, section_id );
+    } catch (error) {
+      console.log(error);
+      toastMsg(error.response.data.message, false);
+    }
+  }; 
+
+
+  const createQuestionOption = async (survey_id,section_id,question_id,addOptionRedux) => {
+    
+    try {
+
+        const response = 
+        await authorizationClient.post(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}`)
+        addOptionRedux(section_id,question_id);
+    } catch (error) {
+      console.log(error);
+      toastMsg(error.response.data.message, false);
+    }
+  }; 
+
+  const updateQuestionOptionText = async (survey_id,section_id,question_id,question_Option_id,data) => {
+    
+    try {
+
+        const response = 
+        await authorizationClient.patch(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}/question_option/${question_Option_id}`
+        ,data)
+    } catch (error) {
+      console.log(error);
+      toastMsg(error.response.data.message, false);
+    }
+  }; 
+
+  const updateQuestionOptionImg = async (survey_id,section_id,question_id,question_Option_id,data,fileUploadRedux) => {
+    
+    try {
+
+        const response = 
+        await authorizationClient.patch(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}/question_option/${question_Option_id}/image`
+        ,data, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+          toastMsg("이미지 변경 성공", true);
+          fileUploadRedux(section_id,question_id,question_Option_id,response.data)      
+    } catch (error) {
+      console.log(error);
+      toastMsg(error.response.data.message, false);
+    }
   };
+
+  const deleteQuestionOptionImg = async (survey_id,section_id,question_id,question_Option_id,deleteImageRedux) => {
+    
+    try {
+
+        const response = 
+        await authorizationClient.patch(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}/question_option/${question_Option_id}/image/delete`)
+          toastMsg("이미지 삭제 성공", true);
+          deleteImageRedux();
+    } catch (error) {
+      console.log(error);
+      toastMsg(error.response.data.message, false);
+    }
+  };
+
+  const updateQuestionOptionNextSection = async (survey_id,section_id,question_id,question_Option_id,data,changeNextSection) => {
+    
+    try {
+
+        const response = 
+        await authorizationClient.patch(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}/question_option/${question_Option_id}/section`,data)
+          
+        changeNextSection(section_id,question_Option_id,question_id,data.nextSection_id);
+    } catch (error) {
+      console.log(error);
+      toastMsg(error.response.data.message, false);
+    }
+  };
+
+  const deleteQuestionOption = async (survey_id,section_id,question_id,question_Option_id,deleteOptionRedux) => {
+    
+    try {
+
+        const response = 
+        await authorizationClient.delete(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}/question_option/${question_Option_id}`)
+          
+        deleteOptionRedux(section_id,question_id,question_Option_id);
+    } catch (error) {
+      console.log(error);
+      toastMsg(error.response.data.message, false);
+    }
+  };
+
+  export {
+    surveyInfo,
+    uploadImgInit,
+    deleteImgInit,
+    updateSurveyTitle,
+    updateSurveyDescription,
+    deleteSurvey,
+    deleteSection,
+    updateSection,
+    addSection,
+    deleteSurveyImg,
+    updateSurveyImg,
+    updateSurveyColor,
+    updateQuestionOrder,
+    createQuestion,
+    updateQuestionContent,
+    updateQuestionType,
+    updateQuestionIsNecessary,
+    deleteQuestion,
+    createQuestionOption,
+    updateQuestionOptionText,
+    updateQuestionOptionImg,
+    deleteQuestionOptionImg,
+    updateQuestionOptionNextSection,
+    deleteQuestionOption
+
+};

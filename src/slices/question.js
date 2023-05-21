@@ -71,6 +71,7 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
 
 
       const { newSection } = action.payload;
+      
       state.push(newSection);
     },
 
@@ -78,30 +79,30 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
     deleteSection: (state, action) => {
       const { section_idx } = action.payload;
       const newState = state;
-
       // Find the section to be deleted
       const sectionToDelete = newState[section_idx - 1];
 
       // Loop through all sections to update any references to the section being deleted
       newState.forEach((section, idx) => {
         section.questionList.forEach(question => {
-          question.options.forEach(option => {
-            // If the option leads to the section being deleted, remove the reference
-            if (option.nextSectionId === sectionToDelete.id) {
-              option.nextSectionId = '';
-            }
-          });
+          if (question.options) { // question.options가 null인지 확인
+            question.options.forEach(option => {
+              if (option.nextSectionId === sectionToDelete.id) {
+                option.nextSectionId = '';
+              }
+            });
+          }
         });
-
-        // If this section leads to the section being deleted, remove the reference
+      
         if (section.nextSectionId === sectionToDelete.id) {
           section.nextSectionId = '';
         }
       });
+      
 
       // Remove the section from the state
       newState.splice(section_idx - 1, 1);
-
+      
       return newState;
     },
 
@@ -109,10 +110,10 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
     addQuestion: (state, action) => {
       const { sectionId, newQuestion } = action.payload;
 
-      const section = state.find((item, idx) => idx === sectionId);
+      const section = state.find((item, idx) => item.id === sectionId);
       section.questionList.push(newQuestion);
       section.questionOrder = section.questionOrder + "," + newQuestion.id
-      alert(section.questionOrder)
+      
     },
 
 

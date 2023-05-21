@@ -112,15 +112,15 @@ export default function Form() {
     if (currentPath === `/form/pre-release/${id}`) {
 
       
-      surveyInfo(id)
+      surveyInfo(id,navigate)
         .then((data) => {
           dispatch(formActions.initForm({data}));
           dispatch(questionActions.initQuestion({data}))
           
         }).catch(error => {
-          // alert(JSON.stringify(error.response.data.message));
+          
           // toastMsg(error.response.data.message,false);
-          navigate(-1);
+          
       });
     }
     

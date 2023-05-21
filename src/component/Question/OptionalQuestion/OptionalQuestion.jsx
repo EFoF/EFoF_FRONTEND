@@ -12,6 +12,10 @@ import ReactDOM from "react-dom";
 import ConfirmModal from '../../../ui/ConfirmModal';
 import axios from 'axios';
 import toastMsg from '../../../ui/Toast';
+
+import { createQuestionOption,updateQuestionOptionText,deleteImgInit,updateQuestionOptionImg,deleteQuestionOptionImg,updateQuestionOptionNextSection,deleteQuestionOption } from '../../../api/survey';
+
+
 export default function OptionalQuestion({ type, optionId, questionId, optionContent, optionImage, isLast, sectionId, questions, questionOption,optionNextSectionId}) {
 
 
@@ -59,12 +63,28 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
   const dispatch = useDispatch();
 
 
+  const addOptionRedux = (sectionId,questionId) => {
+    dispatch(questionActions.addOption({ sectionId: sectionId, questionId: questionId }));
+  }
   const handleAddOption = () => {
-    isLast && dispatch(questionActions.addOption({ sectionId: sectionId, questionId: questionId }));
+    if(form.isPre){
+      isLast && createQuestionOption(form.id,sectionId,questionId,addOptionRedux)
+    }else{
+      isLast && addOptionRedux(sectionId,questionId)
+    }
     inputRef.current.select();
   };
-  const handleDeleteOption = () => {
+
+  const deleteOptionRedux = (sectionId,questionId,optionId) =>{
     dispatch(questionActions.deleteOption({ sectionId: sectionId, questionId: questionId, optionId }));
+  }
+  const handleDeleteOption = () => {
+    if(form.isPre){
+      deleteQuestionOption(form.id,sectionId,questionId,optionId,deleteOptionRedux)
+    }else{
+      deleteOptionRedux(sectionId,questionId,optionId);
+    }
+    
   };
 
   const handleContentChange = (e) => {
@@ -72,32 +92,40 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
   };
 
 
+  const changeNextSection = (sectionId,optionId,questionId,nextSectionId) =>{
+    dispatch(questionActions.setOptionNextSection({ sectionId, optionId, questionId, nextSectionId: nextSectionId }))
+  }
   const handleChange = (option1) => {
-    dispatch(questionActions.setOptionNextSection({ sectionId, optionId, questionId, nextSectionId: option1.value }))
 
-
+    if(form.isPre){
+      const data = {
+        "nextSection_id" : option1.value
+      }
+      updateQuestionOptionNextSection(form.id,sectionId,questionId,optionId,data,changeNextSection);
+    }
+    else{
+      changeNextSection(sectionId,optionId,questionId,option1.value);
+    }
+    
 
   };
 
+  const deleteImageRedux = () =>{
+    dispatch(questionActions.setOptionImage(
+      { sectionId: sectionId, questionId: questionId, optionId, image: '' }
+    ));
+  }
 
   const handleDeleteImage = () => {
 
     const handleConfirm = () => {
-      axios.delete('http://localhost:8080/form/image', {
 
-      }).then(response => {
-        // alert(JSON.stringify(response.data));
-        toastMsg("이미지 변경 성공", true);
-        dispatch(questionActions.setOptionImage(
-          { sectionId: sectionId, questionId: questionId, optionId, image: '' }
-        ));
-
-      }).catch(error => {
-        toastMsg(error.response, false);
-
-      });
-
-
+      if(form.isPre){
+        deleteQuestionOptionImg(form.id,sectionId,questionId,optionId,deleteImageRedux)
+      }else{
+        deleteImgInit(optionImage,deleteImageRedux)
+      }
+      
       ReactDOM.unmountComponentAtNode(document.getElementById("modal-root"));
     };
 
@@ -132,38 +160,50 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
   };
   
 
-
+  const fileUploadRedux = (sectionId,questionId,optionId,image) =>{
+    dispatch(questionActions.setOptionImage(
+      { sectionId: sectionId, questionId: questionId, optionId, image: image }
+    ));
+  }
   const handleFileUpload = (event) => {
     const selectedFile = event.target.files[0];
     const formData = new FormData();
     formData.append('image', selectedFile);
 
-    axios.post('http://localhost:8080/form/image', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then(response => {
-      // alert(JSON.stringify(response.data));
-      toastMsg("이미지 변경 성공", true);
-      dispatch(questionActions.setOptionImage(
-        { sectionId: sectionId, questionId: questionId, optionId, image: response.data }
-      ));
 
-    }).catch(error => {
-      toastMsg(error.response, false);
-
-    });
-
-
-
-
+    if(form.isPre){
+      updateQuestionOptionImg(form.id,sectionId,questionId,optionId,formData,fileUploadRedux)
+    }else{
+      axios.post('http://localhost:8080/survey/image', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(response => {
+        // alert(JSON.stringify(response.data));
+        toastMsg("이미지 변경 성공", true);
+        fileUploadRedux(sectionId,questionId,optionId,response.data)      
+  
+      }).catch(error => {
+        toastMsg(error.response, false);
+  
+      });
+    }
+    
   }
-
+  const handleBlurOptionText = (value) => {
+    if (form.isPre) {
+      const data = { "optionText": value }
+      updateQuestionOptionText(form.id,sectionId,questionId,optionId,data)
+    }
+  }
 
   return (
     <Wrapper isLast={isLast}>
       <InputButtonWrapper>
-        <Input value={optionContent} type={type} isLast={isLast} onChange={handleContentChange} onClick={handleAddOption}
+        <Input value={optionContent} type={type} isLast={isLast}
+         onChange={handleContentChange} 
+         onClick={handleAddOption}
+         onBlur={({ target: { value } }) => handleBlurOptionText(value)}
           ref={inputRef} />
 
               {/*<Input value={optionContent} type={type} isLast={isLast} onChange={handleContentChange} onClick={handleAddOption}*/}
@@ -203,16 +243,18 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
       </InputButtonWrapper>
       <OptionsWrapper isLast={isLast} gap={"0.5rem"}>
 
-
-        <Select
-          styles={customStyles}
-          value={questionOption.find(op => op.value === optionNextSectionId)
-            ? questionOption.find(op => op.value === optionNextSectionId)
-            : questionOption[0]}
-          placeholder="다음 섹션을 선택해주세요."
-          onChange={handleChange}
-          options={questionOption}
-        />
+      {questions.length === 1 ? null : (
+           <Select
+           styles={customStyles}
+           value={questionOption.find(op => op.value === optionNextSectionId)
+             ? questionOption.find(op => op.value === optionNextSectionId)
+             : questionOption[0]}
+           placeholder="다음 섹션을 선택해주세요."
+           onChange={handleChange}
+           options={questionOption}
+         />
+              )}
+        
             <CloseOptionButton onClick={handleDeleteOption} type={type} size={"1.2rem"}>
               <MdClose />
             </CloseOptionButton>

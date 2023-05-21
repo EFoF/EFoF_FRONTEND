@@ -13,10 +13,11 @@ import { FiChevronUp } from 'react-icons/fi';
 import { AiOutlineDelete } from 'react-icons/ai'; // AiOutlineDelete 추가
 import Toggle from 'react-styled-toggle';
 import React from 'react'
+import { updateQuestionContent,updateQuestionIsNecessary,deleteQuestion } from '../../api/survey';
 
+export default function QuestionContainer({ questionId, provided, sectionId, questionOption}) {
 
-export default function QuestionContainer({ questionId, provided, sectionId, questionOption, }) {
-
+  // alert(questionOption)
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const toggleCollapse = () => {
@@ -24,7 +25,7 @@ export default function QuestionContainer({ questionId, provided, sectionId, que
   };
 
   const dispatch = useDispatch();
-  const { questions } = useSelector((state) => state.form);
+  const { form,questions } = useSelector((state) => state.form);
 
   const section = questions.find((item) => item.id === sectionId);
   const selectedQuestion = section.questionList.find((item) => item.id === questionId);
@@ -45,17 +46,36 @@ export default function QuestionContainer({ questionId, provided, sectionId, que
     };
   };
 
+  const updateIsNecessary = (questionId,sectionId) =>{
+    dispatch(questionActions.setNecessary({ questionId: questionId, sectionId: sectionId }));
+  }
   const handleSwitch = () => {
 
-    dispatch(questionActions.setNecessary({ questionId: id, sectionId: section.id }));
+    if(form.isPre){
+    updateQuestionIsNecessary(form.id,section.id,id,updateIsNecessary)
+  }
+  else{
+    updateIsNecessary(id,section.id)
+  }
+    
   };
 
   const handleQuestionChange = (e) => {
     dispatch(questionActions.setQuestionContent({ questionId: questionId, sectionId: sectionId, questionContent: e.target.value }));
   };
 
-  const handleDeleteQuestion = () => {
+  const deleteQuestionRedux = (questionId,sectionId) => {
+
     dispatch(questionActions.deleteQuestion({ questionId: questionId, sectionId: sectionId }));
+  }
+  const handleDeleteQuestion = () => {
+
+    if(form.isPre){
+      deleteQuestion(form.id,sectionId,questionId,deleteQuestionRedux)
+
+    }else{
+      deleteQuestionRedux(questionId,sectionId)
+    }
   };
 
   const handleCopyQuestion = () => {
@@ -123,7 +143,17 @@ export default function QuestionContainer({ questionId, provided, sectionId, que
       ))
     return optionList;
   };
+  const handleBlurText = (value) => {
 
+    if (form.isPre) {
+      const data = { 
+
+        "questionContent" : value,
+
+      }
+      updateQuestionContent(form.id,sectionId,questionId, data);
+    }
+  }
   const getInput = () => {
     switch (questionType) {
 
@@ -153,6 +183,7 @@ export default function QuestionContainer({ questionId, provided, sectionId, que
           placeholder="질문"
           value={questionContent}
           onChange={handleQuestionChange}
+          onBlur={({ target: { value } }) => handleBlurText(value)}
         />
         <button className="collapse-button" onClick={toggleCollapse}>
           <FiChevronUp className={`collapse-icon ${isCollapsed ? "collapsed" : ""}`} />

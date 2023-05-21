@@ -33,8 +33,8 @@ authorizationClient.interceptors.response.use(
       return response;
     },
     error => {
-      toastMsg(error.response.data.message, false);
-      alert(error.response.data.message)
+      
+      
           
       console.log("유효하지 않은 토큰값");
       console.dir(error);
@@ -72,7 +72,7 @@ authorizationClient.interceptors.response.use(
         case 403:
           break;
         default:
-          
+          toastMsg(error.response.data.message, false);
           break;
       }
       console.error("[Axios]", error);
