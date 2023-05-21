@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import { FaCompress, FaCode, FaGlobe } from 'react-icons/fa';
 import ColorSwitcher from '../../elements/switcher/ColorSwitcher';
@@ -14,6 +14,9 @@ import Header from '../../ui/common/Header';
 import ProjectData from "../../data/ProjectData.json";
 import SurveyInfo from './SurveyInfo';
 
+import { checkStatistic } from '../../api/statistics';
+import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 
 const userNames = MemberData.map(member => member.userName);
@@ -28,6 +31,13 @@ const userNum = MemberData.length;
 const portfolioData = ProjectData;
 
 const Statistic = () => {
+    const { id } = useParams();
+    const [survey, setSurvey] = useState(null);
+
+    const currentPath = window.location.pathname;
+    const dispatch = useDispatch;
+
+    useEffect(() => { checkStatistic(id) }, []);
 
     return (
         <>

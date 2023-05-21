@@ -16,9 +16,7 @@ const EMAIL_EXIST_CHECK = "check-email";
 const UPDATE = "update";
 const PASSWORD = "/password";
 const VISITOR = "/visitor";
-
-const STATISTIC = "/statistic";
-// const SURVEY_ID = "{survey_id}";  // 이거 맞나.. 머임?ㅜㅜ
+const STATISTIC = "/statistics";
 
 
 
@@ -38,8 +36,7 @@ const API = {
   EMAIL_EXIST: `${AUTH}${EMAIL_EXIST_CHECK}`,
   PASSWORD_UPDATE_VISITOR: `${AUTH}${UPDATE}${PASSWORD}${VISITOR}`,
   PASSWORD_UPDATE: `${AUTH}${UPDATE}${PASSWORD}`,
-  // BOARD: `${BOARD}`,
-  // STATISTIC: `${SURVEY_ID}${STATISTIC}`
+  // BOARD: `${BOARD}`
   STATISTIC: `${STATISTIC}`
 };
 
