@@ -61,7 +61,6 @@ export default function ResultQuestionContainer({ questionId, sectionId ,questio
     };
 
     const findOptionIsMarked = (optionId) => {
-
         // const result = selectedQuestion.answers.find((element) => element === optionId);
         // console.log(result);
         // return typeof (result) !== 'undefined';
