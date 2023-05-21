@@ -228,9 +228,12 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
     },
 
     setNarrativeAnswer: (state, action) => {
-      const { id, narrativeContent } = action.payload;
-      const questionId = state.findIndex((item) => item.id === String(id));
-      state[questionId].narrativeAnswer = narrativeContent;
+      const { sectionId, questionId, narrativeContent } = action.payload;
+      const section = state.find((item) => item.id === sectionId);
+      const question = section.questionList.find((item) => item.id === questionId);
+      question.narrativeAnswer = narrativeContent;
+      // const questionIndex = state.findIndex((item) => item.id === String(questionId));
+      // state[questionId].narrativeAnswer = narrativeContent;
     },
 
     markOneAnswer: (state, action) => {
