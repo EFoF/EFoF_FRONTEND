@@ -9,6 +9,7 @@ import { useState } from "react";
 import shortid from 'shortid';
 import Dropdown from '../../component/Dropdown/Dropdown';
 import OptionalQuestion from '../../component/Question/OptionalQuestion/OptionalQuestion';
+import NarrativeQuestion from '../../component/Question/NarrativeQuestion/NarrativeQuestion';
 import { FiChevronUp } from 'react-icons/fi';
 import { AiOutlineDelete } from 'react-icons/ai'; // AiOutlineDelete 추가
 import Toggle from 'react-styled-toggle';
@@ -148,6 +149,16 @@ export default function QuestionContainer({ questionId, provided, sectionId, que
       ))
     return optionList;
   };
+
+  const getNarrativeComponent = (type) => {
+    return (
+        <NarrativeQuestion
+            questionId={questionId}
+            sectionId={sectionId}
+        />
+    )
+  };
+
   const handleBlurText = (value) => {
 
     if (form.isPre) {
@@ -168,7 +179,7 @@ export default function QuestionContainer({ questionId, provided, sectionId, que
       case QUESTION_TYPES.ONE_CHOICE:
         return getOptionList(questionType);
       case QUESTION_TYPES.LONG_ANSWER:
-      // return <NarrativeQuestion type="long" questionId={questionId} />;
+        return getNarrativeComponent(questionType);
       default:
         return;
     }

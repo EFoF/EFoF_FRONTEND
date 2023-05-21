@@ -8,6 +8,7 @@ import { questionActions } from '../../../slices';
 import { useState } from "react";
 import shortid from 'shortid';
 import ResultOptionalQuestion from '../../../component/Question/OptionalQuestion/Result/OptionalQuestion';
+import ResultNarrativeQuestion from '../../../component/Question/NarrativeQuestion/Result/NarrativeQuestion';
 import { FiChevronUp } from 'react-icons/fi';
 import { AiOutlineDelete } from 'react-icons/ai'; // AiOutlineDelete 추가
 import Toggle from 'react-styled-toggle';
@@ -109,6 +110,16 @@ export default function ResultQuestionContainer({ questionId, sectionId ,questio
         return optionList;
     };
 
+    const getNarrativeComponent = (type) => {
+        return (
+            <ResultNarrativeQuestion
+                questionId={questionId}
+                sectionId={sectionId}
+                selectedQuestion={selectedQuestion}
+            />
+        )
+    }
+
     const getInput = () => {
         switch (questionType) {
             case QUESTION_TYPES.TRUE_FALSE:
@@ -118,6 +129,7 @@ export default function ResultQuestionContainer({ questionId, sectionId ,questio
             case QUESTION_TYPES.ONE_CHOICE:
                 return getOptionList(questionType);
             case QUESTION_TYPES.LONG_ANSWER:
+                return getNarrativeComponent(questionType);
             default:
                 return;
         }

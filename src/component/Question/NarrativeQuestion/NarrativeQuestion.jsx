@@ -4,7 +4,7 @@ import { questionActions } from '../../../slices';
 import { Wrapper } from './style';
 
 
-export default function NarrativeQuestion({ type, questionId }) {
+export default function NarrativeQuestion({ type, questionId, sectionId }) {
 
   const location = useLocation();
   const dispatch = useDispatch();
