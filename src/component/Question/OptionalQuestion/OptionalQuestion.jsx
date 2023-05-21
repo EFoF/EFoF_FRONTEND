@@ -74,7 +74,7 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
   }
   const handleAddOption = () => {
     if(form.isPre){
-      isLast && createQuestionOption(form.id,sectionId,questionId,addOptionWithIdRedux)
+      isLast && createQuestionOption(form.id,sectionId,questionId,addOptionWithIdRedux, {"optionText" : "옵션"})
     }else{
       isLast && addOptionRedux(sectionId,questionId)
     }
