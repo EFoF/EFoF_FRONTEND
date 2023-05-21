@@ -39,7 +39,9 @@ const {actions: surveyFlowActions, reducer: surveyFlowReducer } = createSlice({
             // 1. 현재 페이지의 next 인덱스를 인자값으로 변경
             // 2. 다음 페이지의 prev 인덱스를 인자값으로 변경 (안해주면 undefined 에러 발생)
             state.indexes[currentPageIndex].nextIndex = currentPageNextIndex;
-            state.indexes[currentPageNextIndex].prevIndex = currentPageIndex;
+            if(currentPageNextIndex !== -1) {
+                state.indexes[currentPageNextIndex].prevIndex = currentPageIndex;
+            }
         },
         addIndexes : (state, action) => {
             state.indexes.push(pushToIndexes());

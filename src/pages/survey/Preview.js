@@ -38,6 +38,7 @@ const Preview = () => {
       // 2. 섹션 자체가 가리키는 다음 섹션 값도 확인한다.
       let lastId;
       console.log(questions[currentIndex]);
+      if(typeof(questions[currentIndex]) !== 'undefined') {
           questions[currentIndex].questionList.map((question) => {
               question.answers.map((answer) => {
                   lastId = answer;
@@ -47,9 +48,10 @@ const Preview = () => {
                   lastId = option.nextSectionId;
               }
           })
-      if(typeof(lastId) === 'undefined') {
-          if(questions[currentIndex].nextSectionId !== '') {
-              lastId = questions[currentIndex].nextSectionId;
+          if(typeof(lastId) === 'undefined') {
+              if(questions[currentIndex].nextSectionId !== '') {
+                  lastId = questions[currentIndex].nextSectionId;
+              }
           }
       }
       return typeof(lastId) === 'undefined' ? -1 : questions.findIndex((item) => item.id === lastId);
@@ -171,7 +173,7 @@ const Preview = () => {
             <ResultTitleBox info={form.form}/>
             <ResultSectionContainer>
                 <ResultSection section_idx={currentIndex + 1} section_len={questions.length}/>
-                    {questions[currentIndex].questionList.map((question, question_idx) => (
+                    {questions[currentIndex] && questions[currentIndex].questionList.map((question, question_idx) => (
                         <ResultQuestionContainer key={question.id} questionId={question.id} sectionId={questions[currentIndex].id}/>
                     ))}
             </ResultSectionContainer>
