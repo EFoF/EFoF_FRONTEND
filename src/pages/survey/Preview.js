@@ -39,18 +39,22 @@ const Preview = () => {
       // 2. 섹션 자체가 가리키는 다음 섹션 값도 확인한다.
       let lastId;
       console.log(questions[currentIndex]);
-      if(typeof(questions[currentIndex]) !== 'undefined') {
-          questions[currentIndex].questionList.map((question) => {
-              question.answers.map((answer) => {
-                  lastId = answer;
-              })
-              if(question.options !== null) {
-                  const option = question.options.find((item) => item.id === lastId);
-                  if(typeof(option) !== 'undefined') {
-                      lastId = option.nextSectionId;
+      if(typeof(questions[currentIndex]) !== 'undefined' ) {
+          if(questions[currentIndex].questionList !== null) {
+              questions[currentIndex].questionList.map((question) => {
+                  if(question.answers !== null) {
+                      question.answers.map((answer) => {
+                          lastId = answer;
+                      })
                   }
-              }
-          })
+                  if(question.options !== null && question.options !== undefined) {
+                      const option = question.options.find((item) => item.id === lastId);
+                      if(typeof(option) !== 'undefined') {
+                          lastId = option.nextSectionId;
+                      }
+                  }
+              })
+          }
           if(typeof(lastId) === 'undefined') {
               if(questions[currentIndex].nextSectionId !== '') {
                   lastId = questions[currentIndex].nextSectionId;
