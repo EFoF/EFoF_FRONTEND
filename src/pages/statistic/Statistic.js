@@ -36,7 +36,7 @@ const portfolioData = ProjectData;
 const Statistic = () => {
     const { id } = useParams();
     // const [survey, setSurvey] = useState([]);
-    const [survey, setSurvey] = useState({ title: '', description: '', participantNum: 0 });
+    const [survey, setSurvey] = useState({ title: '', description: '', participantNum: 0,sImageURL:"" });
 
     const currentPath = window.location.pathname;
     const dispatch = useDispatch();
@@ -55,9 +55,9 @@ const Statistic = () => {
                 const description = data.description;
                 const participantNum = data.participantNum;
                 const sectionList = data.sectionList;
-                const constraintList = data.constraintList;
+                const sImageURL = data.simageURL;
 
-                setSurvey({title, description, participantNum, sectionList, constraintList});
+                setSurvey({title, description, participantNum, sectionList, sImageURL});
             })
         }
         
@@ -77,7 +77,9 @@ const Statistic = () => {
                         <div className="col-lg-5">
                             <div className="banner-thumbnail">
                                 <Tilty perspective={2000} reset={false}>
-                                    <img src='/images/statistics/project-1.png' alt="Illustration" />
+                                    { (survey.sImageURL==="") ? <img src='https://efof.s3.ap-northeast-2.amazonaws.com/default/survey_default' alt="Illustration" /> 
+                                                        : <img src={`https://efof.s3.ap-northeast-2.amazonaws.com/survey/${survey.sImageURL}`}  alt="Illustration" />}
+                                    
                                 </Tilty>
                             </div>
                         </div>
