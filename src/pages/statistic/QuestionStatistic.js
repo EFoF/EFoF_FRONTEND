@@ -13,7 +13,7 @@ const portfolioData = ProjectData;
 const AllData = ProjectData;
 
 
-const QuestionStatistic = ({parentClass, colSize, itemShow, columnGap}) => {
+const QuestionStatistic = ({parentClass, colSize, itemShow, columnGap, sectionList}) => {
 
 	const [getAllItems] = useState(AllData);
 	const [visiableProject] = useState(itemShow ? itemShow : 6);
@@ -22,7 +22,6 @@ const QuestionStatistic = ({parentClass, colSize, itemShow, columnGap}) => {
 	useEffect(() => {
 		setVisibleItems(getAllItems.filter((item) => item.id <= visiableProject));
     }, []);
-
 
 	// ======================아코디언======================
 	const [isAccordionOpen, setIsAccordionOpen] = useState(false);
@@ -48,37 +47,25 @@ const QuestionStatistic = ({parentClass, colSize, itemShow, columnGap}) => {
 					/>
 					{/* ============================섹션 별 통계============================ */}
 					{/* <Accordion onClick={toggleAccordion} style={accordionHeaderStyle}> */}
-					<Accordion style={{paddingLeft: '100px', paddingRight: '100px'}}>
-						<Accordion.Item eventKey="2">
-                            <Accordion.Header><FaCode /> 섹션 1</Accordion.Header>
-							<Accordion.Body>
-								<div className="row-45">
-									{portfolioData.slice(12, 16).map((data) => (
-													// <div className="col-md-6" key={data.id}>
-									<div className="col" key={data.id}>
-										<SurveyInfo projectStyle="project-style-2" portfolio={data}/>
+					
+					{sectionList && sectionList.map((item, idx) => (
+						<Accordion style={{paddingLeft: '100px', paddingRight: '100px'}}>
+							<Accordion.Item eventKey="2">
+								<Accordion.Header><FaCode />섹션 {idx+1}</Accordion.Header>
+								<Accordion.Body>
+									<div className="row-45">
+										{portfolioData.slice(12, 16).map((data) => (
+														// <div className="col-md-6" key={data.id}>
+										<div className="col" key={data.id}>
+											<SurveyInfo projectStyle="project-style-2" portfolio={data}/>
+										</div>
+										))}
 									</div>
-									))}
-								</div>
-                            </Accordion.Body>   
-                        </Accordion.Item>
-                    </Accordion>
+								</Accordion.Body>   
+							</Accordion.Item>
+                    	</Accordion>
+					))}
 
-					{/* <Accordion>
-						<Accordion.Item eventKey="2">
-                            <Accordion.Header><FaCode /> 섹션 2</Accordion.Header>
-							<Accordion.Body>
-								<div className="row-45">
-									{portfolioData.slice(12, 16).map((data) => (
-													// <div className="col-md-6" key={data.id}>
-									<div className="col" key={data.id}>
-										<SurveyInfo projectStyle="project-style-2" portfolio={data}/>
-									</div>
-									))}
-								</div>
-                            </Accordion.Body>   
-                        </Accordion.Item>
-                    </Accordion> */}
 					{/* =============================================================================== */}
 
 					<div className="more-project-btn">
