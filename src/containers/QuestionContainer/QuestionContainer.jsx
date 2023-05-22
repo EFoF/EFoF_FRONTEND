@@ -150,6 +150,47 @@ export default function QuestionContainer({ questionId, provided, sectionId, que
     return optionList;
   };
 
+  const getMultipleOptionList = (type) => {
+    let optionList = options
+        ?.map((option) => (
+            <OptionalQuestion
+                key={option.id}
+                sectionId={sectionId}
+                questionId={questionId}
+                optionId={option.id}
+                optionContent={option.option}
+                optionImage={option.image}
+                optionNextSectionId={option.nextSectionId}
+                questionOption={questionOption}
+                questions={questions}
+                type={type}
+                isLast={false}
+                multipleChoice={true}
+            />
+        ));
+
+    // readOnly 일때는 옵션 추가 버튼을 포함하지 않는다.
+    if (!optionList) {
+      optionList = [];
+    }
+
+    optionList.push(
+        <OptionalQuestion
+            key={optionList.length + 1}
+            sectionId={sectionId}
+            questionId={questionId}
+            optionId={optionList.length + 1}
+            optionContent="옵션 추가"
+            questions={questions}
+            questionOption={questionOption}
+            type={type}
+            isLast={true}
+        />
+    );
+
+    return optionList;
+  }
+
   const getNarrativeComponent = (type) => {
     return (
         <NarrativeQuestion
@@ -176,6 +217,7 @@ export default function QuestionContainer({ questionId, provided, sectionId, que
       case QUESTION_TYPES.TRUE_FALSE:
         return getOptionListWithoutConcat(questionType);
       case QUESTION_TYPES.MULTIPLE_CHOICE:
+        return getMultipleOptionList(questionType);
       case QUESTION_TYPES.ONE_CHOICE:
         return getOptionList(questionType);
       case QUESTION_TYPES.LONG_ANSWER:

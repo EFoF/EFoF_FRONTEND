@@ -16,7 +16,7 @@ import toastMsg from '../../../ui/Toast';
 import { createQuestionOption,updateQuestionOptionText,deleteImgInit,updateQuestionOptionImg,deleteQuestionOptionImg,updateQuestionOptionNextSection,deleteQuestionOption } from '../../../api/survey';
 
 
-export default function OptionalQuestion({ type, optionId, questionId, optionContent, optionImage, isLast, sectionId, questions, questionOption,optionNextSectionId}) {
+export default function OptionalQuestion({ type, optionId, questionId, optionContent, optionImage, isLast, sectionId, questions, questionOption,optionNextSectionId, multipleChoice}) {
 
 
   const customStyles = {
