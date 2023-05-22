@@ -15,9 +15,12 @@ import ProjectData from "../../data/ProjectData.json";
 import SurveyInfo from './SurveyInfo';
 
 import { checkStatistic } from '../../api/statistics';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-
+import { statActions } from '../../slices/stat';
+import { authorizationClient, unAuthorizationClient } from '../../api';
+import API from '../../api/config';
+import { fetchSurvey } from '../../api/survey';
 
 const userNames = MemberData.map(member => member.userName);
 const userNum = MemberData.length;
@@ -32,13 +35,35 @@ const portfolioData = ProjectData;
 
 const Statistic = () => {
     const { id } = useParams();
-    const [survey, setSurvey] = useState(null);
+    // const [survey, setSurvey] = useState([]);
+    const [survey, setSurvey] = useState({ title: '', description: '', participantNum: 0 });
 
     const currentPath = window.location.pathname;
-    const dispatch = useDispatch;
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    useEffect(() => { checkStatistic(id) }, []);
+    // const selSurvey = survey.filter((survey) => survey.id === 1);
+    // console.log(selSurvey);
 
+    useEffect(() => {
+        if(currentPath === `/statistic/${id}`){
+            fetchSurvey(id)
+              .then((data) => {               
+                // dispatch(statActions.initStat({data}));
+
+                const title = data.title;
+                const description = data.description;
+                const participantNum = data.participantNum;
+                const sectionList = data.sectionList;
+
+                setSurvey({title, description, participantNum, sectionList});
+            })
+        }
+        
+      }, [id, currentPath]);
+
+    console.log(survey);
+      
     return (
         <>
         <SEO title="Project Details"/>
@@ -58,34 +83,21 @@ const Statistic = () => {
                         <div className="col-lg-6 offset-xl-1">
                             <div className="why-choose-us">
                                 <div className="section-heading heading-left">
-                                    <h3 className="title">설문 제목 1</h3>
-                                    <p>설문 description</p>
+                                    <h3 className="title">{survey.title}</h3>
+                                    <p>{survey.description} (id: {id})</p>
                                 </div>
 
                                 <Accordion defaultActiveKey="1">
                                     <Accordion.Item eventKey="1">
-                                        <Accordion.Header><FaCompress /> 설문 참여자 수: {userNum}명</Accordion.Header>
-                                        {/* <Accordion.Body>
-                                            {userNames.reduce((rows, name, index) => {
-                                                if (index % 5 === 0) rows.push([]); // op2. 5 -> 3
-                                                rows[rows.length - 1].push(name);
-                                                return rows;
-                                            }, []).map((row, rowIndex) => (
-                                                <div className="row" key={rowIndex}>
-                                                    {row.map((name, colIndex) => (
-                                                        <div className="col-md-2" key={colIndex}>
-                                                            
-                                                            {name}
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            ))}
-                                        </Accordion.Body> */}
+                                        <Accordion.Header><FaCompress /> 설문 참여자 수: {survey.participantNum}명</Accordion.Header>
                                     </Accordion.Item>
                                     <Accordion.Item eventKey="2">
                                         <Accordion.Header><FaCode /> 설문 제약 조건</Accordion.Header>
                                         <Accordion.Body>
                                             {/* 설문 제약 조건 */}
+                                            {/* {survey.sectionList}.map((data, idx){
+                                                console.log(data)  
+                                            }) */}
                                         </Accordion.Body>
                                     </Accordion.Item>
                                 </Accordion>
@@ -93,7 +105,7 @@ const Statistic = () => {
 
                         </div>
                     </div>
-                    <QuestionStatistic />
+                    <QuestionStatistic sectionList={survey.sectionList}/>
                     <Footer CparentClass="" />
                 </div>
             </section>
