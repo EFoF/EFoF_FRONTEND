@@ -156,6 +156,7 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
       const { sectionId, questionId, optionId } = action.payload;
       const section = state.find((item) => item.id === sectionId);
       const questionIdx = section.questionList.findIndex((item) => item.id === questionId);
+      section.questionList[questionIdx].answers = section.questionList[questionIdx].answers.filter((item) => item !== optionId);
       // 삭제할 옵션을 제외하고 배열을 다시 만들어서 반환.
       section.questionList[questionIdx].options = section.questionList[questionIdx].options.filter((item) => item.id !== optionId);
       return state;

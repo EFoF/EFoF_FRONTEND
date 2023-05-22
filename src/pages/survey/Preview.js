@@ -18,6 +18,7 @@ const Preview = () => {
   const { currentIndex, indexes } = useSelector(state => state.surveyFlow);
   const { questions } = form;
 
+  // console.log(form.form.image);
   const _moveToNext = () => {
       if (currentIndex !== indexes[currentIndex].nextIndex) {
           // 이동할 다음 페이지의 prev를 현재 페이지의 current로 설정
@@ -37,6 +38,9 @@ const Preview = () => {
       // 1. 현재 섹션의 모든 질문을 돌면서 선택한 옵션이 있나 확인
       //    1-1. 여기서 가장 마지막에 선택한 옵션을 기준으로 생각한다.
       // 2. 섹션 자체가 가리키는 다음 섹션 값도 확인한다.
+
+      console.log(questions[currentIndex].nextSectionId);
+
       let lastId;
       console.log(questions[currentIndex]);
       if(typeof(questions[currentIndex]) !== 'undefined' ) {
@@ -55,7 +59,7 @@ const Preview = () => {
                   }
               })
           }
-          if(typeof(lastId) === 'undefined') {
+          if(typeof(lastId) === 'undefined' || lastId === null) {
               if(questions[currentIndex].nextSectionId !== '') {
                   lastId = questions[currentIndex].nextSectionId;
               }

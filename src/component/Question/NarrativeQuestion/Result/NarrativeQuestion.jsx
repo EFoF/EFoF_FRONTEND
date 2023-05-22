@@ -25,7 +25,6 @@ export default function ResultNarrativeQuestion({ type, questionId, sectionId, s
                 <textarea
                     type="text"
                     placeholder={'내 답변'}
-                    // value={selectedQuestion?.narrativeAnswer}
                     value={inputValue}
                     onChange={(e) => {setInputValue(e.target.value)}}
                     onBlur={handleBlur}
