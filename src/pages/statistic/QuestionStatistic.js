@@ -51,7 +51,7 @@ const QuestionStatistic = ({parentClass, colSize, itemShow, columnGap, sectionLi
 					{sectionList && sectionList.map((item, idx) => (
 						<Accordion style={{paddingLeft: '100px', paddingRight: '100px'}}>
 							<Accordion.Item eventKey="2">
-								<Accordion.Header><FaCode />섹션 {idx+1} (section id: {item})</Accordion.Header>
+								<Accordion.Header><FaCode />섹션 {idx+1}</Accordion.Header>
 								<Accordion.Body>
 									<div className="row-45">
 										{portfolioData.slice(12, 16).map((data) => (
