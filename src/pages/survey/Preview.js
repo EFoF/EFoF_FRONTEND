@@ -59,7 +59,8 @@ const Preview = () => {
                   }
               })
           }
-          if(typeof(lastId) === 'undefined' || lastId === null) {
+
+          if(typeof(lastId) === 'undefined' || lastId === null || lastId === '') {
               if(questions[currentIndex].nextSectionId !== '') {
                   lastId = questions[currentIndex].nextSectionId;
               }

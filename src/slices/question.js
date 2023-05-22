@@ -249,10 +249,11 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
     },
 
     deleteOneOptionalAnswer: (state, action) => {
-      const { questionId } = action.payload;
-      const question = state.flatMap((item) => item.questionList).find((question) => question.id === questionId);
-      if (!question) return;
-      question.answers = [];
+      const { sectionId, questionId, optionId } = action.payload;
+      // const question = state.flatMap((item) => item.questionList).find((question) => question.id === questionId);
+      const section = state.find((item) => item.id === sectionId);
+      const questionIdx = section.questionList.findIndex((item) => item.id === questionId);
+      section.questionList[questionIdx].answers = section.questionList[questionIdx].answers.filter((item) => item !== optionId);
     },
 
     markMultipleAnswer: (state, action) => {
