@@ -79,7 +79,6 @@ const Statistic = () => {
                                 <Tilty perspective={2000} reset={false}>
                                     { (survey.sImageURL==="") ? <img src='https://efof.s3.ap-northeast-2.amazonaws.com/default/survey_default' alt="Illustration" /> 
                                                         : <img src={`https://efof.s3.ap-northeast-2.amazonaws.com/survey/${survey.sImageURL}`}  alt="Illustration" />}
-                                    
                                 </Tilty>
                             </div>
                         </div>
@@ -94,15 +93,11 @@ const Statistic = () => {
                                     <Accordion.Item eventKey="1">
                                         <Accordion.Header><FaCompress /> 설문 참여자 수: {survey.participantNum}명</Accordion.Header>
                                     </Accordion.Item>
-                                    <Accordion.Item eventKey="2">
+                                    {/* <Accordion.Item eventKey="2">
                                         <Accordion.Header><FaCode /> 설문 제약 조건</Accordion.Header>
                                         <Accordion.Body>
-                                            {/* 설문 제약 조건 */}
-                                            {/* {survey.sectionList}.map((data, idx){
-                                                console.log(data)  
-                                            }) */}
                                         </Accordion.Body>
-                                    </Accordion.Item>
+                                    </Accordion.Item> */}
                                 </Accordion>
                             </div>
 

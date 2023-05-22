@@ -18,6 +18,7 @@ const QuestionStatistic = ({parentClass, colSize, itemShow, columnGap, sectionLi
 	const [getAllItems] = useState(AllData);
 	const [visiableProject] = useState(itemShow ? itemShow : 6);
 	const [visibleItems, setVisibleItems] = useState([]);
+	const [activeSection, setActiveSection] = useState(null);
 	
 	useEffect(() => {
 		setVisibleItems(getAllItems.filter((item) => item.id <= visiableProject));
@@ -50,19 +51,23 @@ const QuestionStatistic = ({parentClass, colSize, itemShow, columnGap, sectionLi
 					
 					{sectionList && sectionList.map((item, idx) => (
 						<Accordion style={{paddingLeft: '100px', paddingRight: '100px'}}>
-							<Accordion.Item eventKey="2">
-								<Accordion.Header><FaCode />섹션 {idx+1} (section id: {item})</Accordion.Header>
-								<Accordion.Body>
-									<div className="row-45">
-										{portfolioData.slice(12, 16).map((data) => (
-														// <div className="col-md-6" key={data.id}>
-										<div className="col" key={data.id}>
-											<SurveyInfo projectStyle="project-style-2" portfolio={data}/>
-										</div>
-										))}
+								<Accordion.Item eventKey="2">
+									<div onClick={() => setActiveSection(idx)}>
+										<Accordion.Header><FaCode />섹션 {idx+1}</Accordion.Header>
 									</div>
-								</Accordion.Body>   
-							</Accordion.Item>
+									{activeSection === idx && (
+										<Accordion.Body>
+										<div className="row-45">
+											{portfolioData.slice(12, 16).map((data) => (
+															// <div className="col-md-6" key={data.id}>
+											<div className="col" key={data.id}>
+												<SurveyInfo projectStyle="project-style-2" portfolio={data}/>
+											</div>
+											))}
+										</div>
+									</Accordion.Body>  
+									)} 
+								</Accordion.Item>
                     	</Accordion>
 					))}
 
