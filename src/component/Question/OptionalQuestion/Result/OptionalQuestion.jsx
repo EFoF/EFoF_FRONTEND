@@ -12,7 +12,7 @@ import ReactDOM from "react-dom";
 import ConfirmModal from '../../../../ui/ConfirmModal';
 import axios from 'axios';
 import toastMsg from '../../../../ui/Toast';
-export default function ResultOptionalQuestion({ type, optionId, questionId, optionContent, selectedQuestion, optionImage, isLast, sectionId, questions, isMarked}) {
+export default function ResultOptionalQuestion({ type, optionId, questionId, optionContent, selectedQuestion, optionImage, isLast, sectionId, questions, isMarked, multipleChoice}) {
 
     const CheckIcon = styled(FaCheck)`
   font-size: 0.7rem;
