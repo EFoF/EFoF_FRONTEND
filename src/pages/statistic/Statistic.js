@@ -55,8 +55,9 @@ const Statistic = () => {
                 const description = data.description;
                 const participantNum = data.participantNum;
                 const sectionList = data.sectionList;
+                const constraintList = data.constraintList;
 
-                setSurvey({title, description, participantNum, sectionList});
+                setSurvey({title, description, participantNum, sectionList, constraintList});
             })
         }
         
