@@ -4,7 +4,6 @@ import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import ReactPaginate from 'react-paginate';
 
 
-
 const ShowSurvey = ({parentClass, colSize, columnGap, AllData, filters, perPageShow}) => {
 
     const [getAllItems] = useState(AllData);
@@ -58,7 +57,7 @@ const ShowSurvey = ({parentClass, colSize, columnGap, AllData, filters, perPageS
         } else {
             for (let i = 0; i < getAllItems.length; i++) {
                 const element = getAllItems[i];
-                let categories = element['category'];
+                let categories = element['surveyStatus'];
 
                 if (categories.includes(target)) {
                     tempData.push(element)
