@@ -11,7 +11,7 @@ import {ResultQuestionContainer} from "../../containers";
 import leftArrow from '../../assets/icon/leftArrow.png'
 import rightArrow from '../../assets/icon/rightArrow.png'
 import ImgButton from "../../ui/ImgButton";
-import {surveyInfo} from "../../api/survey";
+import {postSurveyResponse} from "../../api/survey";
 
 const Preview = () => {
   const dispatch = useDispatch();
@@ -168,14 +168,15 @@ const Preview = () => {
       console.log(currentPath);
       console.log(id);
       if (currentPath.pathname === `/form/in-progress/${id}`) {
-          ResponseDataBuilder();
-          console.log("실제 설문 제출버튼 눌림");
+          const responseData = ResponseDataBuilder();
+          postSurveyResponse(responseData)
+              .then().catch(error => {console.log(error)});
       }
   }
 
     const ResponseDataBuilder = () => {
         const responseData = {
-            surveyId: 2,
+            surveyId: id,
             participateAnswerDTOList: [],
         };
 
@@ -186,18 +187,14 @@ const Preview = () => {
                     questionType: question.type,
                 };
 
-                // if (question.type === 0 || question.type === 2) {
-                //     participateAnswerDTO.questionChoiceId = question.answers;
-                // } else if (question.type === 1) {
-                //     participateAnswerDTO.answerSentence = question.narrativeAnswer;
-                // }
-                participateAnswerDTO.questionChoiceId = question.answers;
-                participateAnswerDTO.answerSentence = question.narrativeAnswer;
-                participateAnswerDTO.isNecessary = question.isNecessary;
-                responseData.participateAnswerDTOList.push(participateAnswerDTO);
+                if(question.answers.length !== 0 || question.narrativeAnswer !== undefined) {
+                    participateAnswerDTO.questionChoiceId = question.answers;
+                    participateAnswerDTO.answerSentence = question.narrativeAnswer;
+                    participateAnswerDTO.isNecessary = question.isNecessary;
+                    responseData.participateAnswerDTOList.push(participateAnswerDTO);
+                }
             });
         });
-
 
         console.log(responseData);
         return responseData;

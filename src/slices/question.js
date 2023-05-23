@@ -203,7 +203,7 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
     setNextSection: (state, action) => {
       const { section_idx, nextSectionId } = action.payload;
       const section = state.find((item, idx) => idx === section_idx);
-      section.nextSectionId = nextSectionId;
+      section.id === nextSectionId ? section.nextSectionId = -1 : section.nextSectionId = nextSectionId;
     },
     setOptionNextSection: (state, action) => {
       const { sectionId, optionId, questionId, nextSectionId } = action.payload;
