@@ -150,6 +150,17 @@ const Preview = () => {
       return questions.findIndex((element) => element.id === targetId);
   }
 
+  const getResultSection = () => {
+      return (
+          <>
+              <ResultSection section_idx={currentIndex + 1} section_len={questions.length}/>
+              {questions[currentIndex] && questions[currentIndex].questionList.map((question, question_idx) => (
+                  <ResultQuestionContainer key={question.id} questionId={question.id} sectionId={questions[currentIndex].id}/>
+              ))}
+          </>
+    )
+  }
+
   return (
     // <Wrapper style={{ flexDirection: 'column', alignItems: 'center' }}>
     //     <QuestionWrapper>

@@ -105,7 +105,7 @@ export default function Section({ section_idx, section_len }) {
 
   const deleteSectionRedux = (section_idx)  => {
     // 여기서 삭제될 섹션의 nextSection에 대한 처리를 해준다.
-    dispatch(surveyFlowActions.clearDeletedSectionReference({ section_idx }))
+    dispatch(surveyFlowActions.clearDeletedSectionReference({ section_idx, currentSectionIndex : currentIndex }))
     // 여기서는 해당 섹션을 선택했던 옵션들을 다시 초기화해준다.
     dispatch(questionActions.deleteSection({ section_idx }));
   }
