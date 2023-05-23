@@ -46,6 +46,13 @@ const {actions: surveyFlowActions, reducer: surveyFlowReducer } = createSlice({
         addIndexes : (state, action) => {
             state.indexes.push(pushToIndexes());
         },
+        clearDeletedSectionReference: (state, action) => {
+            const { section_idx } = action.payload;
+            // 현재 섹션이 가리키고 있던 다음 섹션의 index이다.
+            const nextSectionIndex = state.indexes[section_idx - 1].nextIndex;
+            // 다음 섹션의 prevIndex는 원래 본인(삭제될 예정인 섹션)인데, 본인은 삭제될 것이니 prevIndex를 0으로 바꿔준다.
+            state.indexes[nextSectionIndex].prevIndex = 0;
+        },
         clearIndexes: (state, action) => {
             const { pageIndex } = action.payload;
             // 삭제할 옵션을 제외하고 배열을 다시 만들어서 반환.

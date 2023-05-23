@@ -83,12 +83,15 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
 
 
     deleteSection: (state, action) => {
+      // 여기서 자신을 참조하는 섹션들을 찾은 뒤, 삭제에 대한 처리를 추가적으로 해줘야 함
       const { section_idx } = action.payload;
       const newState = state;
       // Find the section to be deleted
       const sectionToDelete = newState[section_idx - 1];
 
       // Loop through all sections to update any references to the section being deleted
+      // 삭제될 섹션을 참조하는 모든 옵션에 대해서 참조를 해제해준다.
+      // 옵션 뿐만 아니라 섹션도 이와 같은 처리가 필요함
       newState.forEach((section, idx) => {
         section.questionList.forEach(question => {
           if (question.options) { // question.options가 null인지 확인
