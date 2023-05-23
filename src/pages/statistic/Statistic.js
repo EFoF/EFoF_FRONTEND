@@ -86,7 +86,7 @@ const Statistic = () => {
                             <div className="why-choose-us">
                                 <div className="section-heading heading-left">
                                     <h3 className="title">{survey.title}</h3>
-                                    <p>{survey.description} (id: {id})</p>
+                                    <p>{survey.description}</p>
                                 </div>
 
                                 <Accordion defaultActiveKey="1">
