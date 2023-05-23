@@ -21,6 +21,7 @@ import Statistic from './pages/statistic/Statistic';
 
 // Css Import
 import './assets/scss/app.scss';
+import FormResponse from "./pages/survey/FormResponse";
 
 
 const App = () => {
@@ -34,6 +35,7 @@ const App = () => {
                 <Route path="/signup/inform" exact element={<Step2/>}/>
                 <Route path="/form" exact element={<Form/>}/>
                 <Route path="/form/pre-release/:id" exact element={<Form/>}/>
+                <Route path="/form/in-progress/:id" exact element={<FormResponse/>}/>
                 <Route path="/findpw" exact element={<FindPW/>}/>
                 <Route path="/privacy-policy" exact element={<PrivacyPolicy/>}/>
                 <Route path="/statistic" exact element={<Statistic/>}/>

@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import styled from 'styled-components';
 import { ResultTitleBox } from '../../component';
 import { PreviewContainer } from '../../containers';
@@ -17,8 +17,9 @@ const Preview = () => {
   const form = useSelector((state) => state.form);
   const { currentIndex, indexes } = useSelector(state => state.surveyFlow);
   const { questions } = form;
-
-  // console.log(form.form.image);
+  const location = useLocation();
+  console.log(location);
+  // 설문 참여 url이 아니면 제출버튼을 눌러도 아무 효과가 없어야 한다.
   const _moveToNext = () => {
       if (currentIndex !== indexes[currentIndex].nextIndex) {
           // 이동할 다음 페이지의 prev를 현재 페이지의 current로 설정
