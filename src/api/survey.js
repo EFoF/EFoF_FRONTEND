@@ -11,26 +11,27 @@ axios.defaults.withCredentials = true;
 
 
 const surveyInfo = async (survey_id,navigate) => {
-
-    
-
     try {
       const response = await authorizationClient.get(`${API.SURVEY}/${survey_id}/pre_release`);
-    //   toastMsg("통계 요청 성공", true);
-      // console.log(response.data.exists);
-      // return response.data.exists;
-      
       return response.data;
     } catch (error) {
       console.log(error);
       alert(JSON.stringify(error.response.data.message));
-    //   toastMsg(JSON.stringify(error))
       navigate(-1);
-
-
-      // return false;
     }
   };
+
+const surveyInfoForResponse = async (survey_id, navigate) => {
+    try {
+        const response = await authorizationClient.get(`${API.SURVEY}/${survey_id}/in_progress`);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        alert(JSON.stringify(error.response.data.message));
+        // 뒤로 가기
+        navigate(-1);
+    }
+}
   
   const uploadImgInit = async (formData,uploadImage) => {
   
@@ -371,6 +372,7 @@ const surveyInfo = async (survey_id,navigate) => {
 
   export {
     surveyInfo,
+    surveyInfoForResponse,
     uploadImgInit,
     deleteImgInit,
     updateSurveyTitle,

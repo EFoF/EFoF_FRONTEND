@@ -11,7 +11,7 @@ import Draggable from 'react-draggable';
 import Preview from "./Preview";
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { surveyInfo } from '../../api/survey';
+import { surveyInfoForResponse } from '../../api/survey';
 import { questionActions, formActions, surveyFlowActions } from '../../slices';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -96,19 +96,16 @@ position: absolute;
   right:31.5%;
   top: 36%;
   z-index: 9999;
-  
 `
 export default function FormResponse() {
     const { id } = useParams();
     const currentPath = window.location.pathname;
-    const [isPre,setIsPre] = useState(true);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     // '/form/pre-release/:id' 경로인 경우에만 특정 로직 수행
     useEffect(() => {
-        if (currentPath === `/form/pre-release/${id}`) {
-            surveyInfo(id,navigate)
+        surveyInfoForResponse(id,navigate)
                 .then((data) => {
                     dispatch(formActions.initForm({data}));
                     console.log(data);
@@ -117,11 +114,9 @@ export default function FormResponse() {
                         dispatch(surveyFlowActions.addIndexes());
                     })
                 }).catch(error => {
-
+                    console.log("설문 조회 api 요청 실패");
                 // toastMsg(error.response.data.message,false);
-
             });
-        }
 
     }, [id, currentPath]);
 
