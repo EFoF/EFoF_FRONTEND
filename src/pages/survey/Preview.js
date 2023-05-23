@@ -1,24 +1,26 @@
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import {Link, useLocation, useParams} from 'react-router-dom';
 import styled from 'styled-components';
 import { ResultTitleBox } from '../../component';
 import { PreviewContainer } from '../../containers';
 import { useSelector } from 'react-redux';
-import { questionActions, surveyFlowActions } from '../../slices';
+import {formActions, questionActions, surveyFlowActions} from '../../slices';
 import ResultSection from "../../component/Section/Result/Section";
 import {Draggable} from "react-beautiful-dnd";
 import {ResultQuestionContainer} from "../../containers";
 import leftArrow from '../../assets/icon/leftArrow.png'
 import rightArrow from '../../assets/icon/rightArrow.png'
 import ImgButton from "../../ui/ImgButton";
+import {postSurveyResponse} from "../../api/survey";
 
 const Preview = () => {
   const dispatch = useDispatch();
   const form = useSelector((state) => state.form);
   const { currentIndex, indexes } = useSelector(state => state.surveyFlow);
   const { questions } = form;
-
-  // console.log(form.form.image);
+  const { id } = useParams();
+  const currentPath = useLocation();
+  // 설문 참여 url이 아니면 제출버튼을 눌러도 아무 효과가 없어야 한다.
   const _moveToNext = () => {
       if (currentIndex !== indexes[currentIndex].nextIndex) {
           // 이동할 다음 페이지의 prev를 현재 페이지의 current로 설정
@@ -94,7 +96,7 @@ const Preview = () => {
               <>
                   <Buttons>
                       <Link to={'/result'} style={{ textDecoration: 'none' }}>
-                          <div className="submit-button">제출</div>
+                          <div className="submit-button" onClick={submitHandler}>제출</div>
                       </Link>
                   </Buttons>
                   <ArrowButtonWrapper>
@@ -161,34 +163,44 @@ const Preview = () => {
     )
   }
 
-  return (
-    // <Wrapper style={{ flexDirection: 'column', alignItems: 'center' }}>
-    //     <QuestionWrapper>
-    //   {/*<div className="question">*/}
-    //     <TitleBox info={form.form}/>
-    //     {questions.map((section, section_idx) => (
-    //         // console.dir(section)
-    //         <SectionContainer key={section.id}>
-    //             <Section section_idx={section_idx + 1} section_len={questions.length} readOnly={true}/>
-    //             {section.questionList.map((question, question_idx) => (
-    //                         <div>
-    //                             <QuestionContainer key={question.id} questionId={question.id} sectionId={section.id} readOnly={true} />
-    //                         </div>
-    //                     ))}
-    //         </SectionContainer>
-    //     ))}
-    //   {/*</div>*/}
-    //     </QuestionWrapper>
-    //         <Buttons>
-    //             <Link to={'/result'} style={{ textDecoration: 'none' }}>
-    //                 <div className="submit-button">제출</div>
-    //             </Link>
-    //             <div className="arrow-button" onClick={() => {console.log("하이 데얼")}}>
-    //                 양식 지우기
-    //             </div>
-    //         </Buttons>
-    // </Wrapper>
+  // 이 컴포넌트가 미리보기 화면이 아닌 실제 설문에서 사용됐다면, 상태값을 기반으로 정답 데이터를 백엔드로 보내줌
+  const submitHandler = () => {
+      console.log(currentPath);
+      console.log(id);
+      if (currentPath.pathname === `/form/in-progress/${id}`) {
+          const responseData = ResponseDataBuilder();
+          postSurveyResponse(responseData)
+              .then().catch(error => {console.log(error)});
+      }
+  }
 
+    const ResponseDataBuilder = () => {
+        const responseData = {
+            surveyId: id,
+            participateAnswerDTOList: [],
+        };
+
+        questions.forEach((section) => {
+            section.questionList.forEach((question) => {
+                const participateAnswerDTO = {
+                    questionId: question.id,
+                    questionType: question.type,
+                };
+
+                if(question.answers.length !== 0 || question.narrativeAnswer !== undefined) {
+                    participateAnswerDTO.questionChoiceId = question.answers;
+                    participateAnswerDTO.answerSentence = question.narrativeAnswer;
+                    participateAnswerDTO.isNecessary = question.isNecessary;
+                    responseData.participateAnswerDTOList.push(participateAnswerDTO);
+                }
+            });
+        });
+
+        console.log(responseData);
+        return responseData;
+    }
+
+  return (
     <Wrapper style={{ flexDirection: 'column', alignItems: 'center' }}>
         <QuestionWrapper>
             <ResultTitleBox info={form.form}/>

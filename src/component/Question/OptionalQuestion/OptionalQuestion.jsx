@@ -18,7 +18,6 @@ import { createQuestionOption,updateQuestionOptionText,deleteImgInit,updateQuest
 
 export default function OptionalQuestion({ type, optionId, questionId, optionContent, optionImage, isLast, sectionId, questions, questionOption,optionNextSectionId, multipleChoice}) {
 
-
   const customStyles = {
     container: (provided, state) => ({
       ...provided,

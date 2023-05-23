@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { QUESTION_TYPES } from '../component/constants/const';
 import shortid from 'shortid';
-
 const initQuestionId = shortid()
 const initialState =
   [
@@ -204,7 +203,7 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
     setNextSection: (state, action) => {
       const { section_idx, nextSectionId } = action.payload;
       const section = state.find((item, idx) => idx === section_idx);
-      section.nextSectionId = nextSectionId;
+      section.id === nextSectionId ? section.nextSectionId = -1 : section.nextSectionId = nextSectionId;
     },
     setOptionNextSection: (state, action) => {
       const { sectionId, optionId, questionId, nextSectionId } = action.payload;
@@ -260,16 +259,25 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
     },
 
     markMultipleAnswer: (state, action) => {
-      const { id, optionId, isAnswer } = action.payload;
-      const question = state.find((item) => item.id === id);
+      // const { sectionId, optionId, isAnswer } = action.payload;
+      // const question = state.find((item) => item.id === sectionId);
+      // if (!question) return;
+      // const answerIdx = question.answers.findIndex((item) => item === optionId);
+      //
+      // if (!isAnswer) {
+      //   question.answers.push(optionId);
+      // } else {
+      //   if (answerIdx === 0) question.answers.shift();
+      //   else question.answers.splice(answerIdx, 1);
+      // }
+      // 여기 로직은 내가 다시 짜야할듯
+      const { questionId, optionId, isAnswer } = action.payload;
+      // const question = state.find((item) => item.id === questionId);
+      const question = state.flatMap((item) => item.questionList).find((question) => question.id === questionId);
       if (!question) return;
-      const answerIdx = question.answers.findIndex((item) => item === optionId);
-
+      // 단일 선택과는 다르게 조건문을 체크하지 않고 그냥 answer 배열에 바로 추가한다.
       if (!isAnswer) {
         question.answers.push(optionId);
-      } else {
-        if (answerIdx === 0) question.answers.shift();
-        else question.answers.splice(answerIdx, 1);
       }
     },
 

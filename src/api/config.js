@@ -16,6 +16,8 @@ const EMAIL_EXIST_CHECK = "check-email";
 const UPDATE = "update";
 const PASSWORD = "/password";
 const VISITOR = "/visitor";
+const ANSWER = "/answer";
+const PARTICIPATE = "/participate";
 const STATISTIC = "/statistics";
 
 
@@ -32,7 +34,7 @@ const API = {
   MEMBER: `${MEMBER}`,  
   REISSUE: `${AUTH}${REISSUE}`,
   SURVEY: `${SURVEY}`,
-
+  RESPONSE: `${ANSWER}${PARTICIPATE}`,
   EMAIL_EXIST: `${AUTH}${EMAIL_EXIST_CHECK}`,
   PASSWORD_UPDATE_VISITOR: `${AUTH}${UPDATE}${PASSWORD}${VISITOR}`,
   PASSWORD_UPDATE: `${AUTH}${UPDATE}${PASSWORD}`,

@@ -61,11 +61,14 @@ export default function ResultOptionalQuestion({ type, optionId, questionId, opt
         if(isMarked) {
             dispatch(questionActions.deleteOneOptionalAnswer({sectionId : sectionId, questionId : questionId, optionId : optionId}))
             getSectionIndexBySectionId();
-            // dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : }))
         } else {
-            dispatch(questionActions.markOneAnswer({questionId, optionId, isAnswer}))
-            // 선택한 옵션이 가지고 있는 nextSectionId를 가지고 와서 next로 지정해줘야 함.
-            getSectionIndexByOptionId();
+            if(multipleChoice) {
+                dispatch(questionActions.markMultipleAnswer({questionId, optionId, isAnswer }))
+            } else {
+                dispatch(questionActions.markOneAnswer({questionId, optionId, isAnswer}))
+                // 선택한 옵션이 가지고 있는 nextSectionId를 가지고 와서 next로 지정해줘야 함.
+                getSectionIndexByOptionId();
+            }
         }
     };
 
@@ -91,7 +94,6 @@ export default function ResultOptionalQuestion({ type, optionId, questionId, opt
     return (
         <Wrapper isLast={isLast}>
             <InputButtonWrapper>
-                {/*<Input value={optionContent} type={type} isLast={isLast} onChange={handleContentChange} onClick={handleAddOption} ref={inputRef} />*/}
                 <ResultOptionButton onClick={answerHandler} isActive={isMarked} activeColor={form.btColor}>{optionContent}</ResultOptionButton>
             </InputButtonWrapper>
             <OptionsWrapper isLast={isLast} gap={"0.5rem"}>
