@@ -9,22 +9,49 @@ const SurveyProp = ({projectStyle, survey}) => {
         height: '230px',
     };
 
+    const getDDays = () => {
+        const { surveyStatus, expire_date } = survey;
+        const expireDate = new Date(expire_date);
+        const currentDate = new Date();
+
+        console.log(expireDate);
+        console.log(currentDate);
+        console.log((expireDate - currentDate) / (1000 * 3600 * 24));
+
+        // 만료 날짜의 시간과 분을 0으로 설정하여 날짜만 비교
+        expireDate.setHours(0, 0, 0, 0);
+        currentDate.setHours(0, 0, 0, 0);
+
+        const oneDay = 24 * 60 * 60 * 1000; // 1일을 밀리초로 표현
+
+        const daysDiff = Math.ceil((currentDate - expireDate) / oneDay);
+
+        let dDay = "D-??";
+        if (daysDiff === 0) {
+            dDay = "D-Day";
+        } else if (surveyStatus === "설문 진행 중") {
+            dDay = `D${daysDiff}`;
+        } else if (surveyStatus === "설문 마감") {
+            dDay = `D+${daysDiff}`;
+        }
+
+        return dDay;
+    };
+
     return (
         <>
             <div className={`project-grid ${projectStyle}`}>
                 <div className="thumbnail">
                     <Link to={process.env.PUBLIC_URL + `/form-details/${slugify(survey.title)}`}>
-                        <img src={process.env.PUBLIC_URL + survey.image} alt="icon" style={imageStyle}/>
+                        <img src={process.env.PUBLIC_URL + survey.s_imageurl} alt="icon" style={imageStyle}/>
                     </Link>
                 </div>
                 <div className="content">
                     <div className="tag" style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
                         <span className="subtitle" style={{marginRight: 'auto'}}>
-                            {survey.category.map((cat, i) => (
-                                <span key={i}>{cat}</span>
-                            ))}
+                            <span>{survey.surveyStatus}</span>
                         </span>
-                        <span style={{marginLeft: 'auto'}}>D-30</span>
+                        <span style={{marginLeft: 'auto'}}>{getDDays()}</span>
                     </div>
                     <h4 className="title" style={{
                         display: 'block',
