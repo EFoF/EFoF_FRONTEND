@@ -26,7 +26,6 @@ export default function ResultOptionalQuestion({ type, optionId, questionId, opt
     const { form } = useSelector((state) => state.form);
     const { currentIndex } = useSelector((state) => state.surveyFlow)
     const inputRef = useRef(null);
-    let imageInputRef;
     const dispatch = useDispatch();
 
 
@@ -75,10 +74,15 @@ export default function ResultOptionalQuestion({ type, optionId, questionId, opt
     const getSectionIndexByOptionId = () => {
         // 현재 옵션 오브젝트를 가져온 뒤 nextSectionId를 알아내고, 이를 다시 인덱스로 변환해서 state에 지정할 수 있도록 반환한다.
         const selectedOption = selectedQuestion.options.find((element) => element.id === optionId)
-        const sectionIndex = questions.findIndex((item) => item.id === selectedOption.nextSectionId);
+        let sectionIndex = questions.findIndex((item) => item.id === selectedOption.nextSectionId);
         // sectionIndex가 -1이면 섹션 자체가 가리키는 다음 섹션으로 이동한다.
-        console.log(sectionIndex);
-        if(sectionIndex !== -1) {
+
+        console.log(sectionIndex)
+        console.log(currentIndex)
+        if(sectionIndex === currentIndex) {
+            // 옵션에서 설문 제출을 선택한 경우
+            dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : -1}))
+        } else if(sectionIndex !== -1) {
             dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : sectionIndex}))
         }
     }

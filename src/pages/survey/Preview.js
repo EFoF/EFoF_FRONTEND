@@ -66,6 +66,8 @@ const Preview = () => {
               }
           }
       }
+      // option의 다음 section을 지정하지 않으면 -1 반환,
+      // 설문 제출로 선택하면 자기 자신 반환
       return typeof(lastId) === 'undefined' ? -1 : questions.findIndex((item) => item.id === lastId);
   }
 
@@ -74,6 +76,7 @@ const Preview = () => {
       // 여기서 조건문을 한번 더 줘야겠네.
       const nextSectionIndex = indexes[currentIndex].nextIndex;
       const lastidx = _getIndexAgainForComparison();
+      // lastidx가 자기 자신이어도 제출로 이동
       console.log(lastidx);
       console.log(indexes[currentIndex].nextIndex);
       if(lastidx !== nextSectionIndex) {
@@ -92,7 +95,7 @@ const Preview = () => {
       //     dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : nextSectionIndex}));
       // }
       return (
-          indexes[currentIndex].nextIndex === -1 ? (
+          (indexes[currentIndex].nextIndex === -1 || indexes[currentIndex].nextIndex === currentIndex) ? (
               <>
                   <Buttons>
                       <Link to={'/result'} style={{ textDecoration: 'none' }}>
@@ -187,6 +190,7 @@ const Preview = () => {
                     questionType: question.type,
                 };
 
+                // TODO 플로우 고려해서 데이터 빌드해야함
                 if(question.answers.length !== 0 || question.narrativeAnswer !== undefined) {
                     // 둘 중 하나라도 데이터가 있을때
                     if (question.type === 0 || question.type === 2 || question.type === 3) {
@@ -196,7 +200,7 @@ const Preview = () => {
                     }
                     // participateAnswerDTO.questionChoiceId = question.answers;
                     // participateAnswerDTO.answerSentence = question.narrativeAnswer;
-                    // participateAnswerDTO.isNecessary = question.isNecessary;
+                    participateAnswerDTO.isNecessary = question.isNecessary;
                     responseData.participateAnswerDTOList.push(participateAnswerDTO);
                 }
             });
