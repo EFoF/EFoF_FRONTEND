@@ -93,11 +93,6 @@ const Statistic = () => {
                                     <Accordion.Item eventKey="1">
                                         <Accordion.Header><FaCompress /> 설문 참여자 수: {survey.participantNum}명</Accordion.Header>
                                     </Accordion.Item>
-                                    {/* <Accordion.Item eventKey="2">
-                                        <Accordion.Header><FaCode /> 설문 제약 조건</Accordion.Header>
-                                        <Accordion.Body>
-                                        </Accordion.Body>
-                                    </Accordion.Item> */}
                                 </Accordion>
                             </div>
 
