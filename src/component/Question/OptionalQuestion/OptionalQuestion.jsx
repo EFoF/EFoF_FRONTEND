@@ -245,21 +245,6 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
                   accept="image/*"
                   onChange={handleFileUpload}
               />
-        {/*<OptionButton size={"1rem"} isLast={isLast} onClick={() =>*/}
-        {/*  getImage() ? handleDeleteImage() : imageInputRef.click()}>*/}
-        {/*  <MdPhoto />*/}
-        {/*  {*/}
-        {/*    getImage() ? <CheckIcon /> : <AddIcon />}*/}
-        {/*</OptionButton>*/}
-        {/*<ImgInput*/}
-        {/*  onClick={(e) => e.target.value = null}*/}
-        {/*  ref={refParam => imageInputRef = refParam}*/}
-        {/*  type="file"*/}
-        {/*  id="chooseFile"*/}
-        {/*  name="chooseFile"*/}
-        {/*  accept="image/*"*/}
-        {/*  onChange={handleFileUpload}*/}
-        {/*/>*/}
 
       </InputButtonWrapper>
       <OptionsWrapper isLast={isLast} gap={"0.5rem"}>

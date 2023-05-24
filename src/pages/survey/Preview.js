@@ -12,6 +12,7 @@ import leftArrow from '../../assets/icon/leftArrow.png'
 import rightArrow from '../../assets/icon/rightArrow.png'
 import ImgButton from "../../ui/ImgButton";
 import {postSurveyResponse} from "../../api/survey";
+import toastMsg from "../../ui/Toast";
 
 const Preview = () => {
   const dispatch = useDispatch();
@@ -66,6 +67,8 @@ const Preview = () => {
               }
           }
       }
+      // option의 다음 section을 지정하지 않으면 -1 반환,
+      // 설문 제출로 선택하면 자기 자신 반환
       return typeof(lastId) === 'undefined' ? -1 : questions.findIndex((item) => item.id === lastId);
   }
 
@@ -74,6 +77,7 @@ const Preview = () => {
       // 여기서 조건문을 한번 더 줘야겠네.
       const nextSectionIndex = indexes[currentIndex].nextIndex;
       const lastidx = _getIndexAgainForComparison();
+      // lastidx가 자기 자신이어도 제출로 이동
       console.log(lastidx);
       console.log(indexes[currentIndex].nextIndex);
       if(lastidx !== nextSectionIndex) {
@@ -92,12 +96,12 @@ const Preview = () => {
       //     dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : nextSectionIndex}));
       // }
       return (
-          indexes[currentIndex].nextIndex === -1 ? (
+          (indexes[currentIndex].nextIndex === -1 || indexes[currentIndex].nextIndex === currentIndex) ? (
               <>
                   <Buttons>
-                      <Link to={'/result'} style={{ textDecoration: 'none' }}>
+                      {/*<Link to={'/result'} style={{ textDecoration: 'none' }}>*/}
                           <div className="submit-button" onClick={submitHandler}>제출</div>
-                      </Link>
+                      {/*</Link>*/}
                   </Buttons>
                   <ArrowButtonWrapper>
                       {indexes[currentIndex].prevIndex === -1 ? (
@@ -165,12 +169,19 @@ const Preview = () => {
 
   // 이 컴포넌트가 미리보기 화면이 아닌 실제 설문에서 사용됐다면, 상태값을 기반으로 정답 데이터를 백엔드로 보내줌
   const submitHandler = () => {
-      console.log(currentPath);
-      console.log(id);
       if (currentPath.pathname === `/form/in-progress/${id}`) {
           const responseData = ResponseDataBuilder();
-          postSurveyResponse(responseData)
-              .then().catch(error => {console.log(error)});
+          console.log(responseData);
+          if(responseData === null || responseData.participateAnswerDTOList.length === 0) {
+              if(responseData === null) {
+                  toastMsg("필수 질문에 응답하지 않았습니다.", false);
+              } else {
+                  toastMsg("응답을 기록해주세요", false);
+              }
+          } else {
+              postSurveyResponse(responseData)
+                  .then().catch(error => {console.log(error)});
+          }
       }
   }
 
@@ -180,29 +191,99 @@ const Preview = () => {
             participateAnswerDTOList: [],
         };
 
-        questions.forEach((section) => {
-            section.questionList.forEach((question) => {
-                const participateAnswerDTO = {
-                    questionId: question.id,
-                    questionType: question.type,
-                };
+        // questions.forEach((section) => {
+        //     section.questionList.forEach((question) => {
+        //         const participateAnswerDTO = {
+        //             questionId: question.id,
+        //             questionType: question.type,
+        //         };
+        //         // TODO 플로우 고려해서 데이터 빌드해야함
+        //         if(question.answers.length !== 0 || question.narrativeAnswer !== undefined) {
+        //             // 둘 중 하나라도 데이터가 있을때
+        //             if (question.type === 0 || question.type === 2 || question.type === 3) {
+        //                 participateAnswerDTO.questionChoiceId = question.answers;
+        //             } else if (question.type === 1) {
+        //                 participateAnswerDTO.answerSentence = question.narrativeAnswer;
+        //             }
+        //             // participateAnswerDTO.questionChoiceId = question.answers;
+        //             // participateAnswerDTO.answerSentence = question.narrativeAnswer;
+        //             participateAnswerDTO.isNecessary = question.isNecessary;
+        //             responseData.participateAnswerDTOList.push(participateAnswerDTO);
+        //         }
+        //     });
+        // });
+        /////////////////////////////
+        let next = -2;
+        let current = 0;
+        // while(next !== -1) {
+        //     questions[current].questionList.forEach((questionEach) => {
+        //         // 정답이 있는지 없는지 확인
+        //         console.log(questionEach.answers);
+        //         console.log(questionEach.narrativeAnswer);
+        //         if(questionEach.answers.length !== 0 || questionEach.narrativeAnswer !== undefined) {
+        //             // 정답이 있으면 기존 방식처럼 배열에 추가해줌
+        //             const participateAnswerDTO = {
+        //                 questionId: questionEach.id,
+        //                 questionType: questionEach.type,
+        //             };
+        //             if(questionEach.type === 0 || questionEach.type === 2 || questionEach.type === 3) {
+        //                 participateAnswerDTO.questionChoiceId = questionEach.answers;
+        //             } else if(questionEach.type === 1) {
+        //                 participateAnswerDTO.answerSentence = questionEach.narrativeAnswer;
+        //             }
+        //             participateAnswerDTO.isNecessary = questionEach.isNecessary;
+        //             responseData.participateAnswerDTOList.push(participateAnswerDTO);
+        //         } else {
+        //             // 필수 질문에 정답이 없으면 토스트 메시지 실행 후 제출 취소
+        //             if(questionEach.isNecessary) {
+        //                 // 필수 질문인데 정답이 없는 경우이므로 토스트 메시지 실행 후 제출 취소
+        //                 return null;
+        //             }
+        //         }
+        //     })
+        //     next = indexes[current].nextIndex;
+        //     current = next;
+        // }
+        // console.log(responseData);
+        // return responseData;
 
-                if(question.answers.length !== 0 || question.narrativeAnswer !== undefined) {
-                    // 둘 중 하나라도 데이터가 있을때
-                    if (question.type === 0 || question.type === 2 || question.type === 3) {
-                        participateAnswerDTO.questionChoiceId = question.answers;
-                    } else if (question.type === 1) {
-                        participateAnswerDTO.answerSentence = question.narrativeAnswer;
+
+        while (next !== -1) {
+            const questionList = questions[current].questionList;
+
+            for (let i = 0; i < questionList.length; i++) {
+                const questionEach = questionList[i];
+
+                // 정답이 있는지 없는지 확인
+                console.log(questionEach.answers);
+                console.log(questionEach.narrativeAnswer);
+
+                if (questionEach.answers.length !== 0 || questionEach.narrativeAnswer !== undefined) {
+                    // 정답이 있으면 기존 방식처럼 배열에 추가해줌
+                    const participateAnswerDTO = {
+                        questionId: questionEach.id,
+                        questionType: questionEach.type,
+                    };
+
+                    if (questionEach.type === 0 || questionEach.type === 2 || questionEach.type === 3) {
+                        participateAnswerDTO.questionChoiceId = questionEach.answers;
+                    } else if (questionEach.type === 1) {
+                        participateAnswerDTO.answerSentence = questionEach.narrativeAnswer;
                     }
-                    // participateAnswerDTO.questionChoiceId = question.answers;
-                    // participateAnswerDTO.answerSentence = question.narrativeAnswer;
-                    // participateAnswerDTO.isNecessary = question.isNecessary;
-                    responseData.participateAnswerDTOList.push(participateAnswerDTO);
-                }
-            });
-        });
 
-        console.log(responseData);
+                    participateAnswerDTO.isNecessary = questionEach.isNecessary;
+                    responseData.participateAnswerDTOList.push(participateAnswerDTO);
+                } else {
+                    // 필수 질문에 정답이 없으면 토스트 메시지 실행 후 제출 취소
+                    if (questionEach.isNecessary) {
+                        // 필수 질문인데 정답이 없는 경우이므로 토스트 메시지 실행 후 제출 취소
+                        return null;
+                    }
+                }
+            }
+            next = indexes[current].nextIndex;
+            current = next;
+        }
         return responseData;
     }
 
