@@ -1,11 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { slugify } from '../../utils';
-import StatisticPie from './StatisticPie'; 
-import StatisticOX from './StatisticOX';
+import StatisticPie from './StatisticPie';
 import StatisticBar from './StatisticBar';
-import StatisticPie2 from './StatisticPie2';
-import StatisticPie3 from './StatisticPie3';
 
 
   
@@ -32,7 +29,7 @@ const dummy = [
 ]
 
 
-const SurveyInfo = ({projectStyle, portfolio}) => {
+const StatisticBySection = ({projectStyle, portfolio, sectionId}) => {
 
 	const isShortAnswer = portfolio.category.includes('주관식');
 
@@ -73,4 +70,4 @@ const SurveyInfo = ({projectStyle, portfolio}) => {
     )
 }
 
-export default SurveyInfo;
+export default StatisticBySection;
