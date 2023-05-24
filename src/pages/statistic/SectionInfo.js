@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import SectionTitle from '../../elements/section-title/SectionTitle';
 
-import SurveyInfo from './SurveyInfo';
+import StatisticBySection from './StatisticBySection';
 import ProjectData from "../../data/ProjectData.json";
 import { Link } from 'react-router-dom';
 import StatisticBar from './StatisticBar';
@@ -12,7 +12,7 @@ import { FaCompress, FaCode, FaGlobe } from 'react-icons/fa';
 const portfolioData = ProjectData;
 
 
-const QuestionStatistic = ({sectionList}) => {
+const SectionInfo = ({sectionList}) => {
 
 	const [activeSection, setActiveSection] = useState(null);
 
@@ -38,10 +38,12 @@ const QuestionStatistic = ({sectionList}) => {
 									{activeSection === idx && (
 										<Accordion.Body>
 										<div className="row-45">
+											{/* SurveyInfo에 넘겨야 할 것! -> portfolioData
+											(질문id, question_text, question_type, participant_num_question), sectionId */}
 											{portfolioData.slice(12, 16).map((data) => (
 															// <div className="col-md-6" key={data.id}>
 											<div className="col" key={data.id}>
-												<SurveyInfo projectStyle="project-style-2" portfolio={data}/>
+												<StatisticBySection projectStyle="project-style-2" portfolio={data} sectionId={sectionList}/>
 											</div>
 											))}
 										</div>
@@ -69,4 +71,4 @@ const QuestionStatistic = ({sectionList}) => {
     )
 }
 
-export default QuestionStatistic;
+export default SectionInfo;

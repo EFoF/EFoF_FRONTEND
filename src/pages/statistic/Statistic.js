@@ -5,14 +5,14 @@ import ColorSwitcher from '../../elements/switcher/ColorSwitcher';
 import SEO from '../../ui/common/SEO';
 
 import Tilty from 'react-tilty';
-import QuestionStatistic from './QuestionStatistic';
+import SectionInfo from './SectionInfo';
 import MemberData from '../../data/MemberData.json';
 import SurveyData from '../../data/SurveyData.json';
 import StatisticGraph from './StatisticBar';
 import Footer from '../../ui/common/Footer';
 import Header from '../../ui/common/Header';
 import ProjectData from "../../data/ProjectData.json";
-import SurveyInfo from './SurveyInfo';
+import SurveyInfo from './StatisticBySection';
 
 import { checkStatistic } from '../../api/statistics';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -98,7 +98,7 @@ const Statistic = () => {
 
                         </div>
                     </div>
-                    <QuestionStatistic sectionList={survey.sectionList}/>
+                    <SectionInfo sectionList={survey.sectionList}/>
                     <Footer CparentClass="" />
                 </div>
             </section>
