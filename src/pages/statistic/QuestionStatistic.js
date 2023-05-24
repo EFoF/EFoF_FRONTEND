@@ -10,35 +10,15 @@ import { Accordion } from 'react-bootstrap';
 import { FaCompress, FaCode, FaGlobe } from 'react-icons/fa';
 
 const portfolioData = ProjectData;
-const AllData = ProjectData;
 
 
-const QuestionStatistic = ({parentClass, colSize, itemShow, columnGap, sectionList}) => {
+const QuestionStatistic = ({sectionList}) => {
 
-	const [getAllItems] = useState(AllData);
-	const [visiableProject] = useState(itemShow ? itemShow : 6);
-	const [visibleItems, setVisibleItems] = useState([]);
 	const [activeSection, setActiveSection] = useState(null);
-	
-	useEffect(() => {
-		setVisibleItems(getAllItems.filter((item) => item.id <= visiableProject));
-    }, []);
-
-	// ======================아코디언======================
-	const [isAccordionOpen, setIsAccordionOpen] = useState(false);
-
-	const toggleAccordion = () => {
-		setIsAccordionOpen(!isAccordionOpen);
-	};
-
-	const accordionHeaderStyle = isAccordionOpen
-	? {} // 접힌 상태에서는 패딩이 없는 원래 크기의 스타일
-	: { paddingLeft: '80px', paddingRight: '80px' }; // 펼쳐진 상태에서의 스타일
-	// =================================================
 
     return (
 		<>
-			<div className={`section section-padding-2 ${parentClass ? parentClass : ""}`}>
+			<div className={`section section-padding-2`}>
                 <div className="container">
 					<SectionTitle 
 							subtitle="통계로 설문을 한 눈에!"

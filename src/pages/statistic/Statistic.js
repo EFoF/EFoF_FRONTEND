@@ -86,18 +86,13 @@ const Statistic = () => {
                             <div className="why-choose-us">
                                 <div className="section-heading heading-left">
                                     <h3 className="title">{survey.title}</h3>
-                                    <p>{survey.description} (id: {id})</p>
+                                    <p>{survey.description}</p>
                                 </div>
 
                                 <Accordion defaultActiveKey="1">
                                     <Accordion.Item eventKey="1">
                                         <Accordion.Header><FaCompress /> 설문 참여자 수: {survey.participantNum}명</Accordion.Header>
                                     </Accordion.Item>
-                                    {/* <Accordion.Item eventKey="2">
-                                        <Accordion.Header><FaCode /> 설문 제약 조건</Accordion.Header>
-                                        <Accordion.Body>
-                                        </Accordion.Body>
-                                    </Accordion.Item> */}
                                 </Accordion>
                             </div>
 
