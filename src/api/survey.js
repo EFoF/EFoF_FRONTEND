@@ -384,6 +384,20 @@ const postSurveyResponse = async (responseData) => {
     }
   };
 
+  // 민경
+  const fetchSurvey = async (survey_id) => {
+    try {
+      const response = await authorizationClient.get(
+          `${API.SURVEY}/${survey_id}${API.STATISTIC}`);
+    //   const { title, description } = response.data;
+      console.log("response data: ", response.data);
+      // setSurvey({ title, description });
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching survey:', error);
+    } 
+  };
+
   export {
     surveyInfo,
     surveyInfoForResponse,
@@ -412,5 +426,6 @@ const postSurveyResponse = async (responseData) => {
     updateQuestionOptionNextSection,
     deleteQuestionOption,
     createQuestionOptionByBot,
-    addAllQuestionOptionByBot
+    addAllQuestionOptionByBot, 
+    fetchSurvey
 };
