@@ -188,9 +188,15 @@ const Preview = () => {
                 };
 
                 if(question.answers.length !== 0 || question.narrativeAnswer !== undefined) {
-                    participateAnswerDTO.questionChoiceId = question.answers;
-                    participateAnswerDTO.answerSentence = question.narrativeAnswer;
-                    participateAnswerDTO.isNecessary = question.isNecessary;
+                    // 둘 중 하나라도 데이터가 있을때
+                    if (question.type === 0 || question.type === 2 || question.type === 3) {
+                        participateAnswerDTO.questionChoiceId = question.answers;
+                    } else if (question.type === 1) {
+                        participateAnswerDTO.answerSentence = question.narrativeAnswer;
+                    }
+                    // participateAnswerDTO.questionChoiceId = question.answers;
+                    // participateAnswerDTO.answerSentence = question.narrativeAnswer;
+                    // participateAnswerDTO.isNecessary = question.isNecessary;
                     responseData.participateAnswerDTOList.push(participateAnswerDTO);
                 }
             });
