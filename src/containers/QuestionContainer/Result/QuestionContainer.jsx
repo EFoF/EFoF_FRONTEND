@@ -32,9 +32,6 @@ export default function ResultQuestionContainer({ questionId, sectionId ,questio
 
     const { type: questionType, options, questionContent, isNecessary, id } = selectedQuestion;
 
-    console.dir(selectedQuestion);
-
-    // options는 질문의 하위 옵션
 
     const newQuestion = (newId) => {
         return {
@@ -66,7 +63,7 @@ export default function ResultQuestionContainer({ questionId, sectionId ,questio
         return typeof (result) !== 'undefined';
     }
 
-    const getOptionList = (type) => {
+    const getOptionList = (type, isMultiple) => {
         const optionList = options
             ?.map((option) => (
                 <ResultOptionalQuestion
@@ -83,6 +80,7 @@ export default function ResultQuestionContainer({ questionId, sectionId ,questio
                     type={type}
                     isMarked={findOptionIsMarked(option.id)}
                     isLast={false}
+                    multipleChoice={isMultiple}
                 />
             ));
         return optionList;
@@ -125,9 +123,9 @@ export default function ResultQuestionContainer({ questionId, sectionId ,questio
             case QUESTION_TYPES.TRUE_FALSE:
                 return getOptionListWithoutConcat(questionType);
             case QUESTION_TYPES.MULTIPLE_CHOICE:
-                // TODO 다중 선택에 대한 처리도 추가되어야 함.
+                return getOptionList(questionType, true);
             case QUESTION_TYPES.ONE_CHOICE:
-                return getOptionList(questionType);
+                return getOptionList(questionType, false);
             case QUESTION_TYPES.LONG_ANSWER:
                 return getNarrativeComponent(questionType);
             default:

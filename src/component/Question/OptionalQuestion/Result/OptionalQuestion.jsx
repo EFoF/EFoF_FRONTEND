@@ -59,13 +59,16 @@ export default function ResultOptionalQuestion({ type, optionId, questionId, opt
     const answerHandler = () => {
         const isAnswer = false;
         if(isMarked) {
-            dispatch(questionActions.deleteOneOptionalAnswer({questionId}))
+            dispatch(questionActions.deleteOneOptionalAnswer({sectionId : sectionId, questionId : questionId, optionId : optionId}))
             getSectionIndexBySectionId();
-            // dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : }))
         } else {
-            dispatch(questionActions.markOneAnswer({questionId, optionId, isAnswer}))
-            // 선택한 옵션이 가지고 있는 nextSectionId를 가지고 와서 next로 지정해줘야 함.
-            getSectionIndexByOptionId();
+            if(multipleChoice) {
+                dispatch(questionActions.markMultipleAnswer({questionId, optionId, isAnswer }))
+            } else {
+                dispatch(questionActions.markOneAnswer({questionId, optionId, isAnswer}))
+                // 선택한 옵션이 가지고 있는 nextSectionId를 가지고 와서 next로 지정해줘야 함.
+                getSectionIndexByOptionId();
+            }
         }
     };
 
@@ -73,20 +76,24 @@ export default function ResultOptionalQuestion({ type, optionId, questionId, opt
         // 현재 옵션 오브젝트를 가져온 뒤 nextSectionId를 알아내고, 이를 다시 인덱스로 변환해서 state에 지정할 수 있도록 반환한다.
         const selectedOption = selectedQuestion.options.find((element) => element.id === optionId)
         const sectionIndex = questions.findIndex((item) => item.id === selectedOption.nextSectionId);
-        // sectionIndex가 -1이어도 괜찮다. -1이어도 제출 버튼을 렌더링하기 때문.
-        dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : sectionIndex}))
+        // sectionIndex가 -1이면 섹션 자체가 가리키는 다음 섹션으로 이동한다.
+        console.log(sectionIndex);
+        if(sectionIndex !== -1) {
+            dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : sectionIndex}))
+        }
     }
 
     const getSectionIndexBySectionId = () => {
         const section = questions.find((item) => item.id === sectionId)
         const sectionIndex = questions.findIndex((item) => item.id === section.nextSectionId);
-        dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : sectionIndex}))
+        if(sectionIndex !== -1) {
+            dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : sectionIndex}))
+        }
     }
 
     return (
         <Wrapper isLast={isLast}>
             <InputButtonWrapper>
-                {/*<Input value={optionContent} type={type} isLast={isLast} onChange={handleContentChange} onClick={handleAddOption} ref={inputRef} />*/}
                 <ResultOptionButton onClick={answerHandler} isActive={isMarked} activeColor={form.btColor}>{optionContent}</ResultOptionButton>
             </InputButtonWrapper>
             <OptionsWrapper isLast={isLast} gap={"0.5rem"}>

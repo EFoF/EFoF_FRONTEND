@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { QUESTION_TYPES } from '../component/constants/const';
 import shortid from 'shortid';
-
 const initQuestionId = shortid()
 const initialState =
   [
@@ -83,12 +82,15 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
 
 
     deleteSection: (state, action) => {
+      // 여기서 자신을 참조하는 섹션들을 찾은 뒤, 삭제에 대한 처리를 추가적으로 해줘야 함
       const { section_idx } = action.payload;
       const newState = state;
       // Find the section to be deleted
       const sectionToDelete = newState[section_idx - 1];
 
       // Loop through all sections to update any references to the section being deleted
+      // 삭제될 섹션을 참조하는 모든 옵션에 대해서 참조를 해제해준다.
+      // 옵션 뿐만 아니라 섹션도 이와 같은 처리가 필요함
       newState.forEach((section, idx) => {
         section.questionList.forEach(question => {
           if (question.options) { // question.options가 null인지 확인
@@ -201,7 +203,7 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
     setNextSection: (state, action) => {
       const { section_idx, nextSectionId } = action.payload;
       const section = state.find((item, idx) => idx === section_idx);
-      section.nextSectionId = nextSectionId;
+      section.id === nextSectionId ? section.nextSectionId = -1 : section.nextSectionId = nextSectionId;
     },
     setOptionNextSection: (state, action) => {
       const { sectionId, optionId, questionId, nextSectionId } = action.payload;
@@ -249,23 +251,33 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
     },
 
     deleteOneOptionalAnswer: (state, action) => {
-      const { questionId } = action.payload;
-      const question = state.flatMap((item) => item.questionList).find((question) => question.id === questionId);
-      if (!question) return;
-      question.answers = [];
+      const { sectionId, questionId, optionId } = action.payload;
+      // const question = state.flatMap((item) => item.questionList).find((question) => question.id === questionId);
+      const section = state.find((item) => item.id === sectionId);
+      const questionIdx = section.questionList.findIndex((item) => item.id === questionId);
+      section.questionList[questionIdx].answers = section.questionList[questionIdx].answers.filter((item) => item !== optionId);
     },
 
     markMultipleAnswer: (state, action) => {
-      const { id, optionId, isAnswer } = action.payload;
-      const question = state.find((item) => item.id === id);
+      // const { sectionId, optionId, isAnswer } = action.payload;
+      // const question = state.find((item) => item.id === sectionId);
+      // if (!question) return;
+      // const answerIdx = question.answers.findIndex((item) => item === optionId);
+      //
+      // if (!isAnswer) {
+      //   question.answers.push(optionId);
+      // } else {
+      //   if (answerIdx === 0) question.answers.shift();
+      //   else question.answers.splice(answerIdx, 1);
+      // }
+      // 여기 로직은 내가 다시 짜야할듯
+      const { questionId, optionId, isAnswer } = action.payload;
+      // const question = state.find((item) => item.id === questionId);
+      const question = state.flatMap((item) => item.questionList).find((question) => question.id === questionId);
       if (!question) return;
-      const answerIdx = question.answers.findIndex((item) => item === optionId);
-
+      // 단일 선택과는 다르게 조건문을 체크하지 않고 그냥 answer 배열에 바로 추가한다.
       if (!isAnswer) {
         question.answers.push(optionId);
-      } else {
-        if (answerIdx === 0) question.answers.shift();
-        else question.answers.splice(answerIdx, 1);
       }
     },
 

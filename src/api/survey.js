@@ -11,26 +11,41 @@ axios.defaults.withCredentials = true;
 
 
 const surveyInfo = async (survey_id,navigate) => {
-
-    
-
     try {
       const response = await authorizationClient.get(`${API.SURVEY}/${survey_id}/pre_release`);
-    //   toastMsg("통계 요청 성공", true);
-      // console.log(response.data.exists);
-      // return response.data.exists;
-      
       return response.data;
     } catch (error) {
       console.log(error);
       alert(JSON.stringify(error.response.data.message));
-    //   toastMsg(JSON.stringify(error))
       navigate(-1);
-
-
-      // return false;
     }
   };
+
+const surveyInfoForResponse = async (survey_id, navigate) => {
+    try {
+        const response = await authorizationClient.get(`${API.SURVEY}/${survey_id}/in_progress`);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        alert(JSON.stringify(error.response.data.message));
+        // 뒤로 가기
+        navigate(-1);
+    }
+}
+
+const postSurveyResponse = async (responseData) => {
+    try{
+        // authorizationClient를 사용하는 경우와 (로그인 제약조건에 해당) unAuthorizationClient 를 사용해도 되는 경우
+        // 두 가지 경우에 대해서 함수를 따로 작성해야 할 것 같다.
+        // TODO 일단은 로그인한 사용자에 대한 설문 응답 저장 함수만 작성하겠다. (제약조건 구현이 아직 완료되지 않음)
+        const response = await authorizationClient.post(`${API.RESPONSE}`, responseData);
+        console.log("응답 저장 완료" + response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        alert("설문 응답 실패")
+    }
+}
   
   const uploadImgInit = async (formData,uploadImage) => {
   
@@ -385,6 +400,8 @@ const surveyInfo = async (survey_id,navigate) => {
 
   export {
     surveyInfo,
+    surveyInfoForResponse,
+    postSurveyResponse,
     uploadImgInit,
     deleteImgInit,
     updateSurveyTitle,
