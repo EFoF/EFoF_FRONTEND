@@ -14,7 +14,7 @@ import Header from '../../ui/common/Header';
 import ProjectData from "../../data/ProjectData.json";
 import SurveyInfo from './StatisticBySection';
 
-import { checkStatistic } from '../../api/statistics';
+// import { checkStatistic } from '../../api/statistics';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { statActions } from '../../slices/stat';
