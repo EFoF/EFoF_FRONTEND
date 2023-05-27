@@ -125,3 +125,14 @@ export const ImgInput = styled.input`
   /* visibility: hidden; */
   display: none;
 `;
+
+export const Logo = styled.img`
+  ${({ size }) => `
+    width: ${size}rem;
+    height: ${size}rem;
+
+  `}
+  margin-right: 1rem;
+  object-fit: cover;
+  border-radius: 10rem;
+`;

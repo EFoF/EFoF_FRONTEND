@@ -3,7 +3,7 @@ import { theme } from '../../../styles/theme';
 
 
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   background: ${theme.color.white};
   border-radius: 10px;
   margin-top: 0.5rem;
@@ -95,3 +95,5 @@ export const Wrapper = styled.div`
     
   }
 `;
+
+export { Wrapper};
