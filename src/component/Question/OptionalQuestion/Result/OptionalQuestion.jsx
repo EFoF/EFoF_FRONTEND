@@ -27,7 +27,6 @@ export default function ResultOptionalQuestion({ type, hasImageProps, optionId, 
     const { currentIndex } = useSelector((state) => state.surveyFlow)
     const inputRef = useRef(null);
     const dispatch = useDispatch();
-    const image_prefix = process.env.REACT_APP_S3_URL;
 
     const selectedOption = selectedQuestion.options.find((item) => item.id === optionId);
     if(!selectedOption) return null;
@@ -80,8 +79,6 @@ export default function ResultOptionalQuestion({ type, hasImageProps, optionId, 
         let sectionIndex = questions.findIndex((item) => item.id === selectedOption.nextSectionId);
         // sectionIndex가 -1이면 섹션 자체가 가리키는 다음 섹션으로 이동한다.
 
-        console.log(sectionIndex)
-        console.log(currentIndex)
         if(sectionIndex === currentIndex) {
             // 옵션에서 설문 제출을 선택한 경우
             dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : -1}))
@@ -101,7 +98,7 @@ export default function ResultOptionalQuestion({ type, hasImageProps, optionId, 
     return (
         <Wrapper isLast={isLast}>
             {selectedQuestion.hasImage ? (
-                    <Logo src={image_prefix + selectedOption.image} size={10} />
+                    <Logo src={selectedOption.image} size={10} />
             ) : (
                 <InputButtonWrapper>
                     <ResultOptionButton onClick={answerHandler} isActive={isMarked} activeColor={form.btColor}>{optionContent}</ResultOptionButton>
