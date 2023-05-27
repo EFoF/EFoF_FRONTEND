@@ -202,7 +202,7 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
       }).then(response => {
         // alert(JSON.stringify(response.data));
         toastMsg("이미지 변경 성공", true);
-        fileUploadRedux(sectionId,questionId,optionId,response.data)      
+        fileUploadRedux(sectionId,questionId,optionId,response.data)
   
       }).catch(error => {
         toastMsg(error.response, false);
@@ -227,8 +227,6 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
          onBlur={({ target: { value } }) => handleBlurOptionText(value)}
           ref={inputRef} />
 
-              {/*<Input value={optionContent} type={type} isLast={isLast} onChange={handleContentChange} onClick={handleAddOption}*/}
-              {/*       ref={inputRef} />*/}
               <OptionButton size={"1rem"} isLast={isLast} onClick={() =>
               
                   getImage() ? handleDeleteImage() : imageInputRef.click()}>

@@ -12,7 +12,7 @@ import ReactDOM from "react-dom";
 import ConfirmModal from '../../../../ui/ConfirmModal';
 import axios from 'axios';
 import toastMsg from '../../../../ui/Toast';
-export default function ResultOptionalQuestion({ type, optionId, questionId, optionContent, selectedQuestion, optionImage, isLast, sectionId, questions, isMarked, multipleChoice}) {
+export default function ResultOptionalQuestion({ type, hasImageProps, optionId, questionId, optionContent, selectedQuestion, isLast, sectionId, questions, isMarked, multipleChoice}) {
 
     const CheckIcon = styled(FaCheck)`
   font-size: 0.7rem;
@@ -27,7 +27,7 @@ export default function ResultOptionalQuestion({ type, optionId, questionId, opt
     const { currentIndex } = useSelector((state) => state.surveyFlow)
     const inputRef = useRef(null);
     const dispatch = useDispatch();
-    const image_prefix = process.env.S3_URL;
+    const image_prefix = process.env.REACT_APP_S3_URL;
 
     const selectedOption = selectedQuestion.options.find((item) => item.id === optionId);
     if(!selectedOption) return null;
@@ -100,8 +100,8 @@ export default function ResultOptionalQuestion({ type, optionId, questionId, opt
 
     return (
         <Wrapper isLast={isLast}>
-            {selectedOption.image !== undefined ? (
-                    <Logo src={image_prefix + selectedOption.image} size={3} />
+            {selectedQuestion.hasImage ? (
+                    <Logo src={image_prefix + selectedOption.image} size={10} />
             ) : (
                 <InputButtonWrapper>
                     <ResultOptionButton onClick={answerHandler} isActive={isMarked} activeColor={form.btColor}>{optionContent}</ResultOptionButton>

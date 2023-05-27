@@ -75,7 +75,7 @@ const postSurveyResponse = async (responseData) => {
     
     } catch (error) {
       console.log(error);
-
+      console.log("이미지 삭제 실패");
       toastMsg(error.response.data.message, false);
     }
   };

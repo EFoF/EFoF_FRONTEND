@@ -69,10 +69,10 @@ export default function ResultQuestionContainer({ questionId, sectionId ,questio
                 <ResultOptionalQuestion
                     key={option.id}
                     sectionId={sectionId}
+                    hasImageProps={selectedQuestion.hasImage}
                     questionId={questionId}
                     optionId={option.id}
                     optionContent={option.option}
-                    optionImage={option.image}
                     selectedQuestion={selectedQuestion}
                     optionNextSectionId={option.nextSectionId}
                     questionOption={questionOption}
@@ -93,9 +93,9 @@ export default function ResultQuestionContainer({ questionId, sectionId ,questio
                     key={option.id}
                     questionId={questionId}
                     sectionId={sectionId}
+                    hasImageProps={selectedQuestion.hasImage}
                     optionId={option.id}
                     optionContent={option.option}
-                    optionImage={option.image}
                     selectedQuestion={selectedQuestion}
                     questions={questions}
                     questionOption={questionOption}

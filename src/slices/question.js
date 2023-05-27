@@ -16,6 +16,7 @@ const initialState =
         options: [],
         answers: [],
         narrativeAnswer: '',
+        hasImage: false,
       },]
     }
     ,];
@@ -218,7 +219,17 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
       const section = state.find((item) => item.id === sectionId);
       const questionIdx = section.questionList.findIndex((item) => item.id === questionId);
       const optionIdx = section.questionList[questionIdx].options.findIndex((item) => item.id === optionId);
+      // 이미지를 업로드한 옵션이 하나라도 존재한다면, 해당 질문은  이미지 전용 질문으로 바뀐다.
+      // 여기서 image의 여부에 따라 분기해여함,
+      // action으로 넘어온 image가 비어있다면 (사용자가 이미지를 삭제했다면) 해당 질문의 남아있는 옵션 중에서 사진을 포함하는 옵션이 있는지 탐색한다.
+      // 모든 옵션이 사진을 포함하고 있지 않다면, 다시 hasImage를 false로 바꿔주어야 함.
       section.questionList[questionIdx].options[optionIdx].image = image;
+      if(image === '') {
+        section.questionList[questionIdx].hasImage =
+            section.questionList[questionIdx].options.some(item => item.image !== '');
+      } else {
+        section.questionList[questionIdx].hasImage = true;
+      }
     },
     getOptionImage: (state, action) => {
       const { sectionId, optionId, questionId } = action.payload;
@@ -312,6 +323,10 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
       state[source_section_idx].questionOrder=response.startSectionOrder;
       state[destination_section_idx].questionOrder=response.endSectionOrder;
     },
+    setHasImage:(state, action) => {
+      const { currentIndex, questionIndex, booleanValue } = action.payload;
+      state[currentIndex].questionList[questionIndex].hasImage = booleanValue;
+    }
   },
 });
 
