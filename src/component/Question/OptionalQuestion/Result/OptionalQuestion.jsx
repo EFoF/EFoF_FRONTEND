@@ -1,5 +1,5 @@
 
-import { Wrapper, InputButtonWrapper, OptionsWrapper, customOptionButton, ResultOptionButton, CloseOptionButton, Input, ImgInput } from './style';
+import { Wrapper, InputButtonWrapper, OptionsWrapper, ResultOptionButton, Logo } from './style';
 import {questionActions, formActions, surveyFlowActions} from '../../../../slices';
 import React, { useState } from 'react'
 import { MdAdd, MdClose, MdPhoto } from 'react-icons/md';
@@ -27,7 +27,10 @@ export default function ResultOptionalQuestion({ type, optionId, questionId, opt
     const { currentIndex } = useSelector((state) => state.surveyFlow)
     const inputRef = useRef(null);
     const dispatch = useDispatch();
+    const image_prefix = process.env.S3_URL;
 
+    const selectedOption = selectedQuestion.options.find((item) => item.id === optionId);
+    if(!selectedOption) return null;
 
     const handleAddOption = () => {
         isLast && dispatch(questionActions.addOption({ sectionId: sectionId, questionId: questionId }));
@@ -97,9 +100,13 @@ export default function ResultOptionalQuestion({ type, optionId, questionId, opt
 
     return (
         <Wrapper isLast={isLast}>
-            <InputButtonWrapper>
-                <ResultOptionButton onClick={answerHandler} isActive={isMarked} activeColor={form.btColor}>{optionContent}</ResultOptionButton>
-            </InputButtonWrapper>
+            {selectedOption.image !== undefined ? (
+                    <Logo src={image_prefix + selectedOption.image} size={3} />
+            ) : (
+                <InputButtonWrapper>
+                    <ResultOptionButton onClick={answerHandler} isActive={isMarked} activeColor={form.btColor}>{optionContent}</ResultOptionButton>
+                </InputButtonWrapper>
+            )}
             <OptionsWrapper isLast={isLast} gap={"0.5rem"}>
             </OptionsWrapper>
 
