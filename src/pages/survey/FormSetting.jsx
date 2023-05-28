@@ -140,6 +140,17 @@ export default function FormSetting() {
   const [address, setAddress] = useState('');
   const [isDaumPost, setIsDaumPost] = useState(false);
 
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   const handleAddressSubmit = (event) => {
      event.preventDefault();
      if (!isDaumPost) {
@@ -154,7 +165,7 @@ export default function FormSetting() {
         console.log(zipcode, address);
      }
   }
-  
+
   const handleStartDateChange = (date) => {
     setSelectedStartDate(date);
   };
