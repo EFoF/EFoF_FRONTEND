@@ -1,5 +1,5 @@
 
-import { Wrapper, InputButtonWrapper, OptionsWrapper, ResultOptionButton, Logo } from './style';
+import {Wrapper, InputButtonWrapper, OptionsWrapper, ResultOptionButton, Logo, CheckImage} from './style';
 import {questionActions, formActions, surveyFlowActions} from '../../../../slices';
 import React, { useState } from 'react'
 import { MdAdd, MdClose, MdPhoto } from 'react-icons/md';
@@ -96,10 +96,14 @@ export default function ResultOptionalQuestion({ type, hasImageProps, optionId, 
 
     console.log(CssFilterConverter.hexToFilter(form.btColor).color + " brightness(90%)");
 
+    // filterResult는 이미지의 색상을 변경하는 css 문자열이다. 다시 사용할 수도 있으니 유지하겠음
     return (
         <Wrapper isLast={isLast}>
             {selectedQuestion.hasImage ? (
-                    <Logo src={selectedOption.image} filterResult={CssFilterConverter.hexToFilter(form.btColor).color + " brightness(90%)"} onClick={answerHandler} size={5} isMarked={isMarked} checkedColor={form.btColor} />
+                <div style={{position:'relative'}}>
+                    <Logo src={selectedOption.image} filterResult={CssFilterConverter.hexToFilter(form.btColor).color + "opacity(60%)"} onClick={answerHandler} size={5} isMarked={isMarked} checkedColor={form.btColor} />
+                    {/*<CheckImage src={checkImage} alt="Check Image" size={5} isMarked={true} />*/}
+                </div>
             ) : (
                 <InputButtonWrapper>
                     <ResultOptionButton onClick={answerHandler} isActive={isMarked} activeColor={form.btColor}>{optionContent}</ResultOptionButton>

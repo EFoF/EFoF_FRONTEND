@@ -42,7 +42,7 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
   reducers: {
     initQuestion: (state, action) => {
       const { data } = action.payload;
-      console.log(data.sectionList);
+      // 여기서 사진이 있는지 확인하고 있으면 넣어줘야 함
       return data.sectionList;
 
     },
@@ -270,18 +270,6 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
     },
 
     markMultipleAnswer: (state, action) => {
-      // const { sectionId, optionId, isAnswer } = action.payload;
-      // const question = state.find((item) => item.id === sectionId);
-      // if (!question) return;
-      // const answerIdx = question.answers.findIndex((item) => item === optionId);
-      //
-      // if (!isAnswer) {
-      //   question.answers.push(optionId);
-      // } else {
-      //   if (answerIdx === 0) question.answers.shift();
-      //   else question.answers.splice(answerIdx, 1);
-      // }
-      // 여기 로직은 내가 다시 짜야할듯
       const { questionId, optionId, isAnswer } = action.payload;
       // const question = state.find((item) => item.id === questionId);
       const question = state.flatMap((item) => item.questionList).find((question) => question.id === questionId);

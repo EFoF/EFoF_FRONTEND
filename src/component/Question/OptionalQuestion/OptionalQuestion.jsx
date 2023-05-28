@@ -205,7 +205,7 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
         fileUploadRedux(sectionId,questionId,optionId,response.data)
   
       }).catch(error => {
-        toastMsg(error.response, false);
+        toastMsg(error.response.data.message, false);
   
       });
     }

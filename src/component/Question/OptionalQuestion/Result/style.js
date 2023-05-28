@@ -149,16 +149,25 @@ export const Logo = styled.img`
   cursor: pointer;
   transition: background-color 0.2s, opacity 0.2s;
   
-  
-  
   &:hover {
-      filter: brightness(90%);
+      filter: brightness(80%);
     }
 
   ${({ isMarked, filterResult}) =>
       isMarked ? `
-    filter: ${ filterResult };
+    filter: brightness(90%);
     opacity: 0.8;
   ` : ''}
 `;
 
+// export const CheckImage = styled.img`
+//   position: absolute;
+//   ${({ size }) => `
+//     width: ${size}rem;
+//     height: ${size}rem;
+//   `}
+//   top: 0;
+//   left: 0;
+//   opacity: ${({ isMarked }) => (isMarked ? '0.5' : '0')};
+//   z-index: 2;
+// `;
