@@ -8,10 +8,9 @@ import { FaCheck } from 'react-icons/fa';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRef } from 'react';
-import ReactDOM from "react-dom";
-import ConfirmModal from '../../../../ui/ConfirmModal';
-import axios from 'axios';
-import toastMsg from '../../../../ui/Toast';
+import CssFilterConverter from "css-filter-converter";
+
+
 export default function ResultOptionalQuestion({ type, hasImageProps, optionId, questionId, optionContent, selectedQuestion, isLast, sectionId, questions, isMarked, multipleChoice}) {
 
     const CheckIcon = styled(FaCheck)`
@@ -95,10 +94,12 @@ export default function ResultOptionalQuestion({ type, hasImageProps, optionId, 
         }
     }
 
+    console.log(CssFilterConverter.hexToFilter(form.btColor).color + " brightness(90%)");
+
     return (
         <Wrapper isLast={isLast}>
             {selectedQuestion.hasImage ? (
-                    <Logo src={selectedOption.image} size={10} />
+                    <Logo src={selectedOption.image} filterResult={CssFilterConverter.hexToFilter(form.btColor).color + " brightness(90%)"} onClick={answerHandler} size={5} isMarked={isMarked} checkedColor={form.btColor} />
             ) : (
                 <InputButtonWrapper>
                     <ResultOptionButton onClick={answerHandler} isActive={isMarked} activeColor={form.btColor}>{optionContent}</ResultOptionButton>

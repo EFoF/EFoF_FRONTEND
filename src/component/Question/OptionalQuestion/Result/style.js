@@ -2,9 +2,6 @@
 import styled from 'styled-components';
 
 
-
-
-
 export const Wrapper = styled.div`
   display: flex;
   /* height: 2rem; */
@@ -126,13 +123,42 @@ export const ImgInput = styled.input`
   display: none;
 `;
 
+// export const Logo = styled.img`
+//   ${({ size }) => `
+//     width: ${size}rem;
+//     height: ${size}rem;
+//
+//   `}
+//   margin-right: 1rem;
+//   object-fit: cover;
+//   border-radius: 10rem;
+//   &:hover {
+//     filter: brightness(90%);
+//   }
+// `;
+
+
 export const Logo = styled.img`
   ${({ size }) => `
     width: ${size}rem;
     height: ${size}rem;
-
   `}
   margin-right: 1rem;
   object-fit: cover;
   border-radius: 10rem;
+  cursor: pointer;
+  transition: background-color 0.2s, opacity 0.2s;
+  
+  
+  
+  &:hover {
+      filter: brightness(90%);
+    }
+
+  ${({ isMarked, filterResult}) =>
+      isMarked ? `
+    filter: ${ filterResult };
+    opacity: 0.8;
+  ` : ''}
 `;
+
