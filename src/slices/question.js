@@ -25,7 +25,7 @@ const initialState =
 const getNewOption = (option) => ({
   id: shortid(),
   option: option,
-  image: '',
+  image: process.env.REACT_APP_OPTION_DEFAULT_IMG,
   nextSectionId: '',
 });
 
@@ -42,7 +42,7 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
   reducers: {
     initQuestion: (state, action) => {
       const { data } = action.payload;
-      console.log(data.sectionList);
+      // 여기서 사진이 있는지 확인하고 있으면 넣어줘야 함
       return data.sectionList;
 
     },
@@ -219,14 +219,14 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
       const section = state.find((item) => item.id === sectionId);
       const questionIdx = section.questionList.findIndex((item) => item.id === questionId);
       const optionIdx = section.questionList[questionIdx].options.findIndex((item) => item.id === optionId);
-      // 이미지를 업로드한 옵션이 하나라도 존재한다면, 해당 질문은  이미지 전용 질문으로 바뀐다.
-      // 여기서 image의 여부에 따라 분기해여함,
-      // action으로 넘어온 image가 비어있다면 (사용자가 이미지를 삭제했다면) 해당 질문의 남아있는 옵션 중에서 사진을 포함하는 옵션이 있는지 탐색한다.
-      // 모든 옵션이 사진을 포함하고 있지 않다면, 다시 hasImage를 false로 바꿔주어야 함.
-      section.questionList[questionIdx].options[optionIdx].image = image;
-      if(image === '') {
+
+      const changedImage = image === process.env.REACT_APP_OPTION_DEFAULT_IMG
+          ? process.env.REACT_APP_OPTION_DEFAULT_IMG : process.env.REACT_APP_S3_URL + image;
+
+      section.questionList[questionIdx].options[optionIdx].image = changedImage;
+      if(image === '' || image === process.env.REACT_APP_OPTION_DEFAULT_IMG) {
         section.questionList[questionIdx].hasImage =
-            section.questionList[questionIdx].options.some(item => item.image !== '');
+            section.questionList[questionIdx].options.some(item => item.image !== process.env.REACT_APP_OPTION_DEFAULT_IMG);
       } else {
         section.questionList[questionIdx].hasImage = true;
       }
@@ -270,18 +270,6 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
     },
 
     markMultipleAnswer: (state, action) => {
-      // const { sectionId, optionId, isAnswer } = action.payload;
-      // const question = state.find((item) => item.id === sectionId);
-      // if (!question) return;
-      // const answerIdx = question.answers.findIndex((item) => item === optionId);
-      //
-      // if (!isAnswer) {
-      //   question.answers.push(optionId);
-      // } else {
-      //   if (answerIdx === 0) question.answers.shift();
-      //   else question.answers.splice(answerIdx, 1);
-      // }
-      // 여기 로직은 내가 다시 짜야할듯
       const { questionId, optionId, isAnswer } = action.payload;
       // const question = state.find((item) => item.id === questionId);
       const question = state.flatMap((item) => item.questionList).find((question) => question.id === questionId);

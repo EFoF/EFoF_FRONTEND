@@ -215,38 +215,6 @@ const Preview = () => {
         /////////////////////////////
         let next = -2;
         let current = 0;
-        // while(next !== -1) {
-        //     questions[current].questionList.forEach((questionEach) => {
-        //         // 정답이 있는지 없는지 확인
-        //         console.log(questionEach.answers);
-        //         console.log(questionEach.narrativeAnswer);
-        //         if(questionEach.answers.length !== 0 || questionEach.narrativeAnswer !== undefined) {
-        //             // 정답이 있으면 기존 방식처럼 배열에 추가해줌
-        //             const participateAnswerDTO = {
-        //                 questionId: questionEach.id,
-        //                 questionType: questionEach.type,
-        //             };
-        //             if(questionEach.type === 0 || questionEach.type === 2 || questionEach.type === 3) {
-        //                 participateAnswerDTO.questionChoiceId = questionEach.answers;
-        //             } else if(questionEach.type === 1) {
-        //                 participateAnswerDTO.answerSentence = questionEach.narrativeAnswer;
-        //             }
-        //             participateAnswerDTO.isNecessary = questionEach.isNecessary;
-        //             responseData.participateAnswerDTOList.push(participateAnswerDTO);
-        //         } else {
-        //             // 필수 질문에 정답이 없으면 토스트 메시지 실행 후 제출 취소
-        //             if(questionEach.isNecessary) {
-        //                 // 필수 질문인데 정답이 없는 경우이므로 토스트 메시지 실행 후 제출 취소
-        //                 return null;
-        //             }
-        //         }
-        //     })
-        //     next = indexes[current].nextIndex;
-        //     current = next;
-        // }
-        // console.log(responseData);
-        // return responseData;
-
 
         while (next !== -1) {
             const questionList = questions[current].questionList;

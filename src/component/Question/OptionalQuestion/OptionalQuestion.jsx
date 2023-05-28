@@ -16,7 +16,7 @@ import toastMsg from '../../../ui/Toast';
 import { createQuestionOption,updateQuestionOptionText,deleteImgInit,updateQuestionOptionImg,deleteQuestionOptionImg,updateQuestionOptionNextSection,deleteQuestionOption } from '../../../api/survey';
 
 
-export default function OptionalQuestion({ type, optionId, questionId, optionContent, optionImage, isLast, sectionId, questions, questionOption,optionNextSectionId, multipleChoice}) {
+export default function OptionalQuestion({ type, optionId, questionId, optionContent, optionImage, isLast, sectionId, questions, questionOption,optionNextSectionId }) {
 
   const customStyles = {
     container: (provided, state) => ({
@@ -134,7 +134,7 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
 
   const deleteImageRedux = () =>{
     dispatch(questionActions.setOptionImage(
-      { sectionId: sectionId, questionId: questionId, optionId, image: '' }
+      { sectionId: sectionId, questionId: questionId, optionId, image: process.env.REACT_APP_OPTION_DEFAULT_IMG }
     ));
     }
   const handleDeleteImage = () => {
@@ -166,11 +166,11 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
 
       if (questionIdx !== -1) {
         const question = section.questionList[questionIdx];
-        
+
         if (question.options) {
           const optionIdx = question.options.findIndex((item) => item.id === optionId);
 
-          if (optionIdx !== -1 && question.options[optionIdx].image) {
+          if (optionIdx !== -1 && question.options[optionIdx].image !== process.env.REACT_APP_OPTION_DEFAULT_IMG) {
             return true;
           }
         }
@@ -205,7 +205,7 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
         fileUploadRedux(sectionId,questionId,optionId,response.data)
   
       }).catch(error => {
-        toastMsg(error.response, false);
+        toastMsg(error.response.data.message, false);
   
       });
     }
