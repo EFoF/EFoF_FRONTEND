@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import 'react-chatbot-kit/build/main.css';
 import './Chatbot.css';
@@ -23,7 +23,7 @@ const Wrapper = styled.div`
 const CalenderWrapper = styled.div`
   display: flex;
   align-items: center;
-  width: 25%;
+  width: 30%;
 
   justify-content: space-between;
 `;
@@ -41,12 +41,46 @@ const CalenderText = styled.p`
 const Items = styled.div`
   display: flex;
   align-items: center;
-  width: 25%;
+  width: 30%;
   justify-content: space-between;
 
 `;
+const RangeSelectWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 25%;
+  justify-content: space-between;
+  
+ 
+`;
 
+const RangeSelect = styled.select`
+  width: 100%;
+  height: 2rem;
+  border-radius: 7px;
+  padding: 0.5rem;
+  border: none;
+  background-color: white;
+  background-image: none;
+  box-shadow: none;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  
+  &:focus {
+    border-color: rgba(0, 123, 255, 0.5);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+`;
 
+const Option = styled.option`
+  background-color: #fff;
+  color: #6c757d;
+  
+
+  &:hover {
+    background-color: #e9ecef;
+  }
+`;
 const Toggle = styled.label`
   position: relative;
   display: inline-block;
@@ -100,6 +134,7 @@ const ToggleText = styled.span`
   margin-left: 10px;
 `;
 
+
 const InputText = styled.input`
   width: 100%;
   height: 34px;
@@ -139,7 +174,30 @@ export default function FormSetting() {
   const [zipcode, setZipcode] = useState('');
   const [address, setAddress] = useState('');
   const [isDaumPost, setIsDaumPost] = useState(false);
-
+  const searchButtonRef = useRef(null);
+  // add this line after `const { id } = useParams();`
+  const [selectedNumber, setSelectedNumber] = useState(0);
+  const numbers = Array.from(['1km','2km','3km','4km','5km']);
+  const [showInput, setShowInput] = useState(false);
+  const [limit, setLimit] = useState(0);
+  
+  const handleToggle = () => {
+    setShowInput(!showInput);
+  }
+  
+  const handleLimitChange = (event) => {
+    const value = Number(event.target.value);
+  
+    if (value >= 0) {
+      setLimit(value);
+    } else {
+      toastMsg('인원 수 제한에 음수를 입력할 수 없습니다.');
+    }
+  };
+  
+  const handleChange = (e) => {
+    setSelectedNumber((e.target.value));
+  };
   useEffect(() => {
     const script = document.createElement('script');
     script.src = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
@@ -151,19 +209,19 @@ export default function FormSetting() {
     };
   }, []);
 
-  const handleAddressSubmit = (event) => {
-     event.preventDefault();
-     if (!isDaumPost) {
-        new daum.Postcode({
-           oncomplete: function(data) {
-              setIsDaumPost(true);
-              setZipcode(data.zonecode);
-              setAddress(data.address);
-           }
-        }).open();
-     } else {
-        console.log(zipcode, address);
-     }
+  const handleGPSSubmit = (event) => {
+    event.preventDefault();
+    if (!isDaumPost) {
+      new window.daum.Postcode({
+        oncomplete: function (data) {
+          setIsDaumPost(true);
+          setZipcode(data.zonecode);
+          setAddress(data.address);
+        }
+      }).open();
+    } else {
+      console.log(zipcode, address);
+    }
   }
 
   const handleStartDateChange = (date) => {
@@ -255,35 +313,63 @@ export default function FormSetting() {
         />
       </CalenderWrapper>
 
-        <Items>
-          <CalenderText>통계 보기 허용</CalenderText>
-          <Toggle>
-            <input type='checkbox' />
-            <span></span>
-          </Toggle>
-        </Items>
-        <Items>
-          <CalenderText>GPS</CalenderText>
-          <InputText type='text' />
-        </Items>
-        <Items>
-          <CalenderText>이메일</CalenderText>
-          <Toggle>
-            <input type='checkbox' />
-            <span></span>
-          </Toggle>
-        </Items>
-        <Items>
-          <CalenderText>로그인 여부</CalenderText>
-          <Toggle>
-            <input type='checkbox' />
-            <span></span>
-          </Toggle>
-        </Items>
-        <form onSubmit={handleAddressSubmit}>
-         <input type="text" value={address} readOnly />
-         <button type="submit">검색</button>
-      </form>
+      <Items>
+        <CalenderText>통계 보기 허용</CalenderText>
+        <Toggle>
+          <input type='checkbox' />
+          <span></span>
+        </Toggle>
+      </Items>
+      <Items>
+        <CalenderText>GPS</CalenderText>
+        <form onSubmit={handleGPSSubmit}>
+          <InputText
+            type='text'
+            value={address}
+            onClick={() => searchButtonRef.current.click()}
+            onChange={({ target: { value } }) => setAddress(value)}
+            readOnly
+          />
+          <button type='submit' ref={searchButtonRef} style={{ display: 'none' }} />
+
+
+        </form>
+          <CalenderText>범위 </CalenderText>
+        <RangeSelectWrapper>
+          <RangeSelect value={selectedNumber} onChange={handleChange}>
+            {numbers.map((number, index) => (
+              <Option key={index} value={number}>
+                {number}
+              </Option>
+            ))}
+          </RangeSelect>
+        </RangeSelectWrapper>
+      </Items>
+      <Items>
+        <CalenderText>이메일</CalenderText>
+        <Toggle>
+          <input type='checkbox' />
+          <span></span>
+        </Toggle>
+      </Items>
+      <Items>
+        <CalenderText>로그인 여부</CalenderText>
+        <Toggle>
+          <input type='checkbox' />
+          <span></span>
+        </Toggle>
+      </Items>
+      <Items>
+        <CalenderText>인원 수 제한</CalenderText>
+      <Toggle>
+      <input type="checkbox" id="toggle" onChange={handleToggle} /><span></span>
+      </Toggle>
+      {showInput && (
+        <div>
+          <input type="number" id="limit" value={limit} onChange={handleLimitChange} />
+        </div>
+      )}
+    </Items>
     </Wrapper>
   );
 }
