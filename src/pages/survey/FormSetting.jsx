@@ -11,20 +11,377 @@ import 'react-datepicker/dist/react-datepicker.css';
 import styles from './calendar.module.scss';
 import { getMonth, getYear } from 'date-fns';
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
+import { updateSurveyOpenDate,updateSurveyExpireDate,updateSurveyEmail,updateSurveyLogin,updateSurveyStat,updateSurveyParticipate,updateSurveyParticipateNum,updateSurveyGps,updateSurveyGpsValue,getSurveySetting} from '../../api/survey';
+import Geocode from "react-geocode";
+
+
+const YEARS = Array.from({ length: 4 }, (_, i) => getYear(new Date())+i);
+const MONTHS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+export default function FormSetting() {
+  const { id } = useParams();
+  const [selectedStartDate, setSelectedStartDate] = useState();
+  const [selectedEndDate, setSelectedEndDate] = useState();
+  const [address, setAddress] = useState('');
+  const searchButtonRef = useRef(null);
+  const [selectedNumber, setSelectedNumber] = useState(0);
+  const numbers = Array.from(['1km', '2km', '3km', '4km', '5km']);
+  const [showInput, setShowInput] = useState(false);
+  const [showGPSInput, setShowGPSInput] = useState(false);
+  const [limit, setLimit] = useState(0);
+  const [data, setData] = useState({});
+  Geocode.setApiKey("AIzaSyBCr3Corx6ubbMzoiTOzeed7B0RlsknD9s");
+
+
+  const handleParticipateToggle = (event) => {
+    const data = {
+      participate:event.target.checked
+    }
+    updateSurveyParticipate(id,data)
+
+    setShowInput(!showInput);
+  };
+  const handleParticipateNumChange = (event) => {
+    const data = {
+      participate_num:Number(event.target.value)
+    }
+    updateSurveyParticipateNum(id,data)
+  };
+
+  const handleGPSToggle = (event) => {
+
+    if(!event.target.checked){
+    const data = {
+      gps : false
+    }
+    updateSurveyGps(id, data);}
+    setShowGPSInput(!showGPSInput);
+  };
+  const handleStatToggle = (event) => {
+    const data = {
+      stat:event.target.checked
+    }
+    updateSurveyStat(id,data)
+  };
+  const handleEmailToggle = (event) => {
+    const data = {
+      email:event.target.checked
+    }
+    updateSurveyEmail(id,data)
+  };
+  const handleLoginToggle = (event) => {
+    const data = {
+      login:event.target.checked
+    }
+    updateSurveyLogin(id,data)
+  };
+  const handleLimitChange = (event) => {
+    const value = Number(event.target.value);
+    
+    if (value >= 0) {
+      setLimit(value);
+    } else {
+      toastMsg('인원 수 제한에 음수를 입력할 수 없습니다.');
+    }
+  };
+
+  const handleChange = (e) => {
+    const data = {
+      distance :e.target.value
+    }
+    updateSurveyGpsValue(id,data)
+    setSelectedNumber(e.target.value);
+  };
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+
+    getSurveySetting(id)
+    .then((response) => {
+      setSelectedStartDate(new Date(response.open_date));
+      setSelectedEndDate(new Date(response.expire_date));
+      setData(response);
+      setLimit(response.participate_num);
+      setShowGPSInput(response.gps)
+      setShowInput(response.participate)
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+    });
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+
+  const handleGPSSubmit = async (event) => {
+    event.preventDefault();
+    new window.daum.Postcode({
+      oncomplete: async function (data) {
+
+        setAddress(data.address);
+        GoogleMap(data.address)
+      },
+    }).open();
+  };
+  const GoogleMap = async (currentAddr) => {
+
+    
+    return Geocode.fromAddress(currentAddr)
+      .then( response => {
+        const { lat, lng } = response.results[0].geometry.location;
+        alert(lat, lng);
+
+        const data = {
+          gps : true,
+          latitude : lat,
+          longitude : lng,
+          distance : "1"
+        }
+        updateSurveyGps(id, data);
+      })
+      .catch(err =>alert(err))
+  }
+
+  const handleStartDateChange = (date) => {
+    const now = new Date();
+  
+    // 선택한 시작일(date)이 현재 시간(now)보다 이전인 경우
+    if (date < now) {
+      toastMsg("현재 시간 이전의 날짜를 선택할 수 없습니다.",false);
+      return; // 이후 코드를 실행하지 않고 함수를 종료합니다.
+    }
+    if (date > selectedEndDate) {
+      toastMsg("시작일은 종료일 이후가 될 수 없습니다.",false);
+      return; // 이후 코드를 실행하지 않고 함수를 종료합니다.
+    }
+    const formattedDateTime = date.toISOString(); // 주어진 Date 객체를 ISO 8601 형식의 문자열로 변환
+    // const selectedDate = LocalDateTime.parse(formattedDateTime); // ISO 8601 형식의 문자열로부터 LocalDateTime 객체로 변환
+  
+    const data = {
+      openDate : formattedDateTime  
+    }
+    updateSurveyOpenDate(id,data)
+    setSelectedStartDate(date);
+  };
+  
+  const handleEndDateChange = (date) => {
+    const now = new Date();
+  
+    // 선택한 종료일(date)이 현재 시간(now)보다 이전인 경우
+    if (date < now) {
+      toastMsg("현재 시간 이전의 날짜를 선택할 수 없습니다.",false);
+      return;
+    }
+    
+    // 선택한 종료일(date)이 선택한 시작일(selectedStartDate)보다 이전인 경우
+    if (date < selectedStartDate) {
+      toastMsg("종료일은 시작일 이전이 될 수 없습니다.",false);
+      return;
+    }
+    const formattedDateTime = date.toISOString(); // 주어진 Date 객체를 ISO 8601 형식의 문자열로 변환
+    // const selectedDate = LocalDateTime.parse(formattedDateTime); // ISO 8601 형식의 문자열로부터 LocalDateTime 객체로 변환
+  
+    const data = {
+      expireDate : formattedDateTime  
+    }
+    updateSurveyExpireDate(id,data)
+    setSelectedEndDate(date);
+  };
+
+  return (
+    <Wrapper>
+      <CalenderWrapper>
+        <CalenderText>설문 시작일</CalenderText>
+        <DatePicker
+          className={styles.datePicker}
+          selected={selectedStartDate}
+          onChange={handleStartDateChange}
+          showTimeSelect
+          timeIntervals={60}
+          timeFormat="HH:mm"
+          timeCaption="Time"
+          timeInputLabel="Time:"
+          dateFormat='yyyy년 MM월 dd일 HH:mm'
+          shouldCloseOnSelect
+          formatWeekDay={(nameOfDay) => nameOfDay.substring(0, 1)}
+          showYearDropdown
+          scrollableYearDropdown
+          yearDropdownItemNumber={100}
+          renderCustomHeader={({ date, changeYear, decreaseMonth, increaseMonth, prevMonthButtonDisabled, nextMonthButtonDisabled }) => (
+            <div className={styles.customHeaderContainer}>
+              <div>
+                <span className={styles.month}>{MONTHS[getMonth(date)]}</span>
+                <select value={getYear(date)} className={styles.year} onChange={({ target: { value } }) => changeYear(+value)}>
+                  {YEARS.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <button type='button' onClick={decreaseMonth} className={styles.monthButton} disabled={prevMonthButtonDisabled}>
+                  <FiArrowLeft />
+                </button>
+                <button type='button' onClick={increaseMonth} className={styles.monthButton} disabled={nextMonthButtonDisabled}>
+                  <FiArrowRight />
+                </button>
+              </div>
+            </div>
+          )}
+        />
+      </CalenderWrapper>
+
+      <CalenderWrapper>
+        <CalenderText>설문 마감일</CalenderText>
+        <DatePicker
+          className={styles.datePicker}
+          selected={selectedEndDate}
+          onChange={handleEndDateChange}
+          showTimeSelect
+          timeIntervals={15}
+          timeFormat="HH:mm"
+          timeCaption="Time"
+          timeInputLabel="Time:"
+          dateFormat='yyyy년 MM월 dd일 HH:mm'
+          shouldCloseOnSelect
+          formatWeekDay={(nameOfDay) => nameOfDay.substring(0, 1)}
+          showYearDropdown
+          scrollableYearDropdown
+          yearDropdownItemNumber={100}
+          renderCustomHeader={({ date, changeYear, decreaseMonth, increaseMonth, prevMonthButtonDisabled, nextMonthButtonDisabled }) => (
+            <div className={styles.customHeaderContainer}>
+              <div>
+                <span className={styles.month}>{MONTHS[getMonth(date)]}</span>
+                <select value={getYear(date)} className={styles.year} onChange={({ target: { value } }) => changeYear(+value)}>
+                  {YEARS.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <button type='button' onClick={decreaseMonth} className={styles.monthButton} disabled={prevMonthButtonDisabled}>
+                  <FiArrowLeft />
+                </button>
+                <button type='button' onClick={increaseMonth} className={styles.monthButton} disabled={nextMonthButtonDisabled}>
+                  <FiArrowRight />
+                </button>
+              </div>
+            </div>
+          )}
+        />
+      </CalenderWrapper>
+
+      <Items>
+        <CalenderText>통계 보기 허용</CalenderText>
+        <Toggle>
+          <input type='checkbox' defaultChecked={data.stat} onChange={handleStatToggle} />
+          <span></span>
+        </Toggle>
+      </Items>
+      <Items>
+        <CalenderText>GPS</CalenderText>
+        <GPSWrapper>
+        <Toggle>
+          <input type='checkbox' defaultChecked={data.gps} onChange={handleGPSToggle} />
+          <span></span>
+        </Toggle>
+        {showGPSInput && (
+          <GPS>
+        <form onSubmit={handleGPSSubmit}>
+          <InputText
+            type='text'
+            value={address}
+            onClick={() => searchButtonRef.current.click()}
+            onChange={({ target: { value } }) => setAddress(value)}
+            readOnly
+          />
+          <button type='submit' ref={searchButtonRef} style={{ display: 'none' }} />
+        </form>
+
+        {address && (
+        <RangeSelectWrapper>
+          <RangeSelect value={selectedNumber} onChange={handleChange}>
+            {numbers.map((number, index) => (
+              <Option key={index} value={index + 1}>
+                {number}
+              </Option>
+            ))}
+          </RangeSelect>
+        </RangeSelectWrapper>
+        )}
+        </GPS>
+        )}
+        </GPSWrapper>
+      </Items>
+      <Items>
+        <CalenderText>이메일</CalenderText>
+        <Toggle>
+          <input type='checkbox' defaultChecked={data.email}  onChange={handleEmailToggle} />
+          <span></span>
+        </Toggle>
+      </Items>
+      <Items>
+        <CalenderText>로그인 여부</CalenderText>
+        <Toggle>
+          <input type='checkbox' defaultChecked={data.login} onChange={handleLoginToggle} />
+          <span></span>
+        </Toggle>
+      </Items>
+      <Items>
+        <CalenderText>인원 수 제한</CalenderText>
+        <GPSWrapper>
+        <Toggle>
+          <input type='checkbox' id='toggle' defaultChecked={data.participate} onChange={handleParticipateToggle}  />
+          <span></span>
+        </Toggle>
+        {showInput && (
+          <div>
+            <input type='number' id='limit' value={limit} onChange={handleLimitChange} onBlur={handleParticipateNumChange}/>
+          </div>
+        )}
+        </GPSWrapper>
+      </Items>
+    </Wrapper>
+  );
+}
+
 
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: space-between;
-
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+  padding: 3rem;
+  background-color: #EAEEEF;
 `;
 
 const CalenderWrapper = styled.div`
   display: flex;
   align-items: center;
   width: 30%;
-
   justify-content: space-between;
 `;
 
@@ -43,15 +400,24 @@ const Items = styled.div`
   align-items: center;
   width: 30%;
   justify-content: space-between;
-
+`;
+const GPS = styled.div`
+  display: flex;
+  align-items: center;
+  padding-top: 1rem;
+`;
+const GPSWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  
 `;
 const RangeSelectWrapper = styled.div`
   display: flex;
   align-items: center;
-  width: 25%;
+  margin-left: 0.4rem;
   justify-content: space-between;
-  
- 
 `;
 
 const RangeSelect = styled.select`
@@ -64,7 +430,7 @@ const RangeSelect = styled.select`
   background-image: none;
   box-shadow: none;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-  
+
   &:focus {
     border-color: rgba(0, 123, 255, 0.5);
     outline: 0;
@@ -75,12 +441,12 @@ const RangeSelect = styled.select`
 const Option = styled.option`
   background-color: #fff;
   color: #6c757d;
-  
 
   &:hover {
     background-color: #e9ecef;
   }
 `;
+
 const Toggle = styled.label`
   position: relative;
   display: inline-block;
@@ -130,10 +496,6 @@ const Toggle = styled.label`
   }
 `;
 
-const ToggleText = styled.span`
-  margin-left: 10px;
-`;
-
 
 const InputText = styled.input`
   width: 100%;
@@ -147,229 +509,3 @@ const InputText = styled.input`
   border: 1px solid #ccc;
   border-radius: 4px;
 `;
-
-const YEARS = Array.from({ length: getYear(new Date()) + 1 - 2000 }, (_, i) => getYear(new Date()) - i);
-const MONTHS = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
-
-export default function FormSetting() {
-  const { id } = useParams();
-  const currentPath = window.location.pathname;
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [selectedStartDate, setSelectedStartDate] = useState(new Date());
-  const [selectedEndDate, setSelectedEndDate] = useState(new Date());
-  const [zipcode, setZipcode] = useState('');
-  const [address, setAddress] = useState('');
-  const [isDaumPost, setIsDaumPost] = useState(false);
-  const searchButtonRef = useRef(null);
-  // add this line after `const { id } = useParams();`
-  const [selectedNumber, setSelectedNumber] = useState(0);
-  const numbers = Array.from(['1km','2km','3km','4km','5km']);
-  const [showInput, setShowInput] = useState(false);
-  const [limit, setLimit] = useState(0);
-  
-  const handleToggle = () => {
-    setShowInput(!showInput);
-  }
-  
-  const handleLimitChange = (event) => {
-    const value = Number(event.target.value);
-  
-    if (value >= 0) {
-      setLimit(value);
-    } else {
-      toastMsg('인원 수 제한에 음수를 입력할 수 없습니다.');
-    }
-  };
-  
-  const handleChange = (e) => {
-    setSelectedNumber((e.target.value));
-  };
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
-  const handleGPSSubmit = (event) => {
-    event.preventDefault();
-    if (!isDaumPost) {
-      new window.daum.Postcode({
-        oncomplete: function (data) {
-          setIsDaumPost(true);
-          setZipcode(data.zonecode);
-          setAddress(data.address);
-        }
-      }).open();
-    } else {
-      console.log(zipcode, address);
-    }
-  }
-
-  const handleStartDateChange = (date) => {
-    setSelectedStartDate(date);
-  };
-
-  const handleEndDateChange = (date) => {
-    setSelectedEndDate(date);
-  };
-
-  // '/form/pre-release/:id' 경로인 경우에만 특정 로직 수행
-  useEffect(() => {
-    // ...
-  }, [id, currentPath]);
-
-  return (
-    <Wrapper>
-      <CalenderWrapper>
-        <CalenderText>설문 시작일</CalenderText>
-        <DatePicker
-          className={styles.datePicker}
-          selected={selectedStartDate}
-          onChange={handleStartDateChange}
-          dateFormat='yyyy년 MM월 dd일'
-          shouldCloseOnSelect
-          formatWeekDay={(nameOfDay) => nameOfDay.substring(0, 1)}
-          showYearDropdown
-          scrollableYearDropdown
-          yearDropdownItemNumber={100}
-          renderCustomHeader={({ date, changeYear, decreaseMonth, increaseMonth, prevMonthButtonDisabled, nextMonthButtonDisabled }) => (
-            <div className={styles.customHeaderContainer}>
-              <div>
-                <span className={styles.month}>{MONTHS[getMonth(date)]}</span>
-                <select value={getYear(date)} className={styles.year} onChange={({ target: { value } }) => changeYear(+value)}>
-                  {YEARS.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <button type='button' onClick={decreaseMonth} className={styles.monthButton} disabled={prevMonthButtonDisabled}>
-                  <FiArrowLeft />
-                </button>
-                <button type='button' onClick={increaseMonth} className={styles.monthButton} disabled={nextMonthButtonDisabled}>
-                  <FiArrowRight />
-                </button>
-              </div>
-            </div>
-          )}
-        />
-      </CalenderWrapper>
-
-      <CalenderWrapper>
-        <CalenderText>설문 마감일</CalenderText>
-        <DatePicker
-          className={styles.datePicker}
-          selected={selectedEndDate}
-          onChange={handleEndDateChange}
-          dateFormat='yyyy년 MM월 dd일'
-          shouldCloseOnSelect
-          formatWeekDay={(nameOfDay) => nameOfDay.substring(0, 1)}
-          showYearDropdown
-          scrollableYearDropdown
-          yearDropdownItemNumber={100}
-          renderCustomHeader={({ date, changeYear, decreaseMonth, increaseMonth, prevMonthButtonDisabled, nextMonthButtonDisabled }) => (
-            <div className={styles.customHeaderContainer}>
-              <div>
-                <span className={styles.month}>{MONTHS[getMonth(date)]}</span>
-                <select value={getYear(date)} className={styles.year} onChange={({ target: { value } }) => changeYear(+value)}>
-                  {YEARS.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <button type='button' onClick={decreaseMonth} className={styles.monthButton} disabled={prevMonthButtonDisabled}>
-                  <FiArrowLeft />
-                </button>
-                <button type='button' onClick={increaseMonth} className={styles.monthButton} disabled={nextMonthButtonDisabled}>
-                  <FiArrowRight />
-                </button>
-              </div>
-            </div>
-          )}
-        />
-      </CalenderWrapper>
-
-      <Items>
-        <CalenderText>통계 보기 허용</CalenderText>
-        <Toggle>
-          <input type='checkbox' />
-          <span></span>
-        </Toggle>
-      </Items>
-      <Items>
-        <CalenderText>GPS</CalenderText>
-        <form onSubmit={handleGPSSubmit}>
-          <InputText
-            type='text'
-            value={address}
-            onClick={() => searchButtonRef.current.click()}
-            onChange={({ target: { value } }) => setAddress(value)}
-            readOnly
-          />
-          <button type='submit' ref={searchButtonRef} style={{ display: 'none' }} />
-
-
-        </form>
-          <CalenderText>범위 </CalenderText>
-        <RangeSelectWrapper>
-          <RangeSelect value={selectedNumber} onChange={handleChange}>
-            {numbers.map((number, index) => (
-              <Option key={index} value={number}>
-                {number}
-              </Option>
-            ))}
-          </RangeSelect>
-        </RangeSelectWrapper>
-      </Items>
-      <Items>
-        <CalenderText>이메일</CalenderText>
-        <Toggle>
-          <input type='checkbox' />
-          <span></span>
-        </Toggle>
-      </Items>
-      <Items>
-        <CalenderText>로그인 여부</CalenderText>
-        <Toggle>
-          <input type='checkbox' />
-          <span></span>
-        </Toggle>
-      </Items>
-      <Items>
-        <CalenderText>인원 수 제한</CalenderText>
-      <Toggle>
-      <input type="checkbox" id="toggle" onChange={handleToggle} /><span></span>
-      </Toggle>
-      {showInput && (
-        <div>
-          <input type="number" id="limit" value={limit} onChange={handleLimitChange} />
-        </div>
-      )}
-    </Items>
-    </Wrapper>
-  );
-}
