@@ -146,23 +146,6 @@ export default function FormResponse() {
             <Half ref={scrollRef} onScroll={handleScroll}>
                 <Preview/>
             </Half>
-            {!isVisible && (
-                <DragButton color="#3b5998" onClick={handleDragButtonClick}>
-                    <AiOutlineMessage />
-                </DragButton>
-            )}
-            {isVisible && (
-                <Draggable>
-                    <ExampleChatbotWrapper>
-                        <Chatbot
-                            config={GetConfig(handleCloseChatbot)}
-                            actionProvider={ActionProvider}
-                            messageParser={MessageParser}
-
-                        />
-                    </ExampleChatbotWrapper>
-                </Draggable>
-            )}
         </Wrapper>
     );
 }

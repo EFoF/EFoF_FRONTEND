@@ -10,12 +10,11 @@ import 'react-chatbot-kit/build/main.css'
 import './Chatbot.css'
 import Draggable from 'react-draggable';
 import Preview from "./Preview";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { surveyInfo } from '../../api/survey';
 import { questionActions, formActions, surveyFlowActions } from '../../slices';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
 import toastMsg from '../../ui/Toast';
 
 const Wrapper = styled.div`
@@ -138,6 +137,8 @@ export default function Form() {
   };
   const [isVisible, setIsVisible] = useState(false);
 
+  const { loginLastDTO } = useSelector((state) => state.authorization);
+
   const handleCloseChatbot = () => {
     
     setIsVisible(false);
@@ -147,6 +148,15 @@ export default function Form() {
     setIsVisible(!isVisible);
   };
 
+  useEffect(() => {
+      const expiresDate = typeof(loginLastDTO.expiresAt) === "undefined" ?
+          new Date : new Date(loginLastDTO.expiresAt);
+      const currentDate = new Date();
+      if(currentDate >= expiresDate) {
+          alert("로그인 되지 않았습니다.");
+          navigate("/");
+      }
+  }, [])
 
   return (
       <Wrapper>

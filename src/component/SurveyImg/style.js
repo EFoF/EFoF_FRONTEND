@@ -13,6 +13,7 @@ export const TitleImg = styled.img`
   align:center;
   width: 100%;
   height: 12rem;
+  object-fit: cover;
   border-radius: 10px;
  
 }
