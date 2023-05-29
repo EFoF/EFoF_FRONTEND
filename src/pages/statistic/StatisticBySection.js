@@ -33,11 +33,14 @@ const StatisticBySection = ({projectStyle, portfolio, sectionId,data}) => {
 
 	const isLongAnswer = data.question_type.includes("LONG_ANSWER");
 
+	const option_typed = (data.question_type === "LONG_ANSWER") ? "주관식" : "객관식"
+	
+
     return (
 		<>
 		<div className='row' style={{backgroundColor: 'white' , paddingBottom: '90px'}}>
 			<div className={`project-grid${projectStyle}`}>	
-				<span className="subtitle">질문 {data.question_id} [{data.question_type}]</span>
+				<span className="subtitle">질문 {data.question_id} [{option_typed}] (응답자 수: {data.participant_num_question})</span>
 				<h3 className="title"> {data.question_text}</h3>
 			</div>
 
@@ -58,7 +61,7 @@ const StatisticBySection = ({projectStyle, portfolio, sectionId,data}) => {
 							// border: '1px solid #000' // 테두리 스타일 지정
 							}}
 					>{data.longAnswerDtos.map((item, index) => (
-						<p key={index}>{item.answer_sentence}</p>
+						<p key={index}>{index+1}) {item.answer_sentence}</p>
 					))}
 					</div>
 				</div>
