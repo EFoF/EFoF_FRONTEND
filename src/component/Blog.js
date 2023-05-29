@@ -35,13 +35,16 @@ const Blog = () => {
 
     return (
         <div className="section splash-main-banner" style={{width: "100%", height: "100%"}}>
+            <br id="splash-banner1"></br>
             <div className="container">
                 <div className="section-heading heading-left">
                     <div className="row align-items-center">
                         <div className="col-xl-6 col-lg-7">
                             <h2 className="title" id="splash-banner">Watch your location</h2>
+                            <span>현재 위치 기준 반경 1km 안에서 가능한 설문 리스트를 보여줍니다.</span>
                         </div>
                         <div className="banner-thumbnail">
+                            <br/>
                             <Map />
                         </div>
                     </div>
@@ -53,6 +56,7 @@ const Blog = () => {
                         <div className="single-slide" key={data.id}>
                             <Link to={`${process.env.PUBLIC_URL}/${slugify(data.title)}`}>
                                 <img src={`${process.env.PUBLIC_URL}${data.width_img}`} alt="Demo" />
+                                <p>{data.title}</p>
                             </Link>
                         </div>
                     ))}
