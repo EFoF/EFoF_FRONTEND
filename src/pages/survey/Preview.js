@@ -83,18 +83,8 @@ const Preview = () => {
       if(lastidx !== nextSectionIndex) {
           dispatch(surveyFlowActions.setNextIndex({ pageIndex : currentIndex, value : lastidx}));
       }
-      // 첫번째. 현재 있는 섹션에서 어떤 옵션을 선택하지는 않았는가?
-      // => 옵션을 선택하지 않았다면 지정되어있는 섹션이 있는가?
-      // 현재 인덱스에서 next를 다시 구한다. (섹션 지정값, 옵션 등을 확인해서)
-      // 여기서 다시 구한 next가 indexes 값이랑 다르다면, indexes 값을 업데이트 해준다.
 
-
-
-      // 4.
-      // 이제 알아낸 다음 인덱스를 리덕스에 저장한다.
-      // if(nextSectionIndex !== indexes[currentIndex].nextIndex) {
-      //     dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : nextSectionIndex}));
-      // }
+      console.log(form.form.bgColor)
       return (
           (indexes[currentIndex].nextIndex === -1 || indexes[currentIndex].nextIndex === currentIndex) ? (
               <>
@@ -103,12 +93,14 @@ const Preview = () => {
                           <div className="submit-button" onClick={submitHandler}>제출</div>
                       {/*</Link>*/}
                   </Buttons>
+
                   <ArrowButtonWrapper>
                       {indexes[currentIndex].prevIndex === -1 ? (
                           // 더 이상 뒤로 갈 섹션이 없는 경우 버튼을 비활성화 시킨다.
                           <ArrowImageButton
                               size={2}
                               color={"white"}
+                              backgroundColor={form.form.bgColor}
                           />
                       ) : (
                           <ArrowImageButton
@@ -116,6 +108,7 @@ const Preview = () => {
                               onClick={_moveToPrev}
                               ImgSrc={leftArrow}
                               color={"white"}
+                              backgroundColor={form.form.bgColor}
                           />
                       )}
                   </ArrowButtonWrapper>
@@ -127,6 +120,7 @@ const Preview = () => {
                   <ArrowImageButton
                       size={2}
                       color={"white"}
+                      backgroundColor={form.form.bgColor}
                   />
               ) : (
                   <ArrowImageButton
@@ -134,6 +128,7 @@ const Preview = () => {
                       onClick={_moveToPrev}
                       ImgSrc={leftArrow}
                       color={"white"}
+                      backgroundColor={form.form.bgColor}
                   />
               )}
               <ArrowImageButton
@@ -141,6 +136,7 @@ const Preview = () => {
                   onClick={_moveToNext}
                   ImgSrc={rightArrow}
                   color={"white"}
+                  backgroundColor={form.form.bgColor}
               />
           </ArrowButtonWrapper>
       ));
@@ -256,7 +252,8 @@ const Preview = () => {
     }
 
   return (
-    <Wrapper style={{ flexDirection: 'column', alignItems: 'center' }}>
+      <>
+    <Wrapper style={{ flexDirection: 'column', alignItems: 'center' }} backgroundColor={form.form.bgColor}>
         <QuestionWrapper>
             <ResultTitleBox info={form.form}/>
             <ResultSectionContainer>
@@ -266,8 +263,9 @@ const Preview = () => {
                     ))}
             </ResultSectionContainer>
         </QuestionWrapper>
-        {_determineFlow()}
     </Wrapper>
+          {_determineFlow()}
+      </>
   )
 };
 
@@ -286,6 +284,7 @@ const ArrowImageButton = styled(ImgButton)`
   width: 80px;
   border-radius: 5px;
   ${({ theme }) => theme.flexCenter}
+  background-color: ${({ backgroundColor }) => backgroundColor};
 `;
 
 const Buttons = styled.div`
@@ -308,7 +307,7 @@ const Buttons = styled.div`
 
 const Wrapper = styled.div`
 ${({ theme }) => theme.flexCenter};
-  
+  background-color: ${({ backgroundColor }) => backgroundColor};
   width: 100%;
   overflow:visible;
  
