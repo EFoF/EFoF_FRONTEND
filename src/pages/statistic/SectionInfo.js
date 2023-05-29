@@ -3,18 +3,50 @@ import SectionTitle from '../../elements/section-title/SectionTitle';
 
 import StatisticBySection from './StatisticBySection';
 import ProjectData from "../../data/ProjectData.json";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import StatisticBar from './StatisticBar';
 import { Accordion } from 'react-bootstrap';
-
+import { useNavigate } from 'react-router-dom';
 import { FaCompress, FaCode, FaGlobe } from 'react-icons/fa';
-
+import { Route } from 'react-router-dom';
+import { getQuestionBySectionForStatistic } from '../../api/survey';
 const portfolioData = ProjectData;
 
 
-const SectionInfo = ({sectionList}) => {
+const SectionInfo = ({sectionList, surveyId}) => {
+	const [activeSection, setActiveSection] = useState(null);	// 질문 정보를 한 번만 로딩하는 용도
+	// const [question, setQeustion] = useState({ question_id: '', question_text: '', question_type: ''});
+	const [question, setQeustion] = useState([]);
 
-	const [activeSection, setActiveSection] = useState(null);
+	const currentPath = window.location.pathname;
+	console.log(currentPath);
+    // const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+	const handleClickSection = (sectionId) => {
+		// alert((surveyId));
+		// alert(sectionId);
+
+		getQuestionBySectionForStatistic(surveyId,sectionId)
+		.then((data) => {
+			// alert(JSON.stringify(data[0]));
+			// // const question = data.question;
+			// const question_id = data.question_id;
+			// const question_text = data.question_text;
+			// const question_type = data.question_type;
+			// const participant_num_question = data.participant_num_question;
+			// const longAnswers = data.longAnswers;
+			// const choiceAnswers = data.choiceAnswers;
+
+			setQeustion(data);
+			// setQeustion(question);
+			
+		})
+		
+		// navigate(`/statistic/${id}/${sectionId}`);
+	  };
+	  
+	//   alert(JSON.stringify(question))
 
     return (
 		<>
@@ -28,27 +60,29 @@ const SectionInfo = ({sectionList}) => {
 					/>
 					{/* ============================섹션 별 통계============================ */}
 					{/* <Accordion onClick={toggleAccordion} style={accordionHeaderStyle}> */}
-					
+
 					{sectionList && sectionList.map((item, idx) => (
 						<Accordion style={{paddingLeft: '100px', paddingRight: '100px'}}>
-								<Accordion.Item eventKey="2">
-									<div onClick={() => setActiveSection(idx)}>
-										<Accordion.Header><FaCode />섹션 {idx+1}</Accordion.Header>
+								<Accordion.Item eventKey={idx.toString()}>
+									<div onClick={() => handleClickSection(item)}>
+										<Accordion.Header><FaCode />섹션 {idx+1} (id: {item})</Accordion.Header>
 									</div>
-									{activeSection === idx && (
+
+									{/* {activeSection === idx && ( */}
 										<Accordion.Body>
-										<div className="row-45">
-											{/* SurveyInfo에 넘겨야 할 것! -> portfolioData
-											(질문id, question_text, question_type, participant_num_question), sectionId */}
-											{portfolioData.slice(12, 16).map((data) => (
-															// <div className="col-md-6" key={data.id}>
-											<div className="col" key={data.id}>
-												<StatisticBySection projectStyle="project-style-2" portfolio={data} sectionId={sectionList}/>
+											<div className="row-45">
+												{/* SurveyInfo에 넘겨야 할 것! -> portfolioData
+												(질문id, question_text, question_type, participant_num_question), sectionId */}
+												{question.map((questionData,idx) => (
+													<div className="col-md-12" key={questionData.id}>
+														<div className="col" key={questionData.id}>
+															<StatisticBySection projectStyle="project-style-2" portfolio={questionData}  data={questionData}/>
+														</div>
+													</div>
+												))}
 											</div>
-											))}
-										</div>
-									</Accordion.Body> 
-									)} 
+										</Accordion.Body> 
+									{/* )}  */}
 								</Accordion.Item>
                     	</Accordion>
 					))}

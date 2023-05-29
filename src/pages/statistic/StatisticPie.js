@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { PieChart, Pie, Cell, Sector, ResponsiveContainer, Tooltip } from 'recharts';
+import { useState } from 'react';
 
 const data = [
   { name: 'Group A', value: 400 },
@@ -51,7 +52,7 @@ const renderActiveShape = (props) => {
       <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
       <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
       {/* <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`PV ${value}`}</text> */}
-      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`(Rate ${(percent * 100).toFixed(2)}%)`}</text>
+      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`Rate ${(percent * 100).toFixed(2)}%`}</text>
       {/* <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
         {`(Rate ${(percent * 100).toFixed(2)}%)`}
       </text> */}
@@ -59,40 +60,42 @@ const renderActiveShape = (props) => {
   );
 };
 
-export default class Example extends PureComponent {
+const Example = ({optionData}) => {
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  state = {
-    activeIndex: 0,
+  const onPieEnter = (_, index) => {
+    setActiveIndex(index);
   };
 
-  onPieEnter = (_, index) => {
-    this.setState({
-      activeIndex: index,
-    });
-  };
+  const transformedData = optionData.map((longAnswerDto) => ({
+    
+    "name": longAnswerDto.option_text,
+    "응답자 수": longAnswerDto.participant_num_question_option
 
-  render() {
-    return (
-      <ResponsiveContainer width="100%" height="100%">
-        <PieChart width={400} height={400}>
-          <Pie
-            dataKey="value"
-            activeIndex={this.state.activeIndex}
-            activeShape={renderActiveShape}
-            data={data}
-            cx="50%"
-            cy="50%"
-            fill="#8884d8"
-            onMouseEnter={this.onPieEnter}
-            outerRadius={90}
-          >
-            {data.map((entry, index) => (
+  }));
+
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <PieChart width={40} height={400}>
+        <Pie
+          dataKey="응답자 수"
+          activeIndex={activeIndex}
+          activeShape={renderActiveShape}
+          data={transformedData}
+          cx="51%"
+          cy="50%"
+          fill="#8884d8"
+          onMouseEnter={onPieEnter}
+          outerRadius={90}
+        >
+          {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
-          </Pie>
-          <Tooltip/>
-        </PieChart>
-      </ResponsiveContainer>
-    );
-  }
-}
+        </Pie>
+        <Tooltip />
+      </PieChart>
+    </ResponsiveContainer>
+  );
+};
+
+export default Example;
