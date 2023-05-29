@@ -23,6 +23,7 @@ import Statistic from './pages/statistic/Statistic';
 import './assets/scss/app.scss';
 import FormResponse from "./pages/survey/FormResponse";
 import FormSetting from './pages/survey/FormSetting';
+import SectionInfo from './pages/statistic/SectionInfo';
 
 
 const App = () => {
@@ -40,8 +41,8 @@ const App = () => {
                 <Route path="/form/in-progress/:id" exact element={<FormResponse/>}/>
                 <Route path="/findpw" exact element={<FindPW/>}/>
                 <Route path="/privacy-policy" exact element={<PrivacyPolicy/>}/>
-                {/* <Route path="/statistic" exact element={<Statistic/>}/> */}
                 <Route path="/statistic/:id" exact element={<Statistic/>}/>
+                <Route path="/statistic/:id/:section_id" exact element={<SectionInfo/>}/>
                 <Route path="/form/generate" exact element={<Generate/>}/>
                 <Route path={process.env.PUBLIC_URL + "/form/participate"} element={<Participate/>}/>
             </Routes>
