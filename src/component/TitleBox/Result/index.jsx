@@ -3,9 +3,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdAdd } from 'react-icons/md';
 import { FaCheck } from 'react-icons/fa';
-import { formActions } from '../../../slices';
-import ReactDOM from "react-dom";
-import PaleteModal from '../../../ui/PaleteModal';
+import {SurveyImg} from "../../index";
 
 const ResultTitleBox = ({ info, handleDetail, handleTitle, readOnly }) => {
     let inputRef;
@@ -20,11 +18,11 @@ const ResultTitleBox = ({ info, handleDetail, handleTitle, readOnly }) => {
   align-self: center;
 `;
 
-
     return (
+        <>
+            {(form.image === undefined) || (form.image === "") || (form.image === null) ? (<></>) : (<SurveyImg formImg={process.env.REACT_APP_S3_URL + form.image}/>)}
         <Wrapper>
             <InputWrapper color="white">
-
                 <TitleInput
                     placeholder="제목 없는 설문지"
                     value={info.title}
@@ -43,6 +41,7 @@ const ResultTitleBox = ({ info, handleDetail, handleTitle, readOnly }) => {
                 />
             </InputWrapper>
         </Wrapper>
+        </>
     );
 };
 
