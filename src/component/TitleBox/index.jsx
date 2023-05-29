@@ -8,8 +8,6 @@ import { FaCheck, FaPalette } from 'react-icons/fa';
 import { formActions } from '../../slices';
 import ReactDOM from "react-dom";
 import ConfirmModal from '../../ui/ConfirmModal';
-import axios from 'axios';
-import toastMsg from '../../ui/Toast/index';
 import PaleteModal from '../../ui/PaleteModal';
 import { uploadImgInit,deleteImgInit,deleteSurveyImg ,updateSurveyImg} from '../../api/survey';
 const TitleBox = ({ info, handleDetail, handleTitle,handleBlurTitle, handleBlurDetail}) => {

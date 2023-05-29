@@ -16,6 +16,7 @@ const initialState =
         options: [],
         answers: [],
         narrativeAnswer: '',
+        hasImage: false,
       },]
     }
     ,];
@@ -24,7 +25,7 @@ const initialState =
 const getNewOption = (option) => ({
   id: shortid(),
   option: option,
-  image: '',
+  image: process.env.REACT_APP_OPTION_DEFAULT_IMG,
   nextSectionId: '',
 });
 
@@ -41,7 +42,7 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
   reducers: {
     initQuestion: (state, action) => {
       const { data } = action.payload;
-      console.log(data.sectionList);
+      // 여기서 사진이 있는지 확인하고 있으면 넣어줘야 함
       return data.sectionList;
 
     },
@@ -218,7 +219,17 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
       const section = state.find((item) => item.id === sectionId);
       const questionIdx = section.questionList.findIndex((item) => item.id === questionId);
       const optionIdx = section.questionList[questionIdx].options.findIndex((item) => item.id === optionId);
-      section.questionList[questionIdx].options[optionIdx].image = image;
+
+      const changedImage = image === process.env.REACT_APP_OPTION_DEFAULT_IMG
+          ? process.env.REACT_APP_OPTION_DEFAULT_IMG : process.env.REACT_APP_S3_URL + image;
+
+      section.questionList[questionIdx].options[optionIdx].image = changedImage;
+      if(image === '' || image === process.env.REACT_APP_OPTION_DEFAULT_IMG) {
+        section.questionList[questionIdx].hasImage =
+            section.questionList[questionIdx].options.some(item => item.image !== process.env.REACT_APP_OPTION_DEFAULT_IMG);
+      } else {
+        section.questionList[questionIdx].hasImage = true;
+      }
     },
     getOptionImage: (state, action) => {
       const { sectionId, optionId, questionId } = action.payload;
@@ -259,18 +270,6 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
     },
 
     markMultipleAnswer: (state, action) => {
-      // const { sectionId, optionId, isAnswer } = action.payload;
-      // const question = state.find((item) => item.id === sectionId);
-      // if (!question) return;
-      // const answerIdx = question.answers.findIndex((item) => item === optionId);
-      //
-      // if (!isAnswer) {
-      //   question.answers.push(optionId);
-      // } else {
-      //   if (answerIdx === 0) question.answers.shift();
-      //   else question.answers.splice(answerIdx, 1);
-      // }
-      // 여기 로직은 내가 다시 짜야할듯
       const { questionId, optionId, isAnswer } = action.payload;
       // const question = state.find((item) => item.id === questionId);
       const question = state.flatMap((item) => item.questionList).find((question) => question.id === questionId);
@@ -312,6 +311,10 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
       state[source_section_idx].questionOrder=response.startSectionOrder;
       state[destination_section_idx].questionOrder=response.endSectionOrder;
     },
+    setHasImage:(state, action) => {
+      const { currentIndex, questionIndex, booleanValue } = action.payload;
+      state[currentIndex].questionList[questionIndex].hasImage = booleanValue;
+    }
   },
 });
 
