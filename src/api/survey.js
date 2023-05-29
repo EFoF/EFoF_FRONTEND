@@ -536,6 +536,18 @@ const postSurveyResponse = async (responseData) => {
     } 
   };
 
+  const getQuestionBySectionForStatistic = async (survey_id,section_id) => {
+    try {
+      const response = await authorizationClient.get(
+          `${API.SURVEY}/${survey_id}${API.STATISTIC}/${section_id}`);
+    //   const { title, description } = response.data;
+    
+      // setSurvey({ title, description });
+      return response.data;
+    } catch (error) {
+      console.error('Error get Question By Section For Statistic:', error);
+    } 
+  };
   export {
     surveyInfo,
     surveyInfoForResponse,
@@ -575,5 +587,6 @@ const postSurveyResponse = async (responseData) => {
     updateSurveyParticipateNum,
     updateSurveyGps,
     updateSurveyGpsValue,
-    getSurveySetting
+    getSurveySetting,
+    getQuestionBySectionForStatistic
 };

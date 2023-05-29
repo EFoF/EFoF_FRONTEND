@@ -14,7 +14,9 @@ import Header from '../../ui/common/Header';
 import ProjectData from "../../data/ProjectData.json";
 import SurveyInfo from './StatisticBySection';
 
-// import { checkStatistic } from '../../api/statistics';
+import { Route, Routes } from 'react-router-dom';
+import { checkStatistic } from '../../api/statistics';
+
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { statActions } from '../../slices/stat';
@@ -48,8 +50,7 @@ const Statistic = () => {
     useEffect(() => {
         if(currentPath === `/statistic/${id}`){
             fetchSurvey(id)
-              .then((data) => {               
-                // dispatch(statActions.initStat({data}));
+              .then((data) => {
 
                 const title = data.title;
                 const description = data.description;
@@ -63,7 +64,7 @@ const Statistic = () => {
         
       }, [id, currentPath]);
 
-    console.log(survey);
+    console.log("ㅗㅑㅗㅑ"+survey.description);
       
     return (
         <>
@@ -98,7 +99,8 @@ const Statistic = () => {
 
                         </div>
                     </div>
-                    <SectionInfo sectionList={survey.sectionList}/>
+                    <SectionInfo sectionList={survey.sectionList} surveyId ={id}/>
+                    {/* <Route path="/statistic/:id/:sectionId" element={<SectionInfo />} /> */}
                     <Footer CparentClass="" />
                 </div>
             </section>
