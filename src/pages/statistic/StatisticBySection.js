@@ -31,7 +31,7 @@ const dummy = [
 
 const StatisticBySection = ({projectStyle, portfolio, sectionId}) => {
 
-	const isShortAnswer = portfolio.category.includes('주관식');
+	const isChoiceAnswer = portfolio.category.includes('주관식');
 
     return (
 		<>
@@ -41,7 +41,7 @@ const StatisticBySection = ({projectStyle, portfolio, sectionId}) => {
 				<h3 className="title"> {portfolio.title}</h3>
 			</div>
 
-			{ !isShortAnswer ? (
+			{ !isChoiceAnswer ? (
 				<>
 					<div className='col-md-6'>
 						<StatisticBar />
