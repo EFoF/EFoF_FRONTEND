@@ -252,6 +252,7 @@ const Preview = () => {
     }
 
   return (
+      <>
     <Wrapper style={{ flexDirection: 'column', alignItems: 'center' }} backgroundColor={form.form.bgColor}>
         <QuestionWrapper>
             <ResultTitleBox info={form.form}/>
@@ -262,8 +263,9 @@ const Preview = () => {
                     ))}
             </ResultSectionContainer>
         </QuestionWrapper>
-        {_determineFlow()}
     </Wrapper>
+          {_determineFlow()}
+      </>
   )
 };
 
