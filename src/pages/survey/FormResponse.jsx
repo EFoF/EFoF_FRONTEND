@@ -15,6 +15,7 @@ import { surveyInfoForResponse } from '../../api/survey';
 import { questionActions, formActions, surveyFlowActions } from '../../slices';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import FormMake from "./FormMake";
 
 const Wrapper = styled.div`
   display: flex;
@@ -108,7 +109,6 @@ export default function FormResponse() {
         surveyInfoForResponse(id,navigate)
                 .then((data) => {
                     dispatch(formActions.initForm({data}));
-                    console.log(data);
                     dispatch(questionActions.initQuestion({data}))
                     data.sectionList.map((section) => {
                         dispatch(surveyFlowActions.addIndexes());
@@ -123,8 +123,6 @@ export default function FormResponse() {
 
     const scrollRef = useRef(null);
     const buttonWrapperRef = useRef(null);
-    const dragButtonWrapperRef = useRef(null);
-    const [isDragging, setIsDragging] = useState(false);
     const handleScroll = (event) => {
         const scrollTop = event.target.scrollTop;
         const buttonWrapper = buttonWrapperRef.current;

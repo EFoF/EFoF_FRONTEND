@@ -20,7 +20,7 @@ const Blog = () => {
         centerMode: true,
         arrows: false,
         dots: true,
-        swipeToSlide: false,
+        swipeToSlide: false, // 자동이동
         draggable: false,
         responsive: [
             {
@@ -50,6 +50,7 @@ const Blog = () => {
             <div className="demo-slider">
                 <Slider {...slideSettings} className="slick-dot-nav">
                     {DemoData.slice(0, 5).map((data) => (
+                        // <div key={data.id}>
                         <div className="single-slide" key={data.id}>
                             <Link to={`${process.env.PUBLIC_URL}/${slugify(data.title)}`}>
                                 <img src={`${process.env.PUBLIC_URL}${data.width_img}`} alt="Demo" />
