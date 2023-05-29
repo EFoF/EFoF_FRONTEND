@@ -38,22 +38,34 @@ export default function FormSetting() {
   const searchButtonRef = useRef(null);
   const [selectedNumber, setSelectedNumber] = useState(0);
   const numbers = Array.from(['1km', '2km', '3km', '4km', '5km']);
-  const [showInput, setShowInput] = useState(false);
-  const [showGPSInput, setShowGPSInput] = useState(false);
   const [limit, setLimit] = useState(0);
   const [data, setData] = useState({});
+  const [settingOptions, setSettingOptions] = useState({
+    participate: false,
+    gps: false,
+    stat: false,
+    email: false,
+    login: false
+  });
+
   Geocode.setApiKey("AIzaSyBCr3Corx6ubbMzoiTOzeed7B0RlsknD9s");
-
-
+  Geocode.setLanguage("kr")
+  Geocode.setRegion("kr");
+  
   const handleParticipateToggle = (event) => {
+
     const data = {
       participate:event.target.checked
     }
     updateSurveyParticipate(id,data)
 
-    setShowInput(!showInput);
+    setSettingOptions({ ...settingOptions, participate: event.target.checked });
+   
   };
+
   const handleParticipateNumChange = (event) => {
+
+     
     const data = {
       participate_num:Number(event.target.value)
     }
@@ -67,25 +79,31 @@ export default function FormSetting() {
       gps : false
     }
     updateSurveyGps(id, data);}
-    setShowGPSInput(!showGPSInput);
+    setSettingOptions({ ...settingOptions, gps: event.target.checked });
   };
   const handleStatToggle = (event) => {
     const data = {
       stat:event.target.checked
     }
     updateSurveyStat(id,data)
+
+    setSettingOptions({ ...settingOptions, stat: event.target.checked });
   };
   const handleEmailToggle = (event) => {
     const data = {
       email:event.target.checked
     }
     updateSurveyEmail(id,data)
+    setSettingOptions({ ...settingOptions, email: event.target.checked });
+
   };
   const handleLoginToggle = (event) => {
     const data = {
       login:event.target.checked
     }
     updateSurveyLogin(id,data)
+      setSettingOptions({ ...settingOptions, login: event.target.checked });
+
   };
   const handleLimitChange = (event) => {
     const value = Number(event.target.value);
@@ -118,8 +136,17 @@ export default function FormSetting() {
       setSelectedEndDate(new Date(response.expire_date));
       setData(response);
       setLimit(response.participate_num);
-      setShowGPSInput(response.gps)
-      setShowInput(response.participate)
+      setSettingOptions({
+        participate: response.participate,
+        gps: response.gps,
+        stat: response.stat,
+        email: response.email,
+        login: response.login
+      });
+      Geocode.fromLatLng(response.latitude,response.longitude).then((res) =>{
+        setAddress(res.results[0].formatted_address)
+        setSelectedNumber(response.distance)
+      })
     })
     .catch((error) => {
       console.error("Error fetching data:", error);
@@ -294,7 +321,8 @@ export default function FormSetting() {
       <Items>
         <CalenderText>통계 보기 허용</CalenderText>
         <Toggle>
-          <input type='checkbox' defaultChecked={data.stat} onChange={handleStatToggle} />
+          <input type='checkbox' checked={settingOptions.stat}
+        onChange={handleStatToggle} />
           <span></span>
         </Toggle>
       </Items>
@@ -302,10 +330,11 @@ export default function FormSetting() {
         <CalenderText>GPS</CalenderText>
         <GPSWrapper>
         <Toggle>
-          <input type='checkbox' defaultChecked={data.gps} onChange={handleGPSToggle} />
+          <input type='checkbox' checked={settingOptions.gps}
+        onChange={handleGPSToggle} />
           <span></span>
         </Toggle>
-        {showGPSInput && (
+        {settingOptions.gps && (
           <GPS>
         <form onSubmit={handleGPSSubmit}>
           <InputText
@@ -336,14 +365,16 @@ export default function FormSetting() {
       <Items>
         <CalenderText>이메일</CalenderText>
         <Toggle>
-          <input type='checkbox' defaultChecked={data.email}  onChange={handleEmailToggle} />
+          <input type='checkbox' checked={settingOptions.email}
+        onChange={handleEmailToggle} />
           <span></span>
         </Toggle>
       </Items>
       <Items>
         <CalenderText>로그인 여부</CalenderText>
         <Toggle>
-          <input type='checkbox' defaultChecked={data.login} onChange={handleLoginToggle} />
+          <input type='checkbox' checked={settingOptions.login}
+        onChange={handleLoginToggle} />
           <span></span>
         </Toggle>
       </Items>
@@ -351,10 +382,10 @@ export default function FormSetting() {
         <CalenderText>인원 수 제한</CalenderText>
         <GPSWrapper>
         <Toggle>
-          <input type='checkbox' id='toggle' defaultChecked={data.participate} onChange={handleParticipateToggle}  />
+          <input type='checkbox' id='toggle'    checked={settingOptions.participate} onChange={handleParticipateToggle}  />
           <span></span>
         </Toggle>
-        {showInput && (
+        {settingOptions.participate && (
           <div>
             <input type='number' id='limit' value={limit} onChange={handleLimitChange} onBlur={handleParticipateNumChange}/>
           </div>
@@ -371,7 +402,7 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  gap: 1rem;
+  gap: 1.2rem;
   margin-top: 5rem;
   margin-bottom: 5rem;
   padding: 3rem;
