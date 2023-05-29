@@ -47,7 +47,7 @@ const SectionInfo = ({sectionList}) => {
 											</div>
 											))}
 										</div>
-									</Accordion.Body>  
+									</Accordion.Body> 
 									)} 
 								</Accordion.Item>
                     	</Accordion>
