@@ -113,7 +113,6 @@ export default function Form() {
       surveyInfo(id,navigate)
         .then((data) => {
           dispatch(formActions.initForm({data}));
-          console.log(data);
           dispatch(questionActions.initQuestion({data}))
           data.sectionList.map((section) => {
               dispatch(surveyFlowActions.addIndexes());

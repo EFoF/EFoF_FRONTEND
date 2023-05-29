@@ -253,18 +253,18 @@ const Preview = () => {
 
   return (
       <>
-    <Wrapper style={{ flexDirection: 'column', alignItems: 'center' }} backgroundColor={form.form.bgColor}>
-        <QuestionWrapper>
-            <ResultTitleBox info={form.form}/>
-            <ResultSectionContainer>
-                <ResultSection section_idx={currentIndex + 1} section_len={questions.length}/>
-                    {questions[currentIndex] && questions[currentIndex].questionList.map((question, question_idx) => (
-                        <ResultQuestionContainer key={question.id} questionId={question.id} sectionId={questions[currentIndex].id}/>
-                    ))}
-            </ResultSectionContainer>
-        </QuestionWrapper>
-    </Wrapper>
-          {_determineFlow()}
+        <Wrapper style={{ flexDirection: 'column', alignItems: 'center' }} backgroundColor={form.form.bgColor}>
+            <QuestionWrapper>
+                <ResultTitleBox info={form.form}/>
+                <ResultSectionContainer>
+                    <ResultSection section_idx={currentIndex + 1} section_len={questions.length}/>
+                        {questions[currentIndex] && questions[currentIndex].questionList.map((question, question_idx) => (
+                            <ResultQuestionContainer key={question.id} questionId={question.id} sectionId={questions[currentIndex].id}/>
+                        ))}
+                </ResultSectionContainer>
+            </QuestionWrapper>
+        </Wrapper>
+        {_determineFlow()}
       </>
   )
 };
