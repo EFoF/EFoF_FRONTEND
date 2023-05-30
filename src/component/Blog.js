@@ -39,7 +39,7 @@ const Blog = () => {
         centerMode: true,
         arrows: false,
         dots: true,
-        swipeToSlide: false,
+        swipeToSlide: false, // 자동이동
         draggable: false,
         responsive: [
             {

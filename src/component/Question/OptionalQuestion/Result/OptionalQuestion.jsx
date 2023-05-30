@@ -1,5 +1,5 @@
 
-import { Wrapper, InputButtonWrapper, OptionsWrapper, customOptionButton, ResultOptionButton, CloseOptionButton, Input, ImgInput } from './style';
+import {Wrapper, InputButtonWrapper, OptionsWrapper, ResultOptionButton, Logo, CheckImage} from './style';
 import {questionActions, formActions, surveyFlowActions} from '../../../../slices';
 import React, { useState } from 'react'
 import { MdAdd, MdClose, MdPhoto } from 'react-icons/md';
@@ -8,11 +8,10 @@ import { FaCheck } from 'react-icons/fa';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRef } from 'react';
-import ReactDOM from "react-dom";
-import ConfirmModal from '../../../../ui/ConfirmModal';
-import axios from 'axios';
-import toastMsg from '../../../../ui/Toast';
-export default function ResultOptionalQuestion({ type, optionId, questionId, optionContent, selectedQuestion, optionImage, isLast, sectionId, questions, isMarked, multipleChoice}) {
+import CssFilterConverter from "css-filter-converter";
+
+
+export default function ResultOptionalQuestion({ type, hasImageProps, optionId, questionId, optionContent, selectedQuestion, isLast, sectionId, questions, isMarked, multipleChoice}) {
 
     const CheckIcon = styled(FaCheck)`
   font-size: 0.7rem;
@@ -28,6 +27,8 @@ export default function ResultOptionalQuestion({ type, optionId, questionId, opt
     const inputRef = useRef(null);
     const dispatch = useDispatch();
 
+    const selectedOption = selectedQuestion.options.find((item) => item.id === optionId);
+    if(!selectedOption) return null;
 
     const handleAddOption = () => {
         isLast && dispatch(questionActions.addOption({ sectionId: sectionId, questionId: questionId }));
@@ -77,8 +78,6 @@ export default function ResultOptionalQuestion({ type, optionId, questionId, opt
         let sectionIndex = questions.findIndex((item) => item.id === selectedOption.nextSectionId);
         // sectionIndex가 -1이면 섹션 자체가 가리키는 다음 섹션으로 이동한다.
 
-        console.log(sectionIndex)
-        console.log(currentIndex)
         if(sectionIndex === currentIndex) {
             // 옵션에서 설문 제출을 선택한 경우
             dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : -1}))
@@ -95,11 +94,21 @@ export default function ResultOptionalQuestion({ type, optionId, questionId, opt
         }
     }
 
+    console.log(CssFilterConverter.hexToFilter(form.btColor).color + " brightness(90%)");
+
+    // filterResult는 이미지의 색상을 변경하는 css 문자열이다. 다시 사용할 수도 있으니 유지하겠음
     return (
         <Wrapper isLast={isLast}>
-            <InputButtonWrapper>
-                <ResultOptionButton onClick={answerHandler} isActive={isMarked} activeColor={form.btColor}>{optionContent}</ResultOptionButton>
-            </InputButtonWrapper>
+            {selectedQuestion.hasImage ? (
+                <div style={{position:'relative'}}>
+                    <Logo src={selectedOption.image} filterResult={CssFilterConverter.hexToFilter(form.btColor).color + "opacity(60%)"} onClick={answerHandler} size={5} isMarked={isMarked} checkedColor={form.btColor} />
+                    {/*<CheckImage src={checkImage} alt="Check Image" size={5} isMarked={true} />*/}
+                </div>
+            ) : (
+                <InputButtonWrapper>
+                    <ResultOptionButton onClick={answerHandler} isActive={isMarked} activeColor={form.btColor}>{optionContent}</ResultOptionButton>
+                </InputButtonWrapper>
+            )}
             <OptionsWrapper isLast={isLast} gap={"0.5rem"}>
             </OptionsWrapper>
 

@@ -13,6 +13,8 @@ import rightArrow from '../../assets/icon/rightArrow.png'
 import ImgButton from "../../ui/ImgButton";
 import {postSurveyResponse} from "../../api/survey";
 import toastMsg from "../../ui/Toast";
+import Footer from "../../ui/common/Footer";
+import React from "react";
 
 const Preview = () => {
   const dispatch = useDispatch();
@@ -83,18 +85,8 @@ const Preview = () => {
       if(lastidx !== nextSectionIndex) {
           dispatch(surveyFlowActions.setNextIndex({ pageIndex : currentIndex, value : lastidx}));
       }
-      // 첫번째. 현재 있는 섹션에서 어떤 옵션을 선택하지는 않았는가?
-      // => 옵션을 선택하지 않았다면 지정되어있는 섹션이 있는가?
-      // 현재 인덱스에서 next를 다시 구한다. (섹션 지정값, 옵션 등을 확인해서)
-      // 여기서 다시 구한 next가 indexes 값이랑 다르다면, indexes 값을 업데이트 해준다.
 
-
-
-      // 4.
-      // 이제 알아낸 다음 인덱스를 리덕스에 저장한다.
-      // if(nextSectionIndex !== indexes[currentIndex].nextIndex) {
-      //     dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : nextSectionIndex}));
-      // }
+      console.log(form.form.bgColor)
       return (
           (indexes[currentIndex].nextIndex === -1 || indexes[currentIndex].nextIndex === currentIndex) ? (
               <>
@@ -103,12 +95,14 @@ const Preview = () => {
                           <div className="submit-button" onClick={submitHandler}>제출</div>
                       {/*</Link>*/}
                   </Buttons>
+
                   <ArrowButtonWrapper>
                       {indexes[currentIndex].prevIndex === -1 ? (
                           // 더 이상 뒤로 갈 섹션이 없는 경우 버튼을 비활성화 시킨다.
                           <ArrowImageButton
                               size={2}
                               color={"white"}
+                              backgroundColor={form.form.bgColor}
                           />
                       ) : (
                           <ArrowImageButton
@@ -116,6 +110,7 @@ const Preview = () => {
                               onClick={_moveToPrev}
                               ImgSrc={leftArrow}
                               color={"white"}
+                              backgroundColor={form.form.bgColor}
                           />
                       )}
                   </ArrowButtonWrapper>
@@ -127,6 +122,7 @@ const Preview = () => {
                   <ArrowImageButton
                       size={2}
                       color={"white"}
+                      backgroundColor={form.form.bgColor}
                   />
               ) : (
                   <ArrowImageButton
@@ -134,6 +130,7 @@ const Preview = () => {
                       onClick={_moveToPrev}
                       ImgSrc={leftArrow}
                       color={"white"}
+                      backgroundColor={form.form.bgColor}
                   />
               )}
               <ArrowImageButton
@@ -141,6 +138,7 @@ const Preview = () => {
                   onClick={_moveToNext}
                   ImgSrc={rightArrow}
                   color={"white"}
+                  backgroundColor={form.form.bgColor}
               />
           </ArrowButtonWrapper>
       ));
@@ -215,38 +213,6 @@ const Preview = () => {
         /////////////////////////////
         let next = -2;
         let current = 0;
-        // while(next !== -1) {
-        //     questions[current].questionList.forEach((questionEach) => {
-        //         // 정답이 있는지 없는지 확인
-        //         console.log(questionEach.answers);
-        //         console.log(questionEach.narrativeAnswer);
-        //         if(questionEach.answers.length !== 0 || questionEach.narrativeAnswer !== undefined) {
-        //             // 정답이 있으면 기존 방식처럼 배열에 추가해줌
-        //             const participateAnswerDTO = {
-        //                 questionId: questionEach.id,
-        //                 questionType: questionEach.type,
-        //             };
-        //             if(questionEach.type === 0 || questionEach.type === 2 || questionEach.type === 3) {
-        //                 participateAnswerDTO.questionChoiceId = questionEach.answers;
-        //             } else if(questionEach.type === 1) {
-        //                 participateAnswerDTO.answerSentence = questionEach.narrativeAnswer;
-        //             }
-        //             participateAnswerDTO.isNecessary = questionEach.isNecessary;
-        //             responseData.participateAnswerDTOList.push(participateAnswerDTO);
-        //         } else {
-        //             // 필수 질문에 정답이 없으면 토스트 메시지 실행 후 제출 취소
-        //             if(questionEach.isNecessary) {
-        //                 // 필수 질문인데 정답이 없는 경우이므로 토스트 메시지 실행 후 제출 취소
-        //                 return null;
-        //             }
-        //         }
-        //     })
-        //     next = indexes[current].nextIndex;
-        //     current = next;
-        // }
-        // console.log(responseData);
-        // return responseData;
-
 
         while (next !== -1) {
             const questionList = questions[current].questionList;
@@ -288,18 +254,21 @@ const Preview = () => {
     }
 
   return (
-    <Wrapper style={{ flexDirection: 'column', alignItems: 'center' }}>
-        <QuestionWrapper>
-            <ResultTitleBox info={form.form}/>
-            <ResultSectionContainer>
-                <ResultSection section_idx={currentIndex + 1} section_len={questions.length}/>
-                    {questions[currentIndex] && questions[currentIndex].questionList.map((question, question_idx) => (
-                        <ResultQuestionContainer key={question.id} questionId={question.id} sectionId={questions[currentIndex].id}/>
-                    ))}
-            </ResultSectionContainer>
-        </QuestionWrapper>
+      <>
+        <Wrapper style={{ flexDirection: 'column', alignItems: 'center' }} backgroundColor={form.form.bgColor}>
+            <QuestionWrapper>
+                <ResultTitleBox info={form.form}/>
+                <ResultSectionContainer>
+                    <ResultSection section_idx={currentIndex + 1} section_len={questions.length}/>
+                        {questions[currentIndex] && questions[currentIndex].questionList.map((question, question_idx) => (
+                            <ResultQuestionContainer key={question.id} questionId={question.id} sectionId={questions[currentIndex].id}/>
+                        ))}
+                </ResultSectionContainer>
+            </QuestionWrapper>
+        </Wrapper>
         {_determineFlow()}
-    </Wrapper>
+        {/*  <Footer CparentClass="" />*/}
+      </>
   )
 };
 
@@ -318,6 +287,7 @@ const ArrowImageButton = styled(ImgButton)`
   width: 80px;
   border-radius: 5px;
   ${({ theme }) => theme.flexCenter}
+  //background-color: ${({ backgroundColor }) => backgroundColor};
 `;
 
 const Buttons = styled.div`
@@ -340,7 +310,7 @@ const Buttons = styled.div`
 
 const Wrapper = styled.div`
 ${({ theme }) => theme.flexCenter};
-  
+  background-color: ${({ backgroundColor }) => backgroundColor};
   width: 100%;
   overflow:visible;
  

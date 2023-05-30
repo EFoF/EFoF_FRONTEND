@@ -44,7 +44,6 @@ const Header = () => {
         callReissue();
     }, [])
 
-    // 쿠키가 아니라 state로 판단하겠다.
 
     const {useLogout} = useLogin();
 

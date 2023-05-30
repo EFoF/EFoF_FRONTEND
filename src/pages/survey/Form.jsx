@@ -10,17 +10,17 @@ import 'react-chatbot-kit/build/main.css'
 import './Chatbot.css'
 import Draggable from 'react-draggable';
 import Preview from "./Preview";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { surveyInfo } from '../../api/survey';
 import { questionActions, formActions, surveyFlowActions } from '../../slices';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
 import toastMsg from '../../ui/Toast';
 
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
+  //background-color: #896BA7;
   flex-direction: row;
   position: relative;
   /* width: 100rem; */
@@ -103,7 +103,6 @@ position: absolute;
 export default function Form() {
   const { id } = useParams();
   const currentPath = window.location.pathname;
-  const [isPre,setIsPre] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -113,10 +112,7 @@ export default function Form() {
       surveyInfo(id,navigate)
         .then((data) => {
           dispatch(formActions.initForm({data}));
-          console.log(data);
           dispatch(questionActions.initQuestion({data}))
-          // 아래 부분은 섹션간 이동을 위해 redux를 초기화하는 부분임.
-          // 이 부분이 없으면 pre-release 화면에서는 섹션간 이동이 불가능함
           data.sectionList.map((section) => {
               dispatch(surveyFlowActions.addIndexes());
           })
@@ -132,8 +128,6 @@ export default function Form() {
   
   const scrollRef = useRef(null);
   const buttonWrapperRef = useRef(null);
-  const dragButtonWrapperRef = useRef(null);
-  const [isDragging, setIsDragging] = useState(false);
   const handleScroll = (event) => {
     const scrollTop = event.target.scrollTop;
     const buttonWrapper = buttonWrapperRef.current;
@@ -142,6 +136,8 @@ export default function Form() {
     }
   };
   const [isVisible, setIsVisible] = useState(false);
+
+  const { loginLastDTO } = useSelector((state) => state.authorization);
 
   const handleCloseChatbot = () => {
     
@@ -152,31 +148,18 @@ export default function Form() {
     setIsVisible(!isVisible);
   };
 
-  // const handleMouseDown = () => {
-  //   setIsDragging(true);
-  //   window.addEventListener('mousemove', handleMouseMove);
-  // };
-
-  // const handleMouseUp = () => {
-  //   setIsDragging(false);
-  //   window.removeEventListener('mousemove', handleMouseMove);
-  // };
-  // const handleMouseMove = (event) => {
-  //   if (isDragging) {
-  //     requestAnimationFrame(() => {
-  //       const buttonWrapper = dragButtonWrapperRef.current;
-  //       buttonWrapper.style.left = `${event.pageX}px`;
-  //       buttonWrapper.style.top = `${event.pageY}px`;
-  //     });
-  //   }
-  // };
-
-
-
-
+  useEffect(() => {
+      const expiresDate = typeof(loginLastDTO.expiresAt) === "undefined" ?
+          new Date : new Date(loginLastDTO.expiresAt);
+      const currentDate = new Date();
+      if(currentDate >= expiresDate) {
+          alert("로그인 되지 않았습니다.");
+          navigate("/");
+      }
+  }, [])
 
   return (
-      <Wrapper >
+      <Wrapper>
         <Half ref={scrollRef} onScroll={handleScroll}>
           <FormMake/>
         </Half>

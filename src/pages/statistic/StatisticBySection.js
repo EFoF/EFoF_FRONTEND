@@ -29,25 +29,25 @@ const dummy = [
 ]
 
 
-const StatisticBySection = ({projectStyle, portfolio, sectionId}) => {
+const StatisticBySection = ({projectStyle, portfolio, sectionId,data}) => {
 
-	const isShortAnswer = portfolio.category.includes('주관식');
+	const isLongAnswer = data.question_type.includes("LONG_ANSWER");
 
     return (
 		<>
 		<div className='row' style={{backgroundColor: 'white' , paddingBottom: '90px'}}>
-			<div className={`project-grid ${projectStyle}`}>	
-				<span className="subtitle">{portfolio.category}</span>
-				<h3 className="title"> {portfolio.title}</h3>
+			<div className={`project-grid${projectStyle}`}>	
+				<span className="subtitle">질문 {data.question_id} [{data.question_type}]</span>
+				<h3 className="title"> {data.question_text}</h3>
 			</div>
 
-			{ !isShortAnswer ? (
+			{ !isLongAnswer ? (
 				<>
 					<div className='col-md-6'>
-						<StatisticBar />
+						<StatisticBar optionData = {data.choiceAnswerDtos}/>
 					</div>
 					<div className='col-md-6'>
-						<StatisticPie />
+						<StatisticPie optionData = {data.choiceAnswerDtos}/>
 					</div>
 				</>
 			) : (
@@ -57,14 +57,12 @@ const StatisticBySection = ({projectStyle, portfolio, sectionId}) => {
 							height: '120px', // 컨테이너의 높이 설정
 							// border: '1px solid #000' // 테두리 스타일 지정
 							}}
-					>{dummy.map((item, index) => (
-						<p key={index}>{item.answer}</p>
+					>{data.longAnswerDtos.map((item, index) => (
+						<p key={index}>{item.answer_sentence}</p>
 					))}
 					</div>
 				</div>
-			)}
-
-			
+			)}			
 		</div>
 		</>
     )
