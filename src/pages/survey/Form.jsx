@@ -14,8 +14,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { surveyInfo } from '../../api/survey';
 import { questionActions, formActions, surveyFlowActions } from '../../slices';
-import {useDispatch, useSelector} from 'react-redux';
-import toastMsg from '../../ui/Toast';
+import { useDispatch, useSelector } from 'react-redux';
+import SurveyHeader from './SurveyHeader';
 
 const Wrapper = styled.div`
   display: flex;
@@ -109,23 +109,23 @@ export default function Form() {
   // '/form/pre-release/:id' 경로인 경우에만 특정 로직 수행
   useEffect(() => {
     if (currentPath === `/form/pre-release/${id}`) {
-      surveyInfo(id,navigate)
+      surveyInfo(id, navigate)
         .then((data) => {
-          dispatch(formActions.initForm({data}));
-          dispatch(questionActions.initQuestion({data}))
+          dispatch(formActions.initForm({ data }));
+          dispatch(questionActions.initQuestion({ data }))
           data.sectionList.map((section) => {
-              dispatch(surveyFlowActions.addIndexes());
+            dispatch(surveyFlowActions.addIndexes());
           })
         }).catch(error => {
-          
+
           // toastMsg(error.response.data.message,false);
-          
-      });
+
+        });
     }
-    
+
   }, [id, currentPath]);
-  
-  
+
+
   const scrollRef = useRef(null);
   const buttonWrapperRef = useRef(null);
   const handleScroll = (event) => {
@@ -140,49 +140,51 @@ export default function Form() {
   const { loginLastDTO } = useSelector((state) => state.authorization);
 
   const handleCloseChatbot = () => {
-    
+
     setIsVisible(false);
   };
   const handleDragButtonClick = () => {
-    
+
     setIsVisible(!isVisible);
   };
 
   useEffect(() => {
-      const expiresDate = typeof(loginLastDTO.expiresAt) === "undefined" ?
-          new Date : new Date(loginLastDTO.expiresAt);
-      const currentDate = new Date();
-      if(currentDate >= expiresDate) {
-          alert("로그인 되지 않았습니다.");
-          navigate("/");
-      }
+    const expiresDate = typeof (loginLastDTO.expiresAt) === "undefined" ?
+      new Date : new Date(loginLastDTO.expiresAt);
+    const currentDate = new Date();
+    if (currentDate >= expiresDate) {
+      alert("로그인 되지 않았습니다.");
+      navigate("/");
+    }
   }, [])
 
-  return (
-      <Wrapper>
-        <Half ref={scrollRef} onScroll={handleScroll}>
-          <FormMake/>
-        </Half>
-        <Half>
-          <Preview/>
-        </Half>
-        {!isVisible && (
+  return (<>
+    <SurveyHeader surveyId={id}/>
+    <Wrapper>
+
+      <Half ref={scrollRef} onScroll={handleScroll}>
+        <FormMake />
+      </Half>
+      <Half>
+        <Preview />
+      </Half>
+      {!isVisible && (
         <DragButton color="#3b5998" onClick={handleDragButtonClick}>
           <AiOutlineMessage />
         </DragButton>
-        )}
-        {isVisible && (
+      )}
+      {isVisible && (
         <Draggable>
-        <ExampleChatbotWrapper>
-          <Chatbot
-            config={GetConfig(handleCloseChatbot)}
-            actionProvider={ActionProvider}
-            messageParser={MessageParser}
-            
-          />
-        </ExampleChatbotWrapper>
+          <ExampleChatbotWrapper>
+            <Chatbot
+              config={GetConfig(handleCloseChatbot)}
+              actionProvider={ActionProvider}
+              messageParser={MessageParser}
+
+            />
+          </ExampleChatbotWrapper>
         </Draggable>
       )}
-      </Wrapper>
+    </Wrapper></>
   );
 }

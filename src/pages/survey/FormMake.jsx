@@ -219,42 +219,8 @@ function FormMake() {
   };
 
 
-  function createSurveyDto() {
-    return {
-      title: form.title,
-      detail: form.detail,
-      image: form.image,
-      fontColor: form.fontColor,
-      bgColor: form.bgColor,
-      btColor: form.btColor,
-      sections: questions,
-    };
-  }
-
-  function saveSurvey(surveyDto) {
-    authorizationClient.post(
-      `${API.SURVEY}`, surveyDto
-    )
-      .then(response => {
-        console.log(response);
-        typeof (response) !== 'undefined' ?
-          toastMsg("설문생성 성공", true) : toastMsg("설문생성 실패", false);
-        // 여기서 홈으로 리다이렉트 시킬지 고민 중
-      })
-      .catch(error => {
-        // alert(error);
-        console.log("설문생성 실패" + error);
-        toastMsg("설문생성 실패", false);
-      });
-  }
-
-
   // Survey 데이터와 option 데이터를 가져와서 surveyDto 객체를 생성하고 서버에 저장하는 함수
-  function saveSurveyFromData() {
-    const surveyDto = createSurveyDto();
-    // alert(JSON.stringify(surveyDto))
-    saveSurvey(surveyDto);
-  }
+
 
   return (
     <Wrapper>
@@ -268,9 +234,6 @@ function FormMake() {
         </DragDropContext>
 
       </QuestionWrapper>
-      <button onClick={saveSurveyFromData}>
-        생성하기
-      </button>
 
     </Wrapper>
   );
