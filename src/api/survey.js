@@ -398,9 +398,9 @@ const postSurveyResponse = async (responseData) => {
     } 
   };
 
-  const fetchLocation = async () => {
+  const fetchLocation = async (location) => {
       try {
-          const response = await unAuthorizationClient.get(API.BASE_URL+ '/gps');
+          const response = await unAuthorizationClient.post(API.BASE_URL+ '/gps', location);
           console.log(response.data);
           return response.data;
       }
@@ -409,17 +409,17 @@ const postSurveyResponse = async (responseData) => {
       }
   }
 
-  const getSurveyInfoForBlog = async (blogDTO) => {
-      try {
-          const response = await unAuthorizationClient.post(API.BASE_URL+ '/getSurveyInfo'
-          , blogDTO);
-          console.log(response.data);
-          return response.data;
-      }
-      catch (error) {
-          console.log(error);
-      }
-  }
+  // const getSurveyInfoForBlog = async (blogDTO) => {
+  //     try {
+  //         const response = await unAuthorizationClient.post(API.BASE_URL+ '/getSurveyInfo'
+  //         , blogDTO);
+  //         console.log(response.data);
+  //         return response.data;
+  //     }
+  //     catch (error) {
+  //         console.log(error);
+  //     }
+  // }
 
   export {
     surveyInfo,
@@ -452,5 +452,5 @@ const postSurveyResponse = async (responseData) => {
     addAllQuestionOptionByBot, 
     fetchSurvey,
     fetchLocation,
-    getSurveyInfoForBlog
+    // getSurveyInfoForBlog
 };
