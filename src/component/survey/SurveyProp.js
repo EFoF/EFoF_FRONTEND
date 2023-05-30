@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { slugify } from '../../utils';
-
+import {SurveyImg} from "../index";
 
 const SurveyProp = ({projectStyle, survey}) => {
     const imageStyle = {
         width: '610px',
         height: '230px',
+        backgroundColor:'white'
     };
 
     const getDDays = () => {
@@ -51,7 +52,13 @@ const SurveyProp = ({projectStyle, survey}) => {
             <div className={`project-grid ${projectStyle}`}>
                 <div className="thumbnail">
                     <Link to={process.env.PUBLIC_URL + `/form-details/${slugify(survey.title)}`}>
-                        <img src={process.env.PUBLIC_URL + survey.s_imageurl} alt="icon" style={imageStyle}/>
+                        {survey.s_imageurl === undefined || survey.s_imageurl === "" || survey.s_imageurl === null ?
+                            (
+                                <img src={process.env.REACT_APP_OPTION_DEFAULT_IMG} alt="icon" style={imageStyle}/>
+                            ) : (
+                                <img src={process.env.REACT_APP_S3_URL + survey.s_imageurl} alt="icon" style={imageStyle}/>
+                            )}
+
                     </Link>
                 </div>
                 <div className="content">
