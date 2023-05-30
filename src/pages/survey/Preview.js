@@ -13,6 +13,8 @@ import rightArrow from '../../assets/icon/rightArrow.png'
 import ImgButton from "../../ui/ImgButton";
 import {postSurveyResponse} from "../../api/survey";
 import toastMsg from "../../ui/Toast";
+import Footer from "../../ui/common/Footer";
+import React from "react";
 
 const Preview = () => {
   const dispatch = useDispatch();
@@ -265,6 +267,7 @@ const Preview = () => {
             </QuestionWrapper>
         </Wrapper>
         {_determineFlow()}
+        {/*  <Footer CparentClass="" />*/}
       </>
   )
 };
@@ -284,7 +287,7 @@ const ArrowImageButton = styled(ImgButton)`
   width: 80px;
   border-radius: 5px;
   ${({ theme }) => theme.flexCenter}
-  background-color: ${({ backgroundColor }) => backgroundColor};
+  //background-color: ${({ backgroundColor }) => backgroundColor};
 `;
 
 const Buttons = styled.div`

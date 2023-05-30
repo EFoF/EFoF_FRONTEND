@@ -536,6 +536,17 @@ const postSurveyResponse = async (responseData) => {
     } 
   };
 
+  const fetchLocation = async (location) => {
+      try {
+          const response = await unAuthorizationClient.post(API.BASE_URL+ '/gps', location);
+          console.log(response.data);
+          return response.data;
+      }
+      catch (error) {
+          console.log(error);
+      }
+  }
+
   const getQuestionBySectionForStatistic = async (survey_id,section_id) => {
     try {
       const response = await authorizationClient.get(
@@ -548,6 +559,7 @@ const postSurveyResponse = async (responseData) => {
       console.error('Error get Question By Section For Statistic:', error);
     } 
   };
+
   export {
     surveyInfo,
     surveyInfoForResponse,
@@ -578,6 +590,7 @@ const postSurveyResponse = async (responseData) => {
     createQuestionOptionByBot,
     addAllQuestionOptionByBot, 
     fetchSurvey,
+    fetchLocation,
     updateSurveyExpireDate,
     updateSurveyOpenDate,
     updateSurveyEmail,
