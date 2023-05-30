@@ -10,7 +10,7 @@ const initialState = {
   image: '',
   fontColor: '#992999',
   bgColor: '#FFFFFF',
-  btColor: '#000000',
+  btColor: '#D3D3D3',
   isPre : false
 };
 

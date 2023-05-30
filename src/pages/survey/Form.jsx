@@ -198,6 +198,6 @@ export default function Form() {
           </ExampleChatbotWrapper>
         </Draggable>
       )}
-    </Wrapper></>
+    </Wrapper>
   );
 }

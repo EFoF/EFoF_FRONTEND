@@ -26,10 +26,10 @@ const surveyInfoForResponse = async (survey_id, navigate) => {
         const response = await authorizationClient.get(`${API.SURVEY}/${survey_id}/in_progress`);
         return response.data;
     } catch (error) {
-        console.log(error);
-        alert(JSON.stringify(error.response.data.message));
-        // 뒤로 가기
-        navigate(-1);
+        // alert(JSON.stringify(error.response.data.message));
+        error.response.data.message === undefined ? toastMsg("유효하지 않은 설문입니다.", false)
+            : toastMsg(JSON.stringify(error.response.data.message), false);
+        navigate("/");
     }
 }
 

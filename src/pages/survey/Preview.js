@@ -23,7 +23,6 @@ const Preview = () => {
   const { questions } = form;
   const { id } = useParams();
   const currentPath = useLocation();
-  // 설문 참여 url이 아니면 제출버튼을 눌러도 아무 효과가 없어야 한다.
   const _moveToNext = () => {
       if (currentIndex !== indexes[currentIndex].nextIndex) {
           // 이동할 다음 페이지의 prev를 현재 페이지의 current로 설정
@@ -40,9 +39,6 @@ const Preview = () => {
   }
 
   const _getIndexAgainForComparison = () => {
-      // 1. 현재 섹션의 모든 질문을 돌면서 선택한 옵션이 있나 확인
-      //    1-1. 여기서 가장 마지막에 선택한 옵션을 기준으로 생각한다.
-      // 2. 섹션 자체가 가리키는 다음 섹션 값도 확인한다.
 
       let lastId;
       console.log(questions[currentIndex]);
@@ -91,7 +87,6 @@ const Preview = () => {
       // console.log(form.form.bgColor)
       const flag = indexes[currentIndex].nextIndex === -1 || indexes[currentIndex].nextIndex === currentIndex
       return (
-          // <FooterContainer isReal={currentPath.pathname === `/form/in-progress/${id}`}>
               <ArrowButtonWrapper>
                   <ArrowImageButton isActive={indexes[currentIndex].prevIndex !== -1}
                                     size={1}
@@ -108,61 +103,6 @@ const Preview = () => {
                                     src={rightArrow}
                                     color={"white"}/>
               </ArrowButtonWrapper>
-          // </FooterContainer>
-      //     (indexes[currentIndex].nextIndex === -1 || indexes[currentIndex].nextIndex === currentIndex) ? (
-      //         <>
-      //             <Buttons>
-      //                 {/*<Link to={'/result'} style={{ textDecoration: 'none' }}>*/}
-      //                     <div className="submit-button" onClick={submitHandler}>제출</div>
-      //                 {/*</Link>*/}
-      //             </Buttons>
-      //
-      //             <ArrowButtonWrapper>
-      //                 {indexes[currentIndex].prevIndex === -1 ? (
-      //                     // 더 이상 뒤로 갈 섹션이 없는 경우 버튼을 비활성화 시킨다.
-      //                     <ArrowImageButton
-      //                         size={2}
-      //                         color={"white"}
-      //                         backgroundColor={form.form.bgColor}
-      //                     />
-      //                 ) : (
-      //                     <ArrowImageButton
-      //                         size={2}
-      //                         onClick={_moveToPrev}
-      //                         ImgSrc={leftArrow}
-      //                         color={"white"}
-      //                         backgroundColor={form.form.bgColor}
-      //                     />
-      //                 )}
-      //             </ArrowButtonWrapper>
-      //         </>
-      // ) : (
-      //     <ArrowButtonWrapper>
-      //         {indexes[currentIndex].prevIndex === -1 ? (
-      //             // 더 이상 뒤로 갈 섹션이 없는 경우 버튼을 비활성화 시킨다.
-      //             <ArrowImageButton
-      //                 size={2}
-      //                 color={"white"}
-      //                 backgroundColor={form.form.bgColor}
-      //             />
-      //         ) : (
-      //             <ArrowImageButton
-      //                 size={2}
-      //                 onClick={_moveToPrev}
-      //                 ImgSrc={leftArrow}
-      //                 color={"white"}
-      //                 backgroundColor={form.form.bgColor}
-      //             />
-      //         )}
-      //         <ArrowImageButton
-      //             size={2}
-      //             onClick={_moveToNext}
-      //             ImgSrc={rightArrow}
-      //             color={"white"}
-      //             backgroundColor={form.form.bgColor}
-      //         />
-      //     </ArrowButtonWrapper>
-      // )
       );
   }
 
