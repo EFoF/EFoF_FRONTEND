@@ -28,6 +28,9 @@ import GenerateProgress from "./pages/mysurvey/GenerateProgress";
 import GenerateOver from "./pages/mysurvey/GenerateOver";
 import FormSetting from './pages/survey/FormSetting';
 import SectionInfo from './pages/statistic/SectionInfo';
+import ParticipateTotal from "./pages/mysurvey/ParticipateTotal";
+import ParticipateProgress from "./pages/mysurvey/ParticipateProgress";
+import ParticipateOver from "./pages/mysurvey/ParticipateOver";
 
 
 const App = () => {
@@ -53,8 +56,13 @@ const App = () => {
                     <Route path="over/:id" element={<GenerateOver />} />
                     {/*<Route path="*" element={<NoMatch />} />*/}
                 </Route>
+                <Route path="/form/participate" exact element={<Participate/>}>
+                    <Route path=":id" element={<ParticipateTotal />} />
+                    <Route path="progress/:id" element={<ParticipateProgress />} />
+                    <Route path="over/:id" element={<ParticipateOver />} />
+                    {/*<Route path="*" element={<NoMatch />} />*/}
+                </Route>
                 <Route path="/statistic/:id/:section_id" exact element={<SectionInfo/>}/>
-                <Route path={process.env.PUBLIC_URL + "/form/participate"} element={<Participate/>}/>
             </Routes>
         </BrowserRouter>
     )
