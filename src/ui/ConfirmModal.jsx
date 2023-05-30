@@ -27,6 +27,7 @@ const Modal = styled.div`
 const Message = styled.p`
   font-size: 1.2rem;
   margin-bottom: 2rem;
+  white-space: pre-wrap;
 `;
 
 const ButtonWrapper = styled.div`

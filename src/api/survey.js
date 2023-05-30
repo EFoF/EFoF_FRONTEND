@@ -384,6 +384,144 @@ const postSurveyResponse = async (responseData) => {
     }
   };
 
+  const updateSurveyOpenDate = async (survey_id,data) => {
+    
+    try {
+
+        const response = 
+        await authorizationClient.post(`${API.SURVEY}/${survey_id}/setting/open_date`
+        ,data)
+
+    } catch (error) {
+      console.log(error);
+      toastMsg(error.response.data.message, false);
+    }
+  };
+  const updateSurveyExpireDate = async (survey_id,data) => {
+    
+    try {
+
+        const response = 
+        await authorizationClient.post(`${API.SURVEY}/${survey_id}/setting/expire_date`
+        ,data)
+
+    } catch (error) {
+      console.log(error);
+      toastMsg(error.response.data.message, false);
+    }
+  };
+
+  const updateSurveyStat = async (survey_id,data) => {
+    
+    try {
+
+        const response = 
+        await authorizationClient.post(`${API.SURVEY}/${survey_id}/setting/stat`
+        ,data)
+
+    } catch (error) {
+      console.log(error);
+      toastMsg(error.response.data.message, false);
+    }
+  };
+
+  const updateSurveyLogin = async (survey_id,data) => {
+    
+    try {
+
+        const response = 
+        await authorizationClient.post(`${API.SURVEY}/${survey_id}/setting/login`
+        ,data)
+
+    } catch (error) {
+      console.log(error);
+      toastMsg(error.response.data.message, false);
+    }
+  };
+  const updateSurveyEmail = async (survey_id,data) => {
+    
+    try {
+
+        const response = 
+        await authorizationClient.post(`${API.SURVEY}/${survey_id}/setting/email`
+        ,data)
+
+    } catch (error) {
+      console.log(error);
+      toastMsg(error.response.data.message, false);
+    }
+  };
+
+  const updateSurveyParticipate = async (survey_id,data) => {
+    
+    try {
+
+        const response = 
+        await authorizationClient.post(`${API.SURVEY}/${survey_id}/setting/participate`
+        ,data)
+
+    } catch (error) {
+      console.log(error);
+      toastMsg(error.response.data.message, false);
+    }
+  };
+
+  const updateSurveyParticipateNum = async (survey_id,data) => {
+    
+    try {
+
+        const response = 
+        await authorizationClient.post(`${API.SURVEY}/${survey_id}/setting/participate_num`
+        ,data)
+
+    } catch (error) {
+      console.log(error);
+      toastMsg(error.response.data.message, false);
+    }
+  };
+
+  const updateSurveyGps = async (survey_id,data) => {
+    
+    try {
+
+        const response = 
+        await authorizationClient.post(`${API.SURVEY}/${survey_id}/setting/gps`
+        ,data)
+
+    } catch (error) {
+      console.log(error);
+      toastMsg(error.response.data.message, false);
+    }
+  };
+
+  const updateSurveyGpsValue = async (survey_id,data) => {
+    
+    try {
+
+        const response = 
+        await authorizationClient.patch(`${API.SURVEY}/${survey_id}/setting/distance`
+        ,data)
+
+    } catch (error) {
+      console.log(error);
+      toastMsg(error.response.data.message, false);
+    }
+  };
+  const getSurveySetting = async (survey_id) => {
+    
+    try {
+
+        const response = 
+        await authorizationClient.get(`${API.SURVEY}/${survey_id}/setting`
+        )
+
+        return response.data;
+    } catch (error) {
+      console.log(error);
+      toastMsg(error.response.data.message, false);
+    }
+  };
+
   // 민경
   const fetchSurvey = async (survey_id) => {
     try {
@@ -397,6 +535,47 @@ const postSurveyResponse = async (responseData) => {
       console.error('Error fetching survey:', error);
     } 
   };
+
+  const fetchLocation = async (location) => {
+      try {
+          const response = await unAuthorizationClient.post(API.BASE_URL+ '/gps', location);
+          console.log(response.data);
+          return response.data;
+      }
+      catch (error) {
+          console.log(error);
+      }
+  }
+
+  const getQuestionBySectionForStatistic = async (survey_id,section_id) => {
+    try {
+        const response = await authorizationClient.get(
+            `${API.SURVEY}/${survey_id}${API.STATISTIC}/${section_id}`);
+        //   const { title, description } = response.data;
+
+        // setSurvey({ title, description });
+        return response.data;
+    } catch (error) {
+        console.error('Error get Question By Section For Statistic:', error);
+    }
+};
+
+
+const getGenerateSurvey = async (status, pageNum) => {
+    try {
+        const str = `&surveyStatus=${status}`
+        let url  = `${API.SURVEY}/generate?page=${pageNum}&size=9`
+        if(status!=null){
+            url = url+str;
+        }
+        const response = await authorizationClient.get(
+            url);
+
+        return response.data;
+    } catch (error) {
+        console.error('Error get Question By Section For Statistic:', error);
+    }
+};
 
   export {
     surveyInfo,
@@ -427,5 +606,18 @@ const postSurveyResponse = async (responseData) => {
     deleteQuestionOption,
     createQuestionOptionByBot,
     addAllQuestionOptionByBot, 
-    fetchSurvey
+    fetchSurvey,
+    fetchLocation,
+    updateSurveyExpireDate,
+    updateSurveyOpenDate,
+    updateSurveyEmail,
+    updateSurveyStat,
+    updateSurveyLogin,
+    updateSurveyParticipate,
+    updateSurveyParticipateNum,
+    updateSurveyGps,
+    updateSurveyGpsValue,
+    getSurveySetting,
+    getQuestionBySectionForStatistic,
+      getGenerateSurvey
 };

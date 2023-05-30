@@ -1,0 +1,72 @@
+[
+  {
+    "survey_id": 3,
+    "title": "설문3 설문3 설문3 설문3 설문3 설문3",
+    "description": "설문3설문3설문3설문3설문3설문3이지롱설문3이지롱ㄹ오롱ㄹ오롱",
+    "member_id": 1,
+    "s_imageurl": "/images/survey/project-1.png",
+    "open_date": "2023-02-28T21:14:04",
+    "expire_date": "2023-05-30T21:14:53",
+    "surveyStatus": "progress"
+  },
+  {
+    "survey_id": 4,
+    "title": "설문4444",
+    "description": "설문3설문3설문3설문3설문3설문3이지롱설문3이지롱ㄹ오롱ㄹ오롱 아니 사실 설문 4야",
+    "member_id": 1,
+    "s_imageurl": "/images/survey/project-1.png",
+    "open_date": "2023-05-24T21:14:07",
+    "expire_date": "2023-06-01T21:15:00",
+    "surveyStatus": "progress"
+  },
+  {
+    "survey_id": 5,
+    "title": "설문555555",
+    "description": "설문5입니당!!",
+    "member_id": 1,
+    "s_imageurl": "/images/survey/project-1.png",
+    "open_date": "2023-05-02T21:14:11",
+    "expire_date": "2023-05-31T21:14:56",
+    "surveyStatus": "progress"
+  },
+  {
+    "survey_id": 6,
+    "title": "설문\b설문설문6666",
+    "description": "이건 6번째 설문입니다..!!!!",
+    "member_id": 1,
+    "s_imageurl": "/images/survey/project-1.png",
+    "open_date": "2023-03-20T21:14:15",
+    "expire_date": "2023-06-28T21:15:06",
+    "surveyStatus": "progress"
+  },
+  {
+    "survey_id": 7,
+    "title": "777행운의7설문7",
+    "description": "행운의 7번 설문입니다!!",
+    "member_id": 1,
+    "s_imageurl": "/images/survey/project-1.png",
+    "open_date": "2023-01-01T21:14:25",
+    "expire_date": "2023-07-28T21:15:09",
+    "surveyStatus": "progress"
+  },
+  {
+    "survey_id": 8,
+    "title": "8번설무이용888",
+    "description": "행운의 7번 설문입니다!! 아니 사실 8번 설문입니당",
+    "member_id": 1,
+    "s_imageurl": "/images/survey/project-1.png",
+    "open_date": "2023-03-16T21:14:32",
+    "expire_date": "2023-09-30T21:15:12",
+    "surveyStatus": "progress"
+  },
+  {
+    "survey_id": 9,
+    "title": "9999설문 999",
+    "description": "설문9번이용",
+    "member_id": 1,
+    "s_imageurl": "/images/survey/project-1.png",
+    "open_date": "2023-04-16T21:14:39",
+    "expire_date": "2023-12-31T21:15:21",
+    "surveyStatus": "progress"
+  }
+]

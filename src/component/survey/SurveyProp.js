@@ -1,22 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { slugify } from '../../utils';
-
+import {SurveyImg} from "../index";
 
 const SurveyProp = ({projectStyle, survey}) => {
     const imageStyle = {
         width: '610px',
         height: '230px',
+        backgroundColor:'white'
     };
 
     const getDDays = () => {
         const { surveyStatus, expire_date } = survey;
         const expireDate = new Date(expire_date);
         const currentDate = new Date();
-
-        console.log(expireDate);
-        console.log(currentDate);
-        console.log((expireDate - currentDate) / (1000 * 3600 * 24));
 
         // 만료 날짜의 시간과 분을 0으로 설정하여 날짜만 비교
         expireDate.setHours(0, 0, 0, 0);
@@ -29,13 +26,25 @@ const SurveyProp = ({projectStyle, survey}) => {
         let dDay = "D-??";
         if (daysDiff === 0) {
             dDay = "D-Day";
-        } else if (surveyStatus === "설문 진행 중") {
+        } else if (surveyStatus === "progress") {
             dDay = `D${daysDiff}`;
-        } else if (surveyStatus === "설문 마감") {
+        } else if (surveyStatus === "over") {
             dDay = `D+${daysDiff}`;
         }
 
         return dDay;
+    };
+
+    const getStatus = () => {
+        const { surveyStatus } = survey;
+
+        if (surveyStatus === "prerelease") {
+            return "설문 배포 전";
+        } else if (surveyStatus === "progress") {
+            return "설문 진행 중";
+        } else if (surveyStatus === "over") {
+            return "설문 마감";
+        }
     };
 
     return (
@@ -43,13 +52,19 @@ const SurveyProp = ({projectStyle, survey}) => {
             <div className={`project-grid ${projectStyle}`}>
                 <div className="thumbnail">
                     <Link to={process.env.PUBLIC_URL + `/form-details/${slugify(survey.title)}`}>
-                        <img src={process.env.PUBLIC_URL + survey.s_imageurl} alt="icon" style={imageStyle}/>
+                        {survey.s_imageurl === undefined || survey.s_imageurl === "" || survey.s_imageurl === null ?
+                            (
+                                <img src={process.env.REACT_APP_OPTION_DEFAULT_IMG} alt="icon" style={imageStyle}/>
+                            ) : (
+                                <img src={process.env.REACT_APP_S3_URL + survey.s_imageurl} alt="icon" style={imageStyle}/>
+                            )}
+
                     </Link>
                 </div>
                 <div className="content">
                     <div className="tag" style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
                         <span className="subtitle" style={{marginRight: 'auto'}}>
-                            <span>{survey.surveyStatus}</span>
+                            <span>{getStatus()}</span>
                         </span>
                         <span style={{marginLeft: 'auto'}}>{getDDays()}</span>
                     </div>

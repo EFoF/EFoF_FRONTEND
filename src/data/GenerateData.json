@@ -1,202 +1,202 @@
 [
   {
     "survey_id": 1,
-    "title": "설문1",
-    "description": "설문1111",
+    "title": "설문1111",
+    "description": "설문 1입니당",
     "member_id": 1,
     "s_imageurl": "/images/survey/project-1.png",
-    "open_date": "2023-02-23T18:07:46",
-    "expire_date": "2023-08-23T18:07:51",
-    "surveyStatus": "설문 진행 중"
+    "open_date": "2023-04-28T21:13:55",
+    "expire_date": "2023-05-28T21:14:45",
+    "surveyStatus": "over"
   },
   {
     "survey_id": 2,
-    "title": "설문2",
-    "description": "설문2",
+    "title": "설문2222",
+    "description": "설문 2222222222",
     "member_id": 1,
     "s_imageurl": "/images/survey/project-1.png",
-    "open_date": "2023-01-23T18:07:55",
-    "expire_date": "2023-11-23T18:07:59",
-    "surveyStatus": "설문 진행 중"
+    "open_date": "2023-03-28T21:14:00",
+    "expire_date": "2023-05-29T21:14:50",
+    "surveyStatus": "over"
   },
   {
     "survey_id": 3,
-    "title": "설문3",
-    "description": "설문3",
+    "title": "설문3 설문3 설문3 설문3 설문3 설문3",
+    "description": "설문3설문3설문3설문3설문3설문3이지롱설문3이지롱ㄹ오롱ㄹ오롱",
     "member_id": 1,
     "s_imageurl": "/images/survey/project-1.png",
-    "open_date": "2023-01-23T18:08:04",
-    "expire_date": "2023-04-23T18:08:08",
-    "surveyStatus": "설문 마감"
+    "open_date": "2023-02-28T21:14:04",
+    "expire_date": "2023-05-30T21:14:53",
+    "surveyStatus": "progress"
   },
   {
     "survey_id": 4,
-    "title": "설문4",
-    "description": "설문4",
+    "title": "설문4444",
+    "description": "설문3설문3설문3설문3설문3설문3이지롱설문3이지롱ㄹ오롱ㄹ오롱 아니 사실 설문 4야",
     "member_id": 1,
     "s_imageurl": "/images/survey/project-1.png",
-    "open_date": "2023-07-23T18:08:13",
-    "expire_date": "2023-12-23T18:08:17",
-    "surveyStatus": "설문 배포 전"
+    "open_date": "2023-05-24T21:14:07",
+    "expire_date": "2023-06-01T21:15:00",
+    "surveyStatus": "progress"
   },
   {
     "survey_id": 5,
-    "title": "설문5",
-    "description": "설문55555555",
+    "title": "설문555555",
+    "description": "설문5입니당!!",
     "member_id": 1,
     "s_imageurl": "/images/survey/project-1.png",
-    "open_date": "2023-02-23T18:07:46",
-    "expire_date": "2023-08-23T18:07:51",
-    "surveyStatus": "설문 진행 중"
+    "open_date": "2023-05-02T21:14:11",
+    "expire_date": "2023-05-31T21:14:56",
+    "surveyStatus": "progress"
   },
   {
     "survey_id": 6,
-    "title": "설문6",
-    "description": "설문6",
+    "title": "설문\b설문설문6666",
+    "description": "이건 6번째 설문입니다..!!!!",
     "member_id": 1,
     "s_imageurl": "/images/survey/project-1.png",
-    "open_date": "2023-01-23T18:07:55",
-    "expire_date": "2023-11-23T18:07:59",
-    "surveyStatus": "설문 진행 중"
+    "open_date": "2023-03-20T21:14:15",
+    "expire_date": "2023-06-28T21:15:06",
+    "surveyStatus": "progress"
   },
   {
     "survey_id": 7,
-    "title": "설문7",
-    "description": "설문7",
+    "title": "777행운의7설문7",
+    "description": "행운의 7번 설문입니다!!",
     "member_id": 1,
     "s_imageurl": "/images/survey/project-1.png",
-    "open_date": "2023-01-23T18:08:04",
-    "expire_date": "2023-04-23T18:08:08",
-    "surveyStatus": "설문 마감"
+    "open_date": "2023-01-01T21:14:25",
+    "expire_date": "2023-07-28T21:15:09",
+    "surveyStatus": "progress"
   },
   {
     "survey_id": 8,
-    "title": "설문8",
-    "description": "설문8",
+    "title": "8번설무이용888",
+    "description": "행운의 7번 설문입니다!! 아니 사실 8번 설문입니당",
     "member_id": 1,
     "s_imageurl": "/images/survey/project-1.png",
-    "open_date": "2023-07-23T18:08:13",
-    "expire_date": "2023-12-23T18:08:17",
-    "surveyStatus": "설문 배포 전"
+    "open_date": "2023-03-16T21:14:32",
+    "expire_date": "2023-09-30T21:15:12",
+    "surveyStatus": "progress"
   },
   {
     "survey_id": 9,
-    "title": "설문9",
-    "description": "9999999999",
+    "title": "9999설문 999",
+    "description": "설문9번이용",
     "member_id": 1,
     "s_imageurl": "/images/survey/project-1.png",
-    "open_date": "2023-02-23T18:07:46",
-    "expire_date": "2023-08-23T18:07:51",
-    "surveyStatus": "설문 진행 중"
+    "open_date": "2023-04-16T21:14:39",
+    "expire_date": "2023-12-31T21:15:21",
+    "surveyStatus": "progress"
   },
   {
     "survey_id": 10,
-    "title": "설문10에 대한 테스트를 하게써여",
-    "description": "설문10입니다설문10입니다설문10입니다",
+    "title": "설문 101010101010101",
+    "description": "10101010101010",
     "member_id": 1,
     "s_imageurl": "/images/survey/project-1.png",
-    "open_date": "2023-01-23T18:07:55",
-    "expire_date": "2023-11-23T18:07:59",
-    "surveyStatus": "설문 진행 중"
+    "open_date": "2023-03-28T21:15:32",
+    "expire_date": "2023-04-28T21:16:13",
+    "surveyStatus": "over"
   },
   {
     "survey_id": 11,
-    "title": "설문11",
-    "description": "설문11",
+    "title": "설문 1111111",
+    "description": "111111111이게? 11이게?",
     "member_id": 1,
     "s_imageurl": "/images/survey/project-1.png",
-    "open_date": "2023-01-23T18:08:04",
-    "expire_date": "2023-04-23T18:08:08",
-    "surveyStatus": "설문 마감"
+    "open_date": "2023-02-28T21:15:27",
+    "expire_date": "2023-05-21T21:16:22",
+    "surveyStatus": "over"
   },
   {
     "survey_id": 12,
-    "title": "설문12",
-    "description": "설문12",
+    "title": "12번 설문!!",
+    "description": "12121212번 설문이용",
     "member_id": 1,
     "s_imageurl": "/images/survey/project-1.png",
-    "open_date": "2023-07-23T18:08:13",
-    "expire_date": "2023-12-23T18:08:17",
-    "surveyStatus": "설문 배포 전"
+    "open_date": "2023-05-18T21:15:40",
+    "expire_date": "2023-05-26T21:16:26",
+    "surveyStatus": "over"
   },
   {
     "survey_id": 13,
-    "title": "설문13",
-    "description": "설문111133333",
+    "title": "131313설문!",
+    "description": "13번입니당",
     "member_id": 1,
     "s_imageurl": "/images/survey/project-1.png",
-    "open_date": "2023-02-23T18:07:46",
-    "expire_date": "2023-08-23T18:07:51",
-    "surveyStatus": "설문 진행 중"
+    "open_date": "2023-05-16T21:15:45",
+    "expire_date": "2023-05-27T21:16:33",
+    "surveyStatus": "over"
   },
   {
     "survey_id": 14,
-    "title": "설문1411111444444",
-    "description": "설문1414141414",
+    "title": "설문 141414141414",
+    "description": "14번 설문이용",
     "member_id": 1,
     "s_imageurl": "/images/survey/project-1.png",
-    "open_date": "2023-01-23T18:07:55",
-    "expire_date": "2023-11-23T18:07:59",
-    "surveyStatus": "설문 진행 중"
+    "open_date": "2023-05-09T21:15:53",
+    "expire_date": "2023-05-25T21:16:41",
+    "surveyStatus": "over"
   },
   {
     "survey_id": 15,
-    "title": "설문15",
-    "description": "설문151515151515151515151515",
+    "title": "설문 15151515151515",
+    "description": "14번 설문이용 아니 사실 15번 설문이지롱",
     "member_id": 1,
     "s_imageurl": "/images/survey/project-1.png",
-    "open_date": "2023-01-23T18:08:04",
-    "expire_date": "2023-04-23T18:08:08",
-    "surveyStatus": "설문 마감"
+    "open_date": "2023-03-28T21:15:59",
+    "expire_date": "2023-05-24T21:16:45",
+    "surveyStatus": "over"
   },
   {
     "survey_id": 16,
-    "title": "설문16",
-    "description": "설문16",
+    "title": "설문 161616161616",
+    "description": "14번 설문이용 아니 사실 15번 설문이지롱 아니 진짜 사실은 16번 설문이지롱",
     "member_id": 1,
     "s_imageurl": "/images/survey/project-1.png",
-    "open_date": "2023-07-23T18:08:13",
-    "expire_date": "2023-12-23T18:08:17",
-    "surveyStatus": "설문 배포 전"
+    "open_date": "2023-04-28T21:15:58",
+    "expire_date": "2023-05-21T21:16:49",
+    "surveyStatus": "over"
   },
   {
     "survey_id": 17,
-    "title": "설문17171717171711717171717",
-    "description": "설문111177777777",
+    "title": "설문 171717171717171717",
+    "description": "14번 설문이용 아니 사실 15번 설문이지롱 아니 진짜 사실은 16번 설문이지롱 아니 진짜진짜진짜 사실은 17번 설문!!",
     "member_id": 1,
     "s_imageurl": "/images/survey/project-1.png",
-    "open_date": "2023-02-23T18:07:46",
-    "expire_date": "2023-08-23T18:07:51",
-    "surveyStatus": "설문 진행 중"
+    "open_date": "2023-02-28T21:16:02",
+    "expire_date": "2023-04-22T21:16:56",
+    "surveyStatus": "over"
   },
   {
     "survey_id": 18,
-    "title": "설문18",
-    "description": "설문18",
+    "title": "1818181818",
+    "description": "18번 설문이용",
     "member_id": 1,
     "s_imageurl": "/images/survey/project-1.png",
-    "open_date": "2023-01-23T18:07:55",
-    "expire_date": "2023-11-23T18:07:59",
-    "surveyStatus": "설문 진행 중"
+    "open_date": "2023-07-28T21:17:06",
+    "expire_date": "2023-09-30T21:17:29",
+    "surveyStatus": "prerelease"
   },
   {
     "survey_id": 19,
-    "title": "설문19",
-    "description": "설문19이지롱알아ㅓㄴ랑로롱",
+    "title": "1919191919191919",
+    "description": "18번 설문이용 아니 19번 설문입니당!",
     "member_id": 1,
     "s_imageurl": "/images/survey/project-1.png",
-    "open_date": "2023-01-23T18:08:04",
-    "expire_date": "2023-04-23T18:08:08",
-    "surveyStatus": "설문 마감"
+    "open_date": "2023-06-28T21:17:11",
+    "expire_date": "2023-08-24T21:17:38",
+    "surveyStatus": "prerelease"
   },
   {
     "survey_id": 20,
-    "title": "설문20",
-    "description": "설문20입니다와라라라랄라라라라라랄",
+    "title": "2020202020",
+    "description": "2020202020 난 20학번",
     "member_id": 1,
     "s_imageurl": "/images/survey/project-1.png",
-    "open_date": "2023-01-23T18:07:55",
-    "expire_date": "2023-05-24T18:07:59",
-    "surveyStatus": "설문 진행 중"
+    "open_date": "2023-05-31T21:17:14",
+    "expire_date": "2023-06-30T21:17:44",
+    "surveyStatus": "prerelease"
   }
 ]

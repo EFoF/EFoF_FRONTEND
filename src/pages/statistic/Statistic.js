@@ -5,16 +5,18 @@ import ColorSwitcher from '../../elements/switcher/ColorSwitcher';
 import SEO from '../../ui/common/SEO';
 
 import Tilty from 'react-tilty';
-import QuestionStatistic from './QuestionStatistic';
+import SectionInfo from './SectionInfo';
 import MemberData from '../../data/MemberData.json';
 import SurveyData from '../../data/SurveyData.json';
 import StatisticGraph from './StatisticBar';
 import Footer from '../../ui/common/Footer';
 import Header from '../../ui/common/Header';
 import ProjectData from "../../data/ProjectData.json";
-import SurveyInfo from './SurveyInfo';
+import SurveyInfo from './StatisticBySection';
 
+import { Route, Routes } from 'react-router-dom';
 import { checkStatistic } from '../../api/statistics';
+
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { statActions } from '../../slices/stat';
@@ -48,8 +50,7 @@ const Statistic = () => {
     useEffect(() => {
         if(currentPath === `/statistic/${id}`){
             fetchSurvey(id)
-              .then((data) => {               
-                // dispatch(statActions.initStat({data}));
+              .then((data) => {
 
                 const title = data.title;
                 const description = data.description;
@@ -63,7 +64,7 @@ const Statistic = () => {
         
       }, [id, currentPath]);
 
-    console.log(survey);
+    console.log("ㅗㅑㅗㅑ"+survey.description);
       
     return (
         <>
@@ -86,24 +87,20 @@ const Statistic = () => {
                             <div className="why-choose-us">
                                 <div className="section-heading heading-left">
                                     <h3 className="title">{survey.title}</h3>
-                                    <p>{survey.description} (id: {id})</p>
+                                    <p>{survey.description}</p>
                                 </div>
 
                                 <Accordion defaultActiveKey="1">
                                     <Accordion.Item eventKey="1">
                                         <Accordion.Header><FaCompress /> 설문 참여자 수: {survey.participantNum}명</Accordion.Header>
                                     </Accordion.Item>
-                                    {/* <Accordion.Item eventKey="2">
-                                        <Accordion.Header><FaCode /> 설문 제약 조건</Accordion.Header>
-                                        <Accordion.Body>
-                                        </Accordion.Body>
-                                    </Accordion.Item> */}
                                 </Accordion>
                             </div>
 
                         </div>
                     </div>
-                    <QuestionStatistic sectionList={survey.sectionList}/>
+                    <SectionInfo sectionList={survey.sectionList} surveyId ={id}/>
+                    {/* <Route path="/statistic/:id/:sectionId" element={<SectionInfo />} /> */}
                     <Footer CparentClass="" />
                 </div>
             </section>
