@@ -26,7 +26,6 @@ function Map({ onInfosUpdate, onMarkerClick }) {
         id: 'google-map-script',
         googleMapsApiKey: "AIzaSyD9iknGFg_WToN8fr8iin_83E_Gz6M2ims"
     })
-    // const [currentIndex, setCurrentIndex] = useState(0);
 
     const databaseLocationsRef = useRef([]);
     const databaseLocations = databaseLocationsRef.current;
@@ -61,7 +60,7 @@ function Map({ onInfosUpdate, onMarkerClick }) {
             featureType: "poi",
             elementType: "labels",
             stylers: [{ visibility: "off" }],
-            // stylers: [{ visibility: "on" }],
+            // stylers: [{ visibility: "on" }], // 주변 상점들까지 포함되서 나오게 하는 옵션
         },
     ];
 
@@ -100,10 +99,6 @@ function Map({ onInfosUpdate, onMarkerClick }) {
         }
     };
 
-    // const handleMarkerClick = (markerIndex) => {
-    //     onMarkerClick(markerIndex);
-    // };
-
     return isLoaded ? (
         <div className="container">
             <GoogleMap
@@ -115,7 +110,8 @@ function Map({ onInfosUpdate, onMarkerClick }) {
                 options={{
                     // zoom: 19,
                     zoom: 17,
-                    disableDefaultUI: true,
+                    disableDefaultUI: true, //위성 사진 나올 수 있게하는 옵션
+                    // disableDefaultUI: false,
                     styles: myStyles
                 }}
             >
@@ -140,7 +136,7 @@ function Map({ onInfosUpdate, onMarkerClick }) {
                                 // url: greenMarkerIcon, // 초록색 마커 아이콘 이미지 경로
                             },
                         }}
-                        onClick={() => onMarkerClick(index)} // 추가. 클릭 시 handleMarkerClick 호출하여 인덱스 전달
+                        onClick={() => onMarkerClick(index, markerPosition, map)} // 추가. 클릭 시 handleMarkerClick 호출하여 인덱스 전달
                     />
                 ))}
 
