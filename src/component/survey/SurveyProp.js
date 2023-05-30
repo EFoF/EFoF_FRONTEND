@@ -14,10 +14,6 @@ const SurveyProp = ({projectStyle, survey}) => {
         const expireDate = new Date(expire_date);
         const currentDate = new Date();
 
-        console.log(expireDate);
-        console.log(currentDate);
-        console.log((expireDate - currentDate) / (1000 * 3600 * 24));
-
         // 만료 날짜의 시간과 분을 0으로 설정하여 날짜만 비교
         expireDate.setHours(0, 0, 0, 0);
         currentDate.setHours(0, 0, 0, 0);
@@ -29,13 +25,25 @@ const SurveyProp = ({projectStyle, survey}) => {
         let dDay = "D-??";
         if (daysDiff === 0) {
             dDay = "D-Day";
-        } else if (surveyStatus === "설문 진행 중") {
+        } else if (surveyStatus === "progress") {
             dDay = `D${daysDiff}`;
-        } else if (surveyStatus === "설문 마감") {
+        } else if (surveyStatus === "over") {
             dDay = `D+${daysDiff}`;
         }
 
         return dDay;
+    };
+
+    const getStatus = () => {
+        const { surveyStatus } = survey;
+
+        if (surveyStatus === "prerelease") {
+            return "설문 배포 전";
+        } else if (surveyStatus === "progress") {
+            return "설문 진행 중";
+        } else if (surveyStatus === "over") {
+            return "설문 마감";
+        }
     };
 
     return (
@@ -49,7 +57,7 @@ const SurveyProp = ({projectStyle, survey}) => {
                 <div className="content">
                     <div className="tag" style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
                         <span className="subtitle" style={{marginRight: 'auto'}}>
-                            <span>{survey.surveyStatus}</span>
+                            <span>{getStatus()}</span>
                         </span>
                         <span style={{marginLeft: 'auto'}}>{getDDays()}</span>
                     </div>

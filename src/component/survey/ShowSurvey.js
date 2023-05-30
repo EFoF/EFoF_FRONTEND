@@ -28,11 +28,11 @@ const ShowSurvey = ({parentClass, colSize, columnGap, AllData, filters, perPageS
     // };
 
     const displayProjects = visibleItems.slice(pageVisited, pageVisited + projectPerPage)
-    .map((data) => (
-        <div className={colSize ? colSize : "col-md-6"} key={data.id}>
-            <SurveyProp projectStyle="" survey={data}/>
-        </div>
-    ))
+        .map((data) => (
+            <div className={colSize ? colSize : "col-md-6"} key={data.id}>
+                <SurveyProp projectStyle="" survey={data}/>
+            </div>
+        ))
 
     const pageCount = Math.ceil(visibleItems.length / projectPerPage)
 

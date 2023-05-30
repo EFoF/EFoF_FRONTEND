@@ -22,6 +22,10 @@ import Statistic from './pages/statistic/Statistic';
 // Css Import
 import './assets/scss/app.scss';
 import FormResponse from "./pages/survey/FormResponse";
+import GeneratePrerelease from "./pages/mysurvey/GeneratePrerelease";
+import GenerateTotal from "./pages/mysurvey/GenerateTotal";
+import GenerateProgress from "./pages/mysurvey/GenerateProgress";
+import GenerateOver from "./pages/mysurvey/GenerateOver";
 
 
 const App = () => {
@@ -40,7 +44,13 @@ const App = () => {
                 <Route path="/privacy-policy" exact element={<PrivacyPolicy/>}/>
                 {/* <Route path="/statistic" exact element={<Statistic/>}/> */}
                 <Route path="/statistic/:id" exact element={<Statistic/>}/>
-                <Route path="/form/generate" exact element={<Generate/>}/>
+                <Route path="/form/generate" exact element={<Generate/>}>
+                    <Route path=":id" element={<GenerateTotal />} />
+                    <Route path="prerelease/:id" element={<GeneratePrerelease />} />
+                    <Route path="progress/:id" element={<GenerateProgress />} />
+                    <Route path="over/:id" element={<GenerateOver />} />
+                    {/*<Route path="*" element={<NoMatch />} />*/}
+                </Route>
                 <Route path={process.env.PUBLIC_URL + "/form/participate"} element={<Participate/>}/>
             </Routes>
         </BrowserRouter>
