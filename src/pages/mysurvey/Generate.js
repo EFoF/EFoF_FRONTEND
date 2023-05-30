@@ -4,7 +4,7 @@ import Header from '../../ui/common/Header';
 import BcrumbBannerOne from '../../elements/breadcrumb/BcrumbBannerOne';
 import ColorSwitcher from '../../elements/switcher/ColorSwitcher';
 import SEO from '../../ui/common/SEO';
-import {Link, Outlet} from "react-router-dom";
+import {Link, Outlet, useNavigate} from "react-router-dom";
 
 const filters = [
     {
@@ -27,8 +27,12 @@ const filters = [
 
 const Generate = () => {
     const [activeFilter, setActiveFilter] = useState("");
-
+    const currentPath = window.location.pathname;
+    const navigate = useNavigate();
     useEffect(() => {
+        if (currentPath === `/form/generate`) {
+            navigate(`/form/generate/1`, { replace: true });
+        }
         setActiveFilter(filters[0].label);
     }, []);
 
@@ -66,7 +70,7 @@ const Generate = () => {
                                                     : filter.label === '설문 마감'
                                                         ? '/over'
                                                         : ''
-                                        }/:id`}
+                                        }/1`}
                                         style={{textDecoration: 'none', color: 'inherit'}}
                                     >
                                         {filter.label}
