@@ -13,7 +13,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { surveyInfoForResponse } from '../../api/survey';
 import { questionActions, formActions, surveyFlowActions } from '../../slices';
-import { useDispatch } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import FormMake from "./FormMake";
 
@@ -29,7 +29,8 @@ const Half = styled.div`
   width: 50%;
   height: 100vh;
   overflow: scroll;
-
+  background-color: ${({ backgroundColor }) => backgroundColor};
+  
   ::-webkit-scrollbar-thumb {
     background-color: orange;
     border-radius: 0.2rem;
@@ -103,6 +104,7 @@ export default function FormResponse() {
     const currentPath = window.location.pathname;
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const form = useSelector((state) => state.form);
 
     // '/form/pre-release/:id' 경로인 경우에만 특정 로직 수행
     useEffect(() => {
@@ -143,7 +145,7 @@ export default function FormResponse() {
 
     return (
         <Wrapper >
-            <Half ref={scrollRef} onScroll={handleScroll}>
+            <Half ref={scrollRef} onScroll={handleScroll} backgroundColor={form.form.bgColor}>
                 <Preview/>
             </Half>
         </Wrapper>

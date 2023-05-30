@@ -86,62 +86,84 @@ const Preview = () => {
           dispatch(surveyFlowActions.setNextIndex({ pageIndex : currentIndex, value : lastidx}));
       }
 
-      console.log(form.form.bgColor)
-      return (
-          (indexes[currentIndex].nextIndex === -1 || indexes[currentIndex].nextIndex === currentIndex) ? (
-              <>
-                  <Buttons>
-                      {/*<Link to={'/result'} style={{ textDecoration: 'none' }}>*/}
-                          <div className="submit-button" onClick={submitHandler}>제출</div>
-                      {/*</Link>*/}
-                  </Buttons>
+      console.log(form);
 
-                  <ArrowButtonWrapper>
-                      {indexes[currentIndex].prevIndex === -1 ? (
-                          // 더 이상 뒤로 갈 섹션이 없는 경우 버튼을 비활성화 시킨다.
-                          <ArrowImageButton
-                              size={2}
-                              color={"white"}
-                              backgroundColor={form.form.bgColor}
-                          />
-                      ) : (
-                          <ArrowImageButton
-                              size={2}
-                              onClick={_moveToPrev}
-                              ImgSrc={leftArrow}
-                              color={"white"}
-                              backgroundColor={form.form.bgColor}
-                          />
-                      )}
-                  </ArrowButtonWrapper>
-              </>
-      ) : (
-          <ArrowButtonWrapper>
-              {indexes[currentIndex].prevIndex === -1 ? (
-                  // 더 이상 뒤로 갈 섹션이 없는 경우 버튼을 비활성화 시킨다.
-                  <ArrowImageButton
-                      size={2}
-                      color={"white"}
-                      backgroundColor={form.form.bgColor}
-                  />
-              ) : (
-                  <ArrowImageButton
-                      size={2}
-                      onClick={_moveToPrev}
-                      ImgSrc={leftArrow}
-                      color={"white"}
-                      backgroundColor={form.form.bgColor}
-                  />
-              )}
-              <ArrowImageButton
-                  size={2}
-                  onClick={_moveToNext}
-                  ImgSrc={rightArrow}
-                  color={"white"}
-                  backgroundColor={form.form.bgColor}
-              />
-          </ArrowButtonWrapper>
-      ));
+      // console.log(form.form.bgColor)
+      const flag = indexes[currentIndex].nextIndex === -1 || indexes[currentIndex].nextIndex === currentIndex
+      return (
+          // <FooterContainer isReal={currentPath.pathname === `/form/in-progress/${id}`}>
+              <ArrowButtonWrapper>
+                  <ArrowImageButton isActive={indexes[currentIndex].prevIndex !== -1}
+                                    size={1}
+                                    onClick={_moveToPrev}
+                                    src={leftArrow}
+                                    color={"white"}/>
+                  <Buttons isActive={flag}>
+                      <div className="submit-button" onClick={submitHandler}>제출</div>
+                  </Buttons>
+                  <ArrowImageButton isActive={!flag}
+                                    size={1}
+                                    onClick={_moveToNext}
+                                    backgroundColor={form.form.bgColor}
+                                    src={rightArrow}
+                                    color={"white"}/>
+              </ArrowButtonWrapper>
+          // </FooterContainer>
+      //     (indexes[currentIndex].nextIndex === -1 || indexes[currentIndex].nextIndex === currentIndex) ? (
+      //         <>
+      //             <Buttons>
+      //                 {/*<Link to={'/result'} style={{ textDecoration: 'none' }}>*/}
+      //                     <div className="submit-button" onClick={submitHandler}>제출</div>
+      //                 {/*</Link>*/}
+      //             </Buttons>
+      //
+      //             <ArrowButtonWrapper>
+      //                 {indexes[currentIndex].prevIndex === -1 ? (
+      //                     // 더 이상 뒤로 갈 섹션이 없는 경우 버튼을 비활성화 시킨다.
+      //                     <ArrowImageButton
+      //                         size={2}
+      //                         color={"white"}
+      //                         backgroundColor={form.form.bgColor}
+      //                     />
+      //                 ) : (
+      //                     <ArrowImageButton
+      //                         size={2}
+      //                         onClick={_moveToPrev}
+      //                         ImgSrc={leftArrow}
+      //                         color={"white"}
+      //                         backgroundColor={form.form.bgColor}
+      //                     />
+      //                 )}
+      //             </ArrowButtonWrapper>
+      //         </>
+      // ) : (
+      //     <ArrowButtonWrapper>
+      //         {indexes[currentIndex].prevIndex === -1 ? (
+      //             // 더 이상 뒤로 갈 섹션이 없는 경우 버튼을 비활성화 시킨다.
+      //             <ArrowImageButton
+      //                 size={2}
+      //                 color={"white"}
+      //                 backgroundColor={form.form.bgColor}
+      //             />
+      //         ) : (
+      //             <ArrowImageButton
+      //                 size={2}
+      //                 onClick={_moveToPrev}
+      //                 ImgSrc={leftArrow}
+      //                 color={"white"}
+      //                 backgroundColor={form.form.bgColor}
+      //             />
+      //         )}
+      //         <ArrowImageButton
+      //             size={2}
+      //             onClick={_moveToNext}
+      //             ImgSrc={rightArrow}
+      //             color={"white"}
+      //             backgroundColor={form.form.bgColor}
+      //         />
+      //     </ArrowButtonWrapper>
+      // )
+      );
   }
 
   const _findNextIndexFromId = (targetId) => {
@@ -265,8 +287,9 @@ const Preview = () => {
                         ))}
                 </ResultSectionContainer>
             </QuestionWrapper>
+            {_determineFlow()}
         </Wrapper>
-        {_determineFlow()}
+        {/*{_determineFlow()}*/}
         {/*  <Footer CparentClass="" />*/}
       </>
   )
@@ -280,14 +303,17 @@ const ArrowButtonWrapper = styled.div`
   margin-top: 20px;
 `;
 
-const ArrowImageButton = styled(ImgButton)`
+const ArrowImageButton = styled.img`
   cursor: pointer;
   font-size: 16px;
   padding: 10px 0;
-  width: 80px;
+  width: 5vh;
   border-radius: 5px;
   ${({ theme }) => theme.flexCenter}
-  //background-color: ${({ backgroundColor }) => backgroundColor};
+  opacity: ${({isActive}) => isActive ? 1.0 : 0.0};
+  pointer-events: ${({isActive}) => isActive ? 'auto' : 'none'};
+  //background-color: #f5f5f5;
+  background-color: ${({ backgroundColor }) => backgroundColor};
 `;
 
 const Buttons = styled.div`
@@ -295,7 +321,6 @@ const Buttons = styled.div`
   align-items: center;
   width: 100%;
   justify-content: center;
-  margin-top: 20px;
   .submit-button {
     cursor: pointer;
     font-size: 16px;
@@ -305,6 +330,8 @@ const Buttons = styled.div`
     ${({ theme }) => theme.flexCenter}
     color: ${({ theme }) => theme.color.white};
     background: ${({ theme }) => theme.color.purple};
+    opacity: ${({isActive}) => isActive ? 1.0 : 0.0};
+    pointer-events: ${({isActive}) => isActive ? 'auto' : 'none'};
   }
 `;
 
@@ -327,6 +354,17 @@ border-radius: 10px;
 position: relative;
 box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 overflow:visible;
+`;
+
+const FooterContainer = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  bottom: 0;
+  left: ${({ isReal }) => isReal ? '25%' : '50%'};
+  width: 50%;
+  height: 10vh; /* 원하는 높이로 설정 */
+  background-color: #f5f5f5; /* 원하는 배경색으로 설정 */
 `;
 
 export default Preview;
