@@ -2,13 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import ReactPaginate from 'react-paginate';
 import SurveyProp from "../../component/survey/SurveyProp";
-import AllData from "../../data/GenerateData.json";
 import {useNavigate, useParams} from "react-router-dom";
 import {getGenerateSurvey} from "../../api/survey";
 const GenerateTotal = () => {
     const { id } = useParams();
-
-
     const navigate = useNavigate();
     const [visibleItems, setVisibleItems] = useState([]);
     const [totalCount,setTotalCount] = useState(0);
@@ -28,16 +25,9 @@ const GenerateTotal = () => {
             )
     }, [id]);
 
-
-
-
     const changePage = ({ selected }) => {
         navigate(`/form/generate/${selected+1}`, { replace: true });
     }
-
-    useEffect(() => {
-        setVisibleItems(AllData);
-    }, [AllData]);
 
     return (
         <>

@@ -2,20 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import ReactPaginate from 'react-paginate';
 import SurveyProp from "../../component/survey/SurveyProp";
-import AllData from "../../data/GenerateProgress.json";
 import {useNavigate, useParams} from "react-router-dom";
 import {getGenerateSurvey} from "../../api/survey";
 
-const GenerateProgress = () => {const { id } = useParams();
-
-
+const GenerateProgress = () => {
+    const { id } = useParams();
     const navigate = useNavigate();
     const [visibleItems, setVisibleItems] = useState([]);
     const [totalCount,setTotalCount] = useState(0);
 
     useEffect(() => {
-
-        //데이터를 불러오는 함수 실행
         getGenerateSurvey('progress', id-1)
             .then((data)=>
                 {
@@ -28,16 +24,10 @@ const GenerateProgress = () => {const { id } = useParams();
             )
     }, [id]);
 
-
-
-
     const changePage = ({ selected }) => {
         navigate(`/form/generate/progress/${selected+1}`, { replace: true });
     }
 
-    useEffect(() => {
-        setVisibleItems(AllData);
-    }, [AllData]);
 
     return (
         <>
