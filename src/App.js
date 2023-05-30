@@ -26,6 +26,8 @@ import GeneratePrerelease from "./pages/mysurvey/GeneratePrerelease";
 import GenerateTotal from "./pages/mysurvey/GenerateTotal";
 import GenerateProgress from "./pages/mysurvey/GenerateProgress";
 import GenerateOver from "./pages/mysurvey/GenerateOver";
+import FormSetting from './pages/survey/FormSetting';
+import SectionInfo from './pages/statistic/SectionInfo';
 
 
 const App = () => {
@@ -38,11 +40,11 @@ const App = () => {
                 <Route path="/signup/email" exact element={<Step1/>}/>
                 <Route path="/signup/inform" exact element={<Step2/>}/>
                 <Route path="/form" exact element={<Form/>}/>
+                <Route path="/form/:id/setting" exact element={<FormSetting/>}/>
                 <Route path="/form/pre-release/:id" exact element={<Form/>}/>
                 <Route path="/form/in-progress/:id" exact element={<FormResponse/>}/>
                 <Route path="/findpw" exact element={<FindPW/>}/>
                 <Route path="/privacy-policy" exact element={<PrivacyPolicy/>}/>
-                {/* <Route path="/statistic" exact element={<Statistic/>}/> */}
                 <Route path="/statistic/:id" exact element={<Statistic/>}/>
                 <Route path="/form/generate" exact element={<Generate/>}>
                     <Route path=":id" element={<GenerateTotal />} />
@@ -51,6 +53,7 @@ const App = () => {
                     <Route path="over/:id" element={<GenerateOver />} />
                     {/*<Route path="*" element={<NoMatch />} />*/}
                 </Route>
+                <Route path="/statistic/:id/:section_id" exact element={<SectionInfo/>}/>
                 <Route path={process.env.PUBLIC_URL + "/form/participate"} element={<Participate/>}/>
             </Routes>
         </BrowserRouter>

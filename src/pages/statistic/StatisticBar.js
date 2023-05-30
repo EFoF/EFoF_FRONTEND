@@ -48,21 +48,33 @@ const data = [
 
 const COLORS = ['#8884d8', '#82ca9d', '#81BAC9', '#BAE053', '#FFD44F', '#bddaff', '#E0B379'];
 
-const StatisticBar = () => {
+const StatisticBar = ({optionData}) => {
+
+  // alert(JSON.stringify(optionData));
+  const transformedData = optionData.map((choiceAnswerDto) => ({
+    
+    "name": choiceAnswerDto.option_text,
+    "응답자 수": choiceAnswerDto.participant_num_question_option
+
+  }));
+  
+  
   return (
+    <>
     <ResponsiveContainer width="100%" height={300}>
-      <BarChart data={data}>
+      <BarChart data={transformedData}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
-        <Bar dataKey="uv">
-          {data.map((entry, index) => (
+        <Bar dataKey="응답자 수">
+          {transformedData.map((entry, index) => (
             <Cell key={index} fill={COLORS[index % COLORS.length]} />
           ))}
         </Bar>
       </BarChart>
     </ResponsiveContainer>
+    </>
   );
 }
 
