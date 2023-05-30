@@ -409,18 +409,6 @@ const postSurveyResponse = async (responseData) => {
       }
   }
 
-  // const getSurveyInfoForBlog = async (blogDTO) => {
-  //     try {
-  //         const response = await unAuthorizationClient.post(API.BASE_URL+ '/getSurveyInfo'
-  //         , blogDTO);
-  //         console.log(response.data);
-  //         return response.data;
-  //     }
-  //     catch (error) {
-  //         console.log(error);
-  //     }
-  // }
-
   export {
     surveyInfo,
     surveyInfoForResponse,
@@ -452,5 +440,4 @@ const postSurveyResponse = async (responseData) => {
     addAllQuestionOptionByBot, 
     fetchSurvey,
     fetchLocation,
-    // getSurveyInfoForBlog
 };
