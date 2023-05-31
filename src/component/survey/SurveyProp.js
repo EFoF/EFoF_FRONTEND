@@ -29,7 +29,7 @@ const SurveyProp = ({projectStyle, survey}) => {
 
         let dDay = "";
         if (surveyStatus === "making" || surveyStatus === "prerelease") {
-            return <img onClick={handleDelete} src="/images/icon/icon-trash.png" alt="icon" style={{ display:"inline-flex", width: "15px", height: "17px", verticalAllign: "middle", marginRight: "3px", cursor: "pointer"}} />
+            return <img onClick={handleDelete} src="/images/icon/icon-trash.png" alt="icon" style={{ display:"inline-flex", width: "22px", height: "22px", verticalAllign: "middle", marginRight: "3px", cursor: "pointer"}} />
         }
         if (daysDiff === 0) {
             dDay = "D-Day";
@@ -110,9 +110,9 @@ const SurveyProp = ({projectStyle, survey}) => {
                 <div className="content">
                     <div className="tag" style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
                         <span className="subtitle" style={{marginRight: 'auto'}}>
-                            <span>{getStatus()}</span>
+                            <span style={{ fontWeight: "bold", color: "gray" }}>{getStatus()}</span>
                         </span>
-                        <span style={{marginLeft: 'auto'}}>{getDDays()}</span>
+                        <span style={{marginLeft: 'auto', fontWeight:"bold", color: "gray"}}>{getDDays()}</span>
                     </div>
                     <h4 className="title" style={{
                         display: 'block',
@@ -139,9 +139,9 @@ const SurveyProp = ({projectStyle, survey}) => {
                         </Link>
                         <img
                             onClick={handleCopyUrl}
-                            src="/images/icon/icon-45.png"
+                            src="/images/icon/icon-copy.png"
                             alt="icon"
-                            style={{ display: "inline-flex", width: "28px", height: "28px", verticalAlign: "middle", marginLeft: "auto", cursor: "pointer" }}
+                            style={{ display: "inline-flex", width: "25px", height: "25px", verticalAlign: "middle", marginLeft: "auto", cursor: "pointer", float: "right", marginTop: "4px"}}
                         />
                     </div>
                 </div>
