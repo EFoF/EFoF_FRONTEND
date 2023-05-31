@@ -236,9 +236,8 @@ export default function FormSetting() {
 
   return (
     <>
-      <SurveySettingHeader surveyId = {id}/>
+      <SurveySettingHeader surveyId={id} />
       <Wrapper>
-
         <CalenderWrapper>
           <CalenderText>설문 시작일</CalenderText>
           <DatePicker
@@ -334,14 +333,9 @@ export default function FormSetting() {
         <Items>
           <CalenderText>GPS</CalenderText>
           <GPSWrapper>
-            <Toggle>
-              <input type='checkbox' checked={settingOptions.gps}
-                onChange={handleGPSToggle} />
-              <span></span>
-            </Toggle>
             {settingOptions.gps && (
               <GPS>
-                <form onSubmit={handleGPSSubmit}>
+                <form onSubmit={handleGPSSubmit} style={{paddingRight: '10px'}}>
                   <InputText
                     type='text'
                     value={address}
@@ -365,6 +359,10 @@ export default function FormSetting() {
                 )}
               </GPS>
             )}
+            <Toggle>
+              <input type='checkbox' checked={settingOptions.gps} onChange={handleGPSToggle} />
+              <span></span>
+            </Toggle>
           </GPSWrapper>
         </Items>
         <Items>
@@ -386,15 +384,15 @@ export default function FormSetting() {
         <Items>
           <CalenderText>인원 수 제한</CalenderText>
           <GPSWrapper>
+            {settingOptions.participate && (
+              <div style={{paddingRight: '10px'}}>
+                <input type='number' id='limit' value={limit} onChange={handleLimitChange} onBlur={handleParticipateNumChange} style={{ width: '100px' }} />
+              </div>
+            )}
             <Toggle>
               <input type='checkbox' id='toggle' checked={settingOptions.participate} onChange={handleParticipateToggle} />
               <span></span>
             </Toggle>
-            {settingOptions.participate && (
-              <div>
-                <input type='number' id='limit' value={limit} onChange={handleLimitChange} onBlur={handleParticipateNumChange} />
-              </div>
-            )}
           </GPSWrapper>
         </Items>
       </Wrapper></>
@@ -405,19 +403,25 @@ export default function FormSetting() {
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: column;
   justify-content: center;
+  flex-direction: column;
   gap: 1.2rem;
   /* margin-top: 5rem; */
   /* margin-bottom: 5rem; */
   padding: 3rem;
   background-color: #EAEEEF;
+  width: 700px; /* 원하는 너비로 설정하세요 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
+
 
 const CalenderWrapper = styled.div`
   display: flex;
   align-items: center;
-  width: 30%;
+  width: 80%;
   justify-content: space-between;
 `;
 
@@ -434,25 +438,26 @@ const CalenderText = styled.p`
 const Items = styled.div`
   display: flex;
   align-items: center;
-  width: 30%;
+  width: 80%;
   justify-content: space-between;
 `;
 const GPS = styled.div`
   display: flex;
+  flex-direction: row;
   align-items: center;
-  padding-top: 1rem;
+  // padding-top: 1rem;
 `;
 const GPSWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-direction: row; /* 수정된 부분 */
+  align-items: center;
   justify-content: flex-end;
-  
 `;
+
 const RangeSelectWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 0.4rem;
+  margin-right: 10px;
   justify-content: space-between;
 `;
 

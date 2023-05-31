@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import {Link} from "react-router-dom";
 import {slugify} from "../utils";
 import Map from "./map/Map";
+import {GoogleMap} from "@react-google-maps/api";
 
 <script type="text/javascript" src="react-slick"></script>
 
@@ -13,7 +14,7 @@ const Blog = () => {
     const handleInfosUpdate = (updatedInfos) => {
         setInfos(updatedInfos);
     };
-    const handleMarkerClick = (markerIndex) => {
+    const handleMarkerClick = (markerIndex, markerPosition, map) => {
         setCurrentIndex(markerIndex);
 
         if (sliderRef.current) {
@@ -25,6 +26,8 @@ const Blog = () => {
         if (sliderElement) {
             sliderElement.scrollIntoView({behavior: "smooth"});
         }
+
+        map.setCenter(markerPosition);
     };
 
 
@@ -75,10 +78,12 @@ const Blog = () => {
                 <Slider {...slideSettings} className="slick-dot-nav" currentSlide={currentIndex} ref={sliderRef}>
                     {infos.slice(0, infos.length).map((data, index) => (
                         <div className="single-slide" key={`${data.loc.id}`}>
-                            {/*<Link to={`${process.env.PUBLIC_URL}/${slugify(data.title)}`}>*/}
+                            <Link to={`${process.env.PUBLIC_URL}/form/in-progress/${slugify(data.loc.id)}`}>
+                            <div style={{ textAlign: "center" }}>
                             <img src={`${data.loc.simageURL}`} alt="No Images" style={{width: "35%", height: "auto"}}/>
                             <p>{data.loc.title}</p>
-                            {/*</Link>*/}
+                            </div>
+                            </Link>
                         </div>
                     ))}
                 </Slider>

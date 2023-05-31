@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Routes, Route, BrowserRouter} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
 import ScrollToTop from './component/scrollToTop/ScrollToTop';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -28,33 +28,41 @@ import GenerateProgress from "./pages/mysurvey/GenerateProgress";
 import GenerateOver from "./pages/mysurvey/GenerateOver";
 import FormSetting from './pages/survey/FormSetting';
 import SectionInfo from './pages/statistic/SectionInfo';
+import ParticipateTotal from "./pages/mysurvey/ParticipateTotal";
+import ParticipateProgress from "./pages/mysurvey/ParticipateProgress";
+import ParticipateOver from "./pages/mysurvey/ParticipateOver";
 
 
 const App = () => {
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Routes>
-                <Route path="/" exact element={<MainPage/>}/>
-                <Route path="/login" exact element={<LoginPage/>}/>
-                <Route path="/signup" exact element={<Signup/>}/>
-                <Route path="/signup/email" exact element={<Step1/>}/>
-                <Route path="/signup/inform" exact element={<Step2/>}/>
-                <Route path="/form" exact element={<Form/>}/>
-                <Route path="/form/:id/setting" exact element={<FormSetting/>}/>
-                <Route path="/form/pre-release/:id" exact element={<Form/>}/>
-                <Route path="/form/in-progress/:id" exact element={<FormResponse/>}/>
-                <Route path="/findpw" exact element={<FindPW/>}/>
-                <Route path="/privacy-policy" exact element={<PrivacyPolicy/>}/>
-                <Route path="/statistic/:id" exact element={<Statistic/>}/>
-                <Route path="/form/generate" exact element={<Generate/>}>
+                <Route path="/" exact element={<MainPage />} />
+                <Route path="/login" exact element={<LoginPage />} />
+                <Route path="/signup" exact element={<Signup />} />
+                <Route path="/signup/email" exact element={<Step1 />} />
+                <Route path="/signup/inform" exact element={<Step2 />} />
+                <Route path="/form" exact element={<Form />} />
+                <Route path="/form/:id/setting" exact element={<FormSetting />} />
+                <Route path="/form/pre-release/:id" exact element={<Form />} />
+                <Route path="/form/in-progress/:id" exact element={<FormResponse />} />
+                <Route path="/findpw" exact element={<FindPW />} />
+                <Route path="/privacy-policy" exact element={<PrivacyPolicy />} />
+                <Route path="/statistic/:id" exact element={<Statistic />} />
+                <Route path="/form/generate" exact element={<Generate />}>
                     <Route path=":id" element={<GenerateTotal />} />
                     <Route path="prerelease/:id" element={<GeneratePrerelease />} />
                     <Route path="progress/:id" element={<GenerateProgress />} />
                     <Route path="over/:id" element={<GenerateOver />} />
                     {/*<Route path="*" element={<NoMatch />} />*/}
                 </Route>
-                <Route path="/statistic/:id/:section_id" exact element={<SectionInfo/>}/>
-                <Route path={process.env.PUBLIC_URL + "/form/participate"} element={<Participate/>}/>
+                <Route path="/form/participate" exact element={<Participate />}>
+                    <Route path=":id" element={<ParticipateTotal />} />
+                    <Route path="progress/:id" element={<ParticipateProgress />} />
+                    <Route path="over/:id" element={<ParticipateOver />} />
+                    {/*<Route path="*" element={<NoMatch />} />*/}
+                </Route>
+                <Route path="/statistic/:id/:section_id" exact element={<SectionInfo />} />
             </Routes>
         </BrowserRouter>
     )

@@ -1,23 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
-import ReactPaginate from 'react-paginate';
-import SurveyProp from "../../component/survey/SurveyProp";
 import {useNavigate, useParams} from "react-router-dom";
-import {getGenerateSurvey} from "../../api/survey";
-const GenerateTotal = () => {
+import React, {useEffect, useState} from "react";
+import {getParticipateSurvey} from "../../api/survey";
+import SurveyProp from "../../component/survey/SurveyProp";
+import ReactPaginate from "react-paginate";
+import {FaArrowLeft, FaArrowRight} from "react-icons/fa";
+
+const ParticipateTotal = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [visibleItems, setVisibleItems] = useState([]);
     const [totalCount,setTotalCount] = useState(0);
 
     useEffect(() => {
-
-        //데이터를 불러오는 함수 실행
-        getGenerateSurvey(null, id-1)
+        getParticipateSurvey(null, id-1)
             .then((data)=>
                 {
                     if(data.empty||id===0||id===null){
-                        navigate(`/form/generate/1`, { replace: true });
+                        navigate(`/form/participate/1`, { replace: true });
                     }
                     setTotalCount(data.totalPages);
                     setVisibleItems(data.content);
@@ -26,7 +25,7 @@ const GenerateTotal = () => {
     }, [id]);
 
     const changePage = ({ selected }) => {
-        navigate(`/form/generate/${selected+1}`, { replace: true });
+        navigate(`/form/participate/${selected+1}`, { replace: true });
     }
 
     return (
@@ -34,10 +33,10 @@ const GenerateTotal = () => {
             <div className={`row row-15`}>
                 {
                     visibleItems.map((data) => (
-                <div className="col-xl-3 col-lg-4 col-md-6" key={data.id}>
-                    <SurveyProp projectStyle="" survey={data} />
-                </div>
-                ))}
+                        <div className="col-xl-3 col-lg-4 col-md-6" key={data.id}>
+                            <SurveyProp projectStyle="" survey={data} />
+                        </div>
+                    ))}
             </div>
             <ReactPaginate
                 previousLabel={<FaArrowLeft />}
@@ -55,4 +54,4 @@ const GenerateTotal = () => {
     )
 }
 
-export default GenerateTotal;
+export default ParticipateTotal;

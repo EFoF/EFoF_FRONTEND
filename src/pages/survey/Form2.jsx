@@ -10,12 +10,16 @@ import 'react-chatbot-kit/build/main.css'
 import './Chatbot.css'
 import Draggable from 'react-draggable';
 import Preview from "./Preview";
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { surveyInfo } from '../../api/survey';
 import { questionActions, formActions, surveyFlowActions } from '../../slices';
-import { useDispatch, useSelector } from 'react-redux';
-import SurveyHeader from './SurveyHeader';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import toastMsg from '../../ui/Toast';
+import FormMake2 from './FormMake2';
+import Header from '../../ui/common/Header';
+import FormThree from './FormThree';
 
 const Wrapper = styled.div`
   display: flex;
@@ -27,13 +31,13 @@ const Wrapper = styled.div`
 `;
 
 const Half = styled.div`
-  width: 50%;
+  width: 100%;
   height: 100vh;
   overflow: scroll;
 
   ::-webkit-scrollbar-thumb {
     background-color: orange;
-    border-radius: 0.2rem;
+    border-radius: 0.4rem;
   }
 
   ::-webkit-scrollbar-track {
@@ -137,8 +141,6 @@ export default function Form() {
   };
   const [isVisible, setIsVisible] = useState(false);
 
-  const { loginLastDTO } = useSelector((state) => state.authorization);
-
   const handleCloseChatbot = () => {
 
     setIsVisible(false);
@@ -148,43 +150,26 @@ export default function Form() {
     setIsVisible(!isVisible);
   };
 
-  useEffect(() => {
-    const expiresDate = typeof (loginLastDTO.expiresAt) === "undefined" ?
-      new Date : new Date(loginLastDTO.expiresAt);
-    const currentDate = new Date();
-    if (currentDate >= expiresDate) {
-      alert("로그인 되지 않았습니다.");
-      navigate("/");
-    }
-  }, [])
 
-  return (<>
-    <SurveyHeader surveyId={id} />
-    <Wrapper>
+  return (
+    <>
+      <div style={{height: "100px"}}/>
+      <div>
+        {/* <div className="container"> */}
+          <div className="row">
+            {/* <div className="col-lg-6" ref={scrollRef} onScroll={handleScroll} style={{overflow: "scroll"}}> */}
+            <div className="col-lg-6">
+              <div ref={scrollRef} onScroll={handleScroll}>
+                <FormMake2 />
+              </div>
+            </div>
+            <div className="col-lg-6">
+              <Preview />
+            </div>
+          </div>
+        {/* </div> */}
+      </div>
 
-      <Half ref={scrollRef} onScroll={handleScroll}>
-        <FormMake />
-      </Half>
-      <Half>
-        <Preview />
-      </Half>
-      {!isVisible && (
-        <DragButton color="#3b5998" onClick={handleDragButtonClick}>
-          <AiOutlineMessage />
-        </DragButton>
-      )}
-      {isVisible && (
-        <Draggable>
-          <ExampleChatbotWrapper>
-            <Chatbot
-              config={GetConfig(handleCloseChatbot)}
-              actionProvider={ActionProvider}
-              messageParser={MessageParser}
-
-            />
-          </ExampleChatbotWrapper>
-        </Draggable>
-      )}
-    </Wrapper>
+    </>
   );
 }

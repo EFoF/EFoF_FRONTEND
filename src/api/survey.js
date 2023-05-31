@@ -577,6 +577,36 @@ const getGenerateSurvey = async (status, pageNum) => {
     }
 };
 
+const getParticipateSurvey = async (status, pageNum) => {
+    try {
+        const str = `&surveyStatus=${status}`
+        let url  = `${API.SURVEY}/participate?page=${pageNum}&size=9`
+        if(status!=null){
+            url = url+str;
+        }
+        const response = await authorizationClient.get(
+            url);
+
+        return response.data;
+    } catch (error) {
+        console.error('Error get Question By Section For Statistic:', error);
+    }
+};
+
+const updateReleaseStatus = async (survey_id) => {
+  try {
+      
+      const response = await authorizationClient.patch(
+        `${API.SURVEY}/${survey_id}/updateStatus`);
+
+      return response.data;
+  } catch (error) {
+      console.error('Error get Question By Section For Statistic:', error);
+  }
+};
+
+
+
   export {
     surveyInfo,
     surveyInfoForResponse,
@@ -619,5 +649,7 @@ const getGenerateSurvey = async (status, pageNum) => {
     updateSurveyGpsValue,
     getSurveySetting,
     getQuestionBySectionForStatistic,
-      getGenerateSurvey
+      getGenerateSurvey,
+      getParticipateSurvey,
+      updateReleaseStatus
 };
