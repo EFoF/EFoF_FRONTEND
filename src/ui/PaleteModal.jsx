@@ -225,7 +225,7 @@ const PaletteModal = ({ message, onCancel, form, dispatch, formActions }) => {
           <Button background="#AAAAAA" onClick={onCancel}>
             취소
           </Button>
-          <Button background="#FF0000" onClick={onConfirm}>
+          <Button background="#5858FA" onClick={onConfirm}>
             적용하기
           </Button>
         </ButtonWrapper>
