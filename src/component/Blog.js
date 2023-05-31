@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import {Link} from "react-router-dom";
 import {slugify} from "../utils";
 import Map from "./map/Map";
-import {GoogleMap} from "@react-google-maps/api";
+import {GoogleMap, InfoWindow} from "@react-google-maps/api";
 
 <script type="text/javascript" src="react-slick"></script>
 
@@ -22,12 +22,33 @@ const Blog = () => {
             // sliderRef.current.slick('slickGoTo',markerIndex);
         }
 
-        const sliderElement = document.getElementById("Slider");
-        if (sliderElement) {
-            sliderElement.scrollIntoView({behavior: "smooth"});
-        }
+        // const sliderElement = document.getElementById("Slider");
+        // if (sliderElement) {
+        //     sliderElement.scrollIntoView({behavior: "smooth"});
+        // }
 
-        map.setCenter(markerPosition);
+        // map.setCenter(markerPosition);
+        map.panTo(markerPosition);
+
+        const markerData = infos[markerIndex];
+        const infoWindow = new window.google.maps.InfoWindow(
+            // {
+            //             //     content: markerData.loc.title
+            //             // }
+        );
+        infoWindow.setContent(markerData.loc.title);
+        infoWindow.open(map, markerPosition
+        //     {
+        //     anchor: markerPosition,
+        //     map: map
+        // }
+        );
+
+        // window.google.maps.event.addListener(markerPosition, "click", () => {
+        //     const infowindow = new window.google.maps.InfoWindow();
+        //     infowindow.setContent(`<div class="ui header">Parliment Hill</div>`);
+        //     infowindow.open(map, markerPosition);
+        // });
     };
 
 
@@ -74,15 +95,17 @@ const Blog = () => {
                     </div>
                 </div>
             </div>
-            <div className="demo-slider" id="Slider" style={{paddingTop: "200px"}}>
+            <div  id="Slider"><br/></div>
+            <div className="demo-slider" style={{paddingTop: "200px"}}>
                 <Slider {...slideSettings} className="slick-dot-nav" currentSlide={currentIndex} ref={sliderRef}>
                     {infos.slice(0, infos.length).map((data, index) => (
-                        <div className="single-slide" key={`${data.loc.id}`}>
+                        <div className="single-slide" key={`${data.loc.id}`} style={{width:"65rem"}}>
                             <Link to={`${process.env.PUBLIC_URL}/form/in-progress/${slugify(data.loc.id)}`}>
-                            <div style={{ textAlign: "center" }}>
-                            <img src={`${data.loc.simageURL}`} alt="No Images" style={{width: "35%", height: "auto"}}/>
-                            <p>{data.loc.title}</p>
-                            </div>
+                                <div style={{textAlign: "center"}}>
+                                    <img src={`${data.loc.simageURL}`} alt="No Images"
+                                         style={{width: "35%", height: "auto"}}/>
+                                    <p>{data.loc.title}</p>
+                                </div>
                             </Link>
                         </div>
                     ))}
