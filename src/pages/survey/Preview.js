@@ -1,19 +1,15 @@
 import { useDispatch } from 'react-redux';
-import {Link, useLocation, useParams} from 'react-router-dom';
+import {useNavigate, useLocation, useParams} from 'react-router-dom';
 import styled from 'styled-components';
 import { ResultTitleBox } from '../../component';
-import { PreviewContainer } from '../../containers';
 import { useSelector } from 'react-redux';
-import {formActions, questionActions, surveyFlowActions} from '../../slices';
+import {surveyFlowActions} from '../../slices';
 import ResultSection from "../../component/Section/Result/Section";
-import {Draggable} from "react-beautiful-dnd";
 import {ResultQuestionContainer} from "../../containers";
 import leftArrow from '../../assets/icon/leftArrow.png'
 import rightArrow from '../../assets/icon/rightArrow.png'
-import ImgButton from "../../ui/ImgButton";
 import {postSurveyResponse} from "../../api/survey";
 import toastMsg from "../../ui/Toast";
-import Footer from "../../ui/common/Footer";
 import React from "react";
 
 const Preview = () => {
@@ -23,6 +19,7 @@ const Preview = () => {
   const { questions } = form;
   const { id } = useParams();
   const currentPath = useLocation();
+  const navigate = useNavigate();
   const _moveToNext = () => {
       if (currentIndex !== indexes[currentIndex].nextIndex) {
           // 이동할 다음 페이지의 prev를 현재 페이지의 current로 설정
@@ -94,7 +91,7 @@ const Preview = () => {
                                     src={leftArrow}
                                     color={"white"}/>
                   <Buttons isActive={flag}>
-                      <div className="submit-button" onClick={submitHandler}>제출</div>
+                      <div className="submit-button" onClick={submitHandler}>{currentPath.pathname === `/form/over/${id}` ? '뒤로가기' : '제출'}</div>
                   </Buttons>
                   <ArrowImageButton isActive={!flag}
                                     size={1}
@@ -142,6 +139,9 @@ const Preview = () => {
               postSurveyResponse(responseData)
                   .then().catch(error => {console.log(error)});
           }
+      } else if(currentPath.pathname === `/form/over/${id}`) {
+          // 응답한 설문을 열람하는 경우에는 뒤로가기로 처리한다.
+          navigate(-1);
       }
   }
 
@@ -229,8 +229,6 @@ const Preview = () => {
             </QuestionWrapper>
             {_determineFlow()}
         </Wrapper>
-        {/*{_determineFlow()}*/}
-        {/*  <Footer CparentClass="" />*/}
       </>
   )
 };
@@ -296,15 +294,5 @@ box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 overflow:visible;
 `;
 
-const FooterContainer = styled.div`
-  position: absolute;
-  display: flex;
-  align-items: center;
-  bottom: 0;
-  left: ${({ isReal }) => isReal ? '25%' : '50%'};
-  width: 50%;
-  height: 10vh; /* 원하는 높이로 설정 */
-  background-color: #f5f5f5; /* 원하는 배경색으로 설정 */
-`;
 
 export default Preview;
