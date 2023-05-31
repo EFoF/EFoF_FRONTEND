@@ -13,14 +13,18 @@ const filters = [
     },
     {
         id: 2,
-        label: "설문 배포 전",
+        label: "제작 중",
     },
     {
         id: 3,
-        label: "설문 진행 중",
+        label: "설문 배포 전",
     },
     {
         id: 4,
+        label: "설문 진행 중",
+    },
+    {
+        id: 5,
         label: "설문 마감",
     }
 ];
@@ -63,13 +67,15 @@ const Generate = () => {
                                 >
                                     <Link
                                         to={`/form/generate${
-                                            filter.label === '설문 배포 전'
-                                                ? '/prerelease'
-                                                : filter.label === '설문 진행 중'
-                                                    ? '/progress'
-                                                    : filter.label === '설문 마감'
-                                                        ? '/over'
-                                                        : ''
+                                            filter.label === '제작 중' 
+                                                ? '/making' 
+                                                : filter.label === '설문 배포 전' 
+                                                    ? '/prerelease' 
+                                                    : filter.label === '설문 진행 중' 
+                                                        ? '/progress' 
+                                                        : filter.label === '설문 마감' 
+                                                            ? '/over' 
+                                                            : ''
                                         }/1`}
                                         style={{textDecoration: 'none', color: 'inherit'}}
                                     >

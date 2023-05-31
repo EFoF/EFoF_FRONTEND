@@ -1,32 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
-import ReactPaginate from 'react-paginate';
-import SurveyProp from "../../component/survey/SurveyProp";
 import {useNavigate, useParams} from "react-router-dom";
+import React, {useEffect, useState} from "react";
 import {getGenerateSurvey} from "../../api/survey";
+import SurveyProp from "../../component/survey/SurveyProp";
+import ReactPaginate from "react-paginate";
+import {FaArrowLeft, FaArrowRight} from "react-icons/fa";
 
-const GenerateOver = () => {
+const GenerateMaking = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [visibleItems, setVisibleItems] = useState([]);
     const [totalCount,setTotalCount] = useState(0);
 
     useEffect(() => {
-        getGenerateSurvey('over', id-1)
+        getGenerateSurvey('making', id-1)
             .then((data)=>
                 {
                     if(data.empty||id===0||id===null){
-                        navigate(`/form/generate/over/1`, { replace: true });
+                        navigate(`/form/generate/making/1`, { replace: true });
                     }
                     setTotalCount(data.totalPages);
                     setVisibleItems(data.content);
+                    // alert(JSON.stringify(data));
                 }
             )
     }, [id]);
 
     const changePage = ({ selected }) => {
-        navigate(`/form/generate/over/${selected+1}`, { replace: true });
+        navigate(`/form/generate/making/${selected+1}`, { replace: true });
     }
+
 
     return (
         <>
@@ -54,4 +56,4 @@ const GenerateOver = () => {
     )
 }
 
-export default GenerateOver;
+export default GenerateMaking;
