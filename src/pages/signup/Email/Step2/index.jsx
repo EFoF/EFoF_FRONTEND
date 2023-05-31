@@ -108,7 +108,7 @@ export default function Step2() {
                                 <Wrong>별명은 최소 2글자 최대 8글자입니다.</Wrong>
                             )}
                         </div>
-                        별명은 마이페이지에서 언제든지 변경하실 수 있습니다!
+                        {/*별명은 마이페이지에서 언제든지 변경하실 수 있습니다!*/}
                     </Form>
                     <EtcWrapper>
                         <CheckBox

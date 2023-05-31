@@ -3,7 +3,6 @@ import Slider from "react-slick";
 import {Link} from "react-router-dom";
 import {slugify} from "../utils";
 import Map from "./map/Map";
-import {GoogleMap} from "@react-google-maps/api";
 
 <script type="text/javascript" src="react-slick"></script>
 
@@ -19,22 +18,16 @@ const Blog = () => {
 
         if (sliderRef.current) {
             sliderRef.current.slickGoTo(markerIndex);
-            // sliderRef.current.slick('slickGoTo',markerIndex);
         }
 
-        const sliderElement = document.getElementById("Slider");
-        if (sliderElement) {
-            sliderElement.scrollIntoView({behavior: "smooth"});
-        }
-
-        map.setCenter(markerPosition);
+        map.panTo(markerPosition);
     };
 
 
     var slideSettings = {
         infinite: true,
         speed: 500,
-        autoplaySpeed: 1500,
+        autoplaySpeed: 2500,
         autoplay: true,
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -72,15 +65,17 @@ const Blog = () => {
                     </div>
                 </div>
             </div>
-            <div className="demo-slider" id="Slider" style={{paddingTop: "200px"}}>
+            <div  id="Slider"><br/></div>
+            <div className="demo-slider" style={{paddingTop: "200px"}}>
                 <Slider {...slideSettings} className="slick-dot-nav" currentSlide={currentIndex} ref={sliderRef}>
                     {infos.slice(0, infos.length).map((data, index) => (
-                        <div className="single-slide" key={`${data.loc.id}`}>
+                        <div className="single-slide" key={`${data.loc.id}`} style={{width:"65rem"}}>
                             <Link to={`${process.env.PUBLIC_URL}/form/in-progress/${slugify(data.loc.id)}`}>
-                            <div style={{ textAlign: "center" }}>
-                            <img src={`${data.loc.simageURL}`} alt="No Images" style={{width: "35%", height: "auto"}}/>
-                            <p>{data.loc.title}</p>
-                            </div>
+                                <div style={{textAlign: "center"}}>
+                                    <img src={`${data.loc.simageURL}`} alt="No Images"
+                                         style={{width: "35%", height: "auto"}}/>
+                                    <p>{data.loc.title}</p>
+                                </div>
                             </Link>
                         </div>
                     ))}

@@ -61,7 +61,7 @@ const ConfirmModal = ({ message, onConfirm, onCancel }) => {
       <Modal>
         <Message>{message}</Message>
         <ButtonWrapper>
-          <Button background="#FF0000" onClick={onConfirm}>
+          <Button background="#5858FA" onClick={onConfirm}>
             확인
           </Button>
           <Button background="#AAAAAA" onClick={onCancel}>

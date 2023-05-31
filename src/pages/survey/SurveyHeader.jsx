@@ -115,7 +115,7 @@ export default function SurveyHeader({ surveyId }) {
           ReactDOM.unmountComponentAtNode(document.getElementById("modal-root"));
         };
         const confirmModal = <ConfirmModal 
-        message={"이 페이지를 나가시면 데이터가 저장되지 않습니다. \n\n저장하시겠습니까?"}
+        message={"확인 버튼을 누르시면 설문이 임시 저장되고 이 페이지를 나갑니다. \n취소 버튼을 누르시면 설문이 저장되지 않습니다.\n\n임시 저장하시겠습니까?"}
   
         onConfirm={handleConfirm} onCancel={handleCancel} />;
         ReactDOM.render(confirmModal, document.getElementById("modal-root"));
