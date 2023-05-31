@@ -30,8 +30,6 @@ function Map({ onInfosUpdate, onMarkerClick }) {
     const databaseLocationsRef = useRef([]);
     const databaseLocations = databaseLocationsRef.current;
 
-    console.log("databaseLocations : ", databaseLocationsRef.current);
-
     const [markers, setMarkers] = useState([]);
     const [infos, setInfos] = useState([]);
 
@@ -63,8 +61,6 @@ function Map({ onInfosUpdate, onMarkerClick }) {
             // stylers: [{ visibility: "on" }], // 주변 상점들까지 포함되서 나오게 하는 옵션
         },
     ];
-
-    console.log("location : ", location);
 
     useEffect(() => {
         const fetchData = async () => {

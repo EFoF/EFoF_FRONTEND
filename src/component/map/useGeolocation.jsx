@@ -5,8 +5,6 @@ import {MarkerF} from '@react-google-maps/api';
 const useGeolocation = (map, onValidMarkerClick) => {
     const [location, setLocation] = useState({ lat: 0, lng: 0 });
 
-    console.log("map : ", map);
-
     const databaseLocationsRef = useRef([]);
     const databaseLocations = databaseLocationsRef.current;
 
