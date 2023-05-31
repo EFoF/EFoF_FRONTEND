@@ -95,16 +95,20 @@ const Header = () => {
                             </div>
                             <div className="header-main-nav">
                                 <ul className="mainmenu">
+                                    {loginState ? (
+                                        <li>{loginLastDTO.nickname}</li>
+                                    ) : (
+                                      <></>
+                                    )}
                                     <li className="menu-item-has-children">
                                         {
-                                            // typeof(confirmCookie) === 'undefined' ?
                                             !loginState ?
                                             (
                                                 <>
                                                     <li><Link to="/login">로그인/회원가입</Link></li>
                                                 </>
                                             ) : (
-                                                <>
+                                                <div style={{display:"flex", flexDirection: "row"}}>
                                                     <a style={myPageStyle}>
                                                         <FaUser className="icon" style={iconStyle} />
                                                         <span style={textStyle}>
@@ -119,7 +123,7 @@ const Header = () => {
                                                                     <li><a onClick={useLogout} className="axil-btn btn-fill-white">로그아웃</a></li>
                                                                 </>
                                                     </ul>
-                                                </>
+                                                </div>
                                             )}
                                     </li>
                                 </ul>
