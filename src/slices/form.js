@@ -8,7 +8,7 @@ const initialState = {
   title: '',
   detail: '',
   image: '',
-  fontColor: '#992999',
+  fontColor: '#FFFFFF',
   bgColor: '#FFFFFF',
   btColor: '#000000',
   isPre : false
