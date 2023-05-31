@@ -238,7 +238,6 @@ export default function FormSetting() {
     <>
       <SurveySettingHeader surveyId = {id}/>
       <Wrapper>
-
         <CalenderWrapper>
           <CalenderText>설문 시작일</CalenderText>
           <DatePicker
@@ -405,14 +404,20 @@ export default function FormSetting() {
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: column;
   justify-content: center;
+  flex-direction: column;
   gap: 1.2rem;
   /* margin-top: 5rem; */
   /* margin-bottom: 5rem; */
   padding: 3rem;
   background-color: #EAEEEF;
+  width: 1000px; /* 원하는 너비로 설정하세요 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
+
 
 const CalenderWrapper = styled.div`
   display: flex;
