@@ -1,22 +1,10 @@
 import { Wrapper, InputWrapper, TitleInput, DetailInput } from './style';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { MdAdd } from 'react-icons/md';
-import { FaCheck } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 import {SurveyImg} from "../../index";
 
-const ResultTitleBox = ({ info, handleDetail, handleTitle, readOnly }) => {
-    let inputRef;
-    const { questions, form } = useSelector((state) => state.form);
-    const dispatch = useDispatch();
-    const CheckIcon = styled(FaCheck)`
-  font-size: 1.3rem;
-  align-self: center;
-`;
-    const AddIcon = styled(MdAdd)`
-  font-size: 1.3rem;
-  align-self: center;
-`;
+const ResultTitleBox = ({ info, readOnly }) => {
+    const { form } = useSelector((state) => state.form);
 
     return (
         <>
@@ -46,10 +34,3 @@ const ResultTitleBox = ({ info, handleDetail, handleTitle, readOnly }) => {
 };
 
 export default ResultTitleBox;
-
-
-
-const ImgInput = styled.input`
-  /* visibility: hidden; */
-  display: none;
-`;

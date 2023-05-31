@@ -103,27 +103,6 @@ const Preview = () => {
       );
   }
 
-  const _findNextIndexFromId = (targetId) => {
-      const nextSectionIndex = _findIndexFromId(targetId);
-      return nextSectionIndex;
-  }
-
-
-  const _findIndexFromId = (targetId) => {
-      return questions.findIndex((element) => element.id === targetId);
-  }
-
-  const getResultSection = () => {
-      return (
-          <>
-              <ResultSection section_idx={currentIndex + 1} section_len={questions.length}/>
-              {questions[currentIndex] && questions[currentIndex].questionList.map((question, question_idx) => (
-                  <ResultQuestionContainer key={question.id} questionId={question.id} sectionId={questions[currentIndex].id}/>
-              ))}
-          </>
-    )
-  }
-
   // 이 컴포넌트가 미리보기 화면이 아닌 실제 설문에서 사용됐다면, 상태값을 기반으로 정답 데이터를 백엔드로 보내줌
   const submitHandler = () => {
       if (currentPath.pathname === `/form/in-progress/${id}`) {

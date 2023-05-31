@@ -222,7 +222,7 @@ function FormMake() {
       <QuestionWrapper>
         {/* <SurveyImg></SurveyImg> */}
 
-        <TitleBox info={form} handleTitle={handleTitle} handleDetail={handleDetail} handleBlurTitle={handleBlurTitle} handleBlurDetail={handleBlurDetail} readOnly={false} />
+        <TitleBox info={form} handleTitle={handleTitle} handleDetail={handleDetail} handleBlurTitle={handleBlurTitle} handleBlurDetail={handleBlurDetail} />
 
         <DragDropContext onDragEnd={onDragEnd}>
           {getQuestionList()}

@@ -64,6 +64,11 @@ export default function SurveyHeader({ surveyId }) {
     }
 
     function saveSurvey(surveyDto) {
+        if(surveyDto.title === '') {
+            toastMsg("설문 제목을 입력해주세요.", false);
+            return;
+        }
+
         return authorizationClient.post(
             `${API.SURVEY}`, surveyDto
         )
