@@ -31,6 +31,7 @@ import SectionInfo from './pages/statistic/SectionInfo';
 import ParticipateTotal from "./pages/mysurvey/ParticipateTotal";
 import ParticipateProgress from "./pages/mysurvey/ParticipateProgress";
 import ParticipateOver from "./pages/mysurvey/ParticipateOver";
+import GenerateMaking from "./pages/mysurvey/GenerateMaking";
 
 
 const App = () => {
@@ -51,16 +52,15 @@ const App = () => {
                 <Route path="/statistic/:id" exact element={<Statistic />} />
                 <Route path="/form/generate" exact element={<Generate />}>
                     <Route path=":id" element={<GenerateTotal />} />
+                    <Route path="making/:id" element={<GenerateMaking />} />
                     <Route path="prerelease/:id" element={<GeneratePrerelease />} />
                     <Route path="progress/:id" element={<GenerateProgress />} />
                     <Route path="over/:id" element={<GenerateOver />} />
-                    {/*<Route path="*" element={<NoMatch />} />*/}
                 </Route>
                 <Route path="/form/participate" exact element={<Participate />}>
                     <Route path=":id" element={<ParticipateTotal />} />
                     <Route path="progress/:id" element={<ParticipateProgress />} />
                     <Route path="over/:id" element={<ParticipateOver />} />
-                    {/*<Route path="*" element={<NoMatch />} />*/}
                 </Route>
                 <Route path="/statistic/:id/:section_id" exact element={<SectionInfo />} />
             </Routes>
