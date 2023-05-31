@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 
-import { GoogleMap, useJsApiLoader, MarkerF, Circle, Marker } from '@react-google-maps/api';
+import {GoogleMap, useJsApiLoader, MarkerF, Circle, Marker, InfoWindow} from '@react-google-maps/api';
 
 import useGeolocation from './useGeolocation';
 import {fetchLocation} from "../../api/survey";
@@ -59,8 +59,8 @@ function Map({ onInfosUpdate, onMarkerClick }) {
         {
             featureType: "poi",
             elementType: "labels",
-            stylers: [{ visibility: "off" }],
-            // stylers: [{ visibility: "on" }], // 주변 상점들까지 포함되서 나오게 하는 옵션
+            // stylers: [{ visibility: "off" }],
+            stylers: [{ visibility: "on" }], // 주변 상점들까지 포함되서 나오게 하는 옵션
         },
     ];
 
@@ -109,7 +109,7 @@ function Map({ onInfosUpdate, onMarkerClick }) {
                 onUnmount={onUnmount}
                 options={{
                     // zoom: 19,
-                    zoom: 17,
+                    zoom: 15.5,
                     disableDefaultUI: true, //위성 사진 나올 수 있게하는 옵션
                     // disableDefaultUI: false,
                     styles: myStyles
@@ -117,8 +117,6 @@ function Map({ onInfosUpdate, onMarkerClick }) {
             >
                 { /* Child components, such as markers, info windows, etc. */ }
                 <></>
-
-
                 {/*내 위치 표시*/}
                 <MarkerF position={location}/>
 
@@ -138,8 +136,12 @@ function Map({ onInfosUpdate, onMarkerClick }) {
                         }}
                         onClick={() => onMarkerClick(index, markerPosition, map)} // 추가. 클릭 시 handleMarkerClick 호출하여 인덱스 전달
                     />
-                ))}
 
+                ))}
+                {/*<InfoWindow*/}
+                {/*    // onLoad={() => console.log("호출 확인용")}*/}
+                {/*    position={{lat: 37.4565, lng: 127.133}}>*/}
+                {/*</InfoWindow>*/}
                 {/* 반경 1km인 원 */}
                 <Circle
                     center={location}
