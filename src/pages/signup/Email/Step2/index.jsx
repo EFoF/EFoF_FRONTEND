@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, {useCallback, useEffect} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import React, { useCallback, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Button, Modal } from 'react-bootstrap';
+import { useState } from "react";
 import Input from "../../../../ui/Input";
 import {
     Container,
@@ -27,7 +29,8 @@ import {
 import useUserType from "../../../../hooks/useUserType";
 import toastMsg from "../../../../ui/Toast";
 import styled from "styled-components";
-import {Wrong} from "../Step1/index.styles";
+import { Wrong } from "../Step1/index.styles";
+import PrivacyPolicyDetail from "./PrivacyPolicyDetail";
 
 const StyledLink = styled(Link)`
   color: black;
@@ -37,6 +40,7 @@ const WrapperScaled = styled(Wrapper)`
   transform: scale(0.625);
   transform-origin: top;
 `;
+
 
 export default function Step2() {
     const {
@@ -57,6 +61,15 @@ export default function Step2() {
 
     const isNameValid = isValidName(name);
 
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const openModal = () => {
+        setModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalOpen(false);
+    };
     const policy = useCallback(() => {
         navigate("/privacy-policy");
     }, [navigate]);
@@ -105,10 +118,27 @@ export default function Step2() {
                             required
                         />
                         <Agree>DOKSEOL 가입 약관에 모두 동의합니다.</Agree>
-                        <AgreeButton
-                            onClick={policy}
-                        >
-                            확인하기
+                        <AgreeButton>
+                            <Button variant="primary" onClick={openModal} class="btn btn-primary">
+                                약관 확인
+                            </Button>
+                            <Modal show={modalOpen} onHide={closeModal}>
+                                <Modal.Header closeButton>
+                                    <Modal.Title>개인정보 처리 방침</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <div className="row justify-content-center">
+                                        <div className="col-lg-10">
+                                            <PrivacyPolicyDetail />
+                                        </div>
+                                    </div>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="primary" onClick={closeModal}>
+                                        확인
+                                    </Button>
+                                </Modal.Footer>
+                            </Modal>
                         </AgreeButton>
                     </EtcWrapper>
                     <ButtonWrapper>
@@ -120,10 +150,10 @@ export default function Step2() {
                         {
                             // (types[0].selected || types[1].selected) &&
                             isNameValid == true &&
-                            bchecked ? (
-                                <RightButton onClick={onSubmitForm} title="가입 완료"/>
+                                bchecked ? (
+                                <RightButton onClick={onSubmitForm} title="가입 완료" />
                             ) : (
-                                <ButtonDisabled title="가입 완료" disabled/>
+                                <ButtonDisabled title="가입 완료" disabled />
                             )}
                     </ButtonWrapper>
                 </FormWrapper>
