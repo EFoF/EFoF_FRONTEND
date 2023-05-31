@@ -46,7 +46,7 @@ export default function SurveySettingHeader({surveyId}) {
       <ArrowButton onClick={handleLeftClick}>
         <FaArrowLeft size="2rem" />
       </ArrowButton>
-      
+        <h1>설문 constraints</h1>
       <ArrowButton onClick={handleRightClick}>
         <FaCheck size="2rem" />
       </ArrowButton>
