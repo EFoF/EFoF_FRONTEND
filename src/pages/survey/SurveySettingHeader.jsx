@@ -4,7 +4,7 @@ import { FaArrowRight,FaArrowLeft } from 'react-icons/fa';
 import { FaCheck } from 'react-icons/fa';
 import {useNavigate} from "react-router-dom";
 import toastMsg from '../../ui/Toast';
-
+import { updateReleaseStatus } from '../../api/survey';
 const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -36,8 +36,12 @@ export default function SurveySettingHeader({surveyId}) {
   };
 
   const handleRightClick = () => {
-    toastMsg("설문 생성이 완료 되었습니다.",true)
-    navigate('/');
+    updateReleaseStatus(surveyId).then(() =>
+    {
+      toastMsg("설문 생성이 완료 되었습니다.",true)
+      navigate('/');
+    })
+    
     // 오른쪽 화살표 클릭 이벤트 처리
   };
 

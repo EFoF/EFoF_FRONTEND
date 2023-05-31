@@ -593,6 +593,20 @@ const getParticipateSurvey = async (status, pageNum) => {
     }
 };
 
+const updateReleaseStatus = async (survey_id) => {
+  try {
+      
+      const response = await authorizationClient.patch(
+        `${API.SURVEY}/${survey_id}/updateStatus`);
+
+      return response.data;
+  } catch (error) {
+      console.error('Error get Question By Section For Statistic:', error);
+  }
+};
+
+
+
   export {
     surveyInfo,
     surveyInfoForResponse,
@@ -636,5 +650,6 @@ const getParticipateSurvey = async (status, pageNum) => {
     getSurveySetting,
     getQuestionBySectionForStatistic,
       getGenerateSurvey,
-      getParticipateSurvey
+      getParticipateSurvey,
+      updateReleaseStatus
 };
