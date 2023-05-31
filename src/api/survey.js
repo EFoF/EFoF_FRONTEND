@@ -33,6 +33,17 @@ const surveyInfoForResponse = async (survey_id, navigate) => {
     }
 }
 
+const surveyInfoWithAnswer = async (survey_id, navigate) => {
+    try{
+        const response = await authorizationClient.get(`${API.RESPONSE}/${survey_id}`);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        toastMsg("응답 설문을 조회하는데 실패했습니다.", false);
+        navigate("/");
+    }
+}
+
 const postSurveyResponse = async (responseData) => {
     try{
         // authorizationClient를 사용하는 경우와 (로그인 제약조건에 해당) unAuthorizationClient 를 사용해도 되는 경우
@@ -610,6 +621,7 @@ const updateReleaseStatus = async (survey_id) => {
   export {
     surveyInfo,
     surveyInfoForResponse,
+    surveyInfoWithAnswer,
     postSurveyResponse,
     uploadImgInit,
     deleteImgInit,

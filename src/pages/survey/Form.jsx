@@ -158,7 +158,8 @@ export default function Form() {
     }
   }, [])
 
-  return (<>
+  return (
+   <>
     <SurveyHeader surveyId={id} />
     <Wrapper>
 
@@ -186,5 +187,6 @@ export default function Form() {
         </Draggable>
       )}
     </Wrapper>
+   </>
   );
 }

@@ -5,7 +5,7 @@ import './Chatbot.css'
 import Preview from "./Preview";
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { surveyInfoForResponse } from '../../api/survey';
+import { surveyInfoWithAnswer } from '../../api/survey';
 import { questionActions, formActions, surveyFlowActions } from '../../slices';
 import {useDispatch, useSelector} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -46,19 +46,18 @@ export default function FormOver() {
     const navigate = useNavigate();
     const form = useSelector((state) => state.form);
 
-    // '/form/pre-release/:id' 경로인 경우에만 특정 로직 수행
     useEffect(() => {
-        surveyInfoForResponse(id,navigate)
+        surveyInfoWithAnswer(id, navigate)
             .then((data) => {
-                dispatch(formActions.initForm({data}));
-                dispatch(questionActions.initQuestion({data}))
+                console.log(data);
+                dispatch(formActions.initForm({ data }));
+                dispatch(questionActions.initResultQuestion({ data }))
                 data.sectionList.map((section) => {
                     dispatch(surveyFlowActions.addIndexes());
                 })
-            }).catch(error => {
-            console.log("설문 조회 api 요청 실패");
-            // toastMsg(error.response.data.message,false);
-        });
+            }).catch((error) => {
+                console.log(error);
+        })
 
     }, [id, currentPath]);
 
