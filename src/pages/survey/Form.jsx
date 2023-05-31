@@ -12,7 +12,7 @@ import Draggable from 'react-draggable';
 import Preview from "./Preview";
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import {postSurveyResponse, surveyInfo} from '../../api/survey';
+import { surveyInfo } from '../../api/survey';
 import { questionActions, formActions, surveyFlowActions } from '../../slices';
 import { useDispatch, useSelector } from 'react-redux';
 import SurveyHeader from './SurveyHeader';
@@ -25,17 +25,12 @@ const Wrapper = styled.div`
   position: relative;
   /* width: 100rem; */
 `;
-////////////
-const Container = styled.div`
-  display: flex;
-`;
-///////////
+
 const Half = styled.div`
   width: 50%;
   height: 100vh;
   overflow: scroll;
-  background-color: ${({ backgroundColor }) => backgroundColor};
-  
+
   ::-webkit-scrollbar-thumb {
     background-color: orange;
     border-radius: 0.2rem;
@@ -77,8 +72,16 @@ const Button = styled.button`
     transform: scale(1.1);
   }
 `;
+const ChatbotWrapper = styled.div`
+  display:  ${props => props.isVisible ? "" : "none"};
+  opacity: ${props => props.isVisible ? 1 : 0};
+  transition: opacity 1s ease-in-out;
 
-
+  position: absolute;
+  right:10.5%;
+  top: 70%;
+  transform: translate(-50%, -50%);
+`;
 
 const DragButton = styled(Button)`
   position: absolute;
@@ -95,33 +98,14 @@ position: absolute;
   right:31.5%;
   top: 36%;
   z-index: 9999;
+  
 `
-const Buttons = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: center;
-  .submit-button {
-    cursor: pointer;
-    font-size: 16px;
-    padding: 10px 0;
-    width: 80px;
-    border-radius: 5px;
-    ${({ theme }) => theme.flexCenter}
-    color: ${({ theme }) => theme.color.white};
-    background: ${({ theme }) => theme.color.purple};
-    opacity: ${({isActive}) => isActive ? 1.0 : 0.0};
-    pointer-events: ${({isActive}) => isActive ? 'auto' : 'none'};
-  }
-`;
-
-
 export default function Form() {
   const { id } = useParams();
   const currentPath = window.location.pathname;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const form = useSelector((state) => state.form);
+
   // '/form/pre-release/:id' 경로인 경우에만 특정 로직 수행
   useEffect(() => {
     if (currentPath === `/form/pre-release/${id}`) {
@@ -133,23 +117,15 @@ export default function Form() {
             dispatch(surveyFlowActions.addIndexes());
           })
         }).catch(error => {
-            console.log(error);
-      });
 
+          // toastMsg(error.response.data.message,false);
+
+        });
     }
 
   }, [id, currentPath]);
 
-    useEffect(() => {
-        const expiresDate = typeof(loginLastDTO.expiresAt) === "undefined" ?
-            new Date : new Date(loginLastDTO.expiresAt);
-        const currentDate = new Date();
-        if(currentDate >= expiresDate) {
-            alert("로그인 되지 않았습니다.");
-            navigate("/");
-        }
-    }, [])
-  
+
   const scrollRef = useRef(null);
   const buttonWrapperRef = useRef(null);
   const handleScroll = (event) => {
@@ -172,16 +148,27 @@ export default function Form() {
     setIsVisible(!isVisible);
   };
 
-  return (
-      <Wrapper>
-        <Half ref={scrollRef} onScroll={handleScroll}>
-          <FormMake/>
-        </Half>
-        <Half backgroundColor={form.form.bgColor} ref={scrollRef} onScroll={handleScroll}>
-          <Preview />
-        </Half>
-        {!isVisible && (
+  useEffect(() => {
+    const expiresDate = typeof (loginLastDTO.expiresAt) === "undefined" ?
+      new Date : new Date(loginLastDTO.expiresAt);
+    const currentDate = new Date();
+    if (currentDate >= expiresDate) {
+      alert("로그인 되지 않았습니다.");
+      navigate("/");
+    }
+  }, [])
 
+  return (<>
+    <SurveyHeader surveyId={id} />
+    <Wrapper>
+
+      <Half ref={scrollRef} onScroll={handleScroll}>
+        <FormMake />
+      </Half>
+      <Half>
+        <Preview />
+      </Half>
+      {!isVisible && (
         <DragButton color="#3b5998" onClick={handleDragButtonClick}>
           <AiOutlineMessage />
         </DragButton>
@@ -198,6 +185,6 @@ export default function Form() {
           </ExampleChatbotWrapper>
         </Draggable>
       )}
-    </Wrapper>
+    </Wrapper></>
   );
 }
