@@ -42,10 +42,15 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
   reducers: {
     initQuestion: (state, action) => {
       const { data } = action.payload;
-      // 여기서 사진이 있는지 확인하고 있으면 넣어줘야 함
       return data.sectionList;
-
     },
+
+    initResultQuestion: (state, action) => {
+      const {data} = action.payload;
+      const newList = data.sectionList.filter((section) => section.questionList.length > 0)
+      return newList;
+    },
+
     changeType: (state, action) => {
       const { questionId, sectionId, type } = action.payload;
       const section = state.find((item) => item.id === sectionId);

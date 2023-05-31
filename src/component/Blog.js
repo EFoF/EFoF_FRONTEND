@@ -48,8 +48,6 @@ const Blog = () => {
         ]
     }
 
-    console.log("infos1 : ", infos);
-
     return (
         <div className="section splash-main-banner" style={{width: "100%", height: "100%"}}>
             <br id="splash-banner1"></br>

@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRef } from 'react';
 import CssFilterConverter from "css-filter-converter";
+import { useLocation, useParams } from "react-router-dom";
 
 
 export default function ResultOptionalQuestion({ type, hasImageProps, optionId, questionId, optionContent, selectedQuestion, isLast, sectionId, questions, isMarked, multipleChoice}) {
@@ -26,6 +27,8 @@ export default function ResultOptionalQuestion({ type, hasImageProps, optionId, 
     const { currentIndex } = useSelector((state) => state.surveyFlow)
     const inputRef = useRef(null);
     const dispatch = useDispatch();
+    const location = useLocation();
+    const {id} = useParams();
 
     const selectedOption = selectedQuestion.options.find((item) => item.id === optionId);
     if(!selectedOption) return null;
@@ -58,18 +61,24 @@ export default function ResultOptionalQuestion({ type, hasImageProps, optionId, 
 
     const answerHandler = () => {
         const isAnswer = false;
-        if(isMarked) {
-            dispatch(questionActions.deleteOneOptionalAnswer({sectionId : sectionId, questionId : questionId, optionId : optionId}))
-            getSectionIndexBySectionId();
-        } else {
-            if(multipleChoice) {
-                dispatch(questionActions.markMultipleAnswer({questionId, optionId, isAnswer }))
+        if (location.pathname !== `/form/over/${id}`) {
+            if (isMarked) {
+                dispatch(questionActions.deleteOneOptionalAnswer({
+                    sectionId: sectionId,
+                    questionId: questionId,
+                    optionId: optionId
+                }))
+                getSectionIndexBySectionId();
             } else {
-                dispatch(questionActions.markOneAnswer({questionId, optionId, isAnswer}))
-                // 선택한 옵션이 가지고 있는 nextSectionId를 가지고 와서 next로 지정해줘야 함.
-                getSectionIndexByOptionId();
+                if (multipleChoice) {
+                    dispatch(questionActions.markMultipleAnswer({questionId, optionId, isAnswer}))
+                } else {
+                    dispatch(questionActions.markOneAnswer({questionId, optionId, isAnswer}))
+                    // 선택한 옵션이 가지고 있는 nextSectionId를 가지고 와서 next로 지정해줘야 함.
+                    getSectionIndexByOptionId();
+                }
             }
-        }
+    }
     };
 
     const getSectionIndexByOptionId = () => {
@@ -94,19 +103,15 @@ export default function ResultOptionalQuestion({ type, hasImageProps, optionId, 
         }
     }
 
-    console.log(CssFilterConverter.hexToFilter(form.btColor).color + " brightness(90%)");
-
-    // filterResult는 이미지의 색상을 변경하는 css 문자열이다. 다시 사용할 수도 있으니 유지하겠음
     return (
         <Wrapper isLast={isLast}>
             {selectedQuestion.hasImage ? (
                 <div style={{position:'relative'}}>
                     <Logo src={selectedOption.image} filterResult={CssFilterConverter.hexToFilter(form.btColor).color + "opacity(60%)"} onClick={answerHandler} size={5} isMarked={isMarked} checkedColor={form.btColor} />
-                    {/*<CheckImage src={checkImage} alt="Check Image" size={5} isMarked={true} />*/}
                 </div>
             ) : (
                 <InputButtonWrapper>
-                    <ResultOptionButton onClick={answerHandler} isActive={isMarked} activeColor={form.btColor}>{optionContent}</ResultOptionButton>
+                    <ResultOptionButton isImmutable={location.pathname === `/form/over/${id}`} onClick={answerHandler} isActive={isMarked} activeColor={form.btColor}>{optionContent}</ResultOptionButton>
                 </InputButtonWrapper>
             )}
             <OptionsWrapper isLast={isLast} gap={"0.5rem"}>

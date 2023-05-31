@@ -31,6 +31,7 @@ import SectionInfo from './pages/statistic/SectionInfo';
 import ParticipateTotal from "./pages/mysurvey/ParticipateTotal";
 import ParticipateProgress from "./pages/mysurvey/ParticipateProgress";
 import ParticipateOver from "./pages/mysurvey/ParticipateOver";
+import FormOver from "./pages/survey/FormOver";
 import GenerateMaking from "./pages/mysurvey/GenerateMaking";
 
 
@@ -47,6 +48,7 @@ const App = () => {
                 <Route path="/form/:id/setting" exact element={<FormSetting />} />
                 <Route path="/form/pre-release/:id" exact element={<Form />} />
                 <Route path="/form/in-progress/:id" exact element={<FormResponse />} />
+                <Route path="/form/over/:id" exact element={<FormOver />} />
                 <Route path="/findpw" exact element={<FindPW />} />
                 <Route path="/privacy-policy" exact element={<PrivacyPolicy />} />
                 <Route path="/statistic/:id" exact element={<Statistic />} />

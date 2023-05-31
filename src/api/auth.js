@@ -45,9 +45,6 @@ const authLogin = createAsyncThunk(
     try {
       const response = await unAuthorizationClient.post(API.LOGIN, data);
       toastMsg("로그인 성공", true);
-      // persist redux에 추가하는 부분
-      // 여기부터 코드 진행이 안됨
-      // const dispatch = useDispatch();
       dispatch(authorizationActions.setLoginDTO(response.data.loginLastDTO));
       return response.data;
     } catch (error) {

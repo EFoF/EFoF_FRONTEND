@@ -26,31 +26,14 @@ export const TitleInput = styled.input`
   }
   margin-bottom:1rem;
   
-  &:hover {
-    border:0;
-    outline: 0;
-    background: transparent;
-    border-bottom: 1px solid ${({ theme }) => theme.color.border_gray};
-  }
 `;
 
 export const DetailInput = styled.input`
-
-    
   border: none;
-
   color: ${props => props.fontColor || 'black'};
   background-color: white;
-    
   /* width: 60%; */
   font-size: 1rem;
-    &:hover {
-      border: 0;
-      outline: 0;
-      background: transparent;
-      border-bottom: 1px solid ${({ theme }) => theme.color.border_gray};
-    }
-  
 `;
 
 export const InputWrapper = styled.div`

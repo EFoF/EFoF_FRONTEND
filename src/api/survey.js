@@ -26,10 +26,21 @@ const surveyInfoForResponse = async (survey_id, navigate) => {
         const response = await authorizationClient.get(`${API.SURVEY}/${survey_id}/in_progress`);
         return response.data;
     } catch (error) {
+        // alert(JSON.stringify(error.response.data.message));
+        error.response.data.message === undefined ? toastMsg("유효하지 않은 설문입니다.", false)
+            : toastMsg(JSON.stringify(error.response.data.message), false);
+        navigate("/");
+    }
+}
+
+const surveyInfoWithAnswer = async (survey_id, navigate) => {
+    try{
+        const response = await authorizationClient.get(`${API.RESPONSE}/${survey_id}`);
+        return response.data;
+    } catch (error) {
         console.log(error);
-        alert(JSON.stringify(error.response.data.message));
-        // 뒤로 가기
-        navigate(-1);
+        toastMsg("응답 설문을 조회하는데 실패했습니다.", false);
+        navigate("/");
     }
 }
 
@@ -610,6 +621,7 @@ const updateReleaseStatus = async (survey_id) => {
   export {
     surveyInfo,
     surveyInfoForResponse,
+    surveyInfoWithAnswer,
     postSurveyResponse,
     uploadImgInit,
     deleteImgInit,

@@ -1,19 +1,15 @@
 import { useDispatch } from 'react-redux';
-import {Link, useLocation, useParams} from 'react-router-dom';
+import {useNavigate, useLocation, useParams} from 'react-router-dom';
 import styled from 'styled-components';
 import { ResultTitleBox } from '../../component';
-import { PreviewContainer } from '../../containers';
 import { useSelector } from 'react-redux';
-import {formActions, questionActions, surveyFlowActions} from '../../slices';
+import {surveyFlowActions} from '../../slices';
 import ResultSection from "../../component/Section/Result/Section";
-import {Draggable} from "react-beautiful-dnd";
 import {ResultQuestionContainer} from "../../containers";
 import leftArrow from '../../assets/icon/leftArrow.png'
 import rightArrow from '../../assets/icon/rightArrow.png'
-import ImgButton from "../../ui/ImgButton";
 import {postSurveyResponse} from "../../api/survey";
 import toastMsg from "../../ui/Toast";
-import Footer from "../../ui/common/Footer";
 import React from "react";
 
 const Preview = () => {
@@ -23,7 +19,7 @@ const Preview = () => {
   const { questions } = form;
   const { id } = useParams();
   const currentPath = useLocation();
-  // 설문 참여 url이 아니면 제출버튼을 눌러도 아무 효과가 없어야 한다.
+  const navigate = useNavigate();
   const _moveToNext = () => {
       if (currentIndex !== indexes[currentIndex].nextIndex) {
           // 이동할 다음 페이지의 prev를 현재 페이지의 current로 설정
@@ -40,9 +36,6 @@ const Preview = () => {
   }
 
   const _getIndexAgainForComparison = () => {
-      // 1. 현재 섹션의 모든 질문을 돌면서 선택한 옵션이 있나 확인
-      //    1-1. 여기서 가장 마지막에 선택한 옵션을 기준으로 생각한다.
-      // 2. 섹션 자체가 가리키는 다음 섹션 값도 확인한다.
 
       let lastId;
       console.log(questions[currentIndex]);
@@ -91,7 +84,6 @@ const Preview = () => {
       // console.log(form.form.bgColor)
       const flag = indexes[currentIndex].nextIndex === -1 || indexes[currentIndex].nextIndex === currentIndex
       return (
-          // <FooterContainer isReal={currentPath.pathname === `/form/in-progress/${id}`}>
               <ArrowButtonWrapper>
                   <ArrowImageButton isActive={indexes[currentIndex].prevIndex !== -1}
                                     size={1}
@@ -99,7 +91,7 @@ const Preview = () => {
                                     src={leftArrow}
                                     color={"white"}/>
                   <Buttons isActive={flag}>
-                      <div className="submit-button" onClick={submitHandler}>제출</div>
+                      <div className="submit-button" onClick={submitHandler}>{currentPath.pathname === `/form/over/${id}` ? '뒤로가기' : '제출'}</div>
                   </Buttons>
                   <ArrowImageButton isActive={!flag}
                                     size={1}
@@ -108,83 +100,7 @@ const Preview = () => {
                                     src={rightArrow}
                                     color={"white"}/>
               </ArrowButtonWrapper>
-          // </FooterContainer>
-      //     (indexes[currentIndex].nextIndex === -1 || indexes[currentIndex].nextIndex === currentIndex) ? (
-      //         <>
-      //             <Buttons>
-      //                 {/*<Link to={'/result'} style={{ textDecoration: 'none' }}>*/}
-      //                     <div className="submit-button" onClick={submitHandler}>제출</div>
-      //                 {/*</Link>*/}
-      //             </Buttons>
-      //
-      //             <ArrowButtonWrapper>
-      //                 {indexes[currentIndex].prevIndex === -1 ? (
-      //                     // 더 이상 뒤로 갈 섹션이 없는 경우 버튼을 비활성화 시킨다.
-      //                     <ArrowImageButton
-      //                         size={2}
-      //                         color={"white"}
-      //                         backgroundColor={form.form.bgColor}
-      //                     />
-      //                 ) : (
-      //                     <ArrowImageButton
-      //                         size={2}
-      //                         onClick={_moveToPrev}
-      //                         ImgSrc={leftArrow}
-      //                         color={"white"}
-      //                         backgroundColor={form.form.bgColor}
-      //                     />
-      //                 )}
-      //             </ArrowButtonWrapper>
-      //         </>
-      // ) : (
-      //     <ArrowButtonWrapper>
-      //         {indexes[currentIndex].prevIndex === -1 ? (
-      //             // 더 이상 뒤로 갈 섹션이 없는 경우 버튼을 비활성화 시킨다.
-      //             <ArrowImageButton
-      //                 size={2}
-      //                 color={"white"}
-      //                 backgroundColor={form.form.bgColor}
-      //             />
-      //         ) : (
-      //             <ArrowImageButton
-      //                 size={2}
-      //                 onClick={_moveToPrev}
-      //                 ImgSrc={leftArrow}
-      //                 color={"white"}
-      //                 backgroundColor={form.form.bgColor}
-      //             />
-      //         )}
-      //         <ArrowImageButton
-      //             size={2}
-      //             onClick={_moveToNext}
-      //             ImgSrc={rightArrow}
-      //             color={"white"}
-      //             backgroundColor={form.form.bgColor}
-      //         />
-      //     </ArrowButtonWrapper>
-      // )
       );
-  }
-
-  const _findNextIndexFromId = (targetId) => {
-      const nextSectionIndex = _findIndexFromId(targetId);
-      return nextSectionIndex;
-  }
-
-
-  const _findIndexFromId = (targetId) => {
-      return questions.findIndex((element) => element.id === targetId);
-  }
-
-  const getResultSection = () => {
-      return (
-          <>
-              <ResultSection section_idx={currentIndex + 1} section_len={questions.length}/>
-              {questions[currentIndex] && questions[currentIndex].questionList.map((question, question_idx) => (
-                  <ResultQuestionContainer key={question.id} questionId={question.id} sectionId={questions[currentIndex].id}/>
-              ))}
-          </>
-    )
   }
 
   // 이 컴포넌트가 미리보기 화면이 아닌 실제 설문에서 사용됐다면, 상태값을 기반으로 정답 데이터를 백엔드로 보내줌
@@ -202,6 +118,9 @@ const Preview = () => {
               postSurveyResponse(responseData)
                   .then().catch(error => {console.log(error)});
           }
+      } else if(currentPath.pathname === `/form/over/${id}`) {
+          // 응답한 설문을 열람하는 경우에는 뒤로가기로 처리한다.
+          navigate(-1);
       }
   }
 
@@ -289,8 +208,6 @@ const Preview = () => {
             </QuestionWrapper>
             {_determineFlow()}
         </Wrapper>
-        {/*{_determineFlow()}*/}
-        {/*  <Footer CparentClass="" />*/}
       </>
   )
 };
@@ -356,15 +273,5 @@ box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 overflow:visible;
 `;
 
-const FooterContainer = styled.div`
-  position: absolute;
-  display: flex;
-  align-items: center;
-  bottom: 0;
-  left: ${({ isReal }) => isReal ? '25%' : '50%'};
-  width: 50%;
-  height: 10vh; /* 원하는 높이로 설정 */
-  background-color: #f5f5f5; /* 원하는 배경색으로 설정 */
-`;
 
 export default Preview;

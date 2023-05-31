@@ -14,7 +14,6 @@ const HeaderWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  /* background-color: #eee; */
 `;
 
 const ArrowButton = styled.button`
@@ -64,15 +63,18 @@ export default function SurveyHeader({ surveyId }) {
     }
 
     function saveSurvey(surveyDto) {
+        if(surveyDto.title === '') {
+            toastMsg("설문 제목을 입력해주세요.", false);
+            return;
+        }
+
         return authorizationClient.post(
             `${API.SURVEY}`, surveyDto
         )
             .then(response => {
-
                 navigate(`/form/${response.data}/setting`);
                 typeof (response) !== 'undefined' ?
                     toastMsg("설문생성 성공", true) : toastMsg("설문생성 실패", false);
-                // 여기서 홈으로 리다이렉트 시킬지 고민 중
             })
             .catch(error => {
                 // alert(error);

@@ -7,11 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import {questionActions, formActions, surveyFlowActions} from '../../slices';
 import Select from "react-select";
 import Section from '../../component/Section/Section';
-import Button from '../../ui/button';
-import axios from 'axios';
-import toastMsg from "../../ui/Toast";
-import { authorizationClient } from '../../api';
-import API from '../../api/config';
 import { updateSurveyDescription, updateSurveyTitle, updateQuestionOrder,updateSection } from '../../api/survey';
 function FormMake() {
   const { form, questions } = useSelector((state) => state.form);
@@ -227,7 +222,7 @@ function FormMake() {
       <QuestionWrapper>
         {/* <SurveyImg></SurveyImg> */}
 
-        <TitleBox info={form} handleTitle={handleTitle} handleDetail={handleDetail} handleBlurTitle={handleBlurTitle} handleBlurDetail={handleBlurDetail} readOnly={false} />
+        <TitleBox info={form} handleTitle={handleTitle} handleDetail={handleDetail} handleBlurTitle={handleBlurTitle} handleBlurDetail={handleBlurDetail} />
 
         <DragDropContext onDragEnd={onDragEnd}>
           {getQuestionList()}
