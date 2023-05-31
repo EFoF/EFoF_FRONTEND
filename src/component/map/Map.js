@@ -16,13 +16,13 @@ const center = {
     lng: -38.523
 };
 
-function Map({ onInfosUpdate, onMarkerClick }) {
+function Map({onInfosUpdate, onMarkerClick}) {
 
     const [map, setMap] = React.useState(null);
 
-    const { location } = useGeolocation(map);
+    const {location} = useGeolocation(map);
 
-    const { isLoaded } = useJsApiLoader({
+    const {isLoaded} = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: "AIzaSyD9iknGFg_WToN8fr8iin_83E_Gz6M2ims"
     })
@@ -33,8 +33,10 @@ function Map({ onInfosUpdate, onMarkerClick }) {
     console.log("databaseLocations : ", databaseLocationsRef.current);
 
     const [markers, setMarkers] = useState([]);
+
     const [infos, setInfos] = useState([]);
 
+    const [selectedMarker, setSelectedMarker] = useState(null);
 
     const onLoad = React.useCallback(function callback(map) {
         // This is just an example of getting and using the map instance!!! don't just blindly copy!
@@ -60,7 +62,7 @@ function Map({ onInfosUpdate, onMarkerClick }) {
             featureType: "poi",
             elementType: "labels",
             // stylers: [{ visibility: "off" }],
-            stylers: [{ visibility: "on" }], // 주변 상점들까지 포함되서 나오게 하는 옵션
+            stylers: [{visibility: "on"}], // 주변 상점들까지 포함되서 나오게 하는 옵션
         },
     ];
 
@@ -83,7 +85,7 @@ function Map({ onInfosUpdate, onMarkerClick }) {
     const setMarkersFromDB = () => {
         if (databaseLocationsRef.current) {
             const markerPositions = databaseLocationsRef.current.map((loc) => {
-                return { lat: loc.lat, lng: loc.lng };
+                return {lat: loc.lat, lng: loc.lng};
             });
             setMarkers(markerPositions);
         }
@@ -92,12 +94,70 @@ function Map({ onInfosUpdate, onMarkerClick }) {
     const setInfosFromDB = () => {
         if (databaseLocationsRef.current) {
             const Infos = databaseLocationsRef.current.map((loc) => {
-                return { loc };
+                return {loc};
             });
             setInfos(Infos);
             onInfosUpdate(Infos); // onInfosUpdate 함수를 호출하여 infos 값을 전달
         }
     };
+
+    const handleMarkerClick = (markerIndex, markerPosition, map) => {
+        if (selectedMarker && selectedMarker.index === markerIndex) {
+            // 이미 선택된 마커를 클릭한 경우
+            return;
+        }
+
+        setSelectedMarker({
+            index: markerIndex,
+            position: markerPosition,
+            data: markers[markerIndex],
+        });
+    };
+
+    useEffect(() => {
+        if (selectedMarker) {
+            // 선택된 마커가 있을 때에만 InfoWindow 렌더링
+            const markerIndex = selectedMarker.index;
+            const markerPosition = selectedMarker.position;
+            const mapElement = map; // map 변수가 의존성으로 추가되어야 함
+
+            const handleWindowClick = () => {
+                const sliderElement = document.getElementById("Slider");
+                if (sliderElement) {
+                    sliderElement.scrollIntoView({behavior: "smooth"});
+                    onMarkerClick(markerIndex, markerPosition, mapElement);
+                }
+            };
+
+            // InfoWindow 렌더링
+            const infoWindow = new window.google.maps.InfoWindow({
+                position: selectedMarker.position,
+                onCloseClick: () => setSelectedMarker(null),
+                options: {pixelOffset: {width: 0, height: -30}},
+            });
+
+            // InfoWindow에 컨텐츠 추가
+            const content = document.createElement("div");
+            const title = document.createElement("div");
+            title.style.fontWeight = "bold";
+            title.innerHTML = `제목: ${infos[selectedMarker.index].loc.title}<br/>`;
+            const description = document.createElement("div");
+            description.innerHTML = `설명: ${infos[selectedMarker.index].loc.description}`;
+            content.appendChild(title);
+            content.appendChild(description);
+
+            const button = document.createElement("button");
+            button.style.backgroundColor = "white";
+            button.style.border = "0";
+            button.onclick = handleWindowClick;
+            button.appendChild(content);
+
+            infoWindow.setContent(button);
+            infoWindow.open(map);
+
+        }
+    }, [selectedMarker, map, infos, onMarkerClick]);
+
 
     return isLoaded ? (
         <div className="container">
@@ -110,12 +170,12 @@ function Map({ onInfosUpdate, onMarkerClick }) {
                 options={{
                     // zoom: 19,
                     zoom: 15.5,
-                    disableDefaultUI: true, //위성 사진 나올 수 있게하는 옵션
-                    // disableDefaultUI: false,
+                    disableDefaultUI: true,
+                    // disableDefaultUI: false, //위성 사진 나올 수 있게하는 옵션
                     styles: myStyles
                 }}
             >
-                { /* Child components, such as markers, info windows, etc. */ }
+                { /* Child components, such as markers, info windows, etc. */}
                 <></>
                 {/*내 위치 표시*/}
                 <MarkerF position={location}/>
@@ -134,15 +194,11 @@ function Map({ onInfosUpdate, onMarkerClick }) {
                                 // url: greenMarkerIcon, // 초록색 마커 아이콘 이미지 경로
                             },
                         }}
-                        onClick={() => onMarkerClick(index, markerPosition, map)} // 추가. 클릭 시 handleMarkerClick 호출하여 인덱스 전달
+                        // onClick={() => onMarkerClick(index, markerPosition, map)} // 추가. 클릭 시 handleMarkerClick 호출하여 인덱스 전달
+                        onClick={() => handleMarkerClick(index, markerPosition, map)}
                     />
 
                 ))}
-                {/*<InfoWindow*/}
-                {/*    // onLoad={() => console.log("호출 확인용")}*/}
-                {/*    position={{lat: 37.4565, lng: 127.133}}>*/}
-                {/*</InfoWindow>*/}
-                {/* 반경 1km인 원 */}
                 <Circle
                     center={location}
                     radius={1000}

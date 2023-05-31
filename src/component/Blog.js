@@ -3,7 +3,6 @@ import Slider from "react-slick";
 import {Link} from "react-router-dom";
 import {slugify} from "../utils";
 import Map from "./map/Map";
-import {GoogleMap, InfoWindow} from "@react-google-maps/api";
 
 <script type="text/javascript" src="react-slick"></script>
 
@@ -19,43 +18,16 @@ const Blog = () => {
 
         if (sliderRef.current) {
             sliderRef.current.slickGoTo(markerIndex);
-            // sliderRef.current.slick('slickGoTo',markerIndex);
         }
 
-        // const sliderElement = document.getElementById("Slider");
-        // if (sliderElement) {
-        //     sliderElement.scrollIntoView({behavior: "smooth"});
-        // }
-
-        // map.setCenter(markerPosition);
         map.panTo(markerPosition);
-
-        const markerData = infos[markerIndex];
-        const infoWindow = new window.google.maps.InfoWindow(
-            // {
-            //             //     content: markerData.loc.title
-            //             // }
-        );
-        infoWindow.setContent(markerData.loc.title);
-        infoWindow.open(map, markerPosition
-        //     {
-        //     anchor: markerPosition,
-        //     map: map
-        // }
-        );
-
-        // window.google.maps.event.addListener(markerPosition, "click", () => {
-        //     const infowindow = new window.google.maps.InfoWindow();
-        //     infowindow.setContent(`<div class="ui header">Parliment Hill</div>`);
-        //     infowindow.open(map, markerPosition);
-        // });
     };
 
 
     var slideSettings = {
         infinite: true,
         speed: 500,
-        autoplaySpeed: 1500,
+        autoplaySpeed: 2500,
         autoplay: true,
         slidesToShow: 1,
         slidesToScroll: 1,
