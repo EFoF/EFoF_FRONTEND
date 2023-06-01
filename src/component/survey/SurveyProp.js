@@ -6,7 +6,7 @@ import {deleteSurvey} from "../../api/survey";
 import ReactDOM from "react-dom";
 import ConfirmModal from "../../ui/ConfirmModal";
 
-const SurveyProp = ({projectStyle, survey}) => {
+const SurveyProp = ({projectStyle, survey, label}) => {
     const imageStyle = {
         width: '610px',
         height: '230px',
@@ -65,8 +65,10 @@ const SurveyProp = ({projectStyle, survey}) => {
             urlToCopy +=  `/form/pre-release/${survey_id}`;
         } else if (surveyStatus === "progress"){
             urlToCopy += `/form/in-progress/${survey_id}`;
-        } else if (surveyStatus === "over"){
+        } else if (surveyStatus === "over" && label === "participate"){
             urlToCopy += `/form/over/${survey_id}`;
+        } else if (surveyStatus === "over" && label === "generate"){
+            urlToCopy += `/form/pre-release/${survey_id}`;
         }
         console.log(urlToCopy);
 
@@ -136,8 +138,12 @@ const SurveyProp = ({projectStyle, survey}) => {
                             <Link to={process.env.PUBLIC_URL + `/form/in-progress/${survey.survey_id}`}>
                                 {survey.title}
                             </Link>
-                        ) : survey.surveyStatus === "over" ? (
+                        ) : survey.surveyStatus === "over" && label === "participate" ? (
                             <Link to={process.env.PUBLIC_URL + `/form/over/${survey.survey_id}`}>
+                                {survey.title}
+                            </Link>
+                        ) : survey.surveyStatus === "over" && label === "generate" ? (
+                            <Link to={process.env.PUBLIC_URL + `/form/pre-release/${survey.survey_id}`}>
                                 {survey.title}
                             </Link>
                         ) : (
