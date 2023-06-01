@@ -101,7 +101,7 @@ const Header = () => {
                             <div className="header-main-nav">
                                 <ul className="mainmenu">
                                     {loginState ? (
-                                        <li>{loginLastDTO.nickname}</li>
+                                        <li style={{fontWeight:'bold'}}>{loginLastDTO.nickname}</li>
                                     ) : (
                                         <></>
                                     )}
