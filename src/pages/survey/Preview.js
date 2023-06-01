@@ -118,7 +118,9 @@ const Preview = () => {
               }
           } else {
               postSurveyResponse(responseData)
-                  .then().catch(error => {console.log(error)});
+                  .then((response) => {
+                      navigate("/");
+                  }).catch(error => {console.log(error)});
           }
       } else if(currentPath.pathname !== `/form/in-progress/${id}`) {
           // 응답한 설문을 열람하는 경우에는 뒤로가기로 처리한다.
