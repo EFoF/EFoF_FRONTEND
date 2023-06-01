@@ -141,10 +141,18 @@ export default function ResultQuestionContainer({ questionId, sectionId ,questio
                     {isNecessary && <span style={{ color: 'red'}}>*</span>}
                 </span>
             </div>
-            {/*<div style={{display:"flex", alignItems:"center"}}>*/}
-            <GridContainer>
-                {getInput()}
-            </GridContainer>
+            {/*<GridContainer>*/}
+            {/*    {getInput()}*/}
+            {/*</GridContainer>*/}
+            {selectedQuestion.hasImage ? (
+                <GridContainer>
+                    {getInput()}
+                </GridContainer>
+            ) : (
+                <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
+                    {getInput()}
+                </div>
+            )}
             <hr />
             <div className="settings">
                 <></>
