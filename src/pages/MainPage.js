@@ -14,7 +14,7 @@ const MainPage = () => {
     return (
         <>
         <SEO title="Digital Agency"/>
-        <ColorSwitcher />
+        {/*<ColorSwitcher />*/}
         <main className="main-wrapper">
             <Header />
             <Banner />

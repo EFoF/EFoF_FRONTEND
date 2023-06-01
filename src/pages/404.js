@@ -10,7 +10,7 @@ const ErrorPage = () => {
     return (
         <>
         <SEO title="404 Not Found" />
-        <ColorSwitcher />
+        {/*<ColorSwitcher />*/}
             <main className="main-wrapper">
                 <HeaderOne />
                 <div className="error-page onepage-screen-area">
