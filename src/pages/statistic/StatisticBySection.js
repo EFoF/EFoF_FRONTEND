@@ -35,6 +35,7 @@ const StatisticBySection = ({projectStyle, portfolio, sectionId,data}) => {
 
 	const option_typed = (data.question_type === "LONG_ANSWER") ? "주관식" : "객관식"
 	
+	console.log(data);
 
     return (
 		<>
@@ -59,8 +60,8 @@ const StatisticBySection = ({projectStyle, portfolio, sectionId,data}) => {
 							overflow: 'auto', // 또는 overflow: 'auto'; (원래 scroll으로 했는데 auto가 더 나은 거 같음)
 							height: '120px', // 컨테이너의 높이 설정
 							// border: '1px solid #000' // 테두리 스타일 지정
-							}}
-					>{data.longAnswerDtos.map((item, index) => (
+							}}>
+						{data.longAnswerDtos && data.longAnswerDtos.map((item, index) => (
 						<p key={index}>{index+1}) {item.answer_sentence}</p>
 					))}
 					</div>
