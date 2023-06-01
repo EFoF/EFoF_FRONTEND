@@ -25,7 +25,6 @@ border: 3p  x solid ${({ theme }) => theme.color.gray};
 const Text = styled.span`
   font-size: 1rem;
 position: absolute;
-top: 1.5rem;
 left: 1.5rem;
   margin-right: 1rem;
   white-space: nowrap;

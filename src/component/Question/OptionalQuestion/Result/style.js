@@ -29,7 +29,7 @@ export const ResultOptionButton = styled.div`
   align-self: center;
   /* height:${({ size }) => size * 2}; */
   flex-direction: row;
-  padding: 0.3rem;
+  padding: 0.8rem;
   border: none;
   cursor: pointer;
   border-radius: 5px; /* 끝부분 둥글게 만들기 */
@@ -43,11 +43,12 @@ export const ResultOptionButton = styled.div`
 export const ResultOptionButtonImg = styled.div`
   width: ${({ size }) => size}rem;
   font-size: ${({ size }) => size};
-  color: ${({ theme }) => theme.color.black};
+  color: ${({ fontColor }) => fontColor};
   background-color: ${({ isActive, activeColor, theme }) =>
           isActive ? activeColor : theme.color.gray};
   display: ${({ isLast }) => (isLast ? 'none' : 'flex')};
   align-self: center;
+  justify-content: center;
   /* height:${({ size }) => size * 2}; */
   flex-direction: row;
   padding: 0.3rem;

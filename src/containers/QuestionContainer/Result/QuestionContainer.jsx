@@ -141,10 +141,10 @@ export default function ResultQuestionContainer({ questionId, sectionId ,questio
                     {isNecessary && <span style={{ color: 'red'}}>*</span>}
                 </span>
             </div>
-            <div className="collapse">
-                {typeNames[questionType]}
+            {/*<div style={{display:"flex", alignItems:"center"}}>*/}
+            <GridContainer>
                 {getInput()}
-            </div>
+            </GridContainer>
             <hr />
             <div className="settings">
                 <></>
@@ -152,6 +152,14 @@ export default function ResultQuestionContainer({ questionId, sectionId ,questio
         </Wrapper>
     );
 }
+
+const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40%, 1fr)); /* 한 줄에 최소 200px 크기로, 가능한 만큼 컬럼을 생성합니다. */
+  gap: 0.5rem; /* 사진 컴포넌트 사이의 간격을 설정합니다. */
+  justify-items: center;
+`;
+
 const StyledDeleteIcon = styled(AiOutlineDelete)`
   width: 1.7rem;
   height: 1.7rem;
