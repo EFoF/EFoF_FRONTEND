@@ -15,7 +15,6 @@ const CtaLayout = () => {
                         <span className="subtitle">DOKSEOL</span>
                         <h2 className="title">Let’s Survey !!</h2>
                         <p><L to="splash-banner1" smooth={true} duration={500}>⬆️ 주변 설문 둘러보기 ⬆️</L></p><br/>
-
                         <Link to="/form">
                             <button className="axil-btn btn-fill-white">설문 생성하기</button>
                         </Link>

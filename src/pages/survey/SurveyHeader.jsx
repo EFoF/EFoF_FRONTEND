@@ -8,6 +8,8 @@ import toastMsg from "../../ui/Toast";
 import { authorizationClient } from '../../api';
 import API from '../../api/config';
 import ConfirmModal from '../../ui/ConfirmModal';
+import { Button, Modal } from 'react-bootstrap';
+import { useState } from 'react';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -37,6 +39,16 @@ export default function SurveyHeader({ surveyId }) {
     const navigate = useNavigate();
     const { form, questions } = useSelector((state) => state.form);
 
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const openModal = () => {
+        setModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalOpen(false);
+    };
+
 
     function saveSurveyFromDataInit() {
         const surveyDto = createSurveyDto();
@@ -63,7 +75,7 @@ export default function SurveyHeader({ surveyId }) {
     }
 
     function saveSurvey(surveyDto) {
-        if(surveyDto.title === '') {
+        if (surveyDto.title === '') {
             toastMsg("설문 제목을 입력해주세요.", false);
             return;
         }
@@ -104,27 +116,42 @@ export default function SurveyHeader({ surveyId }) {
     const handleSave = () => {
 
         const handleConfirm = () => {
-        saveSurveyFromDataInit();
-          
-          ReactDOM.unmountComponentAtNode(document.getElementById("modal-root"));
+            saveSurveyFromDataInit();
+
+            ReactDOM.unmountComponentAtNode(document.getElementById("modal-root"));
         };
-      
+
         const handleCancel = () => {
-          // 취소 버튼 클릭 시 처리할 코드 작성
-          navigate(`/`);
-          ReactDOM.unmountComponentAtNode(document.getElementById("modal-root"));
+            // 취소 버튼 클릭 시 처리할 코드 작성
+            navigate(`/`);
+            ReactDOM.unmountComponentAtNode(document.getElementById("modal-root"));
         };
-        const confirmModal = <ConfirmModal 
-        message={"확인 버튼을 누르시면 설문이 임시 저장되고 이 페이지를 나갑니다. \n취소 버튼을 누르시면 설문이 저장되지 않습니다.\n\n임시 저장하시겠습니까?"}
-  
-        onConfirm={handleConfirm} onCancel={handleCancel} />;
+
+        const confirmModal = <ConfirmModal
+            // message={"이 페이지를 나가시면 데이터가 저장되지 않습니다. \n\n저장하시겠습니까?"}
+            message={"설문을 저장하시겠습니까? \n(저장하지 않을 시 해당 설문은 삭제됩니다.)"}
+            onConfirm={handleConfirm} onCancel={handleCancel} />;
+
         ReactDOM.render(confirmModal, document.getElementById("modal-root"));
-      };
+    };
+
+    const handleConfirm = () => {
+        saveSurveyFromDataInit();
+        ReactDOM.unmountComponentAtNode(document.getElementById("modal-root"));
+
+    };
+
+    const handleCancel = () => {
+        // 취소 버튼 클릭 시 처리할 코드 작성
+        navigate(`/`);
+        ReactDOM.unmountComponentAtNode(document.getElementById("modal-root"));
+    };
 
     const handleLeftClick = () => {
         if (surveyId === undefined) {
-            handleSave()
-            
+            handleSave();
+            // setModalOpen(true);
+
         } else {
             navigate(`/`);
         }
@@ -140,9 +167,40 @@ export default function SurveyHeader({ surveyId }) {
 
     return (
         <HeaderWrapper>
-            <ArrowButton onClick={handleLeftClick}>
+            {/* <ArrowButton onClick={handleLeftClick}>
                 <FaArrowLeft size="2rem" />
-            </ArrowButton>
+            </ArrowButton> */}
+
+            {/* <Button variant="primary" onClick={openModal} class="btn btn-primary"> */}
+            <Button variant="primary" onClick={openModal} class="btn">
+                {/* 약관 확인 */}
+                <FaArrowLeft size="2rem" />
+            </Button>
+
+            {surveyId === undefined ? (
+                <Modal show={modalOpen} onHide={closeModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>저장하시겠습니까?</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div className="row justify-content-center">
+                            <div className="col-lg-10">
+                                저장하지 않으면 해당 설문은 삭제 됩니다.
+                            </div>
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="primary" onClick={handleConfirm}>
+                            저장
+                        </Button>
+                        <Button variant="primary" onClick={handleCancel}>
+                            저장하지 않음
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            ) : (
+                navigate('/')
+            )}
 
             <ArrowButton onClick={handleRightClick}>
                 <FaArrowRight size="2rem" />
