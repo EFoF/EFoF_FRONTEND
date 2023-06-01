@@ -77,6 +77,7 @@ export default function ResultQuestionContainer({ questionId, sectionId ,questio
                     isLast={false}
                 />
             ));
+
         return optionList;
     };
 
@@ -97,6 +98,7 @@ export default function ResultQuestionContainer({ questionId, sectionId ,questio
                     isLast={false}
                 />
             ))
+            
         return optionList;
     };
 

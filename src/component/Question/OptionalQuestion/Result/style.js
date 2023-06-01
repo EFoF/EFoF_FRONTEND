@@ -14,11 +14,33 @@ export const Wrapper = styled.div`
     width: 42px;
     height: 42px;
   } */
+  // float: left;
 `;
 
 
 export const ResultOptionButton = styled.div`
   width: 37vw;
+  font-size: ${({ size }) => size};
+  color: ${({ theme }) => theme.color.black};
+  background-color: ${({ isActive, activeColor, theme }) =>
+          isActive ? activeColor : theme.color.gray};
+  display: ${({ isLast }) => (isLast ? 'none' : 'flex')};
+  align-self: center;
+  /* height:${({ size }) => size * 2}; */
+  flex-direction: row;
+  padding: 0.3rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px; /* 끝부분 둥글게 만들기 */
+  transition: background-color 0.2s color 0.2s; /* 배경색이 바뀔 때 부드럽게 변경되도록 transition 설정 */
+  
+  &:hover{
+    ${({ isImmutable }) => ({ isImmutable } ? '' : 'filter: brightness(90%);')}
+  }
+`;
+
+export const ResultOptionButtonImg = styled.div`
+  width: ${({ size }) => size}rem;
   font-size: ${({ size }) => size};
   color: ${({ theme }) => theme.color.black};
   background-color: ${({ isActive, activeColor, theme }) =>
@@ -90,7 +112,7 @@ export const Logo = styled.img`
     border-radius: 0.5rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
   `}
-  margin-right: 1rem;
+  // margin-right: 1rem;
   object-fit: cover;
   cursor: pointer;
   transition: background-color 0.2s, opacity 0.2s;
