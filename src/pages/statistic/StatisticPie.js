@@ -67,7 +67,7 @@ const Example = ({optionData}) => {
     setActiveIndex(index);
   };
 
-  const transformedData = optionData.map((longAnswerDto) => ({
+  const transformedData = optionData&&optionData.map((longAnswerDto) => ({
     
     "name": longAnswerDto.option_text,
     "응답자 수": longAnswerDto.participant_num_question_option

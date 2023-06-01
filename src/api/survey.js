@@ -575,7 +575,7 @@ const postSurveyResponse = async (responseData) => {
 const getGenerateSurvey = async (status, pageNum) => {
     try {
         const str = `&surveyStatus=${status}`
-        let url  = `${API.SURVEY}/generate?page=${pageNum}&size=9`
+        let url  = `${API.SURVEY}/generate?page=${pageNum}&size=12`
         if(status!=null){
             url = url+str;
         }
@@ -591,7 +591,7 @@ const getGenerateSurvey = async (status, pageNum) => {
 const getParticipateSurvey = async (status, pageNum) => {
     try {
         const str = `&surveyStatus=${status}`
-        let url  = `${API.SURVEY}/participate?page=${pageNum}&size=9`
+        let url  = `${API.SURVEY}/participate?page=${pageNum}&size=12`
         if(status!=null){
             url = url+str;
         }

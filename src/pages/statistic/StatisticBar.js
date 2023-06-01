@@ -6,7 +6,7 @@ const COLORS = ['#8884d8', '#82ca9d', '#81BAC9', '#BAE053', '#FFD44F', '#bddaff'
 const StatisticBar = ({optionData}) => {
 
   // alert(JSON.stringify(optionData));
-  const transformedData = optionData.map((choiceAnswerDto) => ({
+  const transformedData = optionData&&optionData.map((choiceAnswerDto) => ({
     "name": choiceAnswerDto.option_text,
     "응답자 수": choiceAnswerDto.participant_num_question_option
   }));
@@ -21,7 +21,7 @@ const StatisticBar = ({optionData}) => {
         <YAxis />
         <Tooltip />
         <Bar dataKey="응답자 수">
-          {transformedData.map((entry, index) => (
+          {transformedData&&transformedData.map((entry, index) => (
             <Cell key={index} fill={COLORS[index % COLORS.length]} />
           ))}
         </Bar>
