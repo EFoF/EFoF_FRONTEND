@@ -38,7 +38,6 @@ const Preview = () => {
   const _getIndexAgainForComparison = () => {
 
       let lastId;
-      console.log(questions[currentIndex]);
       if(typeof(questions[currentIndex]) !== 'undefined' ) {
           if(questions[currentIndex].questionList !== null) {
               questions[currentIndex].questionList.map((question) => {
@@ -62,26 +61,16 @@ const Preview = () => {
               }
           }
       }
-      // option의 다음 section을 지정하지 않으면 -1 반환,
-      // 설문 제출로 선택하면 자기 자신 반환
       return typeof(lastId) === 'undefined' ? -1 : questions.findIndex((item) => item.id === lastId);
   }
 
   const _determineFlow = () => {
-      // 3. 다음 섹션 아이디를 반복문을 통해서 몇번째 인덱스에 존재하는지 확인하기.
-      // 여기서 조건문을 한번 더 줘야겠네.
       const nextSectionIndex = indexes[currentIndex].nextIndex;
       const lastidx = _getIndexAgainForComparison();
-      // lastidx가 자기 자신이어도 제출로 이동
-      console.log(lastidx);
-      console.log(indexes[currentIndex].nextIndex);
       if(lastidx !== nextSectionIndex) {
           dispatch(surveyFlowActions.setNextIndex({ pageIndex : currentIndex, value : lastidx}));
       }
 
-      console.log(form);
-
-      // console.log(form.form.bgColor)
       const flag = indexes[currentIndex].nextIndex === -1 || indexes[currentIndex].nextIndex === currentIndex
       return (
               <ArrowButtonWrapper>
@@ -119,12 +108,10 @@ const Preview = () => {
           } else {
               postSurveyResponse(responseData)
                   .then((response) => {
-                      navigate("/");
+                          navigate("/");
                   }).catch(error => {console.log(error)});
           }
-      } else if(currentPath.pathname !== `/form/in-progress/${id}`) {
-          // 응답한 설문을 열람하는 경우에는 뒤로가기로 처리한다.
-          // 사실상 else로 처리해도 되는데 혹시 모르니 else if로 처리함
+      } else if(currentPath.pathname !== `/form`) {
           navigate(-1);
       }
   }
@@ -135,28 +122,6 @@ const Preview = () => {
             participateAnswerDTOList: [],
         };
 
-        // questions.forEach((section) => {
-        //     section.questionList.forEach((question) => {
-        //         const participateAnswerDTO = {
-        //             questionId: question.id,
-        //             questionType: question.type,
-        //         };
-        //         // TODO 플로우 고려해서 데이터 빌드해야함
-        //         if(question.answers.length !== 0 || question.narrativeAnswer !== undefined) {
-        //             // 둘 중 하나라도 데이터가 있을때
-        //             if (question.type === 0 || question.type === 2 || question.type === 3) {
-        //                 participateAnswerDTO.questionChoiceId = question.answers;
-        //             } else if (question.type === 1) {
-        //                 participateAnswerDTO.answerSentence = question.narrativeAnswer;
-        //             }
-        //             // participateAnswerDTO.questionChoiceId = question.answers;
-        //             // participateAnswerDTO.answerSentence = question.narrativeAnswer;
-        //             participateAnswerDTO.isNecessary = question.isNecessary;
-        //             responseData.participateAnswerDTOList.push(participateAnswerDTO);
-        //         }
-        //     });
-        // });
-        /////////////////////////////
         let next = -2;
         let current = 0;
 
