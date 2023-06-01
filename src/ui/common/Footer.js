@@ -11,7 +11,7 @@ const Footer = ({parentClass}) => {
                     <div className="row align-items-center">
                         <div className="col-lg-5">
                             <div className="footer-copyright">
-                                <span className="copyright-text">© {new Date().getFullYear()}. All rights reserved by <a href="https://axilthemes.com/">독수리</a>.</span>
+                                <span className="copyright-text">© {new Date().getFullYear()}. All rights reserved by <a href="https://github.com/EFoF">독수리 오남매</a>.</span>
                             </div>
                         </div>
                         <div className="col-lg-2">
@@ -19,7 +19,7 @@ const Footer = ({parentClass}) => {
                         <div className="col-lg-5">
                             <div className="footer-bottom-link">
                                 <ul className="list-unstyled">
-                                    <li><Link to={process.env.PUBLIC_URL + "/privacy-policy"}>Privacy Policy</Link></li>
+                                    <li><Link to={ process.env.PUBLIC_URL + "/privacy-policy" }  style={{ color: 'gray' }}>이용약관</Link></li>
                                 </ul>
                             </div>
                         </div>

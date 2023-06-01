@@ -6,7 +6,7 @@ import ServicePropOne from "./service/ServicePropOne";
 const About = () => {
     return (
         <div className="section section-padding-2 bg-color-dark">
-            <div className="container">
+            <div className="container" style={{paddingTop:'150px'}}>
                 <SectionTitle
                     subtitle="독수리 오남매의 설문 플랫폼: 독설"
                     title="독수리 설문에 대하여"
