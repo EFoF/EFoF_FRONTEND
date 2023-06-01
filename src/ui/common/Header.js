@@ -101,7 +101,13 @@ const Header = () => {
                             <div className="header-main-nav">
                                 <ul className="mainmenu">
                                     {loginState ? (
-                                        <li style={{fontWeight:'bold'}}>{loginLastDTO.nickname}</li>
+                                        <div style={{
+                                            border: '1px solid black', // 테두리 스타일
+                                            borderRadius: '8px', // 모서리 반경 설정
+                                            padding: '3px 2rem', // 내부 여백
+                                        }}>
+                                        <li style={{fontWeight:'bold'}}>{loginLastDTO.nickname} 님</li>
+                                        </div>
                                     ) : (
                                         <></>
                                     )}
