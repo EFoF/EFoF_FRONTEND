@@ -153,11 +153,15 @@ export default function Form() {
       alert("로그인 되지 않았습니다.");
       navigate("/");
     }
+    // 이전에 들어있던 데이터가 보여지면 안되기 때문에, 중간저장 url이 아닌 경우 리덕스를 비워주겠다.
+    if(currentPath !== `/form/making/${id}`) {
+      dispatch(formActions.clearForm);
+    }
   }, [])
 
   return (
    <>
-    {/*<SurveyHeader surveyId={id} />*/}
+    <SurveyHeader surveyId={id} />
     <Wrapper>
       <Half ref={scrollRef} onScroll={handleScroll}>
         <FormMake />
