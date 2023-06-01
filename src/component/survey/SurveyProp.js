@@ -63,7 +63,9 @@ const SurveyProp = ({projectStyle, survey, label}) => {
             urlToCopy +=  `/form/making/${survey_id}`;
         } else if (surveyStatus === "prerelease") {
             urlToCopy +=  `/form/pre-release/${survey_id}`;
-        } else if (surveyStatus === "progress"){
+        } else if (surveyStatus === "progress" && label === "participate"){
+            urlToCopy += `/form/over/${survey_id}`;
+        } else if (surveyStatus === "progress" && label === "generate"){
             urlToCopy += `/form/in-progress/${survey_id}`;
         } else if (surveyStatus === "over" && label === "participate"){
             urlToCopy += `/form/over/${survey_id}`;
@@ -89,6 +91,7 @@ const SurveyProp = ({projectStyle, survey, label}) => {
         const handleConfirm = () => {
             deleteSurvey(survey_id);
             ReactDOM.unmountComponentAtNode(document.getElementById("modal-root"));
+            window.location.href = window.location.href;
         };
         const handleCancel = () => {
             // 취소 버튼 클릭 시 처리할 코드 작성
@@ -98,20 +101,35 @@ const SurveyProp = ({projectStyle, survey, label}) => {
         ReactDOM.render(confirmModal, document.getElementById("modal-root"));
     };
 
+    const handleImgClick = () => {
+        const {survey_id, surveyStatus} = survey;
+        let urlToNav = process.env.REACT_APP_DEFAULT_URL;
+        if (surveyStatus === "making") {
+            urlToNav +=  `/form/making/${survey_id}`;
+        } else if (surveyStatus === "prerelease") {
+            urlToNav +=  `/form/pre-release/${survey_id}`;
+        } else if (surveyStatus === "progress" && label === "participate"){
+            urlToNav += `/form/over/${survey_id}`;
+        } else if (surveyStatus === "progress" && label === "generate"){
+            urlToNav += `/form/in-progress/${survey_id}`;
+        } else if (surveyStatus === "over" && label === "participate"){
+            urlToNav += `/form/over/${survey_id}`;
+        } else if (surveyStatus === "over" && label === "generate"){
+            urlToNav += `/form/pre-release/${survey_id}`;
+        }
+        window.location.href = urlToNav;
+    };
 
     return (
         <>
-            <div className={`project-grid ${projectStyle}`}>
+            <div className={`project-grid ${projectStyle}`} >
                 <div className="thumbnail">
-                    <Link to={process.env.PUBLIC_URL + `/form-details/${slugify(survey.title)}`}>
-                        {survey.s_imageurl === undefined || survey.s_imageurl === "" || survey.s_imageurl === null ?
-                            (
-                                <img src={process.env.REACT_APP_OPTION_DEFAULT_IMG} alt="icon" style={imageStyle}/>
-                            ) : (
-                                <img src={process.env.REACT_APP_S3_URL + survey.s_imageurl} alt="icon" style={imageStyle}/>
-                            )}
-
-                    </Link>
+                    {survey.s_imageurl === undefined || survey.s_imageurl === "" || survey.s_imageurl === null ?
+                        (
+                            <img src={process.env.REACT_APP_OPTION_DEFAULT_IMG} alt="icon" style={imageStyle} onClick={handleImgClick}/>
+                        ) : (
+                            <img src={process.env.REACT_APP_S3_URL + survey.s_imageurl} alt="icon" style={imageStyle} onClick={handleImgClick}/>
+                        )}
                 </div>
                 <div className="content">
                     <div className="tag" style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
@@ -134,8 +152,12 @@ const SurveyProp = ({projectStyle, survey, label}) => {
                             <Link to={process.env.PUBLIC_URL + `/form/pre-release/${survey.survey_id}`}>
                                 {survey.title}
                             </Link>
-                        ) : survey.surveyStatus === "progress" ? (
+                        ) : survey.surveyStatus === "progress" && label === "generate" ? (
                             <Link to={process.env.PUBLIC_URL + `/form/in-progress/${survey.survey_id}`}>
+                                {survey.title}
+                            </Link>
+                        ) : survey.surveyStatus === "progress" && label === "participate" ? (
+                            <Link to={process.env.PUBLIC_URL + `/form/over/${survey.survey_id}`}>
                                 {survey.title}
                             </Link>
                         ) : survey.surveyStatus === "over" && label === "participate" ? (

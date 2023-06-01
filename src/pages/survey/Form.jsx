@@ -157,7 +157,7 @@ export default function Form() {
 
   return (
    <>
-    {/*<SurveyHeader surveyId={id} />*/}
+    <SurveyHeader surveyId={id} />
     <Wrapper>
       <Half ref={scrollRef} onScroll={handleScroll}>
         <FormMake />
