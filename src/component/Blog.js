@@ -55,7 +55,7 @@ const Blog = () => {
                 <div className="section-heading heading-left">
                     <div className="row align-items-center">
                         <div className="col-xl-6 col-lg-7">
-                            <h2 className="title" id="splash-banner">Watch your location</h2>
+                            <h2 className="title" id="splash-banner" style={{fontWeight:'bold'}}>주변에서 진행중인 설문에 참여해보세요!</h2>
                             <span>현재 위치 기준 반경 1km 안에서 가능한 설문 리스트를 보여줍니다.</span>
                         </div>
                         <div className="banner-thumbnail">
@@ -72,9 +72,14 @@ const Blog = () => {
                         <div className="single-slide" key={`${data.loc.id}`} style={{width:"65rem"}}>
                             <Link to={`${process.env.PUBLIC_URL}/form/in-progress/${slugify(data.loc.id)}`}>
                                 <div style={{textAlign: "center"}}>
-                                    <img src={`${data.loc.simageURL}`} alt="No Images"
-                                         style={{width: "35%", height: "auto"}}/>
-                                    <p>{data.loc.title}</p>
+                                    {data.loc.simageURL ? (
+                                        <img src={process.env.REACT_APP_S3_URL + data.loc.simageURL} alt="No Images" style={{ width: "35%", height: "auto" }} />
+                                    ) :
+                                        (
+                                        <img src={process.env.REACT_APP_OPTION_DEFAULT_IMG} alt="No Images" style={{ width: "35%", height: "auto" }} />
+                                    )
+                                    }
+                                    <p style={{marginTop:'50px'}}>{data.loc.title}</p>
                                 </div>
                             </Link>
                         </div>
