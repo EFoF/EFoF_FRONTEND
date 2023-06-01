@@ -46,7 +46,7 @@ const Generate = () => {
     return (
         <>
             <SEO title="Project Four Column" />
-            <ColorSwitcher />
+            {/* <ColorSwitcher /> */}
             <main className="main-wrapper">
                 <Header />
                 <BcrumbBannerOne
