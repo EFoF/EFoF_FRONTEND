@@ -60,7 +60,7 @@ const SurveyProp = ({projectStyle, survey}) => {
         console.log(survey_id);
         let urlToCopy = process.env.REACT_APP_DEFAULT_URL;
         if (surveyStatus === "making") {
-            urlToCopy +=  `/form/pre-release/${survey_id}`;
+            urlToCopy +=  `/form/making/${survey_id}`;
         } else if (surveyStatus === "prerelease") {
             urlToCopy +=  `/form/pre-release/${survey_id}`;
         } else if (surveyStatus === "progress"){
@@ -125,7 +125,7 @@ const SurveyProp = ({projectStyle, survey}) => {
                         textOverflow: 'ellipsis',
                     }}>
                         {survey.surveyStatus === "making" ? (
-                            <Link to={process.env.PUBLIC_URL + `/form/pre-release/${survey.survey_id}`}>
+                            <Link to={process.env.PUBLIC_URL + `/form/making/${survey.survey_id}`}>
                                 {survey.title}
                             </Link>
                         ) : survey.surveyStatus === "prerelease" ? (
