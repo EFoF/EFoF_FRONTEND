@@ -116,7 +116,7 @@ export default function ResultOptionalQuestion({ type, hasImageProps, optionId, 
                 </div>
             ) : (
                 <InputButtonWrapper>
-                    <ResultOptionButton isImmutable={location.pathname === `/form/over/${id}`} onClick={answerHandler} isActive={isMarked} activeColor={form.btColor}>{optionContent}</ResultOptionButton>
+                    <ResultOptionButton fontColor={form.fontColor} isImmutable={location.pathname === `/form/over/${id}`} onClick={answerHandler} isActive={isMarked} activeColor={form.btColor}>{optionContent}</ResultOptionButton>
                 </InputButtonWrapper>
             )}
             <OptionsWrapper isLast={isLast} gap={"0.5rem"}>
