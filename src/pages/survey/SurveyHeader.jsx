@@ -173,7 +173,7 @@ export default function SurveyHeader({ surveyId }) {
 
             <FaArrowLeft size="2rem" onClick={openModal} />
 
-            {surveyId === undefined ? (
+            
                 <Modal show={modalOpen} onHide={closeModal}>
                     <Modal.Header closeButton>
                         <Modal.Title>저장하시겠습니까?</Modal.Title>
@@ -194,9 +194,7 @@ export default function SurveyHeader({ surveyId }) {
                         </Button>
                     </Modal.Footer>
                 </Modal>
-            ) : (
-                navigate('/')
-            )}
+           
 
             <ArrowButton onClick={handleRightClick}>
                 <FaArrowRight size="2rem" />
