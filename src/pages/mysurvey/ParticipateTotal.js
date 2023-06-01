@@ -34,7 +34,7 @@ const ParticipateTotal = () => {
                 {
                     visibleItems.map((data) => (
                         <div className="col-xl-3 col-lg-4 col-md-6" key={data.id}>
-                            <SurveyProp projectStyle="" survey={data} />
+                            <SurveyProp projectStyle="" survey={data} label="participate"/>
                         </div>
                     ))}
             </div>

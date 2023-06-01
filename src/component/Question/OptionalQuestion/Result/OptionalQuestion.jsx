@@ -1,5 +1,5 @@
 
-import {Wrapper, InputButtonWrapper, OptionsWrapper, ResultOptionButton, Logo, CheckImage} from './style';
+import {Wrapper, InputButtonWrapper, OptionsWrapper, ResultOptionButton, ResultOptionButtonImg, Logo, CheckImage} from './style';
 import {questionActions, formActions, surveyFlowActions} from '../../../../slices';
 import React, { useState } from 'react'
 import { MdAdd, MdClose, MdPhoto } from 'react-icons/md';
@@ -102,14 +102,17 @@ export default function ResultOptionalQuestion({ type, hasImageProps, optionId, 
             dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : sectionIndex}))
         }
     }
+    console.log("selectedQuestion test:", selectedQuestion);
 
     return (
         <Wrapper isLast={isLast}>
             {selectedQuestion.hasImage ? (
                 // <div style={{position:'relative'}}>
-                <div style={{display:"flex", justifyContent:"center", alignItems: "center"}}>
+
+                <div style={{display:"flex", justifyContent:"center", alignItems: "center", flexDirection: "column"}}>
+                    <ResultOptionButtonImg isImmutable={location.pathname === `/form/over/${id}`} onClick={answerHandler} isActive={isMarked} activeColor={form.btColor}>{optionContent}</ResultOptionButtonImg>
                     <Logo src={selectedOption.image} filterResult={CssFilterConverter.hexToFilter(form.btColor).color + "opacity(60%)"} onClick={answerHandler} size={10} isMarked={isMarked} checkedColor={form.btColor} />
-                    {/*<ResultOptionButton isImmutable={location.pathname === `/form/over/${id}`} onClick={answerHandler} isActive={isMarked} activeColor={form.btColor}>{optionContent}</ResultOptionButton>*/}
+                    <br/>
                 </div>
             ) : (
                 <InputButtonWrapper>

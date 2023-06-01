@@ -6,7 +6,7 @@ import {deleteSurvey} from "../../api/survey";
 import ReactDOM from "react-dom";
 import ConfirmModal from "../../ui/ConfirmModal";
 
-const SurveyProp = ({projectStyle, survey}) => {
+const SurveyProp = ({projectStyle, survey, label}) => {
     const imageStyle = {
         width: '610px',
         height: '230px',
@@ -58,11 +58,17 @@ const SurveyProp = ({projectStyle, survey}) => {
     const handleCopyUrl = () => {
         const {survey_id, surveyStatus} = survey;
         console.log(survey_id);
-        let urlToCopy = process.env.REACT_APP_PUBLIC_API_BASE;
+        let urlToCopy = process.env.REACT_APP_DEFAULT_URL;
         if (surveyStatus === "making") {
-            urlToCopy +=  `/pre-release/${survey_id}`;
-        } else {
-            urlToCopy += `/in-progress/${survey_id}`;
+            urlToCopy +=  `/form/making/${survey_id}`;
+        } else if (surveyStatus === "prerelease") {
+            urlToCopy +=  `/form/pre-release/${survey_id}`;
+        } else if (surveyStatus === "progress"){
+            urlToCopy += `/form/in-progress/${survey_id}`;
+        } else if (surveyStatus === "over" && label === "participate"){
+            urlToCopy += `/form/over/${survey_id}`;
+        } else if (surveyStatus === "over" && label === "generate"){
+            urlToCopy += `/form/pre-release/${survey_id}`;
         }
         console.log(urlToCopy);
 
@@ -120,9 +126,32 @@ const SurveyProp = ({projectStyle, survey}) => {
                         whiteSpace: 'nowrap',
                         textOverflow: 'ellipsis',
                     }}>
-                        <Link to={process.env.PUBLIC_URL + `/in-progress/${survey.survey_id}`}>
-                            {survey.title}
-                        </Link>
+                        {survey.surveyStatus === "making" ? (
+                            <Link to={process.env.PUBLIC_URL + `/form/making/${survey.survey_id}`}>
+                                {survey.title}
+                            </Link>
+                        ) : survey.surveyStatus === "prerelease" ? (
+                            <Link to={process.env.PUBLIC_URL + `/form/pre-release/${survey.survey_id}`}>
+                                {survey.title}
+                            </Link>
+                        ) : survey.surveyStatus === "progress" ? (
+                            <Link to={process.env.PUBLIC_URL + `/form/in-progress/${survey.survey_id}`}>
+                                {survey.title}
+                            </Link>
+                        ) : survey.surveyStatus === "over" && label === "participate" ? (
+                            <Link to={process.env.PUBLIC_URL + `/form/over/${survey.survey_id}`}>
+                                {survey.title}
+                            </Link>
+                        ) : survey.surveyStatus === "over" && label === "generate" ? (
+                            <Link to={process.env.PUBLIC_URL + `/form/pre-release/${survey.survey_id}`}>
+                                {survey.title}
+                            </Link>
+                        ) : (
+                            <Link to={window.location.pathname}>
+                                {survey.title}
+                            </Link>
+                        )}
+
                     </h4>
                     <p style={{
                         display: 'block',
