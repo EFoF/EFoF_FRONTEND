@@ -199,9 +199,9 @@ export default function FormSetting() {
       toastMsg("시작일은 종료일 이후가 될 수 없습니다.", false);
       return; // 이후 코드를 실행하지 않고 함수를 종료합니다.
     }
-    const formattedDateTime = date.toISOString(); // 주어진 Date 객체를 ISO 8601 형식의 문자열로 변환
-    // const selectedDate = LocalDateTime.parse(formattedDateTime); // ISO 8601 형식의 문자열로부터 LocalDateTime 객체로 변환
-
+    const timezoneOffset = date.getTimezoneOffset() * 60 * 1000;
+    const adjustedDate = new Date(date.getTime() - timezoneOffset);
+    const formattedDateTime = adjustedDate.toISOString();
     const data = {
       openDate: formattedDateTime
     }
@@ -223,9 +223,12 @@ export default function FormSetting() {
       toastMsg("종료일은 시작일 이전이 될 수 없습니다.", false);
       return;
     }
-    const formattedDateTime = date.toISOString(); // 주어진 Date 객체를 ISO 8601 형식의 문자열로 변환
+    const timezoneOffset = date.getTimezoneOffset() * 60 * 1000;
+    const adjustedDate = new Date(date.getTime() - timezoneOffset);
+    const formattedDateTime = adjustedDate.toISOString();
+    // const formattedDateTime = date.toLocaleString('en-US', { timeZone: 'Asia/Seoul' });
     // const selectedDate = LocalDateTime.parse(formattedDateTime); // ISO 8601 형식의 문자열로부터 LocalDateTime 객체로 변환
-
+    // const dateString = date.toLocaleString('en-US', { timeZone: 'Asia/Seoul' });
     const data = {
       expireDate: formattedDateTime
     }
@@ -335,7 +338,7 @@ export default function FormSetting() {
           <GPSWrapper>
             {settingOptions.gps && (
               <GPS>
-                <form onSubmit={handleGPSSubmit} style={{paddingRight: '10px'}}>
+                <form onSubmit={handleGPSSubmit} style={{ paddingRight: '10px' }}>
                   <InputText
                     type='text'
                     value={address}
@@ -385,7 +388,7 @@ export default function FormSetting() {
           <CalenderText>인원 수 제한</CalenderText>
           <GPSWrapper>
             {settingOptions.participate && (
-              <div style={{paddingRight: '10px'}}>
+              <div style={{ paddingRight: '10px' }}>
                 <input type='number' id='limit' value={limit} onChange={handleLimitChange} onBlur={handleParticipateNumChange} style={{ width: '100px' }} />
               </div>
             )}
