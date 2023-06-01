@@ -106,9 +106,9 @@ export default function Form() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // '/form/pre-release/:id' 경로인 경우에만 특정 로직 수행
+  // '/form/making/:id' 경로인 경우에만 특정 로직 수행
   useEffect(() => {
-    if (currentPath === `/form/pre-release/${id}`) {
+    if (currentPath === `/form/making/${id}`) {
       surveyInfo(id, navigate)
         .then((data) => {
           dispatch(formActions.initForm({ data }));
@@ -117,9 +117,8 @@ export default function Form() {
             dispatch(surveyFlowActions.addIndexes());
           })
         }).catch(error => {
-
-          // toastMsg(error.response.data.message,false);
-
+            console.log(error);
+            alert(error);
         });
     }
 
@@ -140,11 +139,9 @@ export default function Form() {
   const { loginLastDTO } = useSelector((state) => state.authorization);
 
   const handleCloseChatbot = () => {
-
     setIsVisible(false);
   };
   const handleDragButtonClick = () => {
-
     setIsVisible(!isVisible);
   };
 
@@ -160,9 +157,8 @@ export default function Form() {
 
   return (
    <>
-    <SurveyHeader surveyId={id} />
+    {/*<SurveyHeader surveyId={id} />*/}
     <Wrapper>
-
       <Half ref={scrollRef} onScroll={handleScroll}>
         <FormMake />
       </Half>

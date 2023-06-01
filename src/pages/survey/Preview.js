@@ -91,7 +91,9 @@ const Preview = () => {
                                     src={leftArrow}
                                     color={"white"}/>
                   <Buttons isActive={flag}>
-                      <div className="submit-button" onClick={submitHandler}>{currentPath.pathname === `/form/over/${id}` ? '뒤로가기' : '제출'}</div>
+                      <div className="submit-button" onClick={submitHandler}>
+                          {currentPath.pathname === `/form/over/${id}` ? '뒤로가기' : '제출'}
+                      </div>
                   </Buttons>
                   <ArrowImageButton isActive={!flag}
                                     size={1}
@@ -118,8 +120,9 @@ const Preview = () => {
               postSurveyResponse(responseData)
                   .then().catch(error => {console.log(error)});
           }
-      } else if(currentPath.pathname === `/form/over/${id}`) {
+      } else if(currentPath.pathname !== `/form/in-progress/${id}`) {
           // 응답한 설문을 열람하는 경우에는 뒤로가기로 처리한다.
+          // 사실상 else로 처리해도 되는데 혹시 모르니 else if로 처리함
           navigate(-1);
       }
   }

@@ -64,7 +64,6 @@ export default function FormResponse() {
     const navigate = useNavigate();
     const form = useSelector((state) => state.form);
 
-    // '/form/pre-release/:id' 경로인 경우에만 특정 로직 수행
     useEffect(() => {
         surveyInfoForResponse(id,navigate)
                 .then((data) => {
@@ -75,7 +74,6 @@ export default function FormResponse() {
                     })
                 }).catch(error => {
                     console.log("설문 조회 api 요청 실패");
-                // toastMsg(error.response.data.message,false);
             });
 
     }, [id, currentPath]);

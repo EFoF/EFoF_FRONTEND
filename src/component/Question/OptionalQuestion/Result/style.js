@@ -14,6 +14,7 @@ export const Wrapper = styled.div`
     width: 42px;
     height: 42px;
   } */
+
   // float: left;
 `;
 

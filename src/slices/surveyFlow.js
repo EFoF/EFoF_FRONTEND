@@ -51,7 +51,9 @@ const {actions: surveyFlowActions, reducer: surveyFlowReducer } = createSlice({
             // 현재 섹션이 가리키고 있던 다음 섹션의 index이다.
             const nextSectionIndex = state.indexes[section_idx - 1].nextIndex;
             // 다음 섹션의 prevIndex는 원래 본인(삭제될 예정인 섹션)인데, 본인은 삭제될 것이니 prevIndex를 0으로 바꿔준다.
-            state.indexes[nextSectionIndex].prevIndex = 0;
+            if(state.indexes[nextSectionIndex] !== undefined) {
+                state.indexes[nextSectionIndex].prevIndex = 0;
+            }
             // 그리고 indexes 배열도 삭제된 섹션을 제외하고 다시 만들어줘야 한다.
             state.indexes = state.indexes.filter((_,index) => index !== section_idx);
             // 마지막으로, 현재 보고있는 섹션이 삭제될 예정인 섹션보다 뒤에 존재한다면, 현재 보고 있는 섹션의 index (currentIndex)를 하나 줄여줘야 한다.
