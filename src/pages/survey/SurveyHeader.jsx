@@ -171,11 +171,7 @@ export default function SurveyHeader({ surveyId }) {
                 <FaArrowLeft size="2rem" />
             </ArrowButton> */}
 
-            {/* <Button variant="primary" onClick={openModal} class="btn btn-primary"> */}
-            <Button variant="primary" onClick={openModal} class="btn">
-                {/* 약관 확인 */}
-                <FaArrowLeft size="2rem" />
-            </Button>
+            <FaArrowLeft size="2rem" onClick={openModal} />
 
             {surveyId === undefined ? (
                 <Modal show={modalOpen} onHide={closeModal}>
