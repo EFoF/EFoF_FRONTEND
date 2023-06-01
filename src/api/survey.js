@@ -550,7 +550,7 @@ const postSurveyResponse = async (responseData) => {
   const fetchLocation = async (location) => {
       try {
           const response = await unAuthorizationClient.post(API.BASE_URL+ '/gps', location);
-          console.log(response.data);
+          // console.log(response.data);
           return response.data;
       }
       catch (error) {

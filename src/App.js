@@ -45,9 +45,10 @@ const App = () => {
                 <Route path="/signup/email" exact element={<Step1 />} />
                 <Route path="/signup/inform" exact element={<Step2 />} />
                 <Route path="/form" exact element={<Form />} />
+                <Route path="/form/making/:id" exact element={<Form />} />
                 <Route path="/form/:id/setting" exact element={<FormSetting />} />
-                <Route path="/form/pre-release/:id" exact element={<Form />} />
                 <Route path="/form/in-progress/:id" exact element={<FormResponse />} />
+                <Route path="/form/pre-release/:id" exact element={<FormResponse />} />
                 <Route path="/form/over/:id" exact element={<FormOver />} />
                 <Route path="/findpw" exact element={<FindPW />} />
                 <Route path="/privacy-policy" exact element={<PrivacyPolicy />} />

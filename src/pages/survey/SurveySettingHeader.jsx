@@ -32,7 +32,7 @@ const ArrowButton = styled.button`
 export default function SurveySettingHeader({surveyId}) {
   const navigate = useNavigate();
   const handleLeftClick = () => {
-    navigate(`/form/pre-release/${surveyId}`);
+    navigate(`/form/making/${surveyId}`);
   };
 
   const handleRightClick = () => {
