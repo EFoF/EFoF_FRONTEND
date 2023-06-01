@@ -22,7 +22,7 @@ export const Wrapper = styled.div`
 export const ResultOptionButton = styled.div`
   width: 37vw;
   font-size: ${({ size }) => size};
-  color: ${({ theme }) => theme.color.black};
+  color: ${({ fontColor }) => fontColor};
   background-color: ${({ isActive, activeColor, theme }) =>
           isActive ? activeColor : theme.color.gray};
   display: ${({ isLast }) => (isLast ? 'none' : 'flex')};
