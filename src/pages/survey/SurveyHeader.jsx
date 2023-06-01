@@ -42,7 +42,14 @@ export default function SurveyHeader({ surveyId }) {
     const [modalOpen, setModalOpen] = useState(false);
 
     const openModal = () => {
-        setModalOpen(true);
+        if (surveyId === undefined) {
+            
+            setModalOpen(true);
+
+        } else {
+            navigate(`/`);
+        }
+        
     };
 
     const closeModal = () => {
@@ -171,7 +178,10 @@ export default function SurveyHeader({ surveyId }) {
                 <FaArrowLeft size="2rem" />
             </ArrowButton> */}
 
-            <FaArrowLeft size="2rem" onClick={openModal} />
+<ArrowButton onClick={openModal}>
+<FaArrowLeft size="2rem" />
+            </ArrowButton>
+            
 
             
                 <Modal show={modalOpen} onHide={closeModal}>
@@ -194,7 +204,7 @@ export default function SurveyHeader({ surveyId }) {
                         </Button>
                     </Modal.Footer>
                 </Modal>
-           
+            
 
             <ArrowButton onClick={handleRightClick}>
                 <FaArrowRight size="2rem" />
