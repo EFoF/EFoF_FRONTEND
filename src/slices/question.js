@@ -319,6 +319,10 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
     setHasImage:(state, action) => {
       const { currentIndex, questionIndex, booleanValue } = action.payload;
       state[currentIndex].questionList[questionIndex].hasImage = booleanValue;
+    },
+    clearQuestions:(state, action) => {
+      state = initialState;
+      return state;
     }
   },
 });
