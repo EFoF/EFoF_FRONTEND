@@ -106,8 +106,10 @@ export default function ResultOptionalQuestion({ type, hasImageProps, optionId, 
     return (
         <Wrapper isLast={isLast}>
             {selectedQuestion.hasImage ? (
-                <div style={{position:'relative'}}>
-                    <Logo src={selectedOption.image} filterResult={CssFilterConverter.hexToFilter(form.btColor).color + "opacity(60%)"} onClick={answerHandler} size={5} isMarked={isMarked} checkedColor={form.btColor} />
+                // <div style={{position:'relative'}}>
+                <div style={{display:"flex", justifyContent:"center", alignItems: "center"}}>
+                    <Logo src={selectedOption.image} filterResult={CssFilterConverter.hexToFilter(form.btColor).color + "opacity(60%)"} onClick={answerHandler} size={10} isMarked={isMarked} checkedColor={form.btColor} />
+                    {/*<ResultOptionButton isImmutable={location.pathname === `/form/over/${id}`} onClick={answerHandler} isActive={isMarked} activeColor={form.btColor}>{optionContent}</ResultOptionButton>*/}
                 </div>
             ) : (
                 <InputButtonWrapper>
