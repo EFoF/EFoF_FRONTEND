@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   margin-top: 20px;
-
+  width: 80%;
   textarea {
     border: none;    
     line-height: 24px;
@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
     padding-left : 20px;
     padding-bottom : 100px;
     resize: none;
-    width: ${({ type }) => (100)}%;
+     width: ${({ type }) => (100)}%;
     height: ${({ type }) => (100)}%;
     background: ${({ theme }) => theme.color.gray};
     
