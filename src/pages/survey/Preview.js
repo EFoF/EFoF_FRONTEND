@@ -87,7 +87,8 @@ const Preview = () => {
                                           color={"white"}>
                       <FaArrowLeft size="1.5rem" />
                   </ArrowWrapperForDisable>
-                  <Buttons isActive={flag}>
+                  <Buttons isActive={flag}
+                            btColor={form.form.btColor}>
                       <div className="submit-button" onClick={submitHandler}>
                           {currentPath.pathname === `/form/over/${id}` ? '뒤로가기' : '제출'}
                       </div>
@@ -244,9 +245,17 @@ const Buttons = styled.div`
     ${({ theme }) => theme.flexCenter}
     color: ${({ theme }) => theme.color.black};
     background: ${({ theme }) => theme.color.white};
-    border: 1px solid ${({ theme }) => theme.color.black};
     opacity: ${({isActive}) => isActive ? 1.0 : 0.0};
     pointer-events: ${({isActive}) => isActive ? 'auto' : 'none'};
+    
+    &:hover {
+        background: ${({btColor}) => btColor};
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* 호버 상태에서의 그림자 스타일과 색상 설정 */
+      }
+
+      /* 그림자 추가 */
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 스타일과 색상 설정 */
+  
   }
 `;
 
@@ -254,11 +263,11 @@ const Wrapper = styled.div`
 ${({ theme }) => theme.flexCenter};
   background-color: ${({ backgroundColor }) => backgroundColor};
   padding-top: 30px;
-  padding-bottom: 10px;
+  padding-bottom: 30px;
   width: 100%;
   overflow:visible;
   border-radius: 2rem;
-  border: 1px solid ${({ theme }) => theme.color.grey};
+//   border: 1px solid ${({ theme }) => theme.color.grey};
 `;
 
 const QuestionWrapper = styled.div`
