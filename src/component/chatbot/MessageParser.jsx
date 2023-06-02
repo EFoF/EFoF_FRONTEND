@@ -34,7 +34,7 @@ const MessageParser = ({ children, actions ,setState}) => {
 
       })
       .catch(error => {
-        console.log(error);
+        // console.log(error);
       });
 
   }

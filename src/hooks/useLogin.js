@@ -34,7 +34,7 @@ export default function useLogin() {
   };
 
   const useLogout = useCallback(async () => {
-    console.log("로그아웃 요청 실행")
+    // console.log("로그아웃 요청 실행")
     // Cookies.remove('tokenPublishConfirm');
     await dispatch(authLogout());
     await dispatch(authorizationActions.clearLoginDTO());

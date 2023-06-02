@@ -23,8 +23,8 @@ const Preview = () => {
   const _moveToNext = () => {
       if (currentIndex !== indexes[currentIndex].nextIndex) {
           // 이동할 다음 페이지의 prev를 현재 페이지의 current로 설정
-          console.log(indexes[currentIndex].nextIndex);
-          console.log(currentIndex);
+          // console.log(indexes[currentIndex].nextIndex);
+          // console.log(currentIndex);
           dispatch(surveyFlowActions.setPrevIndex({pageIndex : indexes[currentIndex].nextIndex, value : currentIndex}));
           dispatch(surveyFlowActions.setCurrentIndex(indexes[currentIndex].nextIndex));
       }
@@ -98,7 +98,7 @@ const Preview = () => {
   const submitHandler = () => {
       if (currentPath.pathname === `/form/in-progress/${id}`) {
           const responseData = ResponseDataBuilder();
-          console.log(responseData);
+          // console.log(responseData);
           if(responseData === null || responseData.participateAnswerDTOList.length === 0) {
               if(responseData === null) {
                   toastMsg("필수 질문에 응답하지 않았습니다.", false);
@@ -132,8 +132,8 @@ const Preview = () => {
                 const questionEach = questionList[i];
 
                 // 정답이 있는지 없는지 확인
-                console.log(questionEach.answers);
-                console.log(questionEach.narrativeAnswer);
+                // console.log(questionEach.answers);
+                // console.log(questionEach.narrativeAnswer);
 
                 if (questionEach.answers.length !== 0 || questionEach.narrativeAnswer !== undefined) {
                     // 정답이 있으면 기존 방식처럼 배열에 추가해줌

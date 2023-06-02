@@ -92,10 +92,10 @@ function Step1() {
                                 if (!exists) {
                                   onStartTimer();
                                   setIsDisplayWrong(false);
-                                  console.log("이메일존재 ?", exists);
+                                  // console.log("이메일존재 ?", exists);
                                 }
                                 else {
-                                  console.log("이메일존재 ?", exists);
+                                  // console.log("이메일존재 ?", exists);
                                   setIsDisplayWrong(true);
                                 }
                               })
