@@ -76,6 +76,7 @@ const Preview = () => {
       const flag = indexes[currentIndex].nextIndex === -1 || indexes[currentIndex].nextIndex === currentIndex
       return (
               <ArrowButtonWrapper>
+<<<<<<< Updated upstream
                   {/*<ArrowImageButton isActive={indexes[currentIndex].prevIndex !== -1}*/}
                   {/*                  size={1}*/}
                   {/*                  onClick={_moveToPrev}*/}
@@ -88,6 +89,15 @@ const Preview = () => {
                       <FaArrowLeft size="1.5rem" />
                   </ArrowWrapperForDisable>
                   <Buttons isActive={flag}>
+=======
+                  <ArrowImageButton isActive={indexes[currentIndex].prevIndex !== -1}
+                                    size={1}
+                                    onClick={_moveToPrev}
+                                    src={leftArrow}
+                                    color={"white"}/>
+                  <Buttons isActive={flag}
+                            btColor={form.form.btColor}>
+>>>>>>> Stashed changes
                       <div className="submit-button" onClick={submitHandler}>
                           {currentPath.pathname === `/form/over/${id}` ? '뒤로가기' : '제출'}
                       </div>
@@ -244,9 +254,17 @@ const Buttons = styled.div`
     ${({ theme }) => theme.flexCenter}
     color: ${({ theme }) => theme.color.black};
     background: ${({ theme }) => theme.color.white};
-    border: 1px solid ${({ theme }) => theme.color.black};
     opacity: ${({isActive}) => isActive ? 1.0 : 0.0};
     pointer-events: ${({isActive}) => isActive ? 'auto' : 'none'};
+    
+    &:hover {
+        background: ${({btColor}) => btColor};
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* 호버 상태에서의 그림자 스타일과 색상 설정 */
+      }
+
+      /* 그림자 추가 */
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 스타일과 색상 설정 */
+  
   }
 `;
 
@@ -258,7 +276,7 @@ ${({ theme }) => theme.flexCenter};
   width: 100%;
   overflow:visible;
   border-radius: 2rem;
-  border: 1px solid ${({ theme }) => theme.color.grey};
+//   border: 1px solid ${({ theme }) => theme.color.grey};
 `;
 
 const QuestionWrapper = styled.div`

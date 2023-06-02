@@ -9,8 +9,8 @@ const initialState = {
   detail: '',
   image: '',
   fontColor: '#000000',
-  bgColor: '#FFFFFF',
-  btColor: '#D3D3D3',
+  bgColor: '#F4F6F6',
+  btColor: '#EBF5FB',
   isPre : false
 };
 
