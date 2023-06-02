@@ -76,7 +76,6 @@ const Preview = () => {
       const flag = indexes[currentIndex].nextIndex === -1 || indexes[currentIndex].nextIndex === currentIndex
       return (
               <ArrowButtonWrapper>
-<<<<<<< Updated upstream
                   {/*<ArrowImageButton isActive={indexes[currentIndex].prevIndex !== -1}*/}
                   {/*                  size={1}*/}
                   {/*                  onClick={_moveToPrev}*/}
@@ -88,16 +87,8 @@ const Preview = () => {
                                           color={"white"}>
                       <FaArrowLeft size="1.5rem" />
                   </ArrowWrapperForDisable>
-                  <Buttons isActive={flag}>
-=======
-                  <ArrowImageButton isActive={indexes[currentIndex].prevIndex !== -1}
-                                    size={1}
-                                    onClick={_moveToPrev}
-                                    src={leftArrow}
-                                    color={"white"}/>
                   <Buttons isActive={flag}
                             btColor={form.form.btColor}>
->>>>>>> Stashed changes
                       <div className="submit-button" onClick={submitHandler}>
                           {currentPath.pathname === `/form/over/${id}` ? '뒤로가기' : '제출'}
                       </div>
@@ -272,7 +263,7 @@ const Wrapper = styled.div`
 ${({ theme }) => theme.flexCenter};
   background-color: ${({ backgroundColor }) => backgroundColor};
   padding-top: 30px;
-  padding-bottom: 10px;
+  padding-bottom: 30px;
   width: 100%;
   overflow:visible;
   border-radius: 2rem;
