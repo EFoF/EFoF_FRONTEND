@@ -129,7 +129,7 @@ function Map({ onInfosUpdate, onMarkerClick }) {
             const infoWindow = new window.google.maps.InfoWindow({
                 position: selectedMarker.position,
                 onCloseClick: () => setSelectedMarker(null),
-                options: { pixelOffset: { width: 0, height: -30 } },
+                options: { pixelOffset: { width: 0, height: -38 } },
             });
 
             // InfoWindow에 컨텐츠 추가
