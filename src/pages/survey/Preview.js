@@ -225,9 +225,10 @@ const Buttons = styled.div`
 const Wrapper = styled.div`
 ${({ theme }) => theme.flexCenter};
   background-color: ${({ backgroundColor }) => backgroundColor};
+  padding-top: 30px;
   width: 100%;
   overflow:visible;
- 
+  border-radius: 2rem;
 `;
 
 const QuestionWrapper = styled.div`
