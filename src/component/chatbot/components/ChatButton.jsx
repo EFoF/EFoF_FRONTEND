@@ -101,7 +101,7 @@ const ChatButton = (props) => {
 
       })
       .catch(error => {
-        console.log(error);
+        // console.log(error);
       });
 
   }
@@ -119,7 +119,7 @@ const ChatButton = (props) => {
 
       })
       .catch(error => {
-        console.log(error);
+        // console.log(error);
       });
 
   }

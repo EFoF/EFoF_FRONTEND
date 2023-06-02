@@ -53,7 +53,7 @@ const { actions: statActions, reducer: statReducer } = createSlice({
       initStat:(state, action) => {
         const { data } = action.payload;
 
-        alert(JSON.stringify(data));
+        // alert(JSON.stringify(data));
         // 백엔드의 dto와 일치해야한다! (아래는 반환하는 내용)
         // private String title; //설문 제목
         // private String description; //설문 설명

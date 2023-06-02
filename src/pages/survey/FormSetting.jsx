@@ -174,7 +174,7 @@ export default function FormSetting() {
     return Geocode.fromAddress(currentAddr)
       .then(response => {
         const { lat, lng } = response.results[0].geometry.location;
-        alert(lat, lng);
+        // alert(lat, lng);
 
         const data = {
           gps: true,

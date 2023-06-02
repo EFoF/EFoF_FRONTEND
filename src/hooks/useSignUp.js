@@ -33,7 +33,7 @@ export default function useSignUp() {
         })
         .catch((err) => {
           if (err.response.status === 403) {
-            console.error("에러!");
+            // console.error("에러!");
           }
         });
   }, [email, authNumber]);
@@ -106,10 +106,10 @@ export default function useSignUp() {
   const isExistedEmail = async (email) => {
     try {
       const response = await checkEmailExists(email); // 이메일 중복 확인 API 호출
-      console.log(response);
+      // console.log(response);
       return response // 중복 여부를 반환하는 프로퍼티(exists)가 있는 응답 객체를 가정함
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       return false; // 호출 실패 시 중복 여부를 알 수 없는 것으로 처리함
     }
   };

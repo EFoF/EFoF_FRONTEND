@@ -15,8 +15,8 @@ const surveyInfo = async (survey_id,navigate) => {
       const response = await authorizationClient.get(`${API.SURVEY}/${survey_id}/pre_release`);
       return response.data;
     } catch (error) {
-      console.log(error);
-      alert(JSON.stringify(error.response.data.message));
+      // console.log(error);
+      // alert(JSON.stringify(error.response.data.message));
       navigate(-1);
     }
   };
@@ -38,7 +38,7 @@ const surveyInfoWithAnswer = async (survey_id, navigate) => {
         const response = await authorizationClient.get(`${API.RESPONSE}/${survey_id}`);
         return response.data;
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         toastMsg("응답 설문을 조회하는데 실패했습니다.", false);
         navigate("/");
     }
@@ -50,11 +50,11 @@ const postSurveyResponse = async (responseData) => {
         // 두 가지 경우에 대해서 함수를 따로 작성해야 할 것 같다.
         // TODO 일단은 로그인한 사용자에 대한 설문 응답 저장 함수만 작성하겠다. (제약조건 구현이 아직 완료되지 않음)
         const response = await authorizationClient.post(`${API.RESPONSE}`, responseData);
-        console.log("응답 저장 완료" + response.data);
+        // console.log("응답 저장 완료" + response.data);
         return response.data;
     } catch (error) {
-        console.log(error);
-        alert("설문 응답 실패")
+        // console.log(error);
+        // alert("설문 응답 실패")
     }
 }
   
@@ -71,7 +71,7 @@ const postSurveyResponse = async (responseData) => {
           
         toastMsg("이미지 업로드 성공", true);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
 
       toastMsg(error.response.data.message, false);
     }
@@ -85,8 +85,8 @@ const postSurveyResponse = async (responseData) => {
         deleteImage();
     
     } catch (error) {
-      console.log(error);
-      console.log("이미지 삭제 실패");
+      // console.log(error);
+      // console.log("이미지 삭제 실패");
       toastMsg(error.response.data.message, false);
     }
   };
@@ -97,7 +97,7 @@ const postSurveyResponse = async (responseData) => {
         toastMsg("설문 삭제 성공", true);
     
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
@@ -107,7 +107,7 @@ const postSurveyResponse = async (responseData) => {
         const response = await authorizationClient.patch(`${API.SURVEY}/${survey_id}/title`,data);
         
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
@@ -116,7 +116,7 @@ const postSurveyResponse = async (responseData) => {
         const response = await authorizationClient.patch(`${API.SURVEY}/${survey_id}/description`,data);
   
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
@@ -125,7 +125,7 @@ const postSurveyResponse = async (responseData) => {
         const response = await authorizationClient.patch(`${API.SURVEY}/${survey_id}/color`,data);
   
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
@@ -142,7 +142,7 @@ const postSurveyResponse = async (responseData) => {
           
         toastMsg("이미지 업로드 성공", true);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
 
       toastMsg(error.response.data.message, false);
     }
@@ -156,7 +156,7 @@ const postSurveyResponse = async (responseData) => {
           
         toastMsg("이미지 삭제 성공", true);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
 
       toastMsg(error.response.data.message, false);
     }
@@ -168,7 +168,7 @@ const postSurveyResponse = async (responseData) => {
         addSectionRedux(response.data);
         
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
@@ -179,7 +179,7 @@ const postSurveyResponse = async (responseData) => {
 
         deleteSectionRedux(section_idx);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
@@ -191,7 +191,7 @@ const postSurveyResponse = async (responseData) => {
         data)
         changeNextSectionRedux(section_idx,nextSectionId)
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
@@ -205,7 +205,7 @@ const postSurveyResponse = async (responseData) => {
         reorderRedux({source,destination})
 
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
@@ -213,14 +213,14 @@ const postSurveyResponse = async (responseData) => {
   const createQuestion = async (survey_id,section_id,data,addQuestionRedux) => {
     
     try {
-        alert(section_id)
+        // alert(section_id)
         const response = 
         await authorizationClient.post(`${API.SURVEY}/${survey_id}/section/${section_id}/question`,
         data)
-        alert(JSON.stringify(response.data))
+        // alert(JSON.stringify(response.data))
         addQuestionRedux(section_id,response.data)
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   }; 
@@ -233,7 +233,7 @@ const postSurveyResponse = async (responseData) => {
         await authorizationClient.patch(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}/content`,data)
 
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(JSON.stringify(error), false);
     }
   }; 
@@ -246,7 +246,7 @@ const postSurveyResponse = async (responseData) => {
         await authorizationClient.patch(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}/type`,data)
         changeTypeRedux(section_id,question_id,data.type)
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   }; 
@@ -258,7 +258,7 @@ const postSurveyResponse = async (responseData) => {
         await authorizationClient.patch(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}/isNecessary`)
         updateIsNecessary(question_id, section_id );
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   }; 
@@ -271,7 +271,7 @@ const postSurveyResponse = async (responseData) => {
         await authorizationClient.delete(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}`)
         deleteQuestionRedux(question_id, section_id );
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   }; 
@@ -286,7 +286,7 @@ const postSurveyResponse = async (responseData) => {
         addOptionReduxWithId(section_id,question_id, response.data);
 
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       // toastMsg(error.response.data.message, false);
     }
   }; 
@@ -300,7 +300,7 @@ const postSurveyResponse = async (responseData) => {
         data)
         addOptionByBot(question_id,section_id,data.optionText);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   }; 
@@ -314,7 +314,7 @@ const postSurveyResponse = async (responseData) => {
         await authorizationClient.patch(`${API.SURVEY}/${survey_id}/section/${section_id}/question/${question_id}/question_option/${question_Option_id}`
         ,data)
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   }; 
@@ -333,7 +333,7 @@ const postSurveyResponse = async (responseData) => {
           toastMsg("이미지 변경 성공", true);
           fileUploadRedux(section_id,question_id,question_Option_id,response.data)      
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
@@ -347,7 +347,7 @@ const postSurveyResponse = async (responseData) => {
           toastMsg("이미지 삭제 성공", true);
           deleteImageRedux();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
@@ -361,7 +361,7 @@ const postSurveyResponse = async (responseData) => {
           
         changeNextSection(section_id,question_Option_id,question_id,data.nextSection_id);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
@@ -375,7 +375,7 @@ const postSurveyResponse = async (responseData) => {
           
         deleteOptionRedux(section_id,question_id,question_Option_id);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
@@ -390,7 +390,7 @@ const postSurveyResponse = async (responseData) => {
           
         addAllRedux(question_id,section_id,data.optionText);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
@@ -404,7 +404,7 @@ const postSurveyResponse = async (responseData) => {
         ,data)
 
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
@@ -417,7 +417,7 @@ const postSurveyResponse = async (responseData) => {
         ,data)
 
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
@@ -431,7 +431,7 @@ const postSurveyResponse = async (responseData) => {
         ,data)
 
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
@@ -445,7 +445,7 @@ const postSurveyResponse = async (responseData) => {
         ,data)
 
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
@@ -458,7 +458,7 @@ const postSurveyResponse = async (responseData) => {
         ,data)
 
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
@@ -472,7 +472,7 @@ const postSurveyResponse = async (responseData) => {
         ,data)
 
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
@@ -486,7 +486,7 @@ const postSurveyResponse = async (responseData) => {
         ,data)
 
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
@@ -500,7 +500,7 @@ const postSurveyResponse = async (responseData) => {
         ,data)
 
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
@@ -514,7 +514,7 @@ const postSurveyResponse = async (responseData) => {
         ,data)
 
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
@@ -528,7 +528,7 @@ const postSurveyResponse = async (responseData) => {
 
         return response.data;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastMsg(error.response.data.message, false);
     }
   };
@@ -539,11 +539,11 @@ const postSurveyResponse = async (responseData) => {
       const response = await authorizationClient.get(
           `${API.SURVEY}/${survey_id}${API.STATISTIC}`);
     //   const { title, description } = response.data;
-      console.log("response data: ", response.data);
+    //   console.log("response data: ", response.data);
       // setSurvey({ title, description });
       return response.data;
     } catch (error) {
-      console.error('Error fetching survey:', error);
+      // console.error('Error fetching survey:', error);
     } 
   };
 
@@ -554,7 +554,7 @@ const postSurveyResponse = async (responseData) => {
           return response.data;
       }
       catch (error) {
-          console.log(error);
+          // console.log(error);
       }
   }
 
@@ -567,7 +567,7 @@ const postSurveyResponse = async (responseData) => {
         // setSurvey({ title, description });
         return response.data;
     } catch (error) {
-        console.error('Error get Question By Section For Statistic:', error);
+        // console.error('Error get Question By Section For Statistic:', error);
     }
 };
 
@@ -584,7 +584,7 @@ const getGenerateSurvey = async (status, pageNum) => {
 
         return response.data;
     } catch (error) {
-        console.error('Error get Question By Section For Statistic:', error);
+        // console.error('Error get Question By Section For Statistic:', error);
     }
 };
 
@@ -600,7 +600,7 @@ const getParticipateSurvey = async (status, pageNum) => {
 
         return response.data;
     } catch (error) {
-        console.error('Error get Question By Section For Statistic:', error);
+        // console.error('Error get Question By Section For Statistic:', error);
     }
 };
 
@@ -612,7 +612,7 @@ const updateReleaseStatus = async (survey_id) => {
 
       return response.data;
   } catch (error) {
-      console.error('Error get Question By Section For Statistic:', error);
+      // console.error('Error get Question By Section For Statistic:', error);
   }
 };
 

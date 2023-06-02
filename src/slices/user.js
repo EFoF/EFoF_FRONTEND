@@ -47,7 +47,7 @@ const initialState = {
           state.loginLoading = false;
           state.isUserLoggedIn = true;
           state.me = action.payload;
-          console.dir(action.payload);
+          // console.dir(action.payload);
           state.loginDone = true;
         })
         .addCase(authLogin.rejected, (state, action) => {
@@ -93,7 +93,7 @@ const initialState = {
         .addCase(loadMe.fulfilled, (state, action) => {
           state.loadMeLoading = false;
           state.me = action.payload;
-          console.dir(state.me);
+          // console.dir(state.me);
           state.loadMeDone = true;
           state.IsUserLoggedIn = true;
         })

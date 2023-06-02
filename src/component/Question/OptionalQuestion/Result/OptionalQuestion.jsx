@@ -102,7 +102,7 @@ export default function ResultOptionalQuestion({ type, hasImageProps, optionId, 
             dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : sectionIndex}))
         }
     }
-    console.log("selectedQuestion test:", selectedQuestion);
+    // console.log("selectedQuestion test:", selectedQuestion);
 
     return (
         <Wrapper isLast={isLast}>

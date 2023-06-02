@@ -117,8 +117,8 @@ export default function Form() {
             dispatch(surveyFlowActions.addIndexes());
           })
         }).catch(error => {
-            console.log(error);
-            alert(error);
+            // console.log(error);
+            // alert(error);
         });
     }
 
@@ -155,7 +155,7 @@ export default function Form() {
       new Date : new Date(loginLastDTO.expiresAt);
     const currentDate = new Date();
     if (currentDate >= expiresDate) {
-      alert("로그인 되지 않았습니다.");
+      // alert("로그인 되지 않았습니다.");
       navigate("/");
     }
   }, [])

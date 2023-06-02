@@ -38,7 +38,7 @@ export default function QuestionContainer({ questionId, provided, sectionId, que
 
   const { type: questionType, options, questionContent, isNecessary, id } = selectedQuestion;
 
-  console.log(questionContent);
+  // console.log(questionContent);
 
   // options는 질문의 하위 옵션
 

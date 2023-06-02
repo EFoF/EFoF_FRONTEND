@@ -89,7 +89,7 @@ export default function Section({ section_idx, section_len }) {
     },]
   }
   const addSectionRedux = (newSection) => {
-    console.log(newSection);
+    // console.log(newSection);
     dispatch(questionActions.addSection({newSection}));
   }
   const handleAddSection = () => {
