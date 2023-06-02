@@ -11,6 +11,7 @@ import rightArrow from '../../assets/icon/rightArrow.png'
 import {postSurveyResponse} from "../../api/survey";
 import toastMsg from "../../ui/Toast";
 import React from "react";
+import {RxDoubleArrowLeft} from 'react-icons/fa';
 
 const Preview = () => {
   const dispatch = useDispatch();
@@ -165,7 +166,7 @@ const Preview = () => {
     }
 
   return (
-      <>
+      <div style={{margin: '40px'}}>
         <Wrapper style={{ flexDirection: 'column', alignItems: 'center' }} backgroundColor={form.form.bgColor}>
             <QuestionWrapper>
                 <ResultTitleBox info={form.form}/>
@@ -178,7 +179,7 @@ const Preview = () => {
             </QuestionWrapper>
             {_determineFlow()}
         </Wrapper>
-      </>
+      </div>
   )
 };
 
@@ -215,8 +216,9 @@ const Buttons = styled.div`
     width: 80px;
     border-radius: 5px;
     ${({ theme }) => theme.flexCenter}
-    color: ${({ theme }) => theme.color.white};
-    background: ${({ theme }) => theme.color.purple};
+    color: ${({ theme }) => theme.color.black};
+    background: ${({ theme }) => theme.color.white};
+    border: 1px solid ${({ theme }) => theme.color.black};
     opacity: ${({isActive}) => isActive ? 1.0 : 0.0};
     pointer-events: ${({isActive}) => isActive ? 'auto' : 'none'};
   }
@@ -226,9 +228,11 @@ const Wrapper = styled.div`
 ${({ theme }) => theme.flexCenter};
   background-color: ${({ backgroundColor }) => backgroundColor};
   padding-top: 30px;
+  padding-bottom: 10px;
   width: 100%;
   overflow:visible;
   border-radius: 2rem;
+  border: 1px solid ${({ theme }) => theme.color.grey};
 `;
 
 const QuestionWrapper = styled.div`
