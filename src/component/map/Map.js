@@ -1,9 +1,9 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-import {GoogleMap, useJsApiLoader, MarkerF, Circle, Marker, InfoWindow} from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, MarkerF, Circle, Marker, InfoWindow } from '@react-google-maps/api';
 
 import useGeolocation from './useGeolocation';
-import {fetchLocation} from "../../api/survey";
+import { fetchLocation } from "../../api/survey";
 
 const containerStyle = {
     width: '100%',
@@ -16,13 +16,13 @@ const center = {
     lng: -38.523
 };
 
-function Map({onInfosUpdate, onMarkerClick}) {
+function Map({ onInfosUpdate, onMarkerClick }) {
 
     const [map, setMap] = React.useState(null);
 
-    const {location} = useGeolocation(map);
+    const { location } = useGeolocation(map);
 
-    const {isLoaded} = useJsApiLoader({
+    const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: "AIzaSyD9iknGFg_WToN8fr8iin_83E_Gz6M2ims"
     })
@@ -60,7 +60,7 @@ function Map({onInfosUpdate, onMarkerClick}) {
             featureType: "poi",
             elementType: "labels",
             // stylers: [{ visibility: "off" }],
-            stylers: [{visibility: "on"}], // 주변 상점들까지 포함되서 나오게 하는 옵션
+            stylers: [{ visibility: "on" }], // 주변 상점들까지 포함되서 나오게 하는 옵션
         },
     ];
 
@@ -81,7 +81,7 @@ function Map({onInfosUpdate, onMarkerClick}) {
     const setMarkersFromDB = () => {
         if (databaseLocationsRef.current) {
             const markerPositions = databaseLocationsRef.current.map((loc) => {
-                return {lat: loc.lat, lng: loc.lng};
+                return { lat: loc.lat, lng: loc.lng };
             });
             setMarkers(markerPositions);
         }
@@ -90,7 +90,7 @@ function Map({onInfosUpdate, onMarkerClick}) {
     const setInfosFromDB = () => {
         if (databaseLocationsRef.current) {
             const Infos = databaseLocationsRef.current.map((loc) => {
-                return {loc};
+                return { loc };
             });
             setInfos(Infos);
             onInfosUpdate(Infos); // onInfosUpdate 함수를 호출하여 infos 값을 전달
@@ -120,7 +120,7 @@ function Map({onInfosUpdate, onMarkerClick}) {
             const handleWindowClick = () => {
                 const sliderElement = document.getElementById("Slider");
                 if (sliderElement) {
-                    sliderElement.scrollIntoView({behavior: "smooth"});
+                    sliderElement.scrollIntoView({ behavior: "smooth" });
                     onMarkerClick(markerIndex, markerPosition, mapElement);
                 }
             };
@@ -129,7 +129,7 @@ function Map({onInfosUpdate, onMarkerClick}) {
             const infoWindow = new window.google.maps.InfoWindow({
                 position: selectedMarker.position,
                 onCloseClick: () => setSelectedMarker(null),
-                options: {pixelOffset: {width: 0, height: -30}},
+                options: { pixelOffset: { width: 0, height: -30 } },
             });
 
             // InfoWindow에 컨텐츠 추가
@@ -154,6 +154,8 @@ function Map({onInfosUpdate, onMarkerClick}) {
         }
     }, [selectedMarker, map, infos, onMarkerClick]);
 
+ 
+
 
     return isLoaded ? (
         <div className="container">
@@ -174,7 +176,7 @@ function Map({onInfosUpdate, onMarkerClick}) {
                 { /* Child components, such as markers, info windows, etc. */}
                 <></>
                 {/*내 위치 표시*/}
-                <MarkerF position={location}/>
+                <MarkerF position={location} />
 
                 {markers.map((markerPosition, index) => (
                     <Marker
@@ -182,12 +184,14 @@ function Map({onInfosUpdate, onMarkerClick}) {
                         position={markerPosition}
                         options={{
                             icon: {
-                                path: window.google.maps.SymbolPath.BACKWARD_CLOSED_ARROW, // 원 모양 아이콘
+                                // path: window.google.maps.SymbolPath.BACKWARD_CLOSED_ARROW, // 원 모양 아이콘
                                 fillColor: 'green', // 색상 설정 (파란색)
                                 fillOpacity: 1, // 색상의 불투명도 (1은 완전히 불투명)
                                 strokeWeight: 0.2, // 외곽선의 두께 (0은 표시하지 않음)
-                                scale: 7, // 아이콘의 크기 (원의 반지름)
-                                // url: greenMarkerIcon, // 초록색 마커 아이콘 이미지 경로
+                                // scale: 7, // 아이콘의 크기 (원의 반지름)
+                                // scaledSize: new window.google.maps.Size(50, 50)
+                                url: "https://efof.s3.ap-northeast-2.amazonaws.com/default/survey_e5ff65a0-7a27-4b4c-b3ed-13e7d3050076", // 초록색 마커 아이콘 이미지 경로
+                                scaledSize: new window.google.maps.Size(25, 35),
                             },
                         }}
                         // onClick={() => onMarkerClick(index, markerPosition, map)} // 추가. 클릭 시 handleMarkerClick 호출하여 인덱스 전달
