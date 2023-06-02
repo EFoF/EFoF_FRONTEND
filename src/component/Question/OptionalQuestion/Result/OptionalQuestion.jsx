@@ -102,7 +102,7 @@ export default function ResultOptionalQuestion({ type, hasImageProps, optionId, 
             dispatch(surveyFlowActions.setNextIndex({pageIndex : currentIndex, value : sectionIndex}))
         }
     }
-    console.log("selectedQuestion test:", selectedQuestion);
+    // console.log("selectedQuestion test:", selectedQuestion);
 
     return (
         <Wrapper isLast={isLast}>
@@ -110,13 +110,13 @@ export default function ResultOptionalQuestion({ type, hasImageProps, optionId, 
                 // <div style={{position:'relative'}}>
 
                 <div style={{display:"flex", justifyContent:"center", alignItems: "center", flexDirection: "column"}}>
-                    <ResultOptionButtonImg isImmutable={location.pathname === `/form/over/${id}`} onClick={answerHandler} isActive={isMarked} activeColor={form.btColor}>{optionContent}</ResultOptionButtonImg>
-                    <Logo src={selectedOption.image} filterResult={CssFilterConverter.hexToFilter(form.btColor).color + "opacity(60%)"} onClick={answerHandler} size={10} isMarked={isMarked} checkedColor={form.btColor} />
+                    <ResultOptionButtonImg fontColor={form.fontColor} isImmutable={location.pathname === `/form/over/${id}`} onClick={answerHandler} isActive={isMarked} size={13} activeColor={form.btColor}>{optionContent}</ResultOptionButtonImg>
+                    <Logo src={selectedOption.image} filterResult={CssFilterConverter.hexToFilter(form.btColor).color + "opacity(60%)"} onClick={answerHandler} size={13} isMarked={isMarked} checkedColor={form.btColor} />
                     <br/>
                 </div>
             ) : (
                 <InputButtonWrapper>
-                    <ResultOptionButton isImmutable={location.pathname === `/form/over/${id}`} onClick={answerHandler} isActive={isMarked} activeColor={form.btColor}>{optionContent}</ResultOptionButton>
+                    <ResultOptionButton fontColor={form.fontColor} isImmutable={location.pathname === `/form/over/${id}`} onClick={answerHandler} isActive={isMarked} activeColor={form.btColor}>{optionContent}</ResultOptionButton>
                 </InputButtonWrapper>
             )}
             <OptionsWrapper isLast={isLast} gap={"0.5rem"}>

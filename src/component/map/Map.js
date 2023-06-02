@@ -72,7 +72,7 @@ function Map({ onInfosUpdate, onMarkerClick }) {
                 setMarkersFromDB();
                 setInfosFromDB();
             } catch (error) {
-                console.error('Failed to fetch locations from the database', error);
+                // console.error('Failed to fetch locations from the database', error);
             }
         };
         fetchData();

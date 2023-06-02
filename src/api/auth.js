@@ -29,8 +29,8 @@ const loadMe = createAsyncThunk(
       // const auth = getState();
       // axios.defaults.headers.Cookie = auth.
       const response = await authorizationClient.get(API.MYINFO);
-      console.log("마이페이지 정보 : " + response.data);
-      console.dir(response.data);
+      // console.log("마이페이지 정보 : " + response.data);
+      // console.dir(response.data);
       return response.data.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || null);
@@ -64,7 +64,7 @@ const authLogout = createAsyncThunk("user/authLogout", async () => {
   try {
     const response = await authorizationClient.post(API.LOGOUT);
     toastMsg("로그아웃 성공", true);
-    console.log("로그아웃 성공");
+    // console.log("로그아웃 성공");
     return response.data.data;
   } catch (error) {
     toastMsg(error.response.data.message, false);
@@ -103,11 +103,11 @@ const authSignUp = createAsyncThunk(
 const checkEmailExists = async (email) => {
   try {
     const response = await unAuthorizationClient.post(API.EMAIL_EXIST, { email });
-    console.log("데이타 테스트",response.data.exists)
+    // console.log("데이타 테스트",response.data.exists)
     // toastMsg("인증 성공", true);
     return response.data.exists;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     // toastMsg("인증 실패", false);
     return false;
   }
@@ -120,10 +120,10 @@ const updatePasswordVisitor = async (email, password) => {
     toastMsg("비밀번호 변경 성공", true);
     // console.log(response.data.exists);
     // return response.data.exists;
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     toastMsg(error.response.data.message, false);
     return false;
   }
@@ -136,10 +136,10 @@ const updatePasswordMember = async (oldPassword, password) => {
     toastMsg("비밀번호 변경 성공", true);
     // console.log(response.data.exists);
     // return response.data.exists;
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     toastMsg(error.response.data.message, false);
     return false;
   }

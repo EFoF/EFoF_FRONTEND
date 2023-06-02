@@ -16,6 +16,7 @@ const HeaderWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 10px;
+  margin-bottom: 20px;
 `;
 
 const ArrowButton = styled.button`
@@ -43,13 +44,13 @@ export default function SurveyHeader({ surveyId }) {
 
     const openModal = () => {
         if (surveyId === undefined) {
-            
+
             setModalOpen(true);
 
         } else {
             navigate(`/`);
         }
-        
+
     };
 
     const closeModal = () => {
@@ -178,33 +179,33 @@ export default function SurveyHeader({ surveyId }) {
                 <FaArrowLeft size="2rem" />
             </ArrowButton> */}
 
-<ArrowButton onClick={openModal}>
-<FaArrowLeft size="2rem" />
+            <ArrowButton onClick={openModal}>
+                <FaArrowLeft size="2rem" />
             </ArrowButton>
-            
 
-            
-                <Modal show={modalOpen} onHide={closeModal}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>저장하시겠습니까?</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <div className="row justify-content-center">
-                            <div className="col-lg-10">
-                                저장하지 않으면 해당 설문은 삭제 됩니다.
-                            </div>
+
+
+            <Modal show={modalOpen} onHide={closeModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>저장하시겠습니까?</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="row justify-content-center">
+                        <div className="col-lg-10">
+                            저장하지 않으면 해당 설문은 삭제 됩니다.
                         </div>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="primary" onClick={handleConfirm}>
-                            저장
-                        </Button>
-                        <Button variant="primary" onClick={handleCancel}>
-                            저장하지 않음
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-            
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={handleConfirm}>
+                        저장
+                    </Button>
+                    <Button variant="primary" onClick={handleCancel}>
+                        저장하지 않음
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
 
             <ArrowButton onClick={handleRightClick}>
                 <FaArrowRight size="2rem" />

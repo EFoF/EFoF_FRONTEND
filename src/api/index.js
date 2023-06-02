@@ -36,8 +36,8 @@ authorizationClient.interceptors.response.use(
       
       
           
-      console.log("유효하지 않은 토큰값");
-      console.dir(error);
+      // console.log("유효하지 않은 토큰값");
+      // console.dir(error);
       switch (error.response.status) {
         // 액세스 토큰 만료
         case 401: {
@@ -49,7 +49,7 @@ authorizationClient.interceptors.response.use(
               // 그런데 여기서 setHeader를 부르거나 authorization.defaults.headers.. 이렇게 설정을 해주면 아주 재미난 일이 발생한다.
               // 따라서 시행착오 끝에 아래와 같은 구조로 다시 보내게 되는 요청에 직접 header를 설정해주겠다.
               // 또한 비컴포넌트에서는 dispatch를 사용할 수 없는데, 이를 사용하기 위해서 store를 주입받아 왔다.
-              console.dir(response.data);
+              // console.dir(response.data);
               store.dispatch(authorizationActions.setLoginDTO(response.data));
               // return authorizationClient.request({
               //   ...error.config,
@@ -63,7 +63,7 @@ authorizationClient.interceptors.response.use(
             .catch((error) => {
 
   
-              console.log(error);
+              // console.log(error);
               // toastMsg("인증이 만료되었습니다. 다시 로그인해주세요.", false);
               // window.location.replace("/login");
             });
@@ -75,7 +75,7 @@ authorizationClient.interceptors.response.use(
           toastMsg(error.response.data.message, false);
           break;
       }
-      console.error("[Axios]", error);
+      // console.error("[Axios]", error);
       return Promise.reject(error);
     },
   );
@@ -90,7 +90,7 @@ authorizationClient.interceptors.response.use(
       return response;
     },
     error => {
-      console.error("[Axios]", error);
+      // console.error("[Axios]", error);
       return Promise.reject(error);
     },
   );

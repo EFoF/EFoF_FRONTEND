@@ -117,9 +117,14 @@ export default function Form() {
             dispatch(surveyFlowActions.addIndexes());
           })
         }).catch(error => {
-            console.log(error);
-            alert(error);
+            // console.log(error);
+            // alert(error);
         });
+    }
+
+    if(currentPath !== `/form/making/${id}`) {
+      dispatch(formActions.clearForm());
+      dispatch(questionActions.clearQuestions())
     }
 
   }, [id, currentPath]);
@@ -150,12 +155,8 @@ export default function Form() {
       new Date : new Date(loginLastDTO.expiresAt);
     const currentDate = new Date();
     if (currentDate >= expiresDate) {
-      alert("로그인 되지 않았습니다.");
+      // alert("로그인 되지 않았습니다.");
       navigate("/");
-    }
-    // 이전에 들어있던 데이터가 보여지면 안되기 때문에, 중간저장 url이 아닌 경우 리덕스를 비워주겠다.
-    if(currentPath !== `/form/making/${id}`) {
-      dispatch(formActions.clearForm);
     }
   }, [])
 

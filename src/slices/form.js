@@ -64,14 +64,8 @@ const { actions: formActions, reducer: formReducer } = createSlice({
       state.btColor = btColor;
     },
     clearForm: (state, action) => {
-      state.id = '';
-      state.title = '';
-      state.detail = '';
-      state.image = '';
-      state.fontColor = '#000000';
-      state.bgColor = '#FFFFFF';
-      state.btColor = '#D3D3D3';
-      state.isPre = false;
+      state = initialState;
+      return state;
     }
 
   },

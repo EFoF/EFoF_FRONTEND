@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   background: ${theme.color.white};
   border-radius: 10px;
   margin-top: 0.5rem;
-  padding: 0.25rem 0.5rem;
+  //padding: 0.25rem 0.5rem;
   // height: auto !important;
   border: 3px solid ${theme.color.gray};
   
@@ -66,11 +66,14 @@ const Wrapper = styled.div`
   }
 
   .question-input {
-    background: ${theme.color.gray};
+    // background: ${theme.color.gray};
     width:90%;
-    padding: 10px;
+    //padding: 10px;
+    margin: 2rem;
+    margin-left: 1.5rem;
+    font-weight: bold;
     font-size: 16px;
-    border-bottom: 1px solid ${theme.color.border_gray2};
+    // border-bottom: 1px solid ${theme.color.border_gray2};
 
     &:focus {
       transition: 0.1s ease;

@@ -18,7 +18,7 @@ const checkStatistic = createAsyncThunk(
         `${API.SURVEY}/${survey_id}/${API.STATISTIC}`); // 데이터를 받아올 백엔드 서버
         const data = response.data;
       toastMsg("통계 요청 성공", true);
-      console.log("응답데이터: ", response.data);
+      // console.log("응답데이터: ", response.data);
       // return response.data;
       return data;
     } catch (error) {

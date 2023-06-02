@@ -237,7 +237,7 @@ function FormMake() {
 // ${({ theme }) => theme.flexCenter};
 const Wrapper = styled.div`
 ${({ theme }) => theme.flexCenter};
-  
+  padding-top: 30px;
   width: 100%;
   overflow:visible;
  
