@@ -10,6 +10,7 @@ import leftArrow from '../../assets/icon/leftArrow.png'
 import rightArrow from '../../assets/icon/rightArrow.png'
 import {postSurveyResponse} from "../../api/survey";
 import toastMsg from "../../ui/Toast";
+import {FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import React from "react";
 
 const Preview = () => {
@@ -74,22 +75,34 @@ const Preview = () => {
       const flag = indexes[currentIndex].nextIndex === -1 || indexes[currentIndex].nextIndex === currentIndex
       return (
               <ArrowButtonWrapper>
-                  <ArrowImageButton isActive={indexes[currentIndex].prevIndex !== -1}
-                                    size={1}
-                                    onClick={_moveToPrev}
-                                    src={leftArrow}
-                                    color={"white"}/>
+                  {/*<ArrowImageButton isActive={indexes[currentIndex].prevIndex !== -1}*/}
+                  {/*                  size={1}*/}
+                  {/*                  onClick={_moveToPrev}*/}
+                  {/*                  src={leftArrow}*/}
+                  {/*                  color={"white"}/>*/}
+                  <ArrowWrapperForDisable isActive={indexes[currentIndex].prevIndex !== -1}
+                                          size={1}
+                                          onClick={_moveToPrev}
+                                          color={"white"}>
+                      <FaArrowLeft size="1.5rem" />
+                  </ArrowWrapperForDisable>
                   <Buttons isActive={flag}>
                       <div className="submit-button" onClick={submitHandler}>
                           {currentPath.pathname === `/form/over/${id}` ? '뒤로가기' : '제출'}
                       </div>
                   </Buttons>
-                  <ArrowImageButton isActive={!flag}
-                                    size={1}
-                                    onClick={_moveToNext}
-                                    backgroundColor={form.form.bgColor}
-                                    src={rightArrow}
-                                    color={"white"}/>
+                  {/*<ArrowImageButton isActive={!flag}*/}
+                  {/*                  size={1}*/}
+                  {/*                  onClick={_moveToNext}*/}
+                  {/*                  backgroundColor={form.form.bgColor}*/}
+                  {/*                  src={rightArrow}*/}
+                  {/*                  color={"white"}/>*/}
+                  <ArrowWrapperForDisable isActive={!flag}
+                                          size={1}
+                                          onClick={_moveToNext}
+                                          color={"white"}>
+                      <FaArrowRight size="1.5rem"/>
+                  </ArrowWrapperForDisable>
               </ArrowButtonWrapper>
       );
   }
@@ -185,7 +198,7 @@ const Preview = () => {
 const ArrowButtonWrapper = styled.div`
   display: flex;
   align-items: center;
-  width: 100%;
+  width: 50%;
   justify-content: space-between;
   margin-top: 20px;
 `;
@@ -202,6 +215,19 @@ const ArrowImageButton = styled.img`
   //background-color: #f5f5f5;
   background-color: ${({ backgroundColor }) => backgroundColor};
 `;
+
+const ArrowWrapperForDisable = styled.div`
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 0;
+  width: 5vh;
+  border-radius: 5px;
+  ${({ theme }) => theme.flexCenter}
+  opacity: ${({isActive}) => isActive ? 1.0 : 0.0};
+  pointer-events: ${({isActive}) => isActive ? 'auto' : 'none'};
+  //background-color: #f5f5f5;
+  background-color: ${({ backgroundColor }) => backgroundColor};
+`
 
 const Buttons = styled.div`
   display: flex;
