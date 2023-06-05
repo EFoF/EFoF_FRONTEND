@@ -35,7 +35,7 @@ const StatisticBySection = ({projectStyle, portfolio, sectionId,data}) => {
 
 	const option_typed = (data.question_type === "LONG_ANSWER") ? "주관식" : "객관식"
 	
-	console.log(data);
+	// console.log(data);
 
     return (
 		<>

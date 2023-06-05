@@ -23,7 +23,7 @@ const Header = () => {
             new Date : new Date(loginLastDTO.expiresAt);
         const currentDate = new Date();
         if (currentDate >= expiresDate) {
-            console.log("ReIssue 시도")
+            // console.log("ReIssue 시도")
             axios.post(`${API.REISSUE}`)
                 .then(async response => {
                     await dispatch(authorizationActions.setLoginDTO(response.data));
@@ -32,7 +32,7 @@ const Header = () => {
                 })
                 .catch(error => {
                     setLoginState(false);
-                    console.log(error);
+                    // console.log(error);
                 });
         } else {
             setLoginState(true);

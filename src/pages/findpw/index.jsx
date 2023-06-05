@@ -98,9 +98,9 @@ function FindPW() {
                                                         if (exists) {
                                                             onStartTimer();
                                                             setIsDisplayWrong(true);
-                                                            console.log("이메일존재 ?", exists);
+                                                            // console.log("이메일존재 ?", exists);
                                                         } else {
-                                                            console.log("이메일존재 ?", exists);
+                                                            // console.log("이메일존재 ?", exists);
                                                             setIsDisplayWrong(false);
                                                         }
                                                     })
@@ -166,6 +166,7 @@ function FindPW() {
                                 type="password"
                             />
                         ) : null}
+                        <div>
                         <Input
                             value={password}
                             onChange={onChangePassword}
@@ -176,6 +177,7 @@ function FindPW() {
                         {password && !isPasswordValid && (
                             <Wrong>비밀번호는 8~20자 영문자, 숫자, 특수문자를 포함해야 합니다.</Wrong>
                         )}
+                        </div>
                         <div>
                             <Input
                                 value={passwordCheck}

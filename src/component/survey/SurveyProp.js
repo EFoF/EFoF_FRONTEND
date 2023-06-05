@@ -57,7 +57,7 @@ const SurveyProp = ({projectStyle, survey, label}) => {
 
     const handleCopyUrl = () => {
         const {survey_id, surveyStatus} = survey;
-        console.log(survey_id);
+        // console.log(survey_id);
         let urlToCopy = process.env.REACT_APP_DEFAULT_URL;
         if (surveyStatus === "making") {
             urlToCopy +=  `/form/making/${survey_id}`;
@@ -72,7 +72,7 @@ const SurveyProp = ({projectStyle, survey, label}) => {
         } else if (surveyStatus === "over" && label === "generate"){
             urlToCopy += `/form/pre-release/${survey_id}`;
         }
-        console.log(urlToCopy);
+        // console.log(urlToCopy);
 
         navigator.clipboard
             .writeText(urlToCopy)
@@ -87,7 +87,7 @@ const SurveyProp = ({projectStyle, survey, label}) => {
 
     const handleDelete = () => {
         const {survey_id} = survey;
-        console.log(survey_id);
+        // console.log(survey_id);
         const handleConfirm = () => {
             deleteSurvey(survey_id);
             ReactDOM.unmountComponentAtNode(document.getElementById("modal-root"));

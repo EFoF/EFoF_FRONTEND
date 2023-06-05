@@ -136,8 +136,8 @@ export default function useSignUp() {
         const expiresDate = typeof (loginLastDTO.expiresAt) === "undefined" ?
             new Date : new Date(loginLastDTO.expiresAt);
         const currentDate = new Date();
-        console.log("현재 날짜     " + currentDate);
-        console.log("토큰 만료 시간 " + expiresDate);
+        // console.log("현재 날짜     " + currentDate);
+        // console.log("토큰 만료 시간 " + expiresDate);
 
         if (currentDate < expiresDate) {
             setLoginState(true)

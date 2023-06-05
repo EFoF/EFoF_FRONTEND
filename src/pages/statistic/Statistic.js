@@ -64,7 +64,7 @@ const Statistic = () => {
         
       }, [id, currentPath]);
 
-    console.log("ㅗㅑㅗㅑ"+survey.description);
+    // console.log("ㅗㅑㅗㅑ"+survey.description);
       
     return (
         <>

@@ -21,9 +21,9 @@ const FormThree = () => {
     
         emailjs.sendForm('service_yj5dgzp', 'template_hfduayo', form.current, 'WLENsTkBytC0yvItS')
           .then((result) => {
-              console.log(result.text);
+              // console.log(result.text);
           }, (error) => {
-              console.log(error.text);
+              // console.log(error.text);
           });
           form.current.reset();
           showresult(true);

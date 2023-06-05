@@ -27,7 +27,7 @@ const {actions: surveyFlowActions, reducer: surveyFlowReducer } = createSlice({
             const { pageIndex, value} = action.payload;
             // console.log(action.payload);
             // state.nextIndex = action.payload;
-            console.log(value)
+            // console.log(value)
             state.indexes[pageIndex].nextIndex = value;
         },
         setPrevIndex : (state, action) => {

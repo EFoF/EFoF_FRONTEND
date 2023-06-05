@@ -49,14 +49,14 @@ export default function FormOver() {
     useEffect(() => {
         surveyInfoWithAnswer(id, navigate)
             .then((data) => {
-                console.log(data);
+                // console.log(data);
                 dispatch(formActions.initForm({ data }));
                 dispatch(questionActions.initResultQuestion({ data }))
                 data.sectionList.map((section) => {
                     dispatch(surveyFlowActions.addIndexes());
                 })
             }).catch((error) => {
-                console.log(error);
+                // console.log(error);
         })
 
     }, [id, currentPath]);
