@@ -98,7 +98,7 @@ export default function SurveyHeader({ surveyId }) {
             })
             .catch(error => {
                 // alert(error);
-                console.log("설문생성 실패" + error);
+                // console.log("설문생성 실패" + error);
                 toastMsg("설문생성 실패", false);
             });
     }
@@ -116,7 +116,7 @@ export default function SurveyHeader({ surveyId }) {
             })
             .catch(error => {
                 // alert(error);
-                console.log("설문생성 실패" + error);
+                // console.log("설문생성 실패" + error);
                 toastMsg("설문생성 실패", false);
             });
     }

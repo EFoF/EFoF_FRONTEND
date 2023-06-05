@@ -18,7 +18,7 @@ const typeNames = ['객관식', '주관식', '객관식 복수선택', '찬부�
 
 export default function ResultQuestionContainer({ questionId, sectionId ,questionOption }) {
     // alert(questionId)
-    console.log("테스트");
+    // console.log("테스트");
 
     const [isCollapsed, setIsCollapsed] = useState(false);
 

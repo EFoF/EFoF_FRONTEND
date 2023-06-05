@@ -73,7 +73,7 @@ export default function FormResponse() {
                         dispatch(surveyFlowActions.addIndexes());
                     })
                 }).catch(error => {
-                    console.log("설문 조회 api 요청 실패");
+                    // console.log("설문 조회 api 요청 실패");
             });
 
     }, [id, currentPath]);
