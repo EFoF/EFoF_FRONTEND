@@ -71,9 +71,9 @@ const Blog = () => {
                     {infos.slice(0, infos.length).map((data, index) => (
                         <div className="single-slide" key={`${data.loc.id}`} style={{width:"65rem"}}>
                             <Link to={`${process.env.PUBLIC_URL}/form/in-progress/${slugify(data.loc.id)}`}>
-                                <div style={{textAlign: "center"}}>
+                                <div style={{textAlign: "center", width: "1000px"}}>
                                     {data.loc.simageURL ? (
-                                        <img src={process.env.REACT_APP_S3_URL + data.loc.simageURL} alt="No Images" style={{ width: "35%", height: "auto" }} />
+                                        <img src={process.env.REACT_APP_S3_URL + data.loc.simageURL} alt="No Images" style={{ width: "353px", height: "217px" }} />
                                     ) :
                                         (
                                         <img src={process.env.REACT_APP_OPTION_DEFAULT_IMG} alt="No Images" style={{ width: "35%", height: "auto" }} />
