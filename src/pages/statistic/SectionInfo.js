@@ -78,9 +78,9 @@ const SectionInfo = ({ sectionList, surveyId }) => {
 
 					{/* =============================================================================== */}
 
-					<div className="more-project-btn">
-						<p className="axil-btn btn-fill-white">📂 통계 다운로드 받기</p>
-					</div>
+					{/*<div className="more-project-btn">*/}
+					{/*	<p className="axil-btn btn-fill-white">📂 통계 다운로드 받기</p>*/}
+					{/*</div>*/}
 				</div>
 
 				{/* 애니메이션 */}
