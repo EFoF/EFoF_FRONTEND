@@ -56,9 +56,9 @@ const StatisticBySection = ({projectStyle, portfolio, sectionId,data}) => {
 				</>
 			) : (
 				<div className='col-md-12' style={{ paddingLeft: '20px', paddingRight: '20px', paddingTop: '-100px'}}>
-					<div style={{
+					<div className='blog-author' style={{
 							overflow: 'auto', // 또는 overflow: 'auto'; (원래 scroll으로 했는데 auto가 더 나은 거 같음)
-							height: '120px', // 컨테이너의 높이 설정
+							height: '220px', // 컨테이너의 높이 설정
 							// border: '1px solid #000' // 테두리 스타일 지정
 							}}>
 						{data.longAnswerDtos && data.longAnswerDtos.map((item, index) => (
