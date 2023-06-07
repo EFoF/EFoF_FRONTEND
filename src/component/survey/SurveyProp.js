@@ -63,14 +63,10 @@ const SurveyProp = ({projectStyle, survey, label}) => {
             urlToCopy +=  `/form/making/${survey_id}`;
         } else if (surveyStatus === "prerelease") {
             urlToCopy +=  `/form/pre-release/${survey_id}`;
-        } else if (surveyStatus === "progress" && label === "participate"){
-            urlToCopy += `/form/over/${survey_id}`;
-        } else if (surveyStatus === "progress" && label === "generate"){
+        } else if (surveyStatus === "progress"){
             urlToCopy += `/form/in-progress/${survey_id}`;
-        } else if (surveyStatus === "over" && label === "participate"){
+        } else if (surveyStatus === "over"){
             urlToCopy += `/form/over/${survey_id}`;
-        } else if (surveyStatus === "over" && label === "generate"){
-            urlToCopy += `/form/pre-release/${survey_id}`;
         }
         // console.log(urlToCopy);
 
