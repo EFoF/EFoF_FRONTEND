@@ -17,7 +17,7 @@ const ResultTitleBox = ({ info, readOnly }) => {
                     readOnly={readOnly}
                     fontColor={form.fontColor}
                     bgColor={form.bgColor}
-                />
+                >{info.title}</TitleInput>
 
                 <DetailInput
                     placeholder="설문지 설명"
@@ -26,7 +26,7 @@ const ResultTitleBox = ({ info, readOnly }) => {
                     fontColor={form.fontColor}
                     bgColor={form.bgColor}
                     readOnly={readOnly}
-                />
+                >{info.detail}</DetailInput>
             </InputWrapper>
         </Wrapper>
         </>

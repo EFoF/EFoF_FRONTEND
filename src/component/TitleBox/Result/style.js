@@ -13,9 +13,10 @@ import styled, {css} from 'styled-components';
 // `;
 
 // ${props => !props.readOnly && readOnlyStyles}
-export const TitleInput = styled.input`
-  
+export const TitleInput = styled.div`
   border: none;
+  width: 75%;
+  height: auto;
   font-size: 2rem;
   color: ${props => props.fontColor || 'black'};
   background-color: white;
@@ -25,11 +26,11 @@ export const TitleInput = styled.input`
   color: ${({ theme }) => theme.color.black};
   }
   margin-bottom:1rem;
-  
 `;
 
-export const DetailInput = styled.input`
+export const DetailInput = styled.div`
   border: none;
+  width: 80%;
   color: ${props => props.fontColor || 'black'};
   background-color: white;
   /* width: 60%; */
@@ -37,9 +38,10 @@ export const DetailInput = styled.input`
 `;
 
 export const InputWrapper = styled.div`
-  width: 60%;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
  
 `;
 export const Wrapper = styled.div`
