@@ -170,7 +170,7 @@ export default function OptionalQuestion({ type, optionId, questionId, optionCon
         if (question.options) {
           const optionIdx = question.options.findIndex((item) => item.id === optionId);
 
-          if (optionIdx !== -1 && question.options[optionIdx].image !== process.env.REACT_APP_OPTION_DEFAULT_IMG) {
+          if (optionIdx !== -1 && (question.options[optionIdx].image !== process.env.REACT_APP_OPTION_DEFAULT_IMG || question.options[optionIdx].image === "") ){
             return true;
           }
         }

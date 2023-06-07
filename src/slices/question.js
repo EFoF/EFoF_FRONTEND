@@ -57,7 +57,7 @@ const { actions: questionActions, reducer: questionReducer } = createSlice({
       const question = section.questionList.find((item) => item.id === questionId);
       question && (question.type = type);
 
-      type === QUESTION_TYPES.TRUE_FALSE ? (question.options = [{ id: 1, option: 'O' }, { id: 2, option: 'X' }]) :
+      type === QUESTION_TYPES.TRUE_FALSE ? (question.options = [{ id: 1, option: 'O',image:"" }, { id: 2, option: 'X' ,image:""}]) :
         type === QUESTION_TYPES.LONG_ANSWER ? (question.options = []) :
           question && (question.answers = []);
 
