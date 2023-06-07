@@ -66,7 +66,7 @@ export const DetailInput = styled.input`
 `;
 
 export const InputWrapper = styled.div`
-  width: 60%;
+  width: 100%;
   display: flex;
   flex-direction: column;
  
